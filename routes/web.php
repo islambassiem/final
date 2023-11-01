@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TranslationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
+
+require_once __DIR__ . '/auth.php';
+
+
+Route::get('/lang/{lang}', TranslationController::class)->name('lang');
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
