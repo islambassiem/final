@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 require_once __DIR__ . '/auth.php';
 
+Route::get('/{page}', [DashboardController::class, 'index']);
+
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 

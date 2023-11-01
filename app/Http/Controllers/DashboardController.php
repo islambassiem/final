@@ -9,11 +9,13 @@ class DashboardController extends Controller
 
   public function __construct()
   {
-    return $this->middleware('auth');
+    // return $this->middleware('auth');
   }
 
-  public function index()
+  public function index($id)
   {
-    return view('dashboard');
+    if(view()->exists($id)){
+      return view($id);
+    }
   }
 }
