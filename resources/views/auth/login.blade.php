@@ -82,7 +82,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('assets/img/logo.png') }}" rel="icon">
-    <title>Credit Transfer System</title>
+    <title>HRMS - Log in</title>
     <!-- Font Icon -->
     <link rel="stylesheet" href="{{ asset('assets/auth/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
     <!-- Bootstrap css -->
@@ -121,10 +121,23 @@
                     </div>
                   @enderror
                 </div>
+                <div class="form-group">
+                  <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                  <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                </div>
+                <div>
+                  <a href="{{ route('forgot-password') }}">Forgot Password?</a>
+                </div>
                 <div class="form-group form-button">
                   <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                 </div>
               </form>
+              <div class="social-login">
+                <span class="social-label">Or login with</span>
+                <ul class="socials">
+                    <li><a href="{{ route('google') }}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                </ul>
+            </div>
             </div>
           </div>
         </div>

@@ -8,9 +8,9 @@
     <link rel="icon" href="{{ asset('assets/imgs/favicon.ico') }}">
     <title>Forgot Password</title>
     {{-- Bootstrap --}}
-    <link rel="stylesheet" href="{{ asset('assets/plugins/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/auth/css/app-light.css') }}" id="lightTheme">
+    <link rel="stylesheet" href="{{ asset('assets/auth/css/forfot-password.css') }}" id="lightTheme">
   </head>
   <body class="light ">
     <div class="wrapper vh-100">
@@ -19,7 +19,7 @@
           @csrf
           <div class="mx-auto text-center my-4">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-              <img src="{{ asset('assets/imgs/logo.png') }}" alt="" style="width: 100px; height: 100px">
+              <img src="{{ asset('assets/img/favicon.ico') }}" alt="" style="width: 100px; height: 100px">
             </a>
             <h2 class="my-3">Reset Password</h2>
           </div>
