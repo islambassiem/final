@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <td style="text-align:center;">
-                <img width="60" src="{{ $message->embed(asset('assets/imgs/logo.png')) }}" title="logo" alt="logo">
+                <img width="60" src="{{ $message->embed(public_path() . '/assets/img/logo.png') }}" title="logo" alt="logo">
               </td>
             </tr>
             <tr>

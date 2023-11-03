@@ -255,7 +255,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -509,7 +509,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Dashboard {{ auth()->user()->email }}</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index">Home</a></li>

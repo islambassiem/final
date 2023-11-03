@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ asset('assets/imgs/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}">
     <title>Reset Password</title>
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/auth/css/app-light.css') }}" id="lightTheme">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/dashboard/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/auth/css/forfot-password.css') }}" id="lightTheme">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/show_password.css') }}">
     <style>
       #eye-open2, #eye-closed2{
@@ -31,7 +31,7 @@
           <input type="text" hidden name="token" value="{{ $token }}">
           <div class="mx-auto text-center my-4">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-              <img src="{{ asset('assets/imgs/logo.png') }}" alt="" style="width: 100px; height: 100px">
+              <img src="{{ asset('assets/img/logo.png') }}" alt="" style="width: 100px; height: 100px">
             </a>
             <h2 class="my-3">Reset Password</h2>
           </div>
