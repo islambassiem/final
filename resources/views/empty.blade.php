@@ -1,5 +1,9 @@
 @extends('layout.master')
 
+@section('style')
+
+@endsection
+
 @section('content')
 @endsection
 
@@ -11,4 +15,9 @@
 
 @section('breadcrumb')
   Dashboard
+@endsection
+
+
+@section('script')
+
 @endsection

@@ -130,7 +130,7 @@ class User extends Authenticatable
     return $this->belongsTo(Country::class);
   }
 
-  public function MaritalStatus(){
+  public function maritalStatus(){
     return $this->belongsTo(MaritalStatus::class);
   }
 
@@ -150,7 +150,7 @@ class User extends Authenticatable
     return $this->belongsTo(category::class);
   }
 
-  public function SpecialNeed(){
+  public function specialNeed(){
     return $this->belongsTo(SpecialNeeds::class);
   }
 }

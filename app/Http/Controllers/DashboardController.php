@@ -16,6 +16,8 @@ class DashboardController extends Controller
   {
     if(view()->exists($id)){
       return view($id);
+    }else{
+      return view('pages-error-404');
     }
   }
 }

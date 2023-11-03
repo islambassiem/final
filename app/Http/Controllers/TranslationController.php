@@ -12,11 +12,11 @@ class TranslationController extends Controller
   public function __invoke($lang)
   {
     if(in_array($lang, ['en', 'ar', 'in', 'pk', 'ph'])){
-      session()->put('lang', $lang);
       $dir = 'ltr';
       if($lang == 'ar' || $lang == 'pk'){
         $dir = 'rtl';
       }
+      session()->put('lang', $lang);
       session()->put('dir',$dir);
       return  redirect()->back();
     }
