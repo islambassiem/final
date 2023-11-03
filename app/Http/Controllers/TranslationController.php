@@ -13,6 +13,11 @@ class TranslationController extends Controller
   {
     if(in_array($lang, ['en', 'ar', 'in', 'pk', 'ph'])){
       session()->put('lang', $lang);
+      $dir = 'ltr';
+      if($lang == 'ar' || $lang == 'pk'){
+        $dir = 'rtl';
+      }
+      session()->put('dir',$dir);
       return  redirect()->back();
     }
   }

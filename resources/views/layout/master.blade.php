@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-@php
-  $dir = in_array(session('lang'), ['ar', 'pk']) ? 'rtl' : 'ltr'
-@endphp
-<html lang="{{ session('lang') }}" dir="{{ $dir }}">
+<html lang="{{ session('lang') ?? 'en' }}" dir="{{ session('dir') ?? 'ltr' }}">
   <head>
     @include('layout.head')
     @include('layout.styles')
