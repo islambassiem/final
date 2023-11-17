@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gender extends Model
+class StudyNature extends Model
 {
   use HasFactory;
 
-  protected $table = '_genders';
+  protected $table = '_study_natures';
 
   protected $fillable = [
-    'gender_en', 'gender_ar', 'code'
+    'study_nature_en', 'study_nature_ar', 'code'
   ];
 }

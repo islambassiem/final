@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Relationship extends Model
+class Gender extends Model
 {
   use HasFactory;
 
-  protected $table = '_relationships';
+  protected $table = '_genders';
 
   protected $fillable = [
-    'relationship_en', 'relationship_ar', 'code'
+    'gender_en', 'gender_ar', 'code'
   ];
 }

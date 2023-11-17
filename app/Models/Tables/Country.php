@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Country extends Model
 {
   use HasFactory;
 
-  protected $table = '_sections';
+  protected $table = '_countries';
 
   protected $fillable = [
-    'section_en', 'section_ar', 'code'
+    'country_en', 'country_ar', 'code'
   ];
 }

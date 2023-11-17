@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SpecialNeeds extends Model
+class Sponsorship extends Model
 {
   use HasFactory;
 
-  protected $table = '_special_needs';
+  protected $table = '_sponsorships';
 
   protected $fillable = [
-    'special_need_en', 'special_need_ar', 'code'
+    'sponsorship_en', 'sponsorship_ar', 'code'
   ];
 }

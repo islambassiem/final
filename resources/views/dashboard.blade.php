@@ -1,23 +1,22 @@
 @extends('layout.master')
 
-@section('style')
+@section('title')
+  {{ __('Dashboard') }}
+@endsection
 
+@section('style')
+@endsection
+
+@section('h1')
+  {{ __('Dashboard') }}
+@endsection
+
+@section('breadcrumb')
+  {{ __('Dashboard') }}
 @endsection
 
 @section('content')
 @endsection
 
-
-@section('h1')
-  Dashboard
-@endsection
-
-
-@section('breadcrumb')
-  Dashboard
-@endsection
-
-
 @section('script')
-
 @endsection

@@ -29,13 +29,15 @@ class User extends Authenticatable
    * @var array<int, string>
    */
   protected $fillable = [
-    'email','password', 'empid', 'head',
+    'empid', 'email', 'email_verified_at', 'password', 'remember_token', 'head',
     'first_name_en', 'middle_name_en', 'third_name_en', 'family_name_en',
     'first_name_ar', 'middle_name_ar', 'third_name_ar', 'family_name_ar',
-    'gender', 'nationality', 'religion', 'date_of_birth', 'place_of_birth', 'marital_status',
-    'joining_date', 'resignation_date', 'position', 'sponsorship', 'section', 'category',
-    'active', 'salary', 'fingerprint', 'saturday', 'cost_center', 'married_contract',
-    'vacation_class', 'notes', 'special_need', 'home_country_id', 'created_by', 'updated_by'
+    'gender_id', 'nationality_id', 'religion_id', 'date_of_birth',
+    'place_of_birth_id', 'marital_status_id', 'joining_date',
+    'resignation_date', 'position_id', 'sponsorship_id', 'section_id',
+    'category_id', 'active', 'salary', 'fingerprint', 'saturday', 'cost_center',
+    'married_contract', 'vacation_class', 'notes', 'special_need_id',
+    'home_country_id', 'created_by', 'updated_by'
   ];
 
   /**

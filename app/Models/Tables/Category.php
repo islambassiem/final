@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Religion extends Model
+class Category extends Model
 {
   use HasFactory;
 
-  protected $table = '_religions';
+  protected $table = '_categories';
 
   protected $fillable = [
-    'religion_en', 'religion_ar', 'code'
+    'category_en', 'category_ar', 'code'
   ];
 }

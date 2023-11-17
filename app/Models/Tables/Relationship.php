@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\LookUps;
+namespace App\Models\Tables;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sponsorship extends Model
+class Relationship extends Model
 {
   use HasFactory;
 
-  protected $table = '_sponsorships';
+  protected $table = '_relationships';
 
   protected $fillable = [
-    'sponsorship_en', 'sponsorship_ar', 'code'
+    'relationship_en', 'relationship_ar', 'code'
   ];
 }

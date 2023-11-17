@@ -4,9 +4,9 @@
       <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-          <a class="nav-link " href="index">
+          <a class="nav-link " href="{{ route('dashboard') }}">
             <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
+            <span>Dashboardddd</span>
           </a>
         </li><!-- End Dashboard Nav -->
 
@@ -186,6 +186,13 @@
           <a class="nav-link collapsed" href="users-profile">
             <i class="bi bi-person"></i>
             <span>Profile</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+          <a class="nav-link {{ Request::routeIs('qualifications.*') ? '' : 'collapsed'  }}" href="{{ route('qualifications.index') }}">
+            <i class="bi bi-person"></i>
+            <span>{{ __('Qualifications') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
 
