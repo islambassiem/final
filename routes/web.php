@@ -5,8 +5,10 @@ use App\Models\Attachment;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DependentController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\QualificationController;
+use App\Models\Dependent;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,46 +29,46 @@ require_once __DIR__ . '/auth.php';
 
 // Route::get('/{page}', [DashboardController::class, 'index']);
 
-// Qualification
-
-Route::resource('qualifications', QualificationController::class);
-Route::get('/attachment/{id}', function ($id) {
-  $link = Attachment::where('user_id', auth()->user()->id)
-    ->where('attachmentable_type', 'App\Models\Qualification')
-    ->where('attachmentable_id', $id)
-    ->first('link');
-  if ($link) {
-    return redirect("storage/".$link->link);
-  }
-  return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
-})->name('qualification.attachment');
-
-// Qualification
 
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+// Qualification
+
+  Route::resource('qualifications', QualificationController::class);
+
+  Route::get('/attachment/{id}', function ($id) {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Qualification')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return redirect("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
+  })->name('qualification.attachment');
 
 
-/*
-|--------------------------------------------------------------------------
-| Ajax Requests
-|--------------------------------------------------------------------------
-|
-| The routes for creating ajax calls
-|
-*/
+  //ajax
+  Route::post('major/{firstLetter}', [QualificationController::class, 'major']);
+  Route::post('minor/{code}', [QualificationController::class, 'minor']);
 
-Route::post('major/{firstLetter}', [QualificationController::class, 'major']);
-Route::post('minor/{code}', [QualificationController::class, 'minor']);
+// Qualification
+
+
+// dependents
+  Route::resource('dependents', DependentController::class);
+  Route::get('/dependents/{id}', [DependentController::class, 'destroy']);
+  Route::put('/dependent-update/{id}', [DependentController::class, 'update']);
+// dependents
 
 
 Route::get('/data', function () {
   User::create([
-    'empid' => '500323',
-    'email' => 'islambassiem2@inaya.edu.sa',
+    'empid' => '500322',
+    'email' => 'islambassiem@inaya.edu.sa',
     'password' => Hash::make('123'),
     'gender_id' => '1',
     'nationality_id' => '18',
