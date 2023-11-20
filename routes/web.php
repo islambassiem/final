@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcquaintanceController;
 use App\Models\User;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\Hash;
@@ -8,7 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\QualificationController;
-use App\Models\Dependent;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,8 +61,11 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 // dependents
   Route::resource('dependents', DependentController::class);
-  Route::get('/dependents/{id}', [DependentController::class, 'destroy']);
 // dependents
+
+// acquaintances
+Route::resource('acquaintances', AcquaintanceController::class);
+// acquaintances
 
 
 Route::get('/data', function () {

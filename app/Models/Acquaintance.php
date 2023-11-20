@@ -14,7 +14,7 @@ class Acquaintance extends Model
   protected $table = 'acquaintance';
 
   protected $fillable = [
-    'user_id', 'name', 'email', 'mobile', 'relationship_id', 'created_by', 'updated_by'
+    'user_id', 'name', 'email', 'mobile', 'position', 'created_by', 'updated_by'
   ];
 
   protected function name(): Attribute
@@ -23,9 +23,5 @@ class Acquaintance extends Model
       get: fn (string $value) => ucwords($value),
       set: fn (string $value) => strtolower($value)
     );
-  }
-
-  public function relationship(){
-    return $this->belongsTo(Relationship::class);
   }
 }

@@ -5,6 +5,7 @@
 @endsection
 
 @section('style')
+  <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
 @endsection
 
 @section('h1')
@@ -29,7 +30,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body pb-0">
             @if (count($qualifications) == 0)
               <div class="alert alert-danger my-5" role="alert">
                 {{ __('There are no qualifications Registered') }}
@@ -47,7 +48,7 @@
               </div>
               @endif
               <!-- Table with stripped rows -->
-              <table class="table table-striped">
+              <table class="table table-striped" id="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -132,9 +133,34 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script>
     $(document).ready(function (){
+      var lang = "{{ session('lang') }}";
+      var file;
+      switch (lang) {
+        case "ar":
+          file = "{{ asset('assets/vendor/datatables/ar.json') }}"
+          break;
+        case "pk":
+          file = "{{ asset('assets/vendor/datatables/pk.json') }}"
+          break;
+        case "in":
+          file = "{{ asset('assets/vendor/datatables/in.json') }}"
+          break;
+        case "ph":
+          file = "{{ asset('assets/vendor/datatables/ph.json') }}"
+          break;
+        default:
+          file = "{{ asset('assets/vendor/datatables/en.json') }}"
+          break;
+      }
+        $('#table').dataTable({
+          language: {
+            url: file
+          }
+        });
       $('#delteConfirmation').on('show.bs.modal', function (event){
         let button = $(event.relatedTarget);
         let id = button.data('id');
