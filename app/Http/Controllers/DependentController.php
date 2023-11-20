@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dependent;
 use Illuminate\Http\Request;
 use App\Models\Tables\FamilyRelationship;
-use App\Http\Requests\StoreDependentRequest;
-use App\Http\Requests\UpdateDependentRequest;
-use PHPUnit\Framework\Attributes\Depends;
+use App\Http\Requests\DependentRequest;
+
 
 class DependentController extends Controller
 {
@@ -40,7 +39,7 @@ class DependentController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreDependentRequest $request)
+  public function store(DependentRequest $request)
   {
     Dependent::create($request->validated());
     return redirect()->route('dependents.index')->with('success', __('You have added a dependent successfully'));
@@ -65,7 +64,7 @@ class DependentController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateDependentRequest $request, string $id)
+  public function update(DependentRequest $request, string $id)
   {
     $dependent = Dependent::find($id);
     $dependent->update($request->validated());

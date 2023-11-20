@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Models\User;
 use App\Models\Attachment;
@@ -65,6 +66,10 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 // acquaintances
 Route::resource('acquaintances', AcquaintanceController::class);
+// acquaintances
+
+// acquaintances
+Route::resource('achievements', AchievementController::class);
 // acquaintances
 
 

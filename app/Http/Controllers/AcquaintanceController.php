@@ -8,13 +8,19 @@ use App\Http\Requests\AcquaintanceRequest;
 
 class AcquaintanceController extends Controller
 {
+
+  public function __construct()
+  {
+    return $this->middleware('auth');
+  }
+
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
     return view('acquaintance.index', [
-      'acquaintances' => Acquaintance::all()
+      'acquaintances' => Acquaintance::where('user_id', auth()->user()->id)
     ]);
   }
 

@@ -218,6 +218,13 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('achievements.*') ? '' : 'collapsed'  }}" href="{{ route('achievements.index') }}">
+            <i class="bi bi-person"></i>
+            <span>{{ __('Achievements') }}</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
           <a class="nav-link collapsed" href="pages-faq">
             <i class="bi bi-question-circle"></i>
             <span>F.A.Q</span>
