@@ -61,7 +61,6 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 // dependents
   Route::resource('dependents', DependentController::class);
   Route::get('/dependents/{id}', [DependentController::class, 'destroy']);
-  Route::put('/dependent-update/{id}', [DependentController::class, 'update']);
 // dependents
 
 

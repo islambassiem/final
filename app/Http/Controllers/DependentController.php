@@ -67,8 +67,10 @@ class DependentController extends Controller
    */
   public function update(UpdateDependentRequest $request, string $id)
   {
-    Dependent::find($id);
-    return redirect()->route('dependents.index')->with('success', 'You have updated the dependent successfully');
+    $dependent = Dependent::find($id);
+    $dependent->update($request->validated());
+    return redirect()->route('dependents.index')
+      ->with('success', 'You have updated the dependent successfully');
   }
 
   /**

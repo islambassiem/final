@@ -85,11 +85,11 @@
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target="#editDependent"
-                        data-id   = {{ $dependent->id }}
-                        data-iden = {{ $dependent->identification }}
-                        data-name = {{ $dependent->name }}
-                        data-dob  = {{ $dependent->date_of_birth }}
-                        data-rel  = {{ $dependent->relationship_id }}
+                        data-id   = "{{ $dependent->id }}"
+                        data-iden = "{{ $dependent->identification }}"
+                        data-name = "{{ $dependent->name }}"
+                        data-dob  = "{{ $dependent->date_of_birth }}"
+                        data-rel  = "{{ $dependent->relationship_id }}"
                         class="btn btn-warning btn-sm py-0">
                         <i class="bi bi-pencil-square"></i>
                       </button>
@@ -277,7 +277,7 @@
       $('#editDependent').on('show.bs.modal', function (event){
         let button = $(event.relatedTarget);
         let iden = button.data('iden');
-        let name = button.attr('data-name');
+        let name = button.data('name');
         let dob = button.data('dob');
         let rel = button.data('rel');
         let id = button.data('id');
@@ -287,9 +287,8 @@
         $('#identification').val(iden);
         $('#date_of_birth').val(dob);
         $('#relationship_id_edit').val(rel);
-        form.action = "dependent-update/" + id;
+        form.action = "dependents/" + id;
       });
     });
-
   </script>
 @endsection
