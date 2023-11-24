@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\CourseController;
 use App\Models\User;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\Hash;
@@ -60,17 +61,12 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 // Qualification
 
 
-// dependents
-  Route::resource('dependents', DependentController::class);
-// dependents
 
-// acquaintances
+Route::resource('dependents', DependentController::class);
 Route::resource('acquaintances', AcquaintanceController::class);
-// acquaintances
-
-// acquaintances
 Route::resource('achievements', AchievementController::class);
-// acquaintances
+Route::resource('courses', CourseController::class);
+
 
 
 Route::get('/data', function () {

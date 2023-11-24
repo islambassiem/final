@@ -225,6 +225,13 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('courses.*') ? '' : 'collapsed'  }}" href="{{ route('courses.index') }}">
+            <i class="bi bi-person"></i>
+            <span>{{ __('Courses') }}</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
           <a class="nav-link collapsed" href="pages-faq">
             <i class="bi bi-question-circle"></i>
             <span>F.A.Q</span>

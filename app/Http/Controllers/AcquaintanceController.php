@@ -20,7 +20,7 @@ class AcquaintanceController extends Controller
   public function index()
   {
     return view('acquaintance.index', [
-      'acquaintances' => Acquaintance::where('user_id', auth()->user()->id)
+      'acquaintances' => Acquaintance::where('user_id', auth()->user()->id)->get()
     ]);
   }
 
