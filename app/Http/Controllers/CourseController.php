@@ -22,8 +22,6 @@ class CourseController extends Controller
   {
     return view('courses.index', [
       'courses' => Course::where('user_id', auth()->user()->id)->get(),
-      'countries' => Country::all(),
-      'types' => CourseType::all()
     ]);
   }
 
@@ -32,7 +30,10 @@ class CourseController extends Controller
    */
   public function create()
   {
-    //
+    return view('courses.create', [
+      'countries' => Country::all(),
+      'types' => CourseType::all()
+    ]);
   }
 
   /**
@@ -57,7 +58,11 @@ class CourseController extends Controller
    */
   public function edit(Course $course)
   {
-    //
+    return view('courses.edit', [
+      'course' => $course,
+      'countries' => Country::all(),
+      'types' => CourseType::all()
+    ]);
   }
 
   /**

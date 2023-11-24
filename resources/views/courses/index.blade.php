@@ -6,14 +6,6 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
-  <style>
-    .accordion-button:not(.collapsed) {
-    color: var(--bs-accordion-active-color);
-    background-color: var(--bs-accordion-active-bg);
-    box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
-    }
-  </style>
 @endsection
 
 @section('h1')
@@ -28,14 +20,12 @@
 <section class="section">
   <div class="row">
     <div class="col d-flex justify-content-end mb-3">
-      <button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#addCourse"
+      <a
+        href="{{ route('courses.create') }}"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
         {{ __('Add') }}
-      </button>
+      </a>
     </div>
   </div>
   <div class="row">
@@ -97,9 +87,10 @@
                       </div><hr>
                       <div class="row ">
                         <div class="col d-flex justify-content-end">
-                          <button class="btn btn-primary btn-sm mx-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#editCourse"
+                          <a class="btn btn-primary btn-sm mx-2"
+                            href="{{ route('courses.edit', $course->id) }}"
+                            {{-- data-bs-toggle="modal"
+                            data-bs-target="#editCourse" --}}
                             data-id={{ $course->id }}
                             data-name="{{ $course->name }}"
                             data-issuer="{{ $course->issuer }}"
@@ -110,7 +101,7 @@
                             data-period="{{ $course->period }}"
                             >
                             <i class="bi bi-pencil-square"></i> {{ __('Edit') }}
-                          </button>
+                          </a>
                           <button class="btn btn-danger btn-sm"
                             data-bs-toggle="modal"
                             data-bs-target="#delteConfirmation"
@@ -132,7 +123,7 @@
 </section>
 
 <!-- Add Modal -->
-<div class="modal fade" id="addCourse" tabindex="-1" aria-labelledby="addCourseLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="addCourse" tabindex="-1" aria-labelledby="addCourseLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -207,7 +198,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 <!-- Delete Modal -->
 <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -232,7 +223,7 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal fade" id="editCourse" tabindex="-1" aria-labelledby="editCourseLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="editCourse" tabindex="-1" aria-labelledby="editCourseLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -308,14 +299,13 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 @endsection
 
 @section('script')
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script>
     $(document).ready(function (){
       $("#country_id_add").select2({
