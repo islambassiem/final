@@ -30,7 +30,7 @@ class LoginController extends Controller
     if (Auth::attempt($validated, $remember)) {
       $request->session()->regenerate();
       session()->put('_lang', '_en');
-      return redirect()->route('dashboard');
+      return redirect()->route('dashboard', ['id', 'dashboard']);
     }
     return redirect()->route('login')->with('error', 'Login information is not correct');
   }

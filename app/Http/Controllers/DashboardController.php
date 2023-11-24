@@ -12,12 +12,8 @@ class DashboardController extends Controller
     // return $this->middleware('auth');
   }
 
-  public function index($id)
+  public function index()
   {
-    if(view()->exists($id)){
-      return view($id);
-    }else{
-      return view('pages-error-404');
-    }
+    return view('dashboard');
   }
 }
