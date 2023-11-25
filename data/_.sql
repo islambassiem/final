@@ -2981,3 +2981,52 @@ INSERT INTO `_family_relationships` (`id`, `relationship_en`, `relationship_ar`,
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `_research_domains` (`id`, `research_domain_en`, `research_domain_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Natural science', 'العلوم الطبيعية', '1', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(2, 'Engineering and technology', 'الهندسة والتقنية', '2', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(3, 'Medicine, health sciences and health care', 'الطب والعلوم الصحية والرعاية الصحية', '3', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(4, 'Agricultural Sciences', 'العلوم الزراعية', '6', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(5, 'Social sciences, business and law', 'العلوم الاجتماعية والأعمال والقانون', '7', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(6, 'Humanities and arts', 'الإنسانيات والفنون', '8', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(7, 'Islamic studies', 'الدراسات الإسلامية', '9', '2023-07-16 08:19:17', '2023-07-16 08:19:17'),
+(8, 'Multidisciplinary services', 'الخدمات متعدد التخصصات', '10', '2023-07-16 08:19:17', '2023-07-16 08:19:17');
+
+INSERT INTO `_research_languages` (`id`, `research_language_en`, `research_language_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Arabic', 'العربية', '0', '2023-07-16 08:20:07', '2023-07-16 08:20:07'),
+(2, 'English', 'الإنجليزية', '1', '2023-07-16 08:20:07', '2023-07-16 08:20:07'),
+(3, 'French', 'الفرنسية', '2', '2023-07-16 08:20:07', '2023-07-16 08:20:07'),
+(4, 'Chinese', 'الصينية', '3', '2023-07-16 08:20:07', '2023-07-16 08:20:07'),
+(5, 'German', 'الألمانية', '4', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(6, 'Indian', 'الهندية', '5', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(7, 'Spanish', 'الاسبانية', '8', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(8, 'Russian', 'الروسية', '9', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(9, 'Bengali', 'البنغالية', '10', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(10, 'Portuguese', 'البرتغالية', '11', '2023-07-16 08:20:08', '2023-07-16 08:20:08'),
+(11, 'Other', 'أخرى', '999', '2023-07-16 08:20:08', '2023-07-16 08:20:08');
+
+INSERT INTO `_research_nature` (`id`, `research_nature_en`, `research_nature_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Theoretical ', 'أساسي', '1', '2023-07-16 08:20:39', '2023-07-16 08:20:39'),
+(2, 'Empirical', 'تطبيقي', '2', '2023-07-16 08:20:39', '2023-07-16 08:20:39'),
+(3, 'Research in empirical development', 'بحوث في التطوير التجريبي', '3', '2023-07-16 08:20:39', '2023-07-16 08:20:39');
+
+INSERT INTO `_research_progress` (`id`, `research_progress_en`, `research_progress_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Finished', 'منجز', '1', '2023-07-16 08:20:59', '2023-07-16 08:20:59'),
+(2, 'Under progress ', 'جاري تنفيذه', '2', '2023-07-16 08:20:59', '2023-07-16 08:20:59'),
+(3, 'Approved and has not started', 'موافق عليه ولم يبدأ', '3', '2023-07-16 08:20:59', '2023-07-16 08:20:59');
+
+INSERT INTO `_research_status` (`id`, `research_status_en`, `research_status_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Individual', 'فردي', '1', '2023-07-16 08:21:16', '2023-07-16 08:21:16'),
+(2, 'Collaborative', 'مشترك مع آخرون', '2', '2023-07-16 08:21:16', '2023-07-16 08:21:16');
+
+INSERT INTO `_research_types` (`id`, `research_type_en`, `research_type_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Book', 'كتاب', '1', '2023-07-16 08:21:32', '2023-07-16 08:21:32'),
+(2, 'Scientific Research', 'بحث علمي', '2', '2023-07-16 08:21:32', '2023-07-16 08:21:32'),
+(3, 'Scientific Paper', 'ورقة علمية', '3', '2023-07-16 08:21:32', '2023-07-16 08:21:32');
+
+INSERT INTO `_course_types` (`id`, `course_type_en`, `course_type_ar`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Training Course', 'دورة تدريبية', '1', '2023-07-16 08:04:27', '2023-07-16 08:04:27'),
+(2, 'Certificate', 'شهادة', '2', '2023-07-16 08:04:27', '2023-07-16 08:04:27'),
+(3, 'Scientific Symposium', 'ندوة علمية', '3', '2023-07-16 08:04:27', '2023-07-16 08:04:27'),
+(4, 'Workshop', 'ورشة تدريبية', '4', '2023-07-16 08:04:27', '2023-07-16 08:04:27'),
+(5, 'Other', 'أخرى', '5', '2023-07-16 08:04:27', '2023-07-16 08:04:27');

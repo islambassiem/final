@@ -1,7 +1,7 @@
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
-    <a href="index" class="logo d-flex align-items-center">
+    <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
       <img src="{{ asset('assets/img/logo.png') }}" alt="">
       <span class="d-none d-lg-block">InayaColleges</span>
     </a>
@@ -234,7 +234,7 @@
             <hr class="dropdown-divider">
           </li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile">
+            <a class="dropdown-item d-flex align-items-center" href="#">
               <i class="bi bi-person"></i>
               <span>My Profile</span>
             </a>
@@ -243,7 +243,7 @@
             <hr class="dropdown-divider">
           </li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile">
+            <a class="dropdown-item d-flex align-items-center" href="#">
               <i class="bi bi-gear"></i>
               <span>Account Settings</span>
             </a>
@@ -252,7 +252,7 @@
             <hr class="dropdown-divider">
           </li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="pages-faq">
+            <a class="dropdown-item d-flex align-items-center" href="#">
               <i class="bi bi-question-circle"></i>
               <span>Need Help?</span>
             </a>

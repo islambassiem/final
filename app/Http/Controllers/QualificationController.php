@@ -188,4 +188,16 @@ class QualificationController extends Controller
     }
     return false;
   }
+
+  public function getAttachment($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Qualification')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return redirect("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
+    }
 }

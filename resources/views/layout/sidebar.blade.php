@@ -33,26 +33,31 @@
 
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('qualifications.*') ? '' : 'collapsed'  }}" href="{{ route('qualifications.index') }}">
-            <i class="bi bi-person"></i>
+            <i class="bi bi-mortarboard-fill"></i>
             <span>{{ __('Qualifications') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('achievements.*') ? '' : 'collapsed'  }}" href="{{ route('achievements.index') }}">
-            <i class="bi bi-person"></i>
+            <i class="bi bi-person-arms-up"></i>
             <span>{{ __('Achievements') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('courses.*') ? '' : 'collapsed'  }}" href="{{ route('courses.index') }}">
-            <i class="bi bi-person"></i>
+            <i class="bi bi-trophy-fill"></i>
             <span>{{ __('Courses') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
 
-
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('research.*') ? '' : 'collapsed'  }}" href="{{ route('research.index') }}">
+            <i class="bi bi-journals"></i>
+            <span>{{ __('Research') }}</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
       </ul>
 
     </aside><!-- End Sidebar-->
