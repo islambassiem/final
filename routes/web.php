@@ -52,4 +52,8 @@ Route::resource('achievements', AchievementController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('research', ResearchController::class);
 Route::resource('other_experience', OtherExperienceController::class);
+
+
+
 Route::resource('experience', ExperienceController::class);
+Route::post('institutions/{firstLetter}', [ExperienceController::class, 'institutions']);

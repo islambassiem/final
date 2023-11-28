@@ -48,6 +48,54 @@
               @csrf
               <div class="row g-3 mt-3" id="phase1">
 
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="profession" class="form-label">{{ __('Possition') }}</label>
+                    <input type="text" class="form-control" id="profession" name="profession" value="{{ old('profession') }}">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="institutions" class="form-label">{{ __('Insitiution Sector') }}</label>
+                    <select id="institutions" class="form-select">
+                      <option selected disabled>{{ __('Choose...') }}</option>
+                      @foreach ($institutions as $institution)
+                        <option value="{{ $institution->code }}">{{  $institution->{'institute' . session('_lang') ?? 'en' } }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  <div class="col-md-8">
+                    <label for="institution_id" class="form-label">{{ __('Educational Insitiution') }}</label>
+                    <select id="institution_id" class="form-select" name="institution_id"></select>
+                  </div>
+                </div>
+
+                {{-- <div class="row">
+                  <div class="col-md-4">
+                    <label for="regions" class="form-label">{{ __('Region') }}</label>
+                    <select id="regions" class="form-select">
+                      <option selected disabled>{{ __('Choose...') }}</option>
+                      @foreach ($regions as $region)
+                        <option value="{{ $region->code }}">{{  $region->{'city' . session('_lang') ?? 'en' } }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div> --}}
+
+                {{-- <div class="col-md-6">
+                  <label for="city_id" class="form-label">{{ __('City') }}</label>
+                  <select id="city_id" class="form-select" name="city_id">
+                    <option selected disabled>{{ __('Choose...') }}</option>
+                    @foreach ($cities as $city)
+                      <option value="{{ $city->id }}" @selected($city->id == old('city'))>{{  $city->{'city' . session('_lang') ?? 'en' } }}</option>
+                    @endforeach
+                  </select>
+                </div> --}}
+
+
+
                 {{-- <div class="row">
                   <div class="col-md-4">
                     <label for="qualification" class="form-label">{{ __('Qualification') }}</label>
@@ -213,7 +261,7 @@
   <script src="{{ asset('assets/js/qualifications.form.js') }}"></script>
   <script>
     $(document).ready(function (){
-      $('#domain').on('change.select2', function(e){
+      $('#institutions').on('change.select2', function(e){
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -221,21 +269,19 @@
         });
         if(this.value){
           $.ajax({
-            url: "{{ URL::to('major') }}/" + this.value,
+            url: "{{ URL::to('institutions') }}/" + this.value,
             method: "POST",
             dataType: "json",
             success: function(data){
-              $('#major').empty();
-              $('#major').append("<option selected disabled>{{ __('Choose...') }}</option>");
-              $('#minor').empty();
-              $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#institution_id').empty();
+              $('#institution_id').append("<option selected disabled>{{ __('Choose...') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
-                let major = element.specialty_en;
+                let institute = element.institute_en;
                 if("{{ session('_lang') }}" == "_ar"){
-                  major = element.specialty_ar
+                  institute = element.institute_ar
                 }
-                $('#major').append("<option value="+element.code+">"+major+"</option>");
+                $('#institution_id').append("<option value="+element.code+">"+institute+"</option>");
               }
             }
           });
