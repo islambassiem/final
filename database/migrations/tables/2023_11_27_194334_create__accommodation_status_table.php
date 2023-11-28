@@ -16,6 +16,7 @@ return new class extends Migration
       $table->string('accommodation_status_en', 100);
       $table->string('accommodation_status_ar', 100);
       $table->string('code', 10)->unique();
+      $table->timestamps();
     });
   }
 

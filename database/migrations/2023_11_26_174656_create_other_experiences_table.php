@@ -27,7 +27,7 @@ return new class extends Migration
 
 
       // joins
-      $table->foreign('country')->references('id')->on('_countries');
+      $table->foreign('country_id')->references('id')->on('_countries');
     });
   }
 

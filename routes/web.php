@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\AchievementController;
-use App\Http\Controllers\AcquaintanceController;
-use App\Http\Controllers\CourseController;
 use App\Models\User;
 use App\Models\Attachment;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
-use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
-use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\OtherExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,4 @@ Route::resource('achievements', AchievementController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('research', ResearchController::class);
 Route::resource('other_experience', OtherExperienceController::class);
+Route::resource('experience', ExperienceController::class);

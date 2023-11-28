@@ -38,7 +38,7 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse {{ request()->routeIs('experience.*') || request()->routeIs('other_experience.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#" class="{{ Request::routeIs('experience.*') ? 'active' : '' }}">
+            <a href="{{ route('experience.index') }}" class="{{ Request::routeIs('experience.*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>{{ __('Academic - KSA') }}</span>
             </a>
           </li>
