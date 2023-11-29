@@ -49,8 +49,8 @@ return new class extends Migration
       $table->text('notes')->nullable();
       $table->unsignedTinyInteger('special_need_id')->nullable();
       $table->string('home_country_id', 50)->nullable();
-      $table->foreignId('created_by')->constrained('users')->nullable();
-      $table->foreignId('updated_by')->constrained('users')->nullable();
+      $table->unsignedBigInteger('created_by')->nullable();
+      $table->unsignedBigInteger('updated_by')->nullable();
       $table->timestamps();
       /*
       -----------------------------------

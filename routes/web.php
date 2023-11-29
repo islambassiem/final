@@ -39,7 +39,6 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 // Qualification
   Route::resource('qualifications', QualificationController::class);
   Route::get('/attachment/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
-  //ajax
   Route::post('major/{firstLetter}', [QualificationController::class, 'major']);
   Route::post('minor/{code}', [QualificationController::class, 'minor']);
 // Qualification
@@ -54,6 +53,12 @@ Route::resource('research', ResearchController::class);
 Route::resource('other_experience', OtherExperienceController::class);
 
 
-
+// Experience
 Route::resource('experience', ExperienceController::class);
 Route::post('institutions/{firstLetter}', [ExperienceController::class, 'institutions']);
+Route::post('governorate/{code}', [ExperienceController::class, 'governorate']);
+Route::post('city/{code}', [ExperienceController::class, 'city']);
+Route::post('colleges/{code}', [ExperienceController::class, 'colleges']);
+Route::post('department_major/{code}', [ExperienceController::class, 'department_major']);
+Route::post('department_minor/{code}', [ExperienceController::class, 'department_minor']);
+// Experience

@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
       'sponsorship_id' => '1',
       'section_id' => '1',
       'category_id' => '1',
-      'created_by' => '1',
-      'updated_by' => '1'
+      'created_by' => NULL,
+      'updated_by' => NULL
     ]);
   }
 }

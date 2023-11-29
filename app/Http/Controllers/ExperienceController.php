@@ -40,9 +40,9 @@ class ExperienceController extends Controller
   {
     return view('experience.create', [
       'institutions' => DB::select('SELECT * FROM _educational_institutions WHERE LENGTH(`code`) = 1'),
-      // 'regions' => DB::select(''),
-      'cities' => City::all(),
-      'sections' => AcademicSection::all(),
+      'regions' =>DB::select("SELECT * FROM _cities WHERE code LIKE (?)", ['0_00000']),
+      'college_classification' => DB::select("SELECT * FROM _colleges WHERE LENGTH(code) = ?", ['1']),
+      'department_domain' => DB::select("SELECT * FROM _academic_sections WHERE length(code)  = ?", ['1']),
       'professional_ranks' => ProfessionalRank::all(),
       'academic_ranks' => AcademicRank::all(),
       'appointment_types' => AppointmentStatus::all(),
@@ -99,5 +99,30 @@ class ExperienceController extends Controller
   public function institutions($id){
     $institutions_id = DB::select('SELECT * FROM `_educational_institutions` WHERE code LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;', [$id, '%', '1']);
     return json_encode($institutions_id);
+  }
+
+  public function governorate($id){
+    $governorates = DB::select('SELECT * FROM _cities WHERE code LIKE CONCAT(?, ?) AND code NOT LIKE CONCAT(?, ?);', [$id, "__000", $id,"00000"]);
+    return json_encode($governorates);
+  }
+
+  public function city($id){
+    $cities = DB::select('SELECT * FROM _cities WHERE code LIKE CONCAT(?, ?);', [$id, '%']);
+    return json_encode($cities);
+  }
+
+  public function colleges($id){
+    $colleges = DB::select("SELECT * FROM _colleges WHERE`code` LIKE CONCAT(?, ?) AND LENGTH(code) > 1;", [$id, '%']);
+    return json_encode($colleges);
+  }
+
+  public function department_major($id){
+    $department_major = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;", [$id, '%', '1']);
+    return json_encode($department_major);
+  }
+
+  public function department_minor($id){
+    $department_minor = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?)", [$id, '%']);
+    return json_encode($department_minor);
   }
 }
