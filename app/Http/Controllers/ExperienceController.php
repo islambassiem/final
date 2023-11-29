@@ -14,6 +14,8 @@ use App\Http\Requests\ExperienceRequest;
 use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\AccommodationStatus;
 use App\Models\Tables\EducationalInstitution;
+use App\Models\Tables\JobType;
+use App\Models\Tables\Specialty;
 
 class ExperienceController extends Controller
 {
@@ -47,7 +49,9 @@ class ExperienceController extends Controller
       'academic_ranks' => AcademicRank::all(),
       'appointment_types' => AppointmentStatus::all(),
       'employment_status' => EmploymentStatus::all(),
-      'accommodation_types' => AccommodationStatus::all()
+      'accommodation_types' => AccommodationStatus::all(),
+      'job_types' => JobType::all(),
+      'domains' => DB::select("SELECT * FROM _specialties WHERE LENGTH(code) = ?", ['1'])
     ]);
   }
 
@@ -56,7 +60,7 @@ class ExperienceController extends Controller
    */
   public function store(ExperienceRequest $request)
   {
-    //
+    return $request->all();
   }
 
   /**

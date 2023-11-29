@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExperienceRequest extends FormRequest
@@ -11,7 +12,7 @@ class ExperienceRequest extends FormRequest
    */
   public function authorize(): bool
   {
-    return false;
+    return true;
   }
 
   /**
@@ -31,7 +32,7 @@ class ExperienceRequest extends FormRequest
       'major_id' => 'required',
       'minor_id' => 'required',
       'academic_rank_id' => 'required',
-      'professional_rank_id' => 'required',
+      'professional_rank_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id),
       'hiring_date' => 'required',
       'joining_date' => 'required',
       'resignation_date' => 'required',
@@ -39,7 +40,7 @@ class ExperienceRequest extends FormRequest
       'employment_status_id' => 'required',
       'tasks' => 'required',
       'job_type_id' => 'required',
-      'accommodation_status_id' => 'required'
+      'accommodation_status_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id)
     ];
   }
 }

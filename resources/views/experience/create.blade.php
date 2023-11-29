@@ -44,24 +44,17 @@
             </div>
 
 
-            <form action="{{ route('qualifications.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('experience.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="row g-3 mt-3" id="phase1">
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="profession" class="form-label">{{ __('Possition') }}</label>
-                    <input type="text" class="form-control" id="profession" name="profession" value="{{ old('profession') }}">
-                  </div>
-                </div>
-
-                <div class="row py-2">
-                  <div class="col-md-4">
                     <label for="institutions" class="form-label">{{ __('Insitiution Sector') }}</label>
-                    <select id="institutions" class="form-select">
+                    <select id="institutions" class="form-select" name="institution_id">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($institutions as $institution)
-                        <option value="{{ $institution->code }}">{{  $institution->{'institute' . session('_lang') ?? 'en' } }}</option>
+                        <option value="{{ $institution->code }}" @selected($institution->code == old('institution_id'))>{{  $institution->{'institute' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -133,13 +126,128 @@
               </div>
 
               <div class="row g-3 mt-3" id="phase2">
+
+                <div class="row py-2">
+                  <div class="col-md-4">
+                    <label for="hiring_date" class="form-label">{{ __('Hiring Date') }}</label>
+                    <input type="date" class="form-control" id="hiring_date" name="hiring_date" value="{{ old('hiring_date') }}">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="joining_date" class="form-label">{{ __('Joining Date') }}</label>
+                    <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ old('joining_date') }}">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="resignation_date" class="form-label">{{ __('Resegniation Date') }}</label>
+                    <input type="date" class="form-control" id="resignation_date" name="resignation_date" value="{{ old('resignation_date') }}">
+                  </div>
+                </div>
+
+                @if (auth()->user()->category_id == 1)
+                  <div class="row py-2">
+                    <div class="col-md-4">
+                      <label for="appointment_type_id" class="form-label">{{ __('Appointment Type') }}</label>
+                      <select id="appointment_type_id" class="form-select" name="appointment_type_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($appointment_types as $type)
+                          <option value="{{ $type->code }}">{{  $type->{'appointment_type' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="job_type_id" class="form-label">{{ __('Job Type') }}</label>
+                      <select id="job_type_id" class="form-select" name="job_type_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($job_types as $type)
+                          <option value="{{ $type->code }}">{{  $type->{'job_type' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="employment_status_id" class="form-label">{{ __('Employment Status') }}</label>
+                      <select id="employment_status_id" class="form-select" name="employment_status_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($employment_status as $status)
+                          <option value="{{ $status->code }}">{{  $status->{'employment_status' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row py-2">
+                    <div class="col-md-4">
+                      <label for="domain" class="form-label">{{ __('Doamain') }}</label>
+                      <select id="domain" class="form-select">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($domains as $domain)
+                          <option value="{{ $domain->code }}">{{  $domain->{'specialty' . session('_lang')} }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="major" class="form-label">{{ __('Major') }}</label>
+                      <select id="major" class="form-select"  name="major_id"></select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="minor" class="form-label">{{ __('Minor') }}</label>
+                      <select id="minor" class="form-select" name="minor_id"></select>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                  </div>
+                @endif
+
+                <div class="row py-2">
+                  @if (auth()->user()->category_id == 1)
+                    <div class="col-md-4">
+                      <label for="academic_rank_id" class="form-label">{{ __('Academic Rank') }}</label>
+                      <select id="academic_rank_id" class="form-select" name="academic_rank_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($academic_ranks as $rank)
+                          <option value="{{ $rank->code }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  @else
+                    <div class="col-md-4">
+                      <label for="professional_rank_id" class="form-label">{{ __('Professional Rank') }}</label>
+                      <select id="professional_rank_id" class="form-select" name="professional_rank_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($professional_ranks as $rank)
+                          <option value="{{ $rank->code }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="accommodation_status_id" class="form-label">{{ __('Accommodation Status') }}</label>
+                      <select id="accommodation_status_id" class="form-select" name="accommodation_status_id">
+                        <option selected disabled>{{ __('Choose...') }}</option>
+                        @foreach ($accommodation_types as $type)
+                          <option value="{{ $type->code }}">{{  $type->{'accommodation_status' . session('_lang') ?? 'en' } }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  @endif
+                  <div class="col-md-4">
+                    <label for="position" class="form-label">{{ __('Possition') }}</label>
+                    <input type="text" class="form-control" id="position" name="position" value="{{ old('position') }}">
+                  </div>
+                </div>
                 <div class="d-flex justify-content-between my-3">
                   <button type="button" class="btn btn-danger" id="back1">{{ __("Back") }}</button>
                   <button type="button" class="btn btn-primary" id="next2">{{ __("Next") }}</button>
                 </div>
+
               </div>
 
               <div class="row g-3 mt-3" id="phase3">
+                <div class="row">
+                  <div class="col">
+                    <div class="my-3">
+                      <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
+                      <textarea class="form-control" id="tasks" rows="11" name="tasks">{{ old('tasks') }}</textarea>
+                    </div>
+                  </div>
+                </div>
                 <div class="d-flex justify-content-between my-3">
                   <button type="button" class="btn btn-danger" id="back2">{{ __("Back") }}</button>
                   <button type="submit" class="btn btn-primary" id="submit">{{ __("Submit") }}</button>
@@ -320,7 +428,57 @@
         }
       });
 
+      $('#domain').on('change.select2', function(e){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        if(this.value){
+          $.ajax({
+            url: "{{ URL::to('major') }}/" + this.value,
+            method: "POST",
+            dataType: "json",
+            success: function(data){
+              $('#major').empty();
+              $('#major').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#minor').empty();
+              $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                let major = element.specialty_en;
+                if("{{ session('_lang') }}" == "_ar"){
+                  major = element.specialty_ar
+                }
+                $('#major').append("<option value="+element.code+">"+major+"</option>");
+              }
+            }
+          });
+        }
+      });
 
+      $('#major').on('change.select2', function(e){
+        let code = (this.value).substring(0,2)
+        if(code){
+          $.ajax({
+            url: "{{ URL::to('minor') }}/" + code,
+            method: "POST",
+            dataType: "json",
+            success: function (data){
+              $('#minor').empty();
+              $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                let minor = element.specialty_en;
+                if("{{ session('_lang') }}" == "_ar"){
+                  minor = element.specialty_ar
+                }
+                $('#minor').append("<option value="+element.code+">"+minor+"</option>")
+              }
+            }
+          });
+        }
+      })
 
       $('select').append("<option selected disabled>{{ __('Choose...') }}</option>");
     });
