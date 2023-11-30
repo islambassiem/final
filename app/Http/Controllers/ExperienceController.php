@@ -13,6 +13,7 @@ use App\Models\Tables\ProfessionalRank;
 use App\Http\Requests\ExperienceRequest;
 use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\AccommodationStatus;
+use App\Models\Tables\College;
 use App\Models\Tables\EducationalInstitution;
 use App\Models\Tables\JobType;
 use App\Models\Tables\Specialty;
@@ -60,7 +61,10 @@ class ExperienceController extends Controller
    */
   public function store(ExperienceRequest $request)
   {
-    return $request->all();
+    $validated = $request->validated();
+    $validated['user_id'] =  auth()->user()->id;
+    Experience::create($validated);
+    return redirect()->route('experience.index')->with('success', 'You have added your experience successfully');
   }
 
   /**
@@ -79,7 +83,18 @@ class ExperienceController extends Controller
   public function edit(Experience $experience)
   {
     return view('experience.edit', [
-      'experience' => $experience
+      'e' => $experience,
+      'institutions' => DB::select('SELECT * FROM _educational_institutions WHERE LENGTH(`code`) = 1'),
+      'regions' =>DB::select("SELECT * FROM _cities WHERE code LIKE (?)", ['0_00000']),
+      'college_classification' => DB::select("SELECT * FROM _colleges WHERE LENGTH(code) = ?", ['1']),
+      'department_domain' => DB::select("SELECT * FROM _academic_sections WHERE length(code)  = ?", ['1']),
+      'professional_ranks' => ProfessionalRank::all(),
+      'academic_ranks' => AcademicRank::all(),
+      'appointment_types' => AppointmentStatus::all(),
+      'employment_status' => EmploymentStatus::all(),
+      'accommodation_types' => AccommodationStatus::all(),
+      'job_types' => JobType::all(),
+      'domains' => DB::select("SELECT * FROM _specialties WHERE LENGTH(code) = ?", ['1'])
     ]);
   }
 
@@ -121,12 +136,14 @@ class ExperienceController extends Controller
   }
 
   public function department_major($id){
-    $department_major = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;", [$id, '%', '1']);
+    $department_major = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;", [$id, '%01', '1']);
     return json_encode($department_major);
   }
 
   public function department_minor($id){
-    $department_minor = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?)", [$id, '%']);
+    $code = DB::table('_academic_sections')->where('id', $id)->value('code');
+    $code = substr($code, 0, 2);
+    $department_minor = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?)", [$code, '%']);
     return json_encode($department_minor);
   }
 }

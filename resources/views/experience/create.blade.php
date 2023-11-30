@@ -51,7 +51,7 @@
                 <div class="row py-2">
                   <div class="col-md-4">
                     <label for="institutions" class="form-label">{{ __('Insitiution Sector') }}</label>
-                    <select id="institutions" class="form-select" name="institution_id">
+                    <select id="institutions" class="form-select">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($institutions as $institution)
                         <option value="{{ $institution->code }}" @selected($institution->code == old('institution_id'))>{{  $institution->{'institute' . session('_lang') ?? 'en' } }}</option>
@@ -149,7 +149,7 @@
                       <select id="appointment_type_id" class="form-select" name="appointment_type_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($appointment_types as $type)
-                          <option value="{{ $type->code }}">{{  $type->{'appointment_type' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $type->id }}">{{  $type->{'appointment_type' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -158,7 +158,7 @@
                       <select id="job_type_id" class="form-select" name="job_type_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($job_types as $type)
-                          <option value="{{ $type->code }}">{{  $type->{'job_type' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $type->id }}">{{  $type->{'job_type' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -167,7 +167,7 @@
                       <select id="employment_status_id" class="form-select" name="employment_status_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($employment_status as $status)
-                          <option value="{{ $status->code }}">{{  $status->{'employment_status' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $status->id }}">{{  $status->{'employment_status' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -203,7 +203,7 @@
                       <select id="academic_rank_id" class="form-select" name="academic_rank_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($academic_ranks as $rank)
-                          <option value="{{ $rank->code }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $rank->id }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -213,7 +213,7 @@
                       <select id="professional_rank_id" class="form-select" name="professional_rank_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($professional_ranks as $rank)
-                          <option value="{{ $rank->code }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $rank->id }}">{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -222,7 +222,7 @@
                       <select id="accommodation_status_id" class="form-select" name="accommodation_status_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($accommodation_types as $type)
-                          <option value="{{ $type->code }}">{{  $type->{'accommodation_status' . session('_lang') ?? 'en' } }}</option>
+                          <option value="{{ $type->id }}">{{  $type->{'accommodation_status' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -288,7 +288,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   institute = element.institute_ar
                 }
-                $('#institution_id').append("<option value="+element.code+">"+institute+"</option>");
+                $('#institution_id').append("<option value="+element.id+">"+institute+"</option>");
               }
             }
           });
@@ -342,7 +342,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   city = element.city_ar
                 }
-                $('#city').append("<option value="+element.code+">"+city+"</option>")
+                $('#city').append("<option value="+element.id+">"+city+"</option>")
               }
             }
           });
@@ -367,7 +367,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   college = element.college_ar
                 }
-                $('#college_id').append("<option value="+element.code+">"+college+"</option>")
+                $('#college_id').append("<option value="+element.id+">"+college+"</option>")
               }
 
             }
@@ -393,7 +393,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   section = element.section_ar
                 }
-                $('#department_major').append("<option value="+element.code+">"+section+"</option>")
+                $('#department_major').append("<option value="+element.id+">"+section+"</option>")
               }
 
             }
@@ -403,16 +403,14 @@
 
       $("#department_major").on('change.select2', function(e){
         if(this.value){
-          let code = (this.value).substring(0,2);
           $.ajax({
-            url: "{{ URL::to('department_minor/') }}/"+ code,
+            url: "{{ URL::to('department_minor/') }}/"+ this.value,
             method: "POST",
             data:{
               "_token": "{{ csrf_token() }}"
             },
             dataType: 'JSON',
             success:function(response){
-              console.log(response)
               $('#department_minor').empty();
               $('#department_minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
               for (let i = 0; i < response.length; i++) {
@@ -421,7 +419,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   section = element.section_ar
                 }
-                $('#department_minor').append("<option value="+element.code+">"+section+"</option>")
+                $('#department_minor').append("<option value="+element.id+">"+section+"</option>")
               }
             }
           });
@@ -450,7 +448,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   major = element.specialty_ar
                 }
-                $('#major').append("<option value="+element.code+">"+major+"</option>");
+                $('#major').append("<option value="+element.id+">"+major+"</option>");
               }
             }
           });
@@ -458,10 +456,10 @@
       });
 
       $('#major').on('change.select2', function(e){
-        let code = (this.value).substring(0,2)
-        if(code){
+        let id = this.value;
+        if(id){
           $.ajax({
-            url: "{{ URL::to('minor') }}/" + code,
+            url: "{{ URL::to('minor') }}/" + id,
             method: "POST",
             dataType: "json",
             success: function (data){
@@ -473,7 +471,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   minor = element.specialty_ar
                 }
-                $('#minor').append("<option value="+element.code+">"+minor+"</option>")
+                $('#minor').append("<option value="+element.id+">"+minor+"</option>")
               }
             }
           });

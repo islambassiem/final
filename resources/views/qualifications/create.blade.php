@@ -235,17 +235,16 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   major = element.specialty_ar
                 }
-                $('#major').append("<option value="+element.code+">"+major+"</option>");
+                $('#major').append("<option value="+element.id+">"+major+"</option>");
               }
             }
           });
         }
       });
       $('#major').on('change.select2', function(e){
-        let code = (this.value).substring(0,2)
-        if(code){
+        if(this.value){
           $.ajax({
-            url: "{{ URL::to('minor') }}/" + code,
+            url: "{{ URL::to('minor') }}/" + this.value,
             method: "POST",
             dataType: "json",
             success: function (data){
@@ -257,7 +256,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   minor = element.specialty_ar
                 }
-                $('#minor').append("<option value="+element.code+">"+minor+"</option>")
+                $('#minor').append("<option value="+element.id+">"+minor+"</option>")
               }
             }
           });

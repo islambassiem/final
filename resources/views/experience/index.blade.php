@@ -47,7 +47,11 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Actions</th>
+                    <th>{{ __('Institution') }}</th>
+                    <th>{{ __('Position') }}</th>
+                    <th>{{ __('Start Date') }}</th>
+                    <th>{{ __('End Date') }}</th>
+                    <th scope="col">{{ __('Actions') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,6 +59,10 @@
                   @foreach ($experiences as $experience)
                     <tr>
                       <td>{{ $c }}</td>
+                      <td>{{ $experience->institution->{'institute' . session("_lang")} }}</td>
+                      <td>{{ $experience->position }}</td>
+                      <td>{{ $experience->joining_date }}</td>
+                      <td>{{ $experience->resignation_date }}</td>
                       <td>
                         <a
                           href="{{ route('experience.show', $experience->id) }}"

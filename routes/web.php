@@ -39,11 +39,10 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 // Qualification
   Route::resource('qualifications', QualificationController::class);
   Route::get('/attachment/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
-  Route::post('major/{firstLetter}', [QualificationController::class, 'major']);
-  Route::post('minor/{code}', [QualificationController::class, 'minor']);
 // Qualification
 
-
+Route::post('/major/{code}', [QualificationController::class, 'major']);
+Route::post('/minor/{code}', [QualificationController::class, 'minor']);
 
 Route::resource('dependents', DependentController::class);
 Route::resource('acquaintances', AcquaintanceController::class);

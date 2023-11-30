@@ -16,8 +16,8 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained();
       $table->unsignedTinyInteger('qualification');
       $table->string('thesis')->nullable();
-      $table->string('major_id',10);
-      $table->string('minor_id',10);
+      $table->unsignedSmallInteger('major_id');
+      $table->unsignedSmallInteger('minor_id');
       $table->unsignedTinyInteger('rating');
       $table->string('gpa', 10);
       $table->unsignedTinyInteger('gpa_type');
@@ -38,8 +38,8 @@ return new class extends Migration
       */
 
       $table->foreign('qualification')->references('id')->on('_qualifications');
-      $table->foreign('major_id')->references('code')->on('_specialties');
-      $table->foreign('minor_id')->references('code')->on('_specialties');
+      $table->foreign('major_id')->references('id')->on('_specialties');
+      $table->foreign('minor_id')->references('id')->on('_specialties');
       $table->foreign('rating')->references('id')->on('_ratings');
       $table->foreign('gpa_type')->references('id')->on('_gpa_types');
       $table->foreign('study_type')->references('id')->on('_study_types');

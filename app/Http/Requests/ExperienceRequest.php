@@ -23,23 +23,22 @@ class ExperienceRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
       'position' => 'required',
       'institution_id' => 'required',
-      'college_id' => 'required',
+      'college_id' => Rule::requiredIf(fn () => auth()->user()->category_id == 1 ? true : false),
       'city_id' => 'required',
       'section_id' => 'required',
-      'major_id' => 'required',
-      'minor_id' => 'required',
-      'academic_rank_id' => 'required',
+      'major_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
+      'minor_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
+      'academic_rank_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'professional_rank_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id),
       'hiring_date' => 'required',
       'joining_date' => 'required',
       'resignation_date' => 'required',
-      'appointment_type_id' => 'required',
-      'employment_status_id' => 'required',
+      'appointment_type_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
+      'employment_status_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'tasks' => 'required',
-      'job_type_id' => 'required',
+      'job_type_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'accommodation_status_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id)
     ];
   }

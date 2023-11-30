@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\QualificationRequest;
 use App\Models\Attachment;
 use App\Models\Tables\Qualification as QualificationLookUp;
+use App\Models\Tables\Specialty;
 
 class QualificationController extends Controller
 {
@@ -158,27 +159,17 @@ class QualificationController extends Controller
     $attachment = Attachment::where('user_id', auth()->user()->id)
     ->where('attachmentable_type', 'App\Models\Qualification')
     ->where('attachmentable_id', $id)->first();
+    if($attachment){
       $attachment->delete();
+    }
     if($file){
       unlink($file);
     }
     return redirect()->route('qualifications.index')->with('success', 'You have deleted the qualification successfully');
   }
 
-  /**
-   * Get the major based on the domain selecting using ajax
-   */
-  public function major($firstLetter){
-    $major = DB::select('SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?,?);', [$firstLetter,"%01"]);
-    return json_encode($major);
-  }
-
-  public function minor($code){
-    $minor = DB::select("SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?, ?);", [$code, "%"]);
-    return json_encode($minor);
-  }
-
-  public function getLink(string $id){
+  public function getLink(string $id)
+  {
     $link = Attachment::where('user_id', auth()->user()->id)
     ->where('attachmentable_type', 'App\Models\Qualification')
     ->where('attachmentable_id', $id)
@@ -199,5 +190,19 @@ class QualificationController extends Controller
       return redirect("storage/".$link->link);
     }
     return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
-    }
+  }
+
+  public function major($code)
+  {
+    $major = DB::select('SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?,?);', [$code,"%01"]);
+    return json_encode($major);
+  }
+
+  public function minor($id)
+  {
+    $code = DB::table('_specialties')->where('id', $id)->value('code');
+    $code = substr($code, 0, 2);
+    $minor = DB::select("SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?, ?);", [$code, "%"]);
+    return json_encode($minor);
+  }
 }

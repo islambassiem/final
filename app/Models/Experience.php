@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use App\Models\Tables\AcademicRank;
-use App\Models\Tables\AcademicSection;
-use App\Models\Tables\AccommodationStatus;
-use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\City;
 use App\Models\Tables\College;
-use App\Models\Tables\EmploymentStatus;
 use App\Models\Tables\JobType;
-use App\Models\Tables\ProfessionalRank;
 use App\Models\Tables\Specialty;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tables\AcademicRank;
+use App\Models\Tables\AcademicSection;
+use App\Models\Tables\EmploymentStatus;
+use App\Models\Tables\ProfessionalRank;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Tables\AppointmentStatus;
+use App\Models\Tables\AccommodationStatus;
+use App\Models\Tables\EducationalInstitution;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Experience extends Model
 {
@@ -31,7 +32,7 @@ class Experience extends Model
 
   public function institution()
   {
-    return $this->belongsTo(Institution::class);
+    return $this->belongsTo(EducationalInstitution::class, 'institution_id', 'id');
   }
 
   public function college()
@@ -51,12 +52,12 @@ class Experience extends Model
 
   public function major()
   {
-    return $this->belongsTo(Specialty::class, 'major_id', 'code');
+    return $this->belongsTo(Specialty::class, 'major_id', 'id');
   }
 
   public function minor()
   {
-    return $this->belongsTo(Specialty::class, 'minor_id', 'code');
+    return $this->belongsTo(Specialty::class, 'minor_id', 'id');
   }
 
   public function academicRank()

@@ -38,31 +38,31 @@ class Qualification extends Model
   ];
 
   public function qualificationName(){
-    return $this->belongsTo(TablesQualification::class, 'qualification', 'code');
+    return $this->belongsTo(TablesQualification::class, 'qualification', 'id');
   }
 
   public function major(){
-    return $this->belongsTo(Specialty::class, 'major_id', 'code');
+    return $this->belongsTo(Specialty::class, 'major_id', 'id');
   }
 
   public function minor(){
-    return $this->belongsTo(Specialty::class, 'minor_id', 'code');
+    return $this->belongsTo(Specialty::class, 'minor_id', 'id');
   }
 
   public function studyType(){
-    return $this->belongsTo(StudyType::class, 'study_type', 'code');
+    return $this->belongsTo(StudyType::class, 'study_type', 'id');
   }
 
   public function studyNature(){
-    return $this->belongsTo(StudyNature::class, 'study_nature', 'code');
+    return $this->belongsTo(StudyNature::class, 'study_nature', 'id');
   }
 
   public function GPAType(){
-    return $this->belongsTo(GPATypes::class, 'gpa_type', 'code');
+    return $this->belongsTo(GPATypes::class, 'gpa_type', 'id');
   }
 
   public function ratings(){
-    return $this->belongsTo(Rating::class, 'rating', 'code');
+    return $this->belongsTo(Rating::class, 'rating', 'id');
   }
 
   public function attachment(){
