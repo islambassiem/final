@@ -15,7 +15,7 @@
 @endsection
 
 @section('breadcrumb')
-  {{ __('Experience / Add') }}
+  {{ __('Experience / Edit') }}
 @endsection
 
 @section('content')
@@ -29,6 +29,15 @@
         </ul>
       </div>
     @endif
+    <div class="row">
+      <div class="col d-flex justify-content-end mb-3">
+        <a href="{{ route('qualifications.index') }}"
+          class="btn btn-danger">
+          <i class="bi bi-x-octagon-fill me-1"></i>
+          {{ __('Cancel') }}
+        </a>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -44,8 +53,9 @@
             </div>
 
 
-            <form action="{{ route('experience.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('experience.update', $e) }}" method="POST" enctype="multipart/form-data">
               @csrf
+              @method('PUT')
               <div class="row g-3 mt-3" id="phase1">
 
                 <div class="row py-2">
@@ -147,7 +157,7 @@
                     <div class="col-md-4">
                       <label for="appointment_type_id" class="form-label">{{ __('Appointment Type') }}</label>
                       <select id="appointment_type_id" class="form-select" name="appointment_type_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option disabled>{{ __('Choose...') }}</option>
                         @foreach ($appointment_types as $type)
                           <option value="{{ $type->id }}" @selected($type->id == old('appointment_type_id', $e->appointment_type_id))>{{  $type->{'appointment_type' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
@@ -478,7 +488,14 @@
         }
       })
 
-      $('select').append("<option selected disabled>{{ __('Choose...') }}</option>");
+      $('#institution_id').append("<option selected value='{{ $e->institution_id }}'>{{ $e->institution->{'institute' . session('_lang')} }}</option>");
+      $('#college_id').append("<option selected value='{{ $e->college_id }}'>{{ $e->college->{'college' . session('_lang')} }}</option>");
+      $('#department_major').append("<option selected disabled>{{ __('Choose...') }}</option>");
+      $('#department_minor').append("<option selected value='{{ $e->section_id }}'>{{ $e->section->{'section' . session('_lang')} }}</option>");
+      $('#governorate').append("<option selected disabled>{{ __('Choose...') }}</option>");
+      $('#city').append("<option selected value='{{ $e->city_id }}'>{{ $e->city->{'city' . session('_lang')} }}</option>");
+      $('#major').append("<option selected value='{{ $e->major_id }}'>{{ $e->major->{'specialty' . session('_lang')} }}</option>");
+      $('#minor').append("<option selected value='{{ $e->minor_id }}'>{{ $e->minor->{'specialty' . session('_lang')} }}</option>");
     });
   </script>
 @endsection

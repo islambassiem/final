@@ -73,7 +73,8 @@ class ExperienceController extends Controller
   public function show(Experience $experience)
   {
     return view('experience.show', [
-      'experience' => $experience
+      'experience' => $experience,
+      'link' => false
     ]);
   }
 
@@ -101,9 +102,10 @@ class ExperienceController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(ExperienceRequest $request, string $id)
+  public function update(ExperienceRequest $request, Experience $experience)
   {
-    //
+    $experience->update($request->validated());
+    return redirect()->route('experience.index')->with('success', 'You have updated the experience successfully');
   }
 
   /**
@@ -121,8 +123,8 @@ class ExperienceController extends Controller
   }
 
   public function governorate($id){
-    $governorates = DB::select('SELECT * FROM _cities WHERE code LIKE CONCAT(?, ?) AND code NOT LIKE CONCAT(?, ?);', [$id, "__000", $id,"00000"]);
-    return json_encode($governorates);
+    $governorate = DB::select('SELECT * FROM _cities WHERE code LIKE CONCAT(?, ?) AND code NOT LIKE CONCAT(?, ?);', [$id, "__000", $id,"00000"]);
+    return json_encode($governorate);
   }
 
   public function city($id){

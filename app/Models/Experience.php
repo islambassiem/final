@@ -32,61 +32,85 @@ class Experience extends Model
 
   public function institution()
   {
-    return $this->belongsTo(EducationalInstitution::class, 'institution_id', 'id');
+    return $this->belongsTo(EducationalInstitution::class, 'institution_id', 'id')->withDefault([
+      'institute' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function college()
   {
-    return $this->belongsTo(College::class);
+    return $this->belongsTo(College::class)->withDefault([
+      'college' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function city()
   {
-    return $this->belongsTo(City::class);
+    return $this->belongsTo(City::class)->withDefault([
+      'city' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function section()
   {
-    return $this->belongsTo(AcademicSection::class);
+    return $this->belongsTo(AcademicSection::class)->withDefault([
+      'section' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function major()
   {
-    return $this->belongsTo(Specialty::class, 'major_id', 'id');
+    return $this->belongsTo(Specialty::class, 'major_id', 'id')->withDefault([
+      'specialty' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function minor()
   {
-    return $this->belongsTo(Specialty::class, 'minor_id', 'id');
+    return $this->belongsTo(Specialty::class, 'minor_id', 'id')->withDefault([
+      'specialty' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function academicRank()
   {
-    return $this->belongsTo(AcademicRank::class);
+    return $this->belongsTo(AcademicRank::class)->withDefault([
+      'rank' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function professionalRank()
   {
-    return $this->belongsTo(ProfessionalRank::class);
+    return $this->belongsTo(ProfessionalRank::class)->withDefault([
+      'rank' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function appointment()
   {
-    return $this->belongsTo(AppointmentStatus::class, 'appointment_type_id', 'id');
+    return $this->belongsTo(AppointmentStatus::class, 'appointment_type_id', 'id')->withDefault([
+      'appointment_type' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function employment()
   {
-    return $this->belongsTo(EmploymentStatus::class, 'employment_status_id', 'id');
+    return $this->belongsTo(EmploymentStatus::class, 'employment_status_id', 'id')->withDefault([
+      'employment_status' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function jobType()
   {
-    return $this->belongsTo(JobType::class, 'job_type_id', 'id');
+    return $this->belongsTo(JobType::class, 'job_type_id', 'id')->withDefault([
+      'job_type' . session('_lang') => __('N/A')
+    ]);
   }
 
   public function accommodation()
   {
-    return $this->belongsTo(AccommodationStatus::class, 'accommodation_status_id', 'id');
+    return $this->belongsTo(AccommodationStatus::class, 'accommodation_status_id', 'id')->withDefault([
+      'accommodation_status' . session('_lang') => __('N/A')
+    ]);
   }
 }
