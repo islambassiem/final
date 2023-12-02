@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/qualifications.form.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
 @endsection
 
 @section('h1')
@@ -83,10 +84,10 @@
 
                 <div class="col-md-4">
                   <label for="study_natures" class="form-label">{{ __('Study Nature') }}</label>
-                  <select id="study_natures" class="form-select" name="study_natures">
+                  <select id="study_natures" class="form-select" name="study_nature">
                     <option disabled>{{ __('Choose...') }}</option>
                     @foreach ($study_natures as $type)
-                      <option value="{{ $type->code }}" @selected($type->code == old('study_natures', $q->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
+                      <option value="{{ $type->code }}" @selected($type->code == old('study_nature', $q->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -200,7 +201,13 @@
                   <div class="col-md-12">
                     <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                     <div class="col-sm-12">
-                      <input class="form-control" type="file" id="attachment" name="attachment">
+                      <input
+                      type="file"
+                      class="dropify"
+                      id="attachment"
+                      name="attachment"
+                      data-height="100"
+                      accept="image/*, .pdf">
                     </div>
                   </div>
                 @endif
@@ -224,6 +231,7 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/js/qualifications.form.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script>
     $(document).ready(function (){
       $('#domain').on('change.select2', function(e){
@@ -278,6 +286,15 @@
       })
       $('#major').append("<option value='{{ old('>major_id',$q->major_id) }}' selected>{{ $q->major->{'specialty' . session('_lang')} }}</option>");
       $('#minor').append("<option value='{{ old('>minor_id',$q->minor_id)}}' selected>{{ $q->minor->{'specialty' . session('_lang')} }}</option>");
+
+      $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
+      })
     });
   </script>
 @endsection

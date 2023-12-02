@@ -21,4 +21,8 @@ class OtherExperience extends Model
   public function country(){
     return $this->belongsTo(Country::class);
   }
+
+  public function attachment(){
+    return $this->morphOne(Attachment::class, 'attachmentable');
+  }
 }

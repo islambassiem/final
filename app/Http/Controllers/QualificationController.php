@@ -53,33 +53,21 @@ class QualificationController extends Controller
    */
   public function store(QualificationRequest $request)
   {
-    Qualification::create([
-      "user_id" => auth()->user()->id,
-      "qualification" => $request->qualification,
-      "study_type" => $request->study_type,
-      "study_nature" => $request->study_natures,
-      "graduation_date" => $request->graduation_date,
-      "graduation_university" => $request->graduation_university,
-      "graduation_college"=> $request->graduation_college,
-      "graduation_country"=> $request->graduation_country,
-      "city"=> $request->city,
-      "attested"=> $request->attested == 'on' ? '1' : '0',
-      "thesis"=> $request->thesis,
-      "major_id"=> $request->major_id,
-      "minor_id"=> $request->minor_id,
-      "gpa"=> $request->gpa,
-      "gpa_type"=> $request->gpa_type,
-      "rating"=> $request->rating,
-    ]);
+    $validated = $request->validated();
+    $validated['user_id'] = auth()->user()->id;
+    $validated['attested'] = $request->attested == 'on' ? '1' : '0';
+    Qualification::create($validated);
+    $latest = Qualification::latest('created_at')->first();
     if($request->hasFile('attachment')){
-      $latest = Qualification::latest('created_at')->first();
-      $filepath = $request->file('attachment')->store(auth()->user()->id, 'public');
-      $latest->attachment()->create([
-        'user_id' => auth()->user()->id,
-        'attachment_type' => '4',
-        'link' => $filepath,
-        'title' => 'qualification'
-      ]);
+      foreach ($request->file('attachment') as $attachment) {
+        $filepath = $attachment->store(auth()->user()->id . '/qualifications', 'public');
+        $latest->attachment()->create([
+          'user_id' => auth()->user()->id,
+          'attachment_type' => '4',
+          'link' => $filepath,
+          'title' => 'qualification'
+        ]);
+      }
     }
     return redirect()->route('qualifications.index')
       ->with('success', __('You have added your qualification successfully'));
@@ -119,24 +107,10 @@ class QualificationController extends Controller
    */
   public function update(QualificationRequest $request, string $id)
   {
-    // return dd($request->thesis);
-    Qualification::find($id)->update([
-      "qualification" => $request->qualification,
-      "study_type"=> $request->study_type,
-      "study_nature" => $request->study_natures,
-      "graduation_date"=> $request->graduation_date,
-      "graduation_university"=> $request->graduation_university,
-      "graduation_college"=> $request->graduation_college,
-      "graduation_country"=> $request->graduation_country,
-      "city"=> $request->city,
-      "attested"=> $request->attested == 'on' ? '1' : '0',
-      "thesis"=> $request->thesis,
-      "major_id"=> $request->major_id,
-      "minor_id"=> $request->minor_id,
-      "gpa"=> $request->gpa,
-      "gpa_type"=> $request->gpa_type,
-      "rating"=> $request->rating,
-    ]);
+    $validated = $request->validated();
+    $validated['user_id'] = auth()->user()->id;
+    $validated['attested'] = $request->attested == 'on' ? '1' : '0';
+    Qualification::find($id)->update($validated);
     if($request->hasFile('attachment')){
       $filepath = $request->file('attachment')->store(auth()->user()->id, 'public');
       Qualification::find($id)->attachment()->create([
@@ -156,11 +130,13 @@ class QualificationController extends Controller
   {
     Qualification::find($id)->delete();
     $file = $this->getLink($id);
-    $attachment = Attachment::where('user_id', auth()->user()->id)
+    $attachments = Attachment::where('user_id', auth()->user()->id)
     ->where('attachmentable_type', 'App\Models\Qualification')
-    ->where('attachmentable_id', $id)->first();
-    if($attachment){
-      $attachment->delete();
+    ->where('attachmentable_id', $id)->get();
+    if($attachments){
+      foreach ($attachments as $attachment) {
+        $attachment->delete();
+      }
     }
     if($file){
       unlink($file);

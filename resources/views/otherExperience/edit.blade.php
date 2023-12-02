@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+
 @endsection
 
 @section('h1')
@@ -99,6 +101,22 @@
                   </div>
                 </div>
               </div>
+
+              @if (!$link)
+              <div class="col-md-12">
+                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <div class="col-sm-12">
+                  <input
+                  type="file"
+                  class="dropify"
+                  id="attachment"
+                  name="attachment"
+                  data-height="100"
+                  accept="image/*, .pdf">
+                </div>
+              </div>
+            @endif
+
               <div class="row">
                 <div class="col">
                   <div class="my-3">
@@ -171,6 +189,8 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/js/rich-format-text.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
+
   <script>
     $(document).ready(function (){
       $("#country_id_add").select2();
@@ -182,6 +202,15 @@
     document.getElementsByTagName("form")[0].addEventListener("submit", function () {
       document.getElementById("functional_tasks").value = document.getElementById("text-input").innerHTML;
     });
+
+    $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
+      })
 
   </script>
 @endsection

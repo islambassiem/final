@@ -74,10 +74,10 @@
 
                 <div class="col-md-4">
                   <label for="study_natures" class="form-label">{{ __('Study Nature') }}</label>
-                  <select id="study_natures" class="form-select" name="study_natures">
+                  <select id="study_natures" class="form-select" name="study_nature">
                     <option selected disabled>{{ __('Choose...') }}</option>
                     @foreach ($study_natures as $type)
-                      <option value="{{ $type->id }}" @selected($type->id == old('study_natures', $qualification->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
+                      <option value="{{ $type->id }}" @selected($type->id == old('study_nature', $qualification->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -190,10 +190,11 @@
                   <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                   <div class="col-sm-12">
                     <input
+                      multiple
                       type="file"
                       class="dropify"
                       id="attachment"
-                      name="attachment"
+                      name="attachment[]"
                       data-height="100"
                       accept="image/*, .pdf">
                   </div>

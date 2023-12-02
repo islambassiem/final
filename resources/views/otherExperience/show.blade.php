@@ -86,6 +86,24 @@
         </div>
       </div>
     </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ __('Attachment') }}</h5>
+          @if ($link)
+            <div class="fs-1 text-center" style="cursor: pointer;">
+              <a href="{{ url($link) }}" target="_blank" class="d-flex justify-content-center">
+                <i class="bi bi-paperclip"></i>
+              </a>
+            </div>
+          @else
+            <div class="alert alert-danger text-center">
+              {{ __("No Attachments") }}
+            </div>
+          @endif
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col">

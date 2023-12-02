@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Experience;
 use App\Models\Tables\City;
 use Illuminate\Http\Request;
+use App\Models\Tables\College;
+use App\Models\Tables\JobType;
+use App\Models\Tables\Specialty;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tables\AcademicRank;
 use App\Models\Tables\AcademicSection;
@@ -13,10 +17,7 @@ use App\Models\Tables\ProfessionalRank;
 use App\Http\Requests\ExperienceRequest;
 use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\AccommodationStatus;
-use App\Models\Tables\College;
 use App\Models\Tables\EducationalInstitution;
-use App\Models\Tables\JobType;
-use App\Models\Tables\Specialty;
 
 class ExperienceController extends Controller
 {
@@ -64,6 +65,18 @@ class ExperienceController extends Controller
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
     Experience::create($validated);
+    $latest = Experience::latest('created_at')->first();
+    if($request->hasFile('attachment')){
+      foreach ($request->file('attachment') as $attachment) {
+        $filepath = $attachment->store(auth()->user()->id . '/experiences', 'public');
+        $latest->attachment()->create([
+          'user_id' => auth()->user()->id,
+          'attachment_type' => '5',
+          'link' => $filepath,
+          'title' => 'experience'
+        ]);
+      }
+    }
     return redirect()->route('experience.index')->with('success', 'You have added your experience successfully');
   }
 
@@ -72,9 +85,10 @@ class ExperienceController extends Controller
    */
   public function show(Experience $experience)
   {
+    $link = $this->getLink($experience->id);
     return view('experience.show', [
       'experience' => $experience,
-      'link' => false
+      'link' => $link
     ]);
   }
 
@@ -111,9 +125,21 @@ class ExperienceController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Experience $experience)
+  public function destroy(string $id)
   {
-    $experience->delete();
+    Experience::find($id)->delete();
+    $file = $this->getLink($id);
+    $attachments = Attachment::where('user_id', auth()->user()->id)
+    ->where('attachmentable_type', 'App\Models\Experience')
+    ->where('attachmentable_id', $id)->get();
+    if($attachments){
+      foreach ($attachments as $attachment) {
+        $attachment->delete();
+      }
+    }
+    if($file){
+      unlink($file);
+    }
     return redirect()->route('experience.index')->with('success', __('You have deleted the experience successfully'));
   }
 
@@ -147,5 +173,29 @@ class ExperienceController extends Controller
     $code = substr($code, 0, 2);
     $department_minor = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?)", [$code, '%']);
     return json_encode($department_minor);
+  }
+
+  public function getLink(string $id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+    ->where('attachmentable_type', 'App\Models\Experience')
+    ->where('attachmentable_id', $id)
+    ->first('link');
+    if($link){
+      return "storage/" . $link->link;
+    }
+    return false;
+  }
+
+  public function getAttachment($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Experience')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return redirect("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }
 }

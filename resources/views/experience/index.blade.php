@@ -83,6 +83,11 @@
                           data-bs-target="#delteConfirmation">
                           <i class="bi bi-trash3"></i>
                         </button>
+                        <a
+                        href="{{ route('experience.attachment', $experience->id) }}"
+                        class="btn btn-info btn-sm py-0">
+                        <i class="bi bi-paperclip"></i>
+                      </a>
                       </td>
                     </tr>
                     @php $c++; @endphp

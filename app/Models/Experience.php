@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Attachment;
 use App\Models\Tables\City;
 use App\Models\Tables\College;
 use App\Models\Tables\JobType;
@@ -112,5 +113,9 @@ class Experience extends Model
     return $this->belongsTo(AccommodationStatus::class, 'accommodation_status_id', 'id')->withDefault([
       'accommodation_status' . session('_lang') => __('N/A')
     ]);
+  }
+
+  public function attachment(){
+    return $this->morphOne(Attachment::class, 'attachmentable');
   }
 }

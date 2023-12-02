@@ -14,6 +14,7 @@ use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
+use App\Models\Experience;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 
 // Qualification
   Route::resource('qualifications', QualificationController::class);
-  Route::get('/attachment/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
+  Route::get('/attachment/qualification/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
 // Qualification
 
 Route::post('/major/{code}', [QualificationController::class, 'major']);
@@ -49,7 +50,10 @@ Route::resource('acquaintances', AcquaintanceController::class);
 Route::resource('achievements', AchievementController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('research', ResearchController::class);
+
+
 Route::resource('other_experience', OtherExperienceController::class);
+Route::get('/attachment/other/experience/{id}', [OtherExperienceController::class, 'getAttachment'])->name('other.experience.attachment');
 
 
 // Experience
@@ -60,4 +64,6 @@ Route::post('city/{code}', [ExperienceController::class, 'city']);
 Route::post('colleges/{code}', [ExperienceController::class, 'colleges']);
 Route::post('department_major/{code}', [ExperienceController::class, 'department_major']);
 Route::post('department_minor/{code}', [ExperienceController::class, 'department_minor']);
+Route::get('/attachment/experience/{id}', [ExperienceController::class, 'getAttachment'])->name('experience.attachment');
+
 // Experience

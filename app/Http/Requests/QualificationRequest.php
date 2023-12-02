@@ -24,7 +24,7 @@ class QualificationRequest extends FormRequest
     return [
       'qualification' => 'required',
       'study_type' => 'required',
-      'study_natures' => 'required',
+      'study_nature' => 'required',
       'graduation_date' => 'required',
       'graduation_university' => 'required',
       'graduation_college' => 'required',
@@ -36,7 +36,7 @@ class QualificationRequest extends FormRequest
       'gpa'=> 'required',
       'gpa_type' => 'required',
       'rating' => 'required',
-      'attachment' => 'nullable|file|mimes:png,jpg,pdf|max:2048'
+      'attachment.*' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
 
@@ -45,7 +45,7 @@ class QualificationRequest extends FormRequest
     return [
       'qualification.required' => __('The Qualification is required'),
       'study_type.required' => __('The study type is required'),
-      'study_natures.required' => __('The nature of the study is required'),
+      'study_nature.required' => __('The nature of the study is required'),
       'graduation_date.required' => __('The graduation date is required'),
       'graduation_university.required' => __('The graduation University is required'),
       'graduation_college.required' => __('The graduation college is required'),

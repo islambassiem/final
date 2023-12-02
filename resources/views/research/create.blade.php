@@ -29,10 +29,6 @@
       overflow: auto;
       border-radius: 5px;
     }
-
-    #text-input{
-      height: 30vh
-    }
   </style>
 @endsection
 
