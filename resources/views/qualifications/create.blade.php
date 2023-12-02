@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/qualifications.form.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
 @endsection
 
 @section('h1')
@@ -188,7 +189,13 @@
                 <div class="col-md-12">
                   <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                   <div class="col-sm-12">
-                    <input class="form-control" type="file" id="attachment" name="attachment">
+                    <input
+                      type="file"
+                      class="dropify"
+                      id="attachment"
+                      name="attachment"
+                      data-height="100"
+                      accept="image/*, .pdf">
                   </div>
                 </div>
 
@@ -211,6 +218,7 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/js/qualifications.form.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script>
     $(document).ready(function (){
       $('#domain').on('change.select2', function(e){
@@ -264,6 +272,16 @@
       })
       $('#major').append("<option selected disabled>{{ __('Choose...') }}</option>");
       $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+
+      $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
+      });
+
     });
   </script>
 @endsection
