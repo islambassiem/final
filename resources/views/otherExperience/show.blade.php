@@ -94,9 +94,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Tasks') }}</h5>
-              @foreach (explode("\r\n", $experience->functional_tasks) as $element)
-                <div class="my-2">{{ $element }}</div>
-              @endforeach
+                <div>@php echo $experience->functional_tasks @endphp</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>

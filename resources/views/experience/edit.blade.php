@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/qualifications.form.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+  <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
 @endsection
 
 @section('h1')
@@ -31,7 +33,7 @@
     @endif
     <div class="row">
       <div class="col d-flex justify-content-end mb-3">
-        <a href="{{ route('qualifications.index') }}"
+        <a href="{{ route('experience.index') }}"
           class="btn btn-danger">
           <i class="bi bi-x-octagon-fill me-1"></i>
           {{ __('Cancel') }}
@@ -253,8 +255,55 @@
                 <div class="row">
                   <div class="col">
                     <div class="my-3">
+                      {{-- <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
+                      <textarea class="form-control" id="tasks" rows="11" name="tasks">{{ old('tasks', $e->tasks) }}</textarea> --}}
                       <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
-                      <textarea class="form-control" id="tasks" rows="11" name="tasks">{{ old('tasks', $e->tasks) }}</textarea>
+											<div class="options">
+												<!-- Text Format -->
+												<button type="button" id="bold" class="option-button format button">
+													<i class="fa-solid fa-bold"></i>
+												</button>
+												<button type="button" id="italic" class="option-button format button">
+													<i class="fa-solid fa-italic"></i>
+												</button>
+												<button type="button" id="underline" class="option-button format button">
+													<i class="fa-solid fa-underline"></i>
+												</button>
+												<button type="button" id="superscript" class="option-button script button">
+													<i class="fa-solid fa-superscript"></i>
+												</button>
+												<button type="button" id="subscript" class="option-button script button">
+													<i class="fa-solid fa-subscript"></i>
+												</button>
+
+												<!-- List -->
+												<button type="button" id="insertOrderedList" class="option-button button">
+													<div class="fa-solid fa-list-ol"></div>
+												</button>
+
+												<!-- Alignment -->
+												<button type="button" id="justifyLeft" class="option-button align button">
+													<i class="fa-solid fa-align-left"></i>
+												</button>
+												<button type="button" id="justifyCenter" class="option-button align button">
+													<i class="fa-solid fa-align-center"></i>
+												</button>
+												<button type="button" id="justifyRight" class="option-button align button">
+													<i class="fa-solid fa-align-right"></i>
+												</button>
+												<button type="button" id="justifyFull" class="option-button align button">
+													<i class="fa-solid fa-align-justify"></i>
+												</button>
+												<button type="button" id="indent" class="option-button spacing button">
+													<i class="fa-solid fa-indent"></i>
+												</button>
+												<button type="button" id="outdent" class="option-button spacing button">
+													<i class="fa-solid fa-outdent"></i>
+												</button>
+
+											</div>
+											<div id="text-input" contenteditable="true"></div>
+                      <input type="hidden" class="form-control" id="tasks" name="tasks" value='{{ old('tasks', $e->tasks) }} '>
                     </div>
                   </div>
                 </div>
@@ -276,6 +325,7 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/js/qualifications.form.js') }}"></script>
+  <script src="{{ asset('assets/js/rich-format-text.js') }}"></script>
   <script>
     $(document).ready(function (){
       $('#institutions').on('change.select2', function(e){
@@ -496,6 +546,11 @@
       $('#city').append("<option selected value='{{ $e->city_id }}'>{{ $e->city->{'city' . session('_lang')} }}</option>");
       $('#major').append("<option selected value='{{ $e->major_id }}'>{{ $e->major->{'specialty' . session('_lang')} }}</option>");
       $('#minor').append("<option selected value='{{ $e->minor_id }}'>{{ $e->minor->{'specialty' . session('_lang')} }}</option>");
+      // $('#text-input').html("{{ old('tasks', $e->tasks) }}");
+      document.getElementById('text-input').innerHTML = document.getElementById('tasks').value;
+      document.getElementsByTagName("form")[0].addEventListener("submit", function () {
+        document.getElementById("tasks").value = document.getElementById("text-input").innerHTML;
+      });
     });
   </script>
 @endsection

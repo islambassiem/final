@@ -47,7 +47,7 @@
       <div class="card">
         <div class="card-body pb-0">
             <h5 class="card-title pb-1">{{ __('Research Title') }}</h5>
-            <div class="pb-3">{{ $research->title }}</div>
+            <div class="pb-3">@php echo $research->title @endphp</div>
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Summary') }}</h5>
-              <div>{{ $research->summary }}</div>
+              <div>@php echo $research->summary @endphp</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>
@@ -197,7 +197,7 @@
           <form method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the qualification and its related document?') }}
+            {{ __('Are you sure you want to delete the research?') }}
           </form>
         </div>
         <div class="modal-footer">
@@ -218,7 +218,7 @@
         let button = $(event.relatedTarget);
         let id = button.data('id');
         let form = document.getElementById('deleteForm');
-        form.action = "../qualifications/" + id;
+        form.action = "../research/" + id;
         console.log(form.action);
       });
     });

@@ -7,6 +7,8 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+  <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
 
   <style>
     .book, .research{
@@ -17,6 +19,19 @@
     }
     #progressBar{
       width: 50%;
+    }
+
+    #text-input-title{
+      margin-top: 10px;
+      border: 1px solid #dddddd;
+      padding: 6px 10px;
+      height: 38px;
+      overflow: auto;
+      border-radius: 5px;
+    }
+
+    #text-input{
+      height: 30vh
     }
   </style>
 @endsection
@@ -63,9 +78,18 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
-                        <label for="title" class="form-label">{{ __('Research Title') }}</label>
-                        <input type="text" class="form-control" name="title" value="{{ old('title') }}" id="title">
-                        <span class="text-secondary"><small id="small"></small></span>
+                        <div for="title" class="form-label" role="label">{{ __('Research Title') }}</div>
+                        <div class="options">
+                          <button type="button" id="superscript" class="option-button script button">
+                            <i class="fa-solid fa-superscript"></i>
+                          </button>
+                          <button type="button" id="subscript" class="option-button script button">
+                            <i class="fa-solid fa-subscript"></i>
+                          </button>
+                        </div>
+                        <div id="text-input-title" contenteditable="true"></div>
+                        <input id="title" type="hidden" class="form-control" name="title" value="{{ old('title') }}" >
+                        {{-- <span class="text-secondary"><small id="small"></small></span> --}}
                       </div>
                     </div>
                   </div>
@@ -199,7 +223,16 @@
                   <div class="col">
                     <div class="my-3">
                       <label for="summary" class="form-label">{{ __('Research Summary') }}</label>
-                      <textarea class="form-control" id="summary" rows="11" name="summary">{{ old('summary') }}</textarea>
+                      <div class="options">
+                        <button type="button" id="superscript" class="option-button script button">
+                          <i class="fa-solid fa-superscript"></i>
+                        </button>
+                        <button type="button" id="subscript" class="option-button script button">
+                          <i class="fa-solid fa-subscript"></i>
+                        </button>
+                      </div>
+                      <div id="text-input" contenteditable="true"></div>
+                      <input type="hidden" id="summary" name="summary" value="{{ old('summary') }}">
                     </div>
                   </div>
                 </div>
@@ -219,6 +252,7 @@
 @section('script')
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/rich-format-text.js') }}"></script>
   <script>
     $(document).ready(function (){
       $('select').select2();
@@ -235,15 +269,15 @@
         }
       });
 
-      let title = document.getElementById('title');
-      let small = document.getElementById('small');
+      // let title = document.getElementById('title');
+      // let small = document.getElementById('small');
 
-      title.addEventListener('keyup', function(){
-        let char = this.value.length;
-        small.innerHTML = `Max characters ${char} / 255`;
-      });
+      // title.addEventListener('keyup', function(){
+      //   let char = this.value.length;
+      //   small.innerHTML = `Max characters ${char} / 255`;
+      // });
 
-      small.innerHTML = `Max characters ${title.value.length} / 255`;
+      // small.innerHTML = `Max characters ${title.value.length} / 255`;
 
       document.getElementById('next1').addEventListener('click', () => {
         document.getElementById('phase1').style.display = "none";
@@ -261,6 +295,14 @@
 
       document.getElementById('submit').addEventListener('click', function(){
         document.getElementsByTagName('form')[0].submit();
+      });
+
+      document.getElementById('text-input-title').innerHTML = document.getElementById('title').value;
+      document.getElementById('text-input').innerHTML = document.getElementById('summary').value;
+
+      document.getElementsByTagName("form")[0].addEventListener("submit", function () {
+        document.getElementById("title").value = document.getElementById("text-input-title").innerHTML;
+        document.getElementById("summary").value = document.getElementById("text-input").innerHTML;
       });
     });
   </script>

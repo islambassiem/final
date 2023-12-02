@@ -22,7 +22,6 @@ class OtherExperienceRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
       'profession' => 'required',
       'organization_name'=> 'required',
       'country_id' => 'required',

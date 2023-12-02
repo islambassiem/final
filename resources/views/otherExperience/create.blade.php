@@ -7,6 +7,8 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+  <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
 @endsection
 
 @section('h1')
@@ -39,7 +41,6 @@
           <form action="{{ route('other_experience.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="container">
-              <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
@@ -101,7 +102,52 @@
                 <div class="col">
                   <div class="my-3">
                     <label for="functional_tasks" class="form-label">{{ __('Tasks') }}</label>
-                    <textarea class="form-control" id="functional_tasks" rows="5" name="functional_tasks">{{ old('functional_tasks') }}</textarea>
+                    <div class="options">
+                      <!-- Text Format -->
+                      <button type="button" id="bold" class="option-button format button">
+                        <i class="fa-solid fa-bold"></i>
+                      </button>
+                      <button type="button" id="italic" class="option-button format button">
+                        <i class="fa-solid fa-italic"></i>
+                      </button>
+                      <button type="button" id="underline" class="option-button format button">
+                        <i class="fa-solid fa-underline"></i>
+                      </button>
+                      <button type="button" id="superscript" class="option-button script button">
+                        <i class="fa-solid fa-superscript"></i>
+                      </button>
+                      <button type="button" id="subscript" class="option-button script button">
+                        <i class="fa-solid fa-subscript"></i>
+                      </button>
+
+                      <!-- List -->
+                      <button type="button" id="insertOrderedList" class="option-button button">
+                        <div class="fa-solid fa-list-ol"></div>
+                      </button>
+
+                      <!-- Alignment -->
+                      <button type="button" id="justifyLeft" class="option-button align button">
+                        <i class="fa-solid fa-align-left"></i>
+                      </button>
+                      <button type="button" id="justifyCenter" class="option-button align button">
+                        <i class="fa-solid fa-align-center"></i>
+                      </button>
+                      <button type="button" id="justifyRight" class="option-button align button">
+                        <i class="fa-solid fa-align-right"></i>
+                      </button>
+                      <button type="button" id="justifyFull" class="option-button align button">
+                        <i class="fa-solid fa-align-justify"></i>
+                      </button>
+                      <button type="button" id="indent" class="option-button spacing button">
+                        <i class="fa-solid fa-indent"></i>
+                      </button>
+                      <button type="button" id="outdent" class="option-button spacing button">
+                        <i class="fa-solid fa-outdent"></i>
+                      </button>
+
+                    </div>
+                    <div id="text-input" contenteditable="true"></div>
+                    <input type="hidden" class="form-control" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks') }}">
                   </div>
                 </div>
               </div>
@@ -123,11 +169,17 @@
 @section('script')
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/js/rich-format-text.js') }}"></script>
   <script>
     $(document).ready(function (){
       $("#country_id_add").select2();
       $("#type_add").select2();
     });
 
+    document.getElementById('text-input').innerHTML = document.getElementById('functional_tasks').value;
+
+    document.getElementsByTagName("form")[0].addEventListener("submit", function () {
+      document.getElementById("functional_tasks").value = document.getElementById("text-input").innerHTML;
+    });
   </script>
 @endsection

@@ -40,7 +40,9 @@ class OtherExperienceController extends Controller
    */
   public function store(OtherExperienceRequest $request)
   {
-    OtherExperience::create($request->validated());
+    $validated = $request->validated();
+    $validated['user_id'] =  auth()->user()->id;
+    OtherExperience::create($validated);
     return redirect()->route('other_experience.index')->with('success', __('You have added an experience outside KSA successfully'));
   }
 

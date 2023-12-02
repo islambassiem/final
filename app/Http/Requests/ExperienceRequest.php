@@ -37,7 +37,7 @@ class ExperienceRequest extends FormRequest
       'resignation_date' => 'required',
       'appointment_type_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'employment_status_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
-      'tasks' => 'required',
+      'tasks' => '',
       'job_type_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'accommodation_status_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id)
     ];

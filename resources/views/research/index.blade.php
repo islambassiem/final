@@ -62,7 +62,7 @@
                 @foreach ($research as $r)
                   <tr>
                     <td>{{ $c }}</td>
-                    <td style="width:50%">{{ $r->title }}</td>
+                    <td style="width:50%">@php echo $r->title  @endphp</td>
                     <td>{{ $r->progress->{'research_progress' . session('_lang')} }}</td>
                     <td>
                       <a

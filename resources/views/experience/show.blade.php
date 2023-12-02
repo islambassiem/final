@@ -167,7 +167,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Tasks') }}</h5>
-              <div>{{ $experience->tasks ?? __('N/A') }}</div>
+              <div>@php echo $experience->tasks @endphp</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>
