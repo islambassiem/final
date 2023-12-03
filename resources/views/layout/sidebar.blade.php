@@ -13,10 +13,15 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('dependents.*') || request()->routeIs('acquaintances.*') ? '' : 'collapsed'  }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <a class="nav-link {{ request()->routeIs('dependents.*') || request()->routeIs('acquaintances.*') || request()->routeIs('profile.*') ? '' : 'collapsed'  }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-layout-text-window-reverse"></i><span>{{ __('Personal') }}</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="tables-nav" class="nav-content collapse {{ request()->routeIs('dependents.*') || request()->routeIs('acquaintances.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+          <ul id="tables-nav" class="nav-content collapse {{ request()->routeIs('dependents.*') || request()->routeIs('acquaintances.*') || request()->routeIs('profile.*')? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{{ route('profile.index') }}" class="{{ Request::routeIs('profile.*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i><span>{{ __("Profile") }}</span>
+              </a>
+            </li>
             <li>
               <a href="{{ route('dependents.index') }}" class="{{ Request::routeIs('dependents.*') ? 'active' : '' }}">
                 <i class="bi bi-circle"></i><span>{{ __("Dependents") }}</span>

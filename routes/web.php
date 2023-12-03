@@ -14,6 +14,7 @@ use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Experience;
 
 /*
@@ -65,5 +66,8 @@ Route::post('colleges/{code}', [ExperienceController::class, 'colleges']);
 Route::post('department_major/{code}', [ExperienceController::class, 'department_major']);
 Route::post('department_minor/{code}', [ExperienceController::class, 'department_minor']);
 Route::get('/attachment/experience/{id}', [ExperienceController::class, 'getAttachment'])->name('experience.attachment');
-
 // Experience
+
+Route::resource('profile', ProfileController::class);
+Route::post('national/address', [ProfileController::class, 'storeNationalAddress'])->name('national.address');
+Route::post('national/address/edit/{id}', [ProfileController::class, 'updateNationalAddress'])->name('national.address.edit');

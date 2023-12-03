@@ -4,14 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\LookUps\Country;
-use App\Models\LookUps\Gender;
-use App\Models\LookUps\MaritalStatus;
-use App\Models\LookUps\Position;
-use App\Models\LookUps\Religion;
-use App\Models\LookUps\Section;
-use App\Models\LookUps\SpecialNeeds;
-use App\Models\LookUps\Sponsorship;
+use App\Models\Tables\Country;
+use App\Models\Tables\Gender;
+use App\Models\Tables\MaritalStatus;
+use App\Models\Tables\Position;
+use App\Models\Tables\Religion;
+use App\Models\Tables\Section;
+use App\Models\Tables\SpecialNeeds;
+use App\Models\Tables\Sponsorship;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -69,14 +69,14 @@ class User extends Authenticatable
     return 'assets/imgs/profile/default.jpeg';
   }
 
-  public function full_name_en(): Attribute
+  public function getFullEnglishNameAttribute(): Attribute
   {
     return new Attribute(
       get: fn () => ucwords($this->first_name_en . ' ' . $this->middle_name_en . ' ' . $this->third_name_en . ' ' . $this->family_name_en),
     );
   }
 
-  public function full_name_ar(): Attribute
+  public function getFullArabicNameAttribute(): Attribute
   {
     return new Attribute(
       get: fn () => $this->first_name_ar . ' ' . $this->middle_name_ar . ' ' . $this->third_name_ar . ' ' . $this->family_name_ar,
