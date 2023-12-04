@@ -68,6 +68,8 @@ Route::post('department_minor/{code}', [ExperienceController::class, 'department
 Route::get('/attachment/experience/{id}', [ExperienceController::class, 'getAttachment'])->name('experience.attachment');
 // Experience
 
-Route::resource('profile', ProfileController::class);
+Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::post('national/address', [ProfileController::class, 'storeNationalAddress'])->name('national.address');
 Route::post('national/address/edit/{id}', [ProfileController::class, 'updateNationalAddress'])->name('national.address.edit');
+Route::post('address', [ProfileController::class, 'storeAddress'])->name('address');
+Route::post('address/edit/{id}', [ProfileController::class, 'updateAddress'])->name('address.edit');

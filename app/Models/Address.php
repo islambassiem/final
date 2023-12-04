@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tables\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,4 +23,9 @@ class Address extends Model
     'zip_code',
     'secondary_number'
   ];
+
+  public function country()
+  {
+    return $this->belongsTo(Country::class);
+  }
 }
