@@ -73,3 +73,6 @@ Route::post('national/address', [ProfileController::class, 'storeNationalAddress
 Route::post('national/address/edit/{id}', [ProfileController::class, 'updateNationalAddress'])->name('national.address.edit');
 Route::post('address', [ProfileController::class, 'storeAddress'])->name('address');
 Route::post('address/edit/{id}', [ProfileController::class, 'updateAddress'])->name('address.edit');
+Route::post('edit/profile/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
+Route::delete('delete/picture/{empid}', [ProfileController::class, 'deletePicture'])->name('delete.picture');
+Route::post('upload/picture/{empid}', [ProfileController::class, 'uploadPicture'])->name('upload.picture');

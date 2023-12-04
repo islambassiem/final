@@ -34,28 +34,27 @@
     </div>
   @endif
 
+  @if (session('error'))
+    <div class="alert alert-danger">
+      {{ session('error') }}
+    </div>
+  @endif
+
   <section class="section profile">
     <div class="row">
-      <div class="col-xl-3">
+      <div class="col-xl-4">
 
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <h2>{{ $user->{'first_name' . session('_lang')} . ' ' . $user->{'family_name' . session('_lang')} }}</h2>
-            <h3>{{ $user->position->{'position'. session('_lang')} }}</h3>
-            <div class="social-links mt-2">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
+            <img src="{{ auth()->user()->picture() }}" alt="Profile" class="rounded-circle">
+            <h2 class="mt-2">{{ $user->{'first_name' . session('_lang')} . ' ' . $user->{'family_name' . session('_lang')} }}</h2>
+            <h3 class="mt-3">{{ $user->position->{'position'. session('_lang')} }}</h3>
           </div>
         </div>
 
       </div>
 
-      <div class="col-xl-9">
+      <div class="col-xl-8">
 
         <div class="card">
           <div class="card-body pt-3">
@@ -67,7 +66,7 @@
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">{{ __('Edit Profile') }}</button>
               </li>
 
               <li class="nav-item">
@@ -78,9 +77,9 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#national-address">{{ __('National Address') }}</button>
               </li>
 
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-              </li>
+              </li> --}}
 
             </ul>
             <div class="tab-content pt-2">
@@ -105,12 +104,12 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">{{ __('Mobile') }}</div>
-                  <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                  <div class="col-lg-9 col-md-8">{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">{{ __('Personal Email') }}</div>
-                  <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                  <div class="col-lg-9 col-md-8">{{ blank($email?->contact) ? __('N/A') : $email->contact }}</div>
                 </div>
 
                 <div class="row">
@@ -120,12 +119,12 @@
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">{{ __('Office Number') }}</div>
-                  <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                  <div class="col-lg-9 col-md-8">{{ blank($office?->contact) ? __('N/A') : $office?->contact}}</div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">{{ __('Extention') }}</div>
-                  <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                  <div class="col-lg-9 col-md-8">{{ blank($extension?->contact) ? __('N/A') : $extension?->contact }}</div>
                 </div>
 
               </div>
@@ -133,104 +132,94 @@
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                 <!-- Profile Edit Form -->
-                <form>
+                <form action="{{ route('upload.picture', auth()->user()->empid) }}" method="POST" enctype="multipart/form-data">
+                  @csrf
                   <div class="row mb-3">
-                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">{{ __('Profile Image') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <img src="assets/img/profile-img.jpg" alt="Profile" id="profileImage">
+                      <img src="{{ auth()->user()->picture() }}" alt="Profile" id="profileImage">
                       <div class="pt-2">
-                        <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                        <button type="submit" class="btn btn-primary btn-sm mx-2" title="Upload new profile image" id="upload"><i class="bi bi-upload"></i></button>
+                        <input type="file" name="picture" id="profilePic" style="display: none;">
+                        <button type="button" class="btn btn-danger btn-sm" title="Remove my profile image" data-bs-toggle="modal" data-bs-target="#removePicture"><i class="bi bi-trash"></i></button>
                       </div>
                     </div>
                   </div>
-
+                </form>
+                <form action="{{ route('profile.edit', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
+                  @csrf
                   <div class="row mb-3">
-                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">{{ __('Phone') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Personal Email') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                      <input name="email" type="email" class="form-control" id="Email" value="{{ blank($email?->contact) ? __('N/A') : $email->contact }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Date of Birth') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                      <input name="date_of_birth" type="date" class="form-control" id="dob" value="{{ $user->date_of_birth }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Marital Status') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                        <select class="form-select" name="marital_status_id" id="maritalStatus" style="width: 100%">
+                          <option disabled selected>{{ __('Select') }}</option>
+                          @foreach ($status as $s)
+                            <option value="{{ $s->id }}" @selected($s->id == $user->marital_status_id)>{{ $s->{'marital_status' . session('_lang')} }}</option>
+                          @endforeach
+                        </select>
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Place of Birth') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="country" type="text" class="form-control" id="Country" value="USA">
+                        <select class="form-select" name="place_of_birth_id" id="placeOfBirth" style="width: 100%">
+                          <option disabled selected>{{ __('Select') }}</option>
+                          @foreach ($countries as $country)
+                            <option value="{{ $country->id }}" @selected($country->id == $user->place_of_birth_id)>{{ $country->{'country' . session('_lang')} }}</option>
+                          @endforeach
+                        </select>
                     </div>
                   </div>
 
-                  <div class="row mb-3">
-                    <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
+                  {{-- <div class="row mb-3">
                     <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
                     </div>
                   </div>
-
                   <div class="row mb-3">
                     <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
                     </div>
                   </div>
-
                   <div class="row mb-3">
                     <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
                     </div>
                   </div>
-
                   <div class="row mb-3">
                     <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
                     </div>
-                  </div>
+                  </div> --}}
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                   </div>
                 </form><!-- End Profile Edit Form -->
 
@@ -250,6 +239,11 @@
                       </div>
                     </div>
                   @else
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label ">{{ __('Home Country ID') }}</div>
+                      <div class="col-lg-9 col-md-8">{{ blank($user->home_country_id) ? 'N/A' : $user->home_country_id}}</div>
+                    </div>
+
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label ">{{ __('Building Number') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->building_no }}</div>
@@ -491,6 +485,10 @@
             <form action="{{ route('address') }}" id="addAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="homeCountryIdAdd" name="home_country_id" placeholder="{{ __('Home Country ID') }}">
+                <label for="homeCountryIdAdd">{{ __('Home Country ID') }}</label>
+              </div>
+              <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="buildingNo" name="building_no" placeholder="{{ __('Building Number') }}">
                 <label for="buildingNo">{{ __('Building Number') }}</label>
               </div>
@@ -506,9 +504,9 @@
                 <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('City') }}">
                 <label for="city">{{ __('City') }}</label>
               </div>
-              <div class="form-control mb-3">
-                <label for="country">{{ __('Country') }}</label>
-                <select name="country_id" id="country" style="width: 100%">
+              <div class="mb-3">
+                <label for="countryAdd">{{ __('Country') }}</label>
+                <select class="form-select" name="country_id" id="countryAdd" style="width: 100%">
                   <option disabled selected>{{ __('Select') }}</option>
                   @foreach ($countries as $country)
                     <option value="{{ $country->id }}">{{ $country->{'country' . session('_lang')} }}</option>
@@ -542,6 +540,10 @@
             <form action="{{ route('address.edit', $address->id) }}" id="editAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="homeCountryIdEdit" name="home_country_id" placeholder="{{ __('Home Country ID') }}" value="{{ $user->home_country_id }}">
+                <label for="homeCountryIdEdit">{{ __('Home Country ID') }}</label>
+              </div>
+              <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="buildingNoEdit" name="building_no" placeholder="{{ __('Building Number') }}" value="{{ $address->building_no }}">
                 <label for="buildingNoEdit">{{ __('Building Number') }}</label>
               </div>
@@ -557,9 +559,9 @@
                 <input type="text" class="form-control" id="cityEdit" name="city" placeholder="{{ __('City') }}" value="{{ $address->city }}">
                 <label for="cityEdit">{{ __('City') }}</label>
               </div>
-              <div class="form-control mb-3">
-                <label for="country">{{ __('Country') }}</label>
-                <select name="country_id" id="country" style="width: 100%">
+              <div class="mb-3">
+                <label for="countryEdit">{{ __('Country') }}</label>
+                <select class="form-select" name="country_id" id="countryEdit" style="width: 100%">
                   <option disabled>{{ __('Select') }}</option>
                   @foreach ($countries as $country)
                     <option value="{{ $country->id }}" @selected($country->id == $address->country_id)>{{ $country->{'country' . session('_lang')} }}</option>
@@ -581,7 +583,28 @@
     </div>
     @endif
 
-
+    <!-- Remove Picture Modal -->
+    <div class="modal fade" id="removePicture" tabindex="-1" aria-labelledby="removePictureLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="removePictureLabel">{{ __('Remove Picture') }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{{ route('delete.picture', auth()->user()->empid) }}" method="post" id="deleteForm">
+              @csrf
+              @method('delete')
+              {{ __('Are you sure you want to delete the picture?') }}
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+            <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </section>
 @endsection
@@ -590,8 +613,30 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script>
-    $("#country").select2({
+    $("#countryAdd").select2({
       dropdownParent: $('#addAddress')
+    });
+    $("#countryEdit").select2({
+      dropdownParent: $('#editAddress')
+    });
+
+    $("#placeOfBirth").select2();
+    $("#maritalStatus").select2();
+
+    document.getElementById('profileImage').onclick = function (){
+      document.getElementById('profilePic').click()
+    }
+
+    document.getElementById('profilePic').addEventListener('change', function(){
+      const file = this.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.addEventListener('load', function(){
+          document.getElementById('profileImage').setAttribute('src', this.result)
+        });
+        reader.readAsDataURL(file);
+
+      }
     });
   </script>
 @endsection

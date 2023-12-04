@@ -62,11 +62,16 @@ class User extends Authenticatable
 
 
   public function picture(){
-    $path = 'assets/imgs/profile/' . auth()->user()->empid . '.jpeg';
+    $path = 'storage/profile/' . auth()->user()->empid . '.jpeg';
     if(file_exists($path)){
       return asset($path);
     }
-    return 'assets/imgs/profile/default.jpeg';
+    return 'storage/profile/default.jpeg';
+  }
+
+  public function name()
+  {
+    return $this->first_name_en . ' ' . $this->last_name_en;
   }
 
   public function getFullEnglishNameAttribute(): Attribute

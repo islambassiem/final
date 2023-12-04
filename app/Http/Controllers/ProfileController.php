@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Contact;
 use App\Models\Tables\Country;
+use App\Models\Tables\MaritalStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,30 +17,21 @@ class ProfileController extends Controller
     return $this->middleware('auth');
   }
 
-  /**
-   * Display a listing of the resource.
-   */
   public function index()
   {
     return view('profile.index', [
       'user' => User::find(auth()->user()->id),
       'national_address' => Address::where('user_id', auth()->user()->id)->where('type', 'national')->first(),
       'address' => Address::where('user_id', auth()->user()->id)->where('type', 'international')->first(),
-      'countries' => Country::all()
+      'countries' => Country::all(),
+      'mobile' => Contact::where('user_id', auth()->user()->id)->where('type', '1')->first(),
+      'email' => Contact::where('user_id', auth()->user()->id)->where('type', '2')->first(),
+      'extension' => Contact::where('user_id', auth()->user()->id)->where('type', '3')->first(),
+      'office' => Contact::where('user_id', auth()->user()->id)->where('type', '4')->first(),
+      'status' => MaritalStatus::all()
     ]);
   }
 
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   */
   public function storeNationalAddress(Request $request)
   {
     $validated = $request->validate([
@@ -47,7 +40,7 @@ class ProfileController extends Controller
       'district_name' => 'nullable|string|max:50',
       'city' => 'nullable|string|max:50',
       'zip_code' => 'nullable|string|max:10',
-      'secondary_number' => 'nullable|string|max:10'
+      'secondary_number' => 'nullable|string|max:10',
     ]);
     $validated['user_id'] = auth()->user()->id;
     $validated['type'] = 'national';
@@ -65,7 +58,8 @@ class ProfileController extends Controller
       'city' => 'nullable|string|max:50',
       'zip_code' => 'nullable|string|max:10',
       'secondary_number' => 'nullable|string|max:10',
-      'country_id' => 'nullable'
+      'country_id' => 'nullable',
+      'home_country_id' => 'nullable'
     ]);
     $validated['user_id'] = auth()->user()->id;
     $validated['type'] = 'international';
@@ -73,25 +67,6 @@ class ProfileController extends Controller
     return redirect('profile')->with('success', 'You have added your address successfully');
   }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(string $id)
-  {
-    //
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(string $id)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   */
   public function updateNationalAddress(Request $request, string $id)
   {
     $validated = $request->validate([
@@ -121,25 +96,83 @@ class ProfileController extends Controller
       'district_name' => 'nullable|string|max:50',
       'city' => 'nullable|string|max:50',
       'zip_code' => 'nullable|string|max:10',
-      'secondary_number' => 'nullable|string|max:10',
-      'country_id' => ''
+      'secondary_number' => '',
+      'country_id' => '',
+      'home_country_id' => 'nullable'
     ],[
       'building_no.max' => __('The building number must not be greater than 10 characters.'),
       'street_name.max' => __('The street name must not be greater than 50 characters.'),
       'district_name.max' => __('The district name must not be greater than 50 characters.'),
       'city.max' => __('The city name must not be greater than 50 characters.'),
       'zip_code.max' => __('The postal code must not be greater than 10 characters.'),
-      'secondary_number.max' => __('The secondary number must not be greater than 10 characters.'),
     ]);
+    // return dd(['home_country_id' => $validated['home_country_id']]);
     Address::find($id)->update($validated);
+    User::find(auth()->user()->id)->update(['home_country_id' => $validated['home_country_id']]);
     return redirect()->back()->with('success', 'You have updated your address successfully');
   }
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(string $id)
+  public function editProfile(Request $request, string $id)
   {
-    //
+    // return dd($request->all(),$id);
+    User::find($id)->update([
+      'date_of_birth' => $request->date_of_birth,
+      'place_of_birth_id' => $request->place_of_birth_id,
+      'marital_status_id' => $request->marital_status_id
+    ]);
+    $mobile = Contact::where('user_id', auth()->user()->id)->where('type', '1')->first();
+    if($mobile){
+      $mobile->update([
+        'contact' => $request->phone,
+      ]);
+    }else{
+      Contact::create([
+        'user_id' => auth()->user()->id,
+        'contact' => $request->phone,
+        'type' => '1'
+      ]);
+    }
+    $email = Contact::where('user_id', auth()->user()->id)->where('type', '2')->first();
+    if($email){
+      $email->update([
+        'contact' => $request->email,
+      ]);
+    }else{
+      Contact::create([
+        'user_id' => auth()->user()->id,
+        'contact' => $request->email,
+        'type' => '2'
+      ]);
+    }
+    if($request->hasFile('picture')){
+      $path = 'storage/profile/' . auth()->user()->empid . '.jpeg';
+      if(file_exists($path)){
+        unlink($path);
+      }
+      $request->file('picture')->storeAs('profile/', auth()->user()->empid . '.jpeg','public');
+    }
+    return redirect()->back()->with('success', 'You have updated your profile successfully');
+  }
+
+  public function deletePicture($id)
+  {
+    $path = 'storage/profile/' . auth()->user()->empid . '.jpeg';
+    if(file_exists($path)){
+      unlink($path);
+    }
+    return redirect()->back()->with('success', 'You have deleted your profile picture successfully');
+  }
+
+  public function uploadPicture(Request $request)
+  {
+    if($request->hasFile('picture')){
+      $path = 'storage/profile/' . auth()->user()->empid . '.jpeg';
+      if(file_exists($path)){
+        unlink($path);
+      }
+      $request->file('picture')->storeAs('profile/', auth()->user()->empid . '.jpeg','public');
+      return redirect()->back()->with('success', 'You have updated your profile successfully');
+    }
+    return redirect()->back()->with('error', 'You did not choose any photo. Press the picture and choose a photo');
   }
 }
