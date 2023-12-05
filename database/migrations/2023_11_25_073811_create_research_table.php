@@ -23,7 +23,7 @@ return new class extends Migration
       $table->string('title')->nullable();
       $table->unsignedSmallInteger('lang_id');
       $table->unsignedSmallInteger('publication_location');
-      
+
       $table->date('publishing_date')->nullable();
       $table->string('publisher')->nullable();
 
@@ -36,6 +36,7 @@ return new class extends Migration
       $table->text('summary')->nullable();
       $table->string('key_words')->nullable();
 			$table->string('pages_number',5)->nullable();
+      $table->softDeletes();
       $table->timestamps();
 
 

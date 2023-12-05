@@ -18,6 +18,7 @@ return new class extends Migration
       $table->string('link')->nullable();
       $table->string('title', 50)->nullable();
       $table->morphs('attachmentable');
+      $table->softDeletes();
       $table->timestamps();
 
       // joins

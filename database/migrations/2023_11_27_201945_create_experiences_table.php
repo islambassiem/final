@@ -31,6 +31,7 @@ return new class extends Migration
       $table->text('tasks')->nullable();
       $table->unsignedTinyInteger('job_type_id')->nullable();
       $table->unsignedTinyInteger('accommodation_status_id')->nullable();
+      $table->softDeletes();
       $table->timestamps();
 
 

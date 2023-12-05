@@ -16,6 +16,7 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained('users');
       $table->string('contact', 100);
       $table->unsignedTinyInteger('type');
+      $table->softDeletes();
       $table->timestamps();
 
       // joins

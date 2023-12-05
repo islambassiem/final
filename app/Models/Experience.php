@@ -15,11 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\AccommodationStatus;
 use App\Models\Tables\EducationalInstitution;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Experience extends Model
 {
   use HasFactory;
+  use SoftDeletes;
 
   protected $table = 'experiences';
 

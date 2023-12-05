@@ -29,6 +29,7 @@ return new class extends Migration
       $table->unsignedSmallInteger('graduation_country');
       $table->unsignedTinyInteger('study_nature');
       $table->boolean('attested');
+      $table->softDeletes();
       $table->timestamps();
 
       /*

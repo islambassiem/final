@@ -22,6 +22,7 @@ return new class extends Migration
       $table->unsignedSmallInteger('country_id')->nullable();
       $table->string('zip_code', 10)->nullable();
       $table->string('secondary_number', 10)->nullable();
+      $table->softDeletes();
       $table->timestamps();
     });
   }

@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\Tables\Country;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Address extends Model
 {
   use HasFactory;
+  use SoftDeletes;
 
   protected $table = 'addresses';
 

@@ -21,6 +21,7 @@ return new class extends Migration
       $table->string('period', 100)->nullable();
       $table->string('city', 100)->nullable();
       $table->unsignedSmallInteger('country_id');
+      $table->softDeletes();
       $table->timestamps();
 
 

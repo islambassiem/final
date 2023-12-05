@@ -17,6 +17,7 @@ return new class extends Migration
       $table->string('title');
       $table->string('donor');
       $table->string('year', 4);
+      $table->softDeletes();
       $table->timestamps();
     });
   }
