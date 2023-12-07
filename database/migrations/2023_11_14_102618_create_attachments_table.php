@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('attachments', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained();
-      $table->string('attachment_type', 10)->nullable();
+      $table->unsignedTinyInteger('attachment_type');
       $table->string('link')->nullable();
       $table->string('title', 50)->nullable();
       $table->morphs('attachmentable');
@@ -22,7 +22,7 @@ return new class extends Migration
       $table->timestamps();
 
       // joins
-      $table->foreign('attachment_type')->references('code')->on('_attachment_types');
+      $table->foreign('attachment_type')->references('id')->on('_attachment_types');
     });
   }
 

@@ -63,7 +63,7 @@ class QualificationController extends Controller
         $filepath = $attachment->store(auth()->user()->id . '/qualifications', 'public');
         $latest->attachment()->create([
           'user_id' => auth()->user()->id,
-          'attachment_type' => '4',
+          'attachment_type' => '3',
           'link' => $filepath,
           'title' => 'qualification'
         ]);

@@ -12,9 +12,11 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaryController;
 use App\Models\Experience;
 
 /*
@@ -53,6 +55,17 @@ Route::resource('courses', CourseController::class);
 Route::resource('research', ResearchController::class);
 
 
+Route::resource('documents', DocumentController::class);
+Route::post('document/id/edit/{id}', [DocumentController::class, 'editID']);
+Route::post('document/passport/edit/{id}', [DocumentController::class, 'editPassport']);
+Route::post('document/doc/edit/{id}', [DocumentController::class, 'editDoc']);
+Route::get('document/{id}', [DocumentController::class, 'getLink'])->name('nationalID');
+Route::get('/attachment/document/{id}', [DocumentController::class, 'getAttachment'])->name('document.attachment');
+
+
+
+
+
 Route::resource('other_experience', OtherExperienceController::class);
 Route::get('/attachment/other/experience/{id}', [OtherExperienceController::class, 'getAttachment'])->name('other.experience.attachment');
 
@@ -76,3 +89,6 @@ Route::post('address/edit/{id}', [ProfileController::class, 'updateAddress'])->n
 Route::post('edit/profile/{user}', [ProfileController::class, 'editProfile'])->name('profile.edit');
 Route::delete('delete/picture/{empid}', [ProfileController::class, 'deletePicture'])->name('delete.picture');
 Route::post('upload/picture/{empid}', [ProfileController::class, 'uploadPicture'])->name('upload.picture');
+
+
+Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');

@@ -56,6 +56,20 @@
         </ul>
       </li><!-- End Charts Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('documents.*') ? '' : 'collapsed'  }}" href="{{ route('documents.index') }}">
+          <i class="bi bi-stickies-fill"></i>
+          <span>{{ __('Documents') }}</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('salary.*') ? '' : 'collapsed'  }}" href="{{ route('salary.index') }}">
+          <i class="bi bi-cash-coin"></i>
+          <span>{{ __('Salary') }}</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('qualifications.*') ? '' : 'collapsed'  }}" href="{{ route('qualifications.index') }}">
             <i class="bi bi-mortarboard-fill"></i>

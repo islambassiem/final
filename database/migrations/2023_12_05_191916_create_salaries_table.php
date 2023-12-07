@@ -11,11 +11,14 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('_attachment_types', function (Blueprint $table) {
-      $table->unsignedTinyInteger('id', true);
-      $table->string('attachment_type_en', 100);
-      $table->string('attachment_type_ar', 100);
-      $table->string('code', 10);
+    Schema::create('salaries', function (Blueprint $table) {
+      $table->id();
+      $table->foreignId('user_id')->constrained('users');
+      $table->float('basic');
+      $table->float('housing');
+      $table->float('transportation');
+      $table->float('food');
+      $table->date('effective');
       $table->timestamps();
     });
   }
@@ -25,6 +28,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('_attachment_types');
+    Schema::dropIfExists('salaries');
   }
 };
