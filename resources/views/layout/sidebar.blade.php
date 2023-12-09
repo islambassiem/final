@@ -38,10 +38,10 @@
 
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('experience.*') || request()->routeIs('other_experience.*') ? '' : 'collapsed'  }}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ request()->routeIs('experience.*') || request()->routeIs('other_experience.*') ? '' : 'collapsed'  }}" data-bs-target="#leaves" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-workspace"></i><span>{{ __('Experience') }}</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content collapse {{ request()->routeIs('experience.*') || request()->routeIs('other_experience.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+        <ul id="leaves" class="nav-content collapse {{ request()->routeIs('experience.*') || request()->routeIs('other_experience.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('experience.index') }}" class="{{ Request::routeIs('experience.*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>{{ __('Academic - KSA') }}</span>
@@ -51,6 +51,26 @@
             <a href="{{ route('other_experience.index') }}" class="{{ request()->routeIs('other_experience.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
               <span>{{ __('Other') }}</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('vacations.*') || request()->routeIs('permissions.*') ? '' : 'collapsed'  }}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-walking"></i><span>{{ __('Leaves') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse {{ request()->routeIs('vacations.*') || request()->routeIs('permissions.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('vacations.index') }}" class="{{ Request::routeIs('vacations.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>{{ __('Vacations') }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('permissions.index') }}" class="{{ request()->routeIs('permissions.*') ? 'active' : ''  }}" >
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Permissions') }}</span>
             </a>
           </li>
         </ul>

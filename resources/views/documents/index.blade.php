@@ -248,7 +248,7 @@
                     class="dropify"
                     id="attachment"
                     name="attachment"
-                    data-height="50"
+                    data-height="100"
                     accept="image/*, .pdf">
                 </div>
               </div>
@@ -481,7 +481,6 @@
           $('#notification_iqama_edit').val(button.data('not'));
           if(button.data('attachment') != ''){
             $('#IDAttachmentRow').remove();
-            console.log('no attahment');
           }
           form.action = "document/id/edit/" + id;
         });

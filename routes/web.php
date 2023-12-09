@@ -1,23 +1,27 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Vacation;
 use App\Models\Attachment;
+use App\Models\Experience;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SalaryController;
-use App\Models\Experience;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,3 +96,9 @@ Route::post('upload/picture/{empid}', [ProfileController::class, 'uploadPicture'
 
 
 Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
+
+
+Route::resource('vacations', VacationController::class);
+Route::resource('permissions', PermissionController::class);
+
+Route::get('test', [VacationController::class, 'availed']);

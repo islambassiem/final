@@ -1,30 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Dec 04, 2023 at 07:27 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `new`
---
-
---
--- Dumping data for table `users`
---
-
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(1, '500001', 'drmuafak.shdc@inaya.edu.sa', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '15', 'Mowaffak', 'Abdulrahim', NULL, 'Adi', 'موفق', 'عبد الرحيم', NULL, 'عدي', 1, 8, 1, '1968-01-10', NULL, NULL, '2009-10-01', NULL, 81, 2, 19, 4, 1, 1, 1, 0, '51PRO', 1, 30, '', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(2, '500002', 'drahunada.shdc@inaya.edu.sa', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '1', 'Hunada', 'Mohammed', 'Adnan', 'Al hussami', 'هنادى', 'محمد', 'عدنان', 'الحسامي', 2, 8, 1, '1976-07-06', NULL, NULL, '2009-10-01', NULL, 1, 2, 19, 4, 1, 1, 1, 0, '51PED', 1, 30, '', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(3, '500026', 'drskarim@inaya.edu.sa', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '15', 'Sami', 'Abdulkarim', NULL, 'Alabdulkarim', 'سامي', 'عبد الكريم', NULL, 'العبد الكريم', 1, 1, 1, '1965-10-25', NULL, NULL, '2001-01-19', NULL, 82, 1, 2, 3, 1, 1, 0, 0, '59CHAIR', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -642,8 +615,3 @@ INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `r
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(615, '500974', 'email3@example.com', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '1', 'Madel', 'Marcojos', NULL, 'Milano', 'ماديل', 'ماركوجوس', NULL, 'ميلانو', 2, 47, 2, '1988-12-07', NULL, NULL, '2023-11-30', NULL, 137, 2, 19, 4, 1, 1, 1, 0, NULL, 0, 21, '', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(616, '500975', 'email4@example.com', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '1', 'Roxanne', 'Aron', NULL, 'Olaivar', 'روكسان', 'ارون', NULL, 'اولايفار', 2, 47, 2, '1991-09-10', NULL, NULL, '2023-11-30', NULL, 136, 2, 19, 4, 1, 1, 1, 0, NULL, 0, 21, '', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `users` (`id`, `empid`, `email`, `email_verified_at`, `password`, `remember_token`, `head`, `first_name_en`, `middle_name_en`, `third_name_en`, `family_name_en`, `first_name_ar`, `middle_name_ar`, `third_name_ar`, `family_name_ar`, `gender_id`, `nationality_id`, `religion_id`, `date_of_birth`, `place_of_birth_id`, `marital_status_id`, `joining_date`, `resignation_date`, `position_id`, `sponsorship_id`, `section_id`, `category_id`, `active`, `salary`, `fingerprint`, `saturday`, `cost_center`, `married_contract`, `vacation_class`, `notes`, `special_need_id`, `home_country_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES(617, '550221', 'mohawad@inaya.edu.sa', NULL, '$2y$10$Oh.bg0/3pmrPsiOHhsCOWe8xN4bTDUx1xmM8BAZAOvi3G1lf0RvZ6', NULL, '16', 'Mohammed', 'Awad', 'Ali', 'Ahmed', 'محمد', 'عوض', 'علي', 'أحمد', 1, 16, 1, '1988-06-26', NULL, NULL, '2012-09-17', NULL, 91, 1, 7, 3, 1, 1, 1, 0, '59FIN', 0, 30, '', NULL, NULL, NULL, NULL, NULL, NULL);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

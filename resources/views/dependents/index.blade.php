@@ -292,10 +292,6 @@
         dropdownParent: $('#addDependent')
       });
 
-      $('#relationship_id_edit').select2({
-        dropdownParent: $('#editDependent')
-      });
-
       $('#delteConfirmation').on('show.bs.modal', function (event){
         let button = $(event.relatedTarget);
         let id = button.data('id');

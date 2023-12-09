@@ -21,48 +21,48 @@
 @endsection
 
 @section('content')
-      <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ __('Salary History') }}</h5>
-              <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ __('Salary History') }}</h5>
+            <!-- Table with stripped rows -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">{{ __('Basic') }}</th>
+                  <th scope="col">{{ __('Housing') }}</th>
+                  <th scope="col">{{ __('Transportation') }}</th>
+                  <th scope="col">{{ __('Food') }}</th>
+                  <th scope="col">{{ __('Package') }}</th>
+                  <th scope="col">{{ __('Effective') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @php $c = 1; @endphp
+                @foreach ($salary as $item)
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{{ __('Basic') }}</th>
-                    <th scope="col">{{ __('Housing') }}</th>
-                    <th scope="col">{{ __('Transportation') }}</th>
-                    <th scope="col">{{ __('Food') }}</th>
-                    <th scope="col">{{ __('Package') }}</th>
-                    <th scope="col">{{ __('Effective') }}</th>
+                    <td>{{ $c }}</td>
+                    <td>{{ $item->basic }}</td>
+                    <td>{{ $item->housing }}</td>
+                    <td>{{ $item->transportation }}</td>
+                    <td>{{ $item->food }}</td>
+                    <td>{{ $item->package() }}</td>
+                    <td>{{ $item->effective }}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  @php $c = 1; @endphp
-                  @foreach ($salary as $item)
-                    <tr>
-                      <td>{{ $c }}</td>
-                      <td>{{ number_format($item->basic,2) }}</td>
-                      <td>{{ number_format($item->housing,2) }}</td>
-                      <td>{{ number_format($item->transportation,2) }}</td>
-                      <td>{{ number_format($item->food,2) }}</td>
-                      <td>{{ number_format($item->package(),2) }}</td>
-                      <td>{{ $item->effective }}</td>
-                    </tr>
-                    @php $c++; @endphp
-                  @endforeach
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
+                  @php $c++; @endphp
+                @endforeach
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
 
-            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 @endsection
 
 @section('script')

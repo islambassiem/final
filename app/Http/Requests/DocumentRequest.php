@@ -30,6 +30,7 @@ class DocumentRequest extends FormRequest
       'date_of_issue' => 'required_if:document_type_id,2',
       'date_of_expiry' => 'required',
       'notification' => 'nullable',
+      'attachment' => 'file'
     ];
   }
 
