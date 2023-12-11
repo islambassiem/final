@@ -118,7 +118,7 @@
                         class="btn btn-secondary btn-sm py-0">
                         <i class="bi bi-eye-fill"></i>
                       </a>
-                        <button
+                        {{-- <button
                           type="button"
                           class="btn btn-warning btn-sm py-0"
                           id="editBtn"
@@ -132,7 +132,7 @@
                           data-bs-toggle="modal"
                           data-bs-target="#editVacation">
                           <i class="bi bi-pencil-square"></i>
-                        </button>
+                        </button> --}}
                         <button
                           type="button"
                           class="btn btn-danger btn-sm py-0"
@@ -157,7 +157,7 @@
   </section>
 
   {{-- Edit vacation modal --}}
-  <div class="modal fade" id="editVacation" tabindex="-1" aria-labelledby="editVacationLabel" aria-hidden="true">
+  {{-- <div class="modal fade" id="editVacation" tabindex="-1" aria-labelledby="editVacationLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -221,7 +221,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   <!-- Add a vacation Modal -->
   <div class="modal fade" id="addVacation" tabindex="-1" aria-labelledby="addVacationLabel" aria-hidden="true">
