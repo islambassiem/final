@@ -11,9 +11,9 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('vacation_details', function (Blueprint $table) {
+    Schema::create('permission_details', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('vacation_id')->constrained('vacations');
+      $table->foreignId('permission_id')->constrained('permissions');
       $table->string('employee_notes')->nullable();
       $table->timestamp('employee_time')->nullable();
       $table->string('head_status', 10);
@@ -29,6 +29,7 @@ return new class extends Migration
       // joins
       $table->foreign('head_status')->references('code')->on('_workflow_status');
       $table->foreign('hr_status')->references('code')->on('_workflow_status');
+      $table->foreign('action_by')->references('id')->on('users');
     });
   }
 
@@ -37,6 +38,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('vacation_details');
+    Schema::dropIfExists('permission_details');
   }
 };

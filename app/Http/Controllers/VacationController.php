@@ -48,9 +48,9 @@ class VacationController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(VacationRequest $request)
+  public function store(Request $request)
   {
-    $validated = $request->validated();
+    $validated = $request->all();
     $validated['user_id'] = auth()->user()->id;
     $validated['status_id'] = 0;
     if($request->vacation_type == 1){
