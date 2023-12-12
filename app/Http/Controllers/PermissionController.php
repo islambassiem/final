@@ -130,4 +130,16 @@ class PermissionController extends Controller
       ]);
     }
   }
+
+  public function getAttachment($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Permission')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return response()->download("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment'));
+  }
 }

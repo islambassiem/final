@@ -57,6 +57,11 @@
         {{ session('error') }}
       </div>
     @endif
+    @if (session('message'))
+      <div class="alert alert-warning" role="alert">
+        {{ session('message') }}
+      </div>
+    @endif
     <div class="alert alert-danger d-none" id="editAttempt"></div>
     <div class="row">
       <div class="col-lg-12">
@@ -71,11 +76,6 @@
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
                 </div>
-              @endif
-              @if (session('message'))
-              <div class="alert alert-warning" role="alert">
-                {{ session('message') }}
-              </div>
               @endif
               <!-- Table with stripped rows -->
               <table class="table table-striped" id="vacationsTable">
@@ -142,6 +142,11 @@
                           data-bs-target="#delteConfirmation">
                           <i class="bi bi-trash3"></i>
                         </button>
+                        <a
+                          href="{{ route('attachment.vacation', $vacation->id) }}"
+                          class="btn btn-info btn-sm py-0">
+                          <i class="bi bi-paperclip"></i>
+                        </a>
                       </td>
                     </tr>
                     @php $c++; @endphp

@@ -87,6 +87,10 @@
                       </div><hr>
                       <div class="row ">
                         <div class="col d-flex justify-content-end">
+                          <a class="btn btn-info btn-sm mx-2"
+                            href="{{ route('attachment.course', $course->id) }}">
+                            <i class="bi bi bi-paperclip"></i> {{ __('Attachment') }}
+                          </a>
                           <a class="btn btn-primary btn-sm mx-2"
                             href="{{ route('courses.edit', $course->id) }}"
                             {{-- data-bs-toggle="modal"

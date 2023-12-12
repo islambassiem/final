@@ -130,17 +130,10 @@ class QualificationController extends Controller
   {
     Qualification::find($id)->delete();
     $file = $this->getLink($id);
-    $attachments = Attachment::where('user_id', auth()->user()->id)
+    $attachment = Attachment::where('user_id', auth()->user()->id)
     ->where('attachmentable_type', 'App\Models\Qualification')
-    ->where('attachmentable_id', $id)->get();
-    if($attachments){
-      foreach ($attachments as $attachment) {
-        $attachment->delete();
-      }
-    }
-    if($file){
-      unlink($file);
-    }
+    ->where('attachmentable_id', $id)->first();
+    $attachment->delete();
     return redirect()->route('qualifications.index')->with('success', 'You have deleted the qualification successfully');
   }
 
@@ -163,7 +156,7 @@ class QualificationController extends Controller
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
-      return redirect("storage/".$link->link);
+      return response()->download("storage/".$link->link);
     }
     return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }

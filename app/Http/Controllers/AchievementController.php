@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AchievementRequest;
+use App\Models\Attachment;
 use App\Models\Achievement;
+use App\Http\Requests\AchievementRequest;
 
 class AchievementController extends Controller
 {
@@ -38,6 +39,16 @@ class AchievementController extends Controller
   {
     // return dd($request->validated());
     Achievement::create($request->validated());
+    if($request->hasFile('attachment')){
+      $latest = Achievement::latest('id')->first();
+      $path = $request->file('attachment')->store(auth()->user()->id . '/achievement', 'public');
+      $latest->attachment()->create([
+        'user_id' => auth()->user()->id,
+        'attachment_type' => '10',
+        'link' => $path,
+        'title' => 'achievement',
+      ]);
+    }
     return redirect()->route('achievements.index')->with('success', __('You have created an achievement successfully'));
   }
 
@@ -73,6 +84,28 @@ class AchievementController extends Controller
   {
     $achievement->delete();
     return redirect()->route('achievements.index')->with('success', __('You have deleted the achievement successfully'));
+  }
+  public function getLink($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+    ->where('attachmentable_type', 'App\Models\Achievement')
+    ->where('attachmentable_id', $id)
+    ->first('link');
+    if($link){
+      return "storage/" . $link->link;
+    }
+    return false;
+  }
 
+  public function getAttachment($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Achievement')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return response()->download("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }
 }

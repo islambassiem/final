@@ -195,7 +195,7 @@ class DocumentController extends Controller
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
-      return redirect("storage/".$link->link);
+      return response()->download("storage/".$link->link);
     }
     return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }

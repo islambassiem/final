@@ -67,15 +67,13 @@ class ExperienceController extends Controller
     Experience::create($validated);
     $latest = Experience::latest('created_at')->first();
     if($request->hasFile('attachment')){
-      foreach ($request->file('attachment') as $attachment) {
-        $filepath = $attachment->store(auth()->user()->id . '/experiences', 'public');
+        $filepath = $request->file('attachment')->store(auth()->user()->id . '/experiences', 'public');
         $latest->attachment()->create([
           'user_id' => auth()->user()->id,
           'attachment_type' => '5',
           'link' => $filepath,
           'title' => 'experience'
         ]);
-      }
     }
     return redirect()->route('experience.index')->with('success', 'You have added your experience successfully');
   }
@@ -194,7 +192,7 @@ class ExperienceController extends Controller
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
-      return redirect("storage/".$link->link);
+      return response()->download("storage/".$link->link);
     }
     return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }

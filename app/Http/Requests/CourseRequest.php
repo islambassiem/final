@@ -29,7 +29,8 @@ class CourseRequest extends FormRequest
       'period' => 'required|string|max:255',
       'country_id' => 'required',
       'city' => 'required',
-      'type_id' => 'required'
+      'type_id' => 'required',
+      'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
 
@@ -49,7 +50,9 @@ class CourseRequest extends FormRequest
       'period.max' => __('The maximum length for the course period is 255 characters'),
       'country_id.required' => __('The country of the course is required'),
       'city' => __('The course city is required'),
-      'type_id.required' => __('The course type is required')
+      'type_id.required' => __('The course type is required'),
+      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.max' => __('The maximum file upload is 2MBs'),
     ];
   }
 }

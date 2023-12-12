@@ -57,7 +57,7 @@ class QualificationRequest extends FormRequest
       'gpa_type.required' => __('The GPA type is required'),
       'rating.required' => __('The rating is required'),
       'attachment.mimes' => __('The attachment file must be an image or a pdf file'),
-      'attachment.max' => __('The maximum file size should not exceed 2 MDs')
+      'attachment.max' => __('The maximum file size should not exceed 2 MBs')
     ];
   }
 }

@@ -39,7 +39,16 @@ class ExperienceRequest extends FormRequest
       'employment_status_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
       'tasks' => '',
       'job_type_id' => Rule::requiredIf(fn () => auth()->user()->category_id  == 1 ? true : false ),
-      'accommodation_status_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id)
+      'accommodation_status_id' => Rule::requiredIf(fn () => ! auth()->user()->category_id),
+      'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
+    ];
+  }
+
+  public function messages()
+  {
+    return [
+      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.max' => __('The maximum file upload is 2MBs')
     ];
   }
 }

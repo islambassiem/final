@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
   <style>
     .container{
       width: 800px;
@@ -102,6 +103,23 @@
                   </div>
                 </div>
               </div>
+              @if (! $link)
+                <div class="row">
+                  <div class="col-12">
+                    <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                    <div class="col-sm-12">
+                      <input
+                        type="file"
+                        class="dropify"
+                        id="attachment"
+                        name="attachment"
+                        data-height="100"
+                        accept="image/*, .pdf">
+                    </div>
+                  </div>
+                </div>
+              @endif
+
               <div class="row">
                 <div class="col d-flex justify-content-end">
                   <button class="btn btn-primary">{{ __('Submit') }}</button>
@@ -120,10 +138,20 @@
 @section('script')
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script>
     $(document).ready(function (){
       $("#country_id_add").select2();
       $("#type_add").select2();
+
+      $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
+      });
     });
 
   </script>

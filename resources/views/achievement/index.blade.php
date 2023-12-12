@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
 @endsection
 
 @section('h1')
@@ -88,6 +89,7 @@
                         data-title = "{{ $achievement->title }}"
                         data-donor = "{{ $achievement->donor }}"
                         data-year  = "{{ $achievement->year }}"
+                        data-attachment = "{{ $achievement->attachment }}"
                         class="btn btn-warning btn-sm py-0">
                         <i class="bi bi-pencil-square"></i>
                       </button>
@@ -100,6 +102,11 @@
                         data-bs-target="#delteConfirmation">
                         <i class="bi bi-trash3"></i>
                       </button>
+                      <a
+                      href="{{ route('attachment.achievement', $achievement->id) }}"
+                      class="btn btn-info btn-sm py-0">
+                      <i class="bi bi-paperclip"></i>
+                    </a>
                     </td>
                   </tr>
                   @php $c++; @endphp
@@ -150,6 +157,20 @@
               <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
             </div>
           </div>
+          <div class="row" id="attachmentRow">
+            <div class="col-12">
+              <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+              <div class="col-sm-12">
+                <input
+                  type="file"
+                  class="dropify"
+                  id="attachment_edit"
+                  name="attachment"
+                  data-height="100"
+                  accept="image/*, .pdf">
+              </div>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -169,7 +190,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('achievements.store') }}" method="POST" id="addForm">
+        <form action="{{ route('achievements.store') }}" method="POST" id="addForm" enctype="multipart/form-data">
           @csrf
           <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
           <div class="row">
@@ -181,21 +202,36 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-">
+            <div class="col-12">
               <div class="mb-3">
                 <label for="donor" class="form-label">{{ __('Donor') }}</label>
                 <input type="text" class="form-control" id="donor" name="donor" value="{{ old('donor') }}">
               </div>
             </div>
+          </div>
             <div class="row">
-              <div class="col">
+              <div class="col-12">
                 <div class="mb-3">
                   <label for="year" class="form-label">{{ __('Year') }}</label>
                   <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
                 </div>
               </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-12">
+                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <div class="col-sm-12">
+                  <input
+                    type="file"
+                    class="dropify"
+                    id="attachment"
+                    name="attachment"
+                    data-height="100"
+                    accept="image/*, .pdf">
+                </div>
+              </div>
+            </div>
+
         </form>
       </div>
       <div class="modal-footer">
@@ -235,6 +271,7 @@
 @section('script')
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script>
     $(document).ready(function (){
       var lang = "{{ session('lang') }}";
@@ -275,12 +312,25 @@
         let title = button.data('title');
         let mobile = button.data('donor');
         let email = button.data('year');
+        let attachment = button.data('attachment');
         let form = document.getElementById('editForm');
+        if(attachment != ''){
+          $('#attachmentRow').remove();
+        }
         $('#id').val(id);
         $('#title').val(title);
         $('#donor').val(mobile);
         $('#year').val(email);
         form.action = "achievements/" + id;
+      });
+
+      $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
       });
     });
   </script>

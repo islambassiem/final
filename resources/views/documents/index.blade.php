@@ -59,6 +59,11 @@
                 {{ __('There are no documents Registered') }}
               </div>
             @else
+              @if (session('message'))
+                <div class="alert alert-warning" role="alert">
+                  {{ session('message') }}
+                </div>
+              @endif
               <!-- Table with stripped rows -->
               <table class="table table-striped text-center">
                 <thead>
@@ -125,7 +130,7 @@
                           <i class="bi bi-pencil-square"></i>
                         </button>
                         <a
-                          href="{{ route('document.attachment', $id->id) }}"
+                          href="{{ route('document.attachment', $passport->id) }}"
                           class="btn btn-info btn-sm py-0">
                           <i class="bi bi-paperclip"></i>
                         </a>
@@ -157,7 +162,7 @@
                           <i class="bi bi-pencil-square"></i>
                         </button>
                         <a
-                          href="{{ route('document.attachment', $id->id) }}"
+                          href="{{ route('document.attachment', $document->id) }}"
                           class="btn btn-info btn-sm py-0">
                           <i class="bi bi-paperclip"></i>
                         </a>
@@ -188,7 +193,7 @@
             @csrf
             <div class="row">
               <div class="col-8">
-                <label class="form-label">{{ __('Document Type') }}</label>
+                <label for="docType" class="form-label">{{ __('Document Type') }}</label>
                 <select class="form-select" aria-label="Default select example" id="docType" name="document_type_id">
                   <option selected disabled>{{ __('Select') }}</option>
                   <option value="2" @selected(old('document_type_id') == 2)>{{ __('Passport') }}</option>
@@ -214,28 +219,28 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Document Numner') }}</label>
-                  <input type="text" class="form-control" name="document_id" value="{{ old('document_id') }}">
+                  <label for="document_id" class="form-label">{{ __('Document Numner') }}</label>
+                  <input type="text" id="document_id" class="form-control" name="document_id" value="{{ old('document_id') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Place of Issue') }}</label>
-                  <input type="text" class="form-control" name="place_of_issue" value="{{ old('place_of_issue') }}">
+                  <label for="place_of_issue" class="form-label">{{ __('Place of Issue') }}</label>
+                  <input type="text" class="form-control" id="place_of_issue" name="place_of_issue" value="{{ old('place_of_issue') }}">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Issue Date') }}</label>
-                  <input type="date" class="form-control" name="date_of_issue" value="{{ old('date_of_issue') }}">
+                  <label for="date_of_issue" class="form-label">{{ __('Issue Date') }}</label>
+                  <input type="date" class="form-control" id="date_of_issue" name="date_of_issue" value="{{ old('date_of_issue') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Expiry Date') }}</label>
-                  <input type="date" class="form-control" name="date_of_expiry" value="{{ old('date_of_expiry') }}">
+                  <label for="date_of_expiry" class="form-label">{{ __('Expiry Date') }}</label>
+                  <input type="date" class="form-control" id="date_of_expiry" name="date_of_expiry" value="{{ old('date_of_expiry') }}">
                 </div>
               </div>
             </div>
@@ -278,24 +283,24 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Date of Issue') }}</label>
+                  <label for="date_of_issue_iqama_edit" class="form-label">{{ __('Date of Issue') }}</label>
                   <input type="date" class="form-control" id="date_of_issue_iqama_edit" name="date_of_issue_iqama_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Notification in Days') }}</label>
+                  <label for="notification_iqama_edit" class="form-label">{{ __('Notification in Days') }}</label>
                   <input type="number" min="0" class="form-control" id="notification_iqama_edit" name="notification_iqama_edit">
                 </div>
               </div>
             </div>
             <div class="mb-3">
-              <label class="form-label">{{ __('Place of Issue') }}</label>
+              <label for="place_of_issue_iqama_edit" class="form-label">{{ __('Place of Issue') }}</label>
               <input type="text" class="form-control" id="place_of_issue_iqama_edit" name="place_of_issue_iqama_edit">
             </div>
             <div class="row" id="IDAttachmentRow">
               <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentIqama" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -331,13 +336,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Date of Issue') }}</label>
+                  <label for="date_of_issue_passport_edit" class="form-label">{{ __('Date of Issue') }}</label>
                   <input type="date" class="form-control" id="date_of_issue_passport_edit" name="date_of_issue_passport_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Date of Expiry') }}</label>
+                  <label for="date_of_expiry_passport_edit" class="form-label">{{ __('Date of Expiry') }}</label>
                   <input type="date" class="form-control" id="date_of_expiry_passport_edit" name="date_of_expiry_passport_edit">
                 </div>
               </div>
@@ -345,20 +350,20 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Place of Issue') }}</label>
+                  <label for="place_of_issue_passport_edit" class="form-label">{{ __('Place of Issue') }}</label>
                   <input type="text" class="form-control" id="place_of_issue_passport_edit" name="place_of_issue_passport_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Notification in Days') }}</label>
+                  <label for="notification_passport_edit" class="form-label">{{ __('Notification in Days') }}</label>
                   <input type="number" min="0" class="form-control" id="notification_passport_edit" name="notification_passport_edit">
                 </div>
               </div>
             </div>
             <div class="row" id="PassportAttachmentRow">
               <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentPassport" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -394,13 +399,13 @@
             <div class="row" id="editDescriptionRow">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="description" class="form-label">{{ __('Description') }}</label>
+                  <label for="description_edit" class="form-label">{{ __('Description') }}</label>
                   <input type="text" class="form-control" id="description_edit" name="description_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="notification" class="form-label">{{ __('Notification') }}</label>
+                  <label for="notification_edit" class="form-label">{{ __('Notification') }}</label>
                   <input type="number" class="form-control" id="notification_edit" name="notification_edit">
                 </div>
               </div>
@@ -408,13 +413,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Document Number') }}</label>
+                  <label for="document_id_edit" class="form-label">{{ __('Document Number') }}</label>
                   <input type="text" class="form-control" name="document_id_edit" id="document_id_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Place of Issue') }}</label>
+                  <label for="place_of_issue_edit" class="form-label">{{ __('Place of Issue') }}</label>
                   <input type="text" class="form-control" name="place_of_issue_edit" id="place_of_issue_edit">
                 </div>
               </div>
@@ -422,20 +427,20 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Issue Date') }}</label>
+                  <label for="date_of_issue_edit" class="form-label">{{ __('Issue Date') }}</label>
                   <input type="date" class="form-control" name="date_of_issue_edit" id="date_of_issue_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label class="form-label">{{ __('Expiry Date') }}</label>
+                  <label for="date_of_expiry_edit" class="form-label">{{ __('Expiry Date') }}</label>
                   <input type="date" class="form-control" name="date_of_expiry_edit" id="date_of_expiry_edit">
                 </div>
               </div>
             </div>
             <div class="row" id="docAttachmentRow">
               <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentDoc" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -464,12 +469,12 @@
   <script>
     $(document).ready(function(){
       $('.dropify').dropify({
-          messages: {
-            'default': "",
-            'replace': "{{ __('Drag and drop or click to replace') }}",
-            'remove':  "{{ __('Delete') }}",
-            'error': "{{ __('Ooops, something wrong happended.') }}"
-          }
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
       });
 
         $('#editID').on('show.bs.modal', function (event){

@@ -42,6 +42,11 @@
                   {{ session('success') }}
                 </div>
               @endif
+              @if (session('message'))
+                <div class="alert alert-warning" role="alert">
+                  {{ session('message') }}
+                </div>
+              @endif
               <!-- Table with stripped rows -->
               <table class="table table-striped" id="table">
                 <thead>

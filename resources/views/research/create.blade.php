@@ -218,7 +218,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="my-3">
-                      <label for="summary" class="form-label">{{ __('Research Summary') }}</label>
+                      <div for="summary" class="form-label">{{ __('Research Summary') }}</label>
                       <div class="options">
                         <button type="button" id="superscript" class="option-button script button">
                           <i class="fa-solid fa-superscript"></i>

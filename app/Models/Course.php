@@ -34,4 +34,9 @@ class Course extends Model
   {
     return $this->belongsTo(Country::class);
   }
+
+  public function attachment()
+  {
+    return $this->morphOne(Attachment::class, 'attachmentable');
+  }
 }

@@ -130,12 +130,12 @@
           @csrf
           @method('PUT')
           <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
-          <input type="hidden" id="dependent_id" name="dependent_id">
+          <input type="hidden" id="dependent_id" name="dependent_id" autocomplete="off">
           <div class="row">
             <div class="col">
               <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Dependent Name') }}</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
           </div>
@@ -143,13 +143,13 @@
             <div class="col-6">
               <div class="mb-3">
                 <label for="identification" class="form-label">{{ __('Dependent ID') }}</label>
-                <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}">
+                <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}" autocomplete="off">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
                 <label for="date_of_birth" class="form-label">{{ __('Date of Birth') }}</label>
-                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" autocomplete="off">
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@
             <div class="col">
               <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Dependent Name') }}</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
           </div>

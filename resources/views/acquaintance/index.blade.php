@@ -135,7 +135,7 @@
             <div class="col">
               <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Name') }}</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
           </div>
@@ -143,20 +143,22 @@
             <div class="col">
               <div class="mb-3">
                 <label for="mobile" class="form-label">{{ __('Mobile') }}</label>
-                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}">
+                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="mb-3">
-              <label for="email" class="form-label">{{ __('Email') }}</label>
-              <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="position" class="form-label">{{ __('Position') }}</label>
-              <input type="text" class="form-control" id="position" name="position" value="{{ old('position') }}">
+              <input type="text" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
               </select>
             </div>
           </div>
@@ -186,37 +188,36 @@
             <div class="col">
               <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Name') }}</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-">
-              <div class="mb-3">
-                <label for="mobile" class="form-label">{{ __('Mobile') }}</label>
-                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="mb-3">
-                  <label for="email" class="form-label">{{ __('Email') }}</label>
-                  <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
-                </div>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="identification" class="form-label">{{ __('Position') }}</label>
-              <input type="position" class="form-control" id="position" name="position" value="{{ old('position') }}">
-
+              <div class="mb-3">
+                <label for="mobile" class="form-label">{{ __('Mobile') }}</label>
+                <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="position" class="form-label">{{ __('Position') }}</label>
+              <input type="position" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('clode') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
         <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
       </div>
     </div>

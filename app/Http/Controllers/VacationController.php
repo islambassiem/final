@@ -48,7 +48,7 @@ class VacationController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request)
+  public function store(VacationRequest $request)
   {
     $validated = $request->all();
     $validated['user_id'] = auth()->user()->id;
@@ -179,7 +179,7 @@ class VacationController extends Controller
 
   private function attach(VacationRequest $request, Vacation $latest)
   {
-    if($request->has('attachment'))
+    if($request->hasFile('attachment'))
     {
       $filepath = $request->file('attachment')->store(auth()->user()->id . '/vacations', 'public');
       $latest->attachment()->create([
@@ -236,5 +236,17 @@ class VacationController extends Controller
     $start = Carbon::parse($start_date);
     $end = Carbon::parse($end_date);
     return $end->diffInDays($start) + 1;
+  }
+
+  public function getAttachment($id)
+  {
+    $link = Attachment::where('user_id', auth()->user()->id)
+      ->where('attachmentable_type', 'App\Models\Vacation')
+      ->where('attachmentable_id', $id)
+      ->first('link');
+    if ($link) {
+      return response()->download("storage/".$link->link);
+    }
+    return redirect()->back()->with('message', __('There is no attachment'));
   }
 }

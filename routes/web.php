@@ -54,8 +54,19 @@ Route::post('/minor/{code}', [QualificationController::class, 'minor']);
 
 Route::resource('dependents', DependentController::class);
 Route::resource('acquaintances', AcquaintanceController::class);
+
+
+
+
 Route::resource('achievements', AchievementController::class);
+Route::get('attachment/achievement/{id}', [AchievementController::class, 'getAttachment'])->name('attachment.achievement');
+
+
 Route::resource('courses', CourseController::class);
+Route::get('attachment/course/{id}', [CourseController::class, 'getAttachment'])->name('attachment.course');
+
+
+
 Route::resource('research', ResearchController::class);
 
 
@@ -99,6 +110,10 @@ Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
 
 
 Route::resource('vacations', VacationController::class);
+Route::get('attachment/vacation/{id}', [VacationController::class, 'getAttachment'])->name('attachment.vacation');
+
+
 Route::resource('permissions', PermissionController::class);
+Route::get('attachment/permission/{id}', [PermissionController::class, 'getAttachment'])->name('attachment.permission');
 
 Route::get('test', [VacationController::class, 'availed']);

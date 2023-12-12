@@ -25,7 +25,8 @@ class AchievementRequest extends FormRequest
       'user_id' => 'required',
       'title' => 'required|max:255',
       'donor' => 'required|max:255',
-      'year' => 'numeric|min:1900|max:2100'
+      'year' => 'numeric|min:1900|max:2100',
+      'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
 
@@ -39,6 +40,8 @@ class AchievementRequest extends FormRequest
       'year.numeric' => __('The achievement year is required'),
       'year.min' => __('The year you entered is invalid'),
       'year.max' => __('The year you entered is invalid'),
+      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.max' => __('The maximum file upload is 2MBs'),
     ];
   }
 }

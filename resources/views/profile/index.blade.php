@@ -135,7 +135,7 @@
                 <form action="{{ route('upload.picture', auth()->user()->empid) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <div class="row mb-3">
-                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">{{ __('Profile Image') }}</label>
+                    <div for="profileImage" class="col-md-4 col-lg-3 col-form-label" style="font-weight:600; color:rgba(1, 41, 112, 0.6); ">{{ __('Profile Image') }}</div>
                     <div class="col-md-8 col-lg-9">
                       <img src="{{ auth()->user()->picture() }}" alt="Profile" id="profileImage">
                       <div class="pt-2">
@@ -151,14 +151,14 @@
                   <div class="row mb-3">
                     <label for="Phone" class="col-md-4 col-lg-3 col-form-label">{{ __('Phone') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}">
+                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}" autocomplete="off">
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Personal Email') }}</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="email" type="email" class="form-control" id="Email" value="{{ blank($email?->contact) ? __('N/A') : $email->contact }}">
+                      <input name="email" type="email" class="form-control" id="Email" value="{{ blank($email?->contact) ? __('N/A') : $email->contact }}" autocomplete="off">
                     </div>
                   </div>
 
@@ -341,7 +341,7 @@
 
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <!-- Change Password Form -->
-                <form>
+                {{-- <form>
 
                   <div class="row mb-3">
                     <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
@@ -367,7 +367,8 @@
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Change Password</button>
                   </div>
-                </form><!-- End Change Password Form -->
+                </form> --}}
+                <!-- End Change Password Form -->
 
               </div>
 

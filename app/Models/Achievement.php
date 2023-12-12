@@ -16,4 +16,9 @@ class Achievement extends Model
   protected $fillable = [
     'user_id', 'title', 'donor', 'year'
   ];
+
+  public function attachment()
+  {
+    return $this->morphOne(Attachment::class, 'attachmentable');
+  }
 }

@@ -30,7 +30,8 @@ class OtherExperienceRequest extends FormRequest
       'section' => 'required',
       'start_date' => 'required|date',
       'end_date' => 'required|date',
-      'functional_tasks' => 'nullable'
+      'functional_tasks' => 'nullable',
+      'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
 
@@ -47,6 +48,8 @@ class OtherExperienceRequest extends FormRequest
       'start_date.date' => __('The start date is invalid'),
       'end_date.required|date' => __('The end date is required'),
       'end_date.date' => __('The end date is invalid'),
+      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.max' => __('The maximum file upload is 2MBs'),
     ];
   }
 }

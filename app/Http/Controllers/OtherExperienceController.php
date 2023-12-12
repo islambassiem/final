@@ -46,15 +46,14 @@ class OtherExperienceController extends Controller
     OtherExperience::create($validated);
     $latest = OtherExperience::latest('created_at')->first();
     if($request->hasFile('attachment')){
-      foreach ($request->file('attachment') as $attachment) {
-        $filepath = $attachment->store(auth()->user()->id . '/otherExperience', 'public');
+        $filepath = $request->file('attachment')->store(auth()->user()->id . '/otherExperience', 'public');
         $latest->attachment()->create([
           'user_id' => auth()->user()->id,
           'attachment_type' => '5',
           'link' => $filepath,
           'title' => 'Other Experience'
         ]);
-      }
+
     }
     return redirect()->route('other_experience.index')->with('success', __('You have added an experience outside KSA successfully'));
   }
@@ -141,7 +140,7 @@ class OtherExperienceController extends Controller
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
-      return redirect("storage/".$link->link);
+      return response()->download("storage/".$link->link);
     }
     return redirect()->back()->with('message', __('There is no attachment; press edit icon to add one'));
   }

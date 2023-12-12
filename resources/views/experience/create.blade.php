@@ -246,7 +246,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="my-3">
-                      <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
+                      <span for="tasks" class="form-label">{{ __('Tasks') }}</span>
 											<div class="options">
 												<!-- Text Format -->
 												<button type="button" id="bold" class="option-button format button">
@@ -297,17 +297,18 @@
                   </div>
                 </div>
 
-                <div class="col-md-12">
-                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
-                  <div class="col-sm-12">
-                    <input
-                      multiple
-                      type="file"
-                      class="dropify"
-                      id="attachment"
-                      name="attachment[]"
-                      data-height="100"
-                      accept="image/*, .pdf">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                    <div class="col-sm-12">
+                      <input
+                        type="file"
+                        class="dropify"
+                        id="attachment"
+                        name="attachment"
+                        data-height="100"
+                        accept="image/*, .pdf">
+                    </div>
                   </div>
                 </div>
 
@@ -560,7 +561,7 @@
         }
       });
 
-      
+
     });
   </script>
 @endsection

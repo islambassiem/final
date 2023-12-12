@@ -47,13 +47,13 @@
                 <div class="col-md-8">
                   <div class="mb-3">
                     <label for="organization_name" class="form-label">{{ __('Organization Name') }}</label>
-                    <input type="text" class="form-control" name="organization_name" value="{{ old('organization_name') }}">
+                    <input type="text" class="form-control" id="organization_name" name="organization_name" value="{{ old('organization_name') }}">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="mb-3">
                     <label for="profession" class="form-label">{{ __('Profession') }}</label>
-                    <input type="text" class="form-control" name="profession" value="{{ old('profession') }}">
+                    <input type="text" class="form-control" id="profession" name="profession" value="{{ old('profession') }}">
                   </div>
                 </div>
               </div>
@@ -61,13 +61,13 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="section" class="form-label">{{ __('Section') }}</label>
-                    <input type="text" class="form-control" name="section" value="{{ old('section') }}">
+                    <input type="text" class="form-control" id="section" name="section" value="{{ old('section') }}">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="department" class="form-label">{{ __('Department') }}</label>
-                    <input type="text" class="form-control" name="department" value="{{ old('department') }}">
+                    <input type="text" class="form-control" id="department" name="department" value="{{ old('department') }}">
                   </div>
                 </div>
               </div>
@@ -84,39 +84,40 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label for="city" class="form-label">{{ __('City') }}</label>
-                    <input type="text" class="form-control" name="city" value="{{ old('city') }}">
+                    <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label for="start_date" class="form-label">{{ __('Start Date') }}</label>
-                    <input type="date" class="form-control" name="start_date" value="{{ old('start_date') }}">
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label for="end_date" class="form-label">{{ __('End Date') }}</label>
-                    <input type="date" class="form-control" name="end_date" value="{{ old('end_date') }}">
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}">
                   </div>
                 </div>
               </div>
-              <div class="col-md-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
-                <div class="col-sm-12">
-                  <input
-                    multiple
-                    type="file"
-                    class="dropify"
-                    id="attachment"
-                    name="attachment[]"
-                    data-height="100"
-                    accept="image/*, .pdf">
+              <div class="row">
+                <div class="col-12">
+                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                  <div class="col-sm-12">
+                    <input
+                      type="file"
+                      class="dropify"
+                      id="attachment"
+                      name="attachment"
+                      data-height="100"
+                      accept="image/*, .pdf">
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="my-3">
-                    <label for="functional_tasks" class="form-label">{{ __('Tasks') }}</label>
+                    <span for="functional_tasks" class="form-label">{{ __('Tasks') }}</span>
                     <div class="options">
                       <!-- Text Format -->
                       <button type="button" id="bold" class="option-button format button">
