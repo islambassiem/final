@@ -47,7 +47,7 @@ class ExperienceRequest extends FormRequest
   public function messages()
   {
     return [
-      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.mimetypes' => __('The file is invalid'),
       'attachment.max' => __('The maximum file upload is 2MBs')
     ];
   }

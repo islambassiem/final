@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AnnualVacationEndRule;
+use App\Rules\AnnualVacationStartRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VacationRequest extends FormRequest
@@ -22,8 +24,8 @@ class VacationRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'start_date' => ['required','date', 'before_or_equal:end_date'],
-      'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+      'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule],
+      'end_date' => ['required', 'date', 'after_or_equal:start_date', new AnnualVacationEndRule],
       'vacation_type' => ['required'],
       'employee_notes' => ['nullable'],
       'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
@@ -40,7 +42,7 @@ class VacationRequest extends FormRequest
       'end_date.date' => __('The vacation end date is invalid'),
       'end_date.after_or_equal' => __('The vacation end date must be after its start date'),
       'vacation_type.required' => __('The vacation type is required'),
-      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.mimetypes' => __('The file is invalid'),
       'attachment.max' => __('The maximum file upload is 2MBs'),
     ];
   }
