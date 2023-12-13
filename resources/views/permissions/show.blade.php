@@ -52,7 +52,7 @@
         <div class="card">
           <div class="card-body pb-1">
             <h5 class="card-title pb-0">{{ __('Permission Type') }}</h5>
-            <i class="bi bi-vinyl-fill text-warning fs-1"></i>
+            <i class="bi bi-vinyl-fill text-info fs-1"></i>
           </div>
           <div class="h5">
             {{ $permission->type->{'permission_type'. session('_lang')} }}

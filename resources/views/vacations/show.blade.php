@@ -52,7 +52,7 @@
         <div class="card">
           <div class="card-body pb-1">
             <h5 class="card-title pb-0">{{ __('Vacation Type') }}</h5>
-            <i class="bi bi-vinyl-fill text-warning fs-1"></i>
+            <i class="bi bi-vinyl-fill text-info fs-1"></i>
           </div>
           <div class="h5">
             {{ $vacation->type->{'vacation_type'. session('_lang')} }}
@@ -98,7 +98,7 @@
             <div>{{ __('Date') }}</div>
             <div>
               @if (!blank($vacation->detail?->employee_time))
-                {{ date('m/d/Y', strtotime($vacation->detail?->employee_time)) }}
+                {{ date('d/m/Y', strtotime($vacation->detail?->employee_time)) }}
               @endif
             </div>
           </div>

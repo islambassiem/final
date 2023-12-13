@@ -24,7 +24,7 @@ class VacationRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule],
+      'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule()],
       'end_date' => ['required', 'date', 'after_or_equal:start_date', new AnnualVacationEndRule],
       'vacation_type' => ['required'],
       'employee_notes' => ['nullable'],
