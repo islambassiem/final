@@ -22,7 +22,6 @@ class ResearchRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
       'type_id' => 'required',
       'status_id' => 'required',
       'progress_id' => 'required',

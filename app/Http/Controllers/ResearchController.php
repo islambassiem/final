@@ -12,6 +12,7 @@ use App\Models\Tables\ResearchStatus;
 use App\Models\Tables\ResearchLanguage;
 use App\Models\Tables\ResearchProgress;
 use App\Http\Requests\ResearchRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ResearchController extends Controller
 {
@@ -52,7 +53,13 @@ class ResearchController extends Controller
    */
   public function store(ResearchRequest $request)
   {
-    Research::create($request->validated());
+    Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
+    Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
+    $validated = $request->validated();
+    $validated['user_id'] =  auth()->user()->id;
+    $validated['title'] = strip_tags($request->title);
+    $validated['summary'] = strip_tags($request->summary);
+    Research::create($validated);
     return redirect()->route('research.index')->with('success', __('You have added research successfully'));
   }
 
@@ -88,6 +95,12 @@ class ResearchController extends Controller
    */
   public function update(ResearchRequest $request, Research $research)
   {
+    Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
+    Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
+    $validated = $request->validated();
+    $validated['user_id'] =  auth()->user()->id;
+    $validated['title'] = strip_tags($request->title);
+    $validated['summary'] = strip_tags($request->summary);
     $research->update($request->validated());
     return redirect()->route('research.index')->with('success', __('You have updated research successfully'));
   }

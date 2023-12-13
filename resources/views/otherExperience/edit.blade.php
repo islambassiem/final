@@ -103,19 +103,19 @@
               </div>
 
               @if (!$link)
-              <div class="col-md-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
-                <div class="col-sm-12">
-                  <input
-                  type="file"
-                  class="dropify"
-                  id="attachment"
-                  name="attachment"
-                  data-height="100"
-                  accept="image/*, .pdf">
+                <div class="col-md-12">
+                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                  <div class="col-sm-12">
+                    <input
+                    type="file"
+                    class="dropify"
+                    id="attachment"
+                    name="attachment"
+                    data-height="100"
+                    accept="image/*, .pdf">
+                  </div>
                 </div>
-              </div>
-            @endif
+              @endif
 
               <div class="row">
                 <div class="col">
@@ -166,7 +166,7 @@
 
                     </div>
                     <div id="text-input" contenteditable="true"></div>
-                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', $experience->functional_tasks) }}">
+                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', file_get_contents(public_path('storage/' . auth()->user()->id . '/text/otherExperience.txt'))) }}">
                   </div>
                 </div>
               </div>

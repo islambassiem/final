@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Models\Tables\Country;
 use App\Models\OtherExperience;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\OtherExperienceRequest;
 
 class OtherExperienceController extends Controller
@@ -41,8 +42,10 @@ class OtherExperienceController extends Controller
    */
   public function store(OtherExperienceRequest $request)
   {
+    Storage::disk('public')->put(auth()->user()->id . '/text/otherExperience.txt', $request->functional_tasks);
     $validated = $request->validated();
-    $validated['user_id'] =  auth()->user()->id;
+    $validated['user_id'] = auth()->user()->id;
+    $validated['functional_tasks'] = strip_tags($request->functional_tasks);
     OtherExperience::create($validated);
     $latest = OtherExperience::latest('created_at')->first();
     if($request->hasFile('attachment')){
@@ -86,6 +89,9 @@ class OtherExperienceController extends Controller
    */
   public function update(OtherExperienceRequest $request, OtherExperience $otherExperience)
   {
+    Storage::disk('public')->put(auth()->user()->id . '/text/otherExperience.txt', $request->functional_tasks);
+    $validated = $request->validated();
+    $validated['functional_tasks'] = strip_tags($request->functional_tasks);
     $otherExperience->update($request->validated());
     if($request->hasFile('attachment')){
       $filepath = $request->file('attachment')->store(auth()->user()->id, 'public');

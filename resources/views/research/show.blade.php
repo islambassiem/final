@@ -47,7 +47,7 @@
       <div class="card">
         <div class="card-body pb-0">
             <h5 class="card-title pb-1">{{ __('Research Title') }}</h5>
-            <div class="pb-3">@php echo $research->title @endphp</div>
+            <div class="pb-3">@php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/research_title.txt')) @endphp</div>
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Summary') }}</h5>
-              <div>@php echo $research->summary @endphp</div>
+              <div>@php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/research_summary.txt')) @endphp</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>

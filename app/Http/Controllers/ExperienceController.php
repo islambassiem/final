@@ -17,6 +17,7 @@ use App\Models\Tables\ProfessionalRank;
 use App\Http\Requests\ExperienceRequest;
 use App\Models\Tables\AppointmentStatus;
 use App\Models\Tables\AccommodationStatus;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Tables\EducationalInstitution;
 
 class ExperienceController extends Controller
@@ -62,8 +63,10 @@ class ExperienceController extends Controller
    */
   public function store(ExperienceRequest $request)
   {
+    Storage::disk('public')->put(auth()->user()->id . '/text/experience.txt', $request->tasks);
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
+    $validated['functional_tasks'] = strip_tags($request->tasks);
     Experience::create($validated);
     $latest = Experience::latest('created_at')->first();
     if($request->hasFile('attachment')){
@@ -116,6 +119,10 @@ class ExperienceController extends Controller
    */
   public function update(ExperienceRequest $request, Experience $experience)
   {
+    Storage::disk('public')->put(auth()->user()->id . '/text/experience.txt', $request->tasks);
+    $validated = $request->validated();
+    $validated['user_id'] =  auth()->user()->id;
+    $validated['functional_tasks'] = strip_tags($request->asks);
     $experience->update($request->validated());
     return redirect()->route('experience.index')->with('success', 'You have updated the experience successfully');
   }

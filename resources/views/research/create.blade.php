@@ -70,7 +70,6 @@
               @csrf
               <div id="phase1">
                 <div class="container">
-                  <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
