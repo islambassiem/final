@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
-
 @endsection
 
 @section('h1')
@@ -33,14 +32,12 @@
     </div>
     <div class="row">
       <div class="col d-flex justify-content-end pb-2">
-        <button
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#addVacation"
+        <a
+          href="{{ route('vacations.create') }}"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
           {{ __('Add') }}
-        </button>
+        </a>
       </div>
     </div>
     @if ($errors->any())
@@ -355,27 +352,7 @@
         dropdownParent: $('#addVacation')
       });
 
-      $("#editVacation").on("show.bs.modal", function (e) {
-        var button = $(e.relatedTarget);
-        var id = button.data('id')
-        var status = button.data('status');
-        var form = $('#editVacationForm');
-        form.action = 'vacations/editVacation/' + id;
-        console.log(form.action);
-        if(status > 0){
-          $('#editAttempt').removeClass('d-none');
-          $('#editAttempt').text("{{ __('You cannot modify this vacation as an action has been taken') }}");
-          return false;
-        }
-        var attachment = button.data('attachment');
-        $('#start_date_edit').val(button.data('start-date'));
-        $('#end_date_edit').val(button.data('end-date'));
-        $('#vacation_type_edit').val(button.data('type'));
-        $('#notes_edit').val(button.data('notes'));
-        if(attachment != ''){
-          $('#editAttachment').remove();
-        }
-      });
+
 
       $('.dropify').dropify({
         messages: {

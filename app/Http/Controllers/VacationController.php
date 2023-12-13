@@ -42,7 +42,9 @@ class VacationController extends Controller
    */
   public function create()
   {
-    //
+    return view('vacations.create', [
+      'types' => VacationType::orderBy('ordering')->get(),
+    ]);
   }
 
   /**
@@ -58,7 +60,7 @@ class VacationController extends Controller
     }else{
       $this->vacation($request, $validated);
     }
-    return redirect()->back()->with('success', 'You have applied for a vacation successfully');
+    return redirect()->route('vacations.index')->with('success', 'You have applied for a vacation successfully');
   }
 
   /**
@@ -67,7 +69,8 @@ class VacationController extends Controller
   public function show(string $id)
   {
     return view('vacations.show', [
-      'vacation' => Vacation::with(['detail', 'attachment'])->find($id)
+      'vacation' => Vacation::with(['detail', 'attachment'])->find($id),
+      'types' => VacationType::orderBy('ordering')->get(),
     ]);
   }
 
@@ -76,15 +79,33 @@ class VacationController extends Controller
    */
   public function edit(string $id)
   {
-    //
+    return view('vacations.edit',[
+      'vacation' => Vacation::with(['detail', 'attachment'])->find($id),
+      'types' => VacationType::orderBy('ordering')->get(),
+    ]);
   }
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function updateVacation(Request $request, string $id)
+  public function attachAttachment(Request $request, string $id)
   {
-    return 'update function';
+    $vacation = Vacation::find($id);
+    $request->validate([
+      'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
+    ], [], [
+      'attachment.mimetypes' => __('The file is invalid'),
+      'attachment.max' => __('The maximum file upload is 2MBs'),
+    ]);
+    if($request->hasFile('attachment'))
+    {
+      $filepath = $request->file('attachment')->store(auth()->user()->id . '/vacations', 'public');
+      $vacation->attachment()->create([
+        'user_id' => auth()->user()->id,
+        'attachment_type' => '8',
+        'link' => $filepath,
+        'title' => 'vacation'
+      ]);
+      return redirect()->back()->with('success', 'You have uploaded a file succcessfully');
+    }
+    return redirect()->back()->with('error', 'No files were uploaded');
   }
 
   /**
@@ -94,7 +115,7 @@ class VacationController extends Controller
   {
     $vacation = Vacation::find($id);
     if($vacation->status_id > 0){
-      return redirect()->back()->with('error', 'An action has been taken on your vacation; you cannot delete it');
+      return redirect()->route('vacations.index')->with('error', 'An action has been taken on your vacation; you cannot delete it');
     }
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
     $attachment = Attachment::where('attachmentable_type', 'App\Models\Vacation')->where('attachmentable_id', $vacation->id)->first();
@@ -105,7 +126,7 @@ class VacationController extends Controller
       $attachment->delete();
     }
     $vacation->delete();
-    return redirect()->back()->with('success', 'You have deleted your vacation successfully');
+    return redirect()->route('vacations.index')->with('success', 'You have deleted your vacation successfully');
   }
 
   private function annual(VacationRequest $request, array $validated)

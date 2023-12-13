@@ -111,6 +111,7 @@ Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
 
 Route::resource('vacations', VacationController::class);
 Route::get('attachment/vacation/{id}', [VacationController::class, 'getAttachment'])->name('attachment.vacation');
+Route::post('add/attachment/vacation/{id}', [VacationController::class, 'attachAttachment'])->name('vacation.addAttachment');
 
 
 Route::resource('permissions', PermissionController::class);
