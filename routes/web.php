@@ -15,6 +15,7 @@ use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AchievementController;
@@ -117,4 +118,4 @@ Route::post('add/attachment/vacation/{id}', [VacationController::class, 'attachA
 Route::resource('permissions', PermissionController::class);
 Route::get('attachment/permission/{id}', [PermissionController::class, 'getAttachment'])->name('attachment.permission');
 
-Route::get('test', [VacationController::class, 'availed']);
+Route::get('attachmments', [AttachmentController::class, 'index'])->name('attachments.index');

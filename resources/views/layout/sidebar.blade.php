@@ -117,6 +117,13 @@
             <span>{{ __('Research') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('attachments.*') ? '' : 'collapsed'  }}" href="{{ route('attachments.index') }}">
+            <i class="bi bi-paperclip"></i>
+            <span>{{ __('Attachments') }}</span>
+          </a>
+        </li><!-- End Profile Page Nav -->
       </ul>
 
     </aside><!-- End Sidebar-->
