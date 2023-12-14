@@ -42,7 +42,7 @@ class DocumentRequest extends FormRequest
       'place_of_issue.required_if' => __('The place of issue is required in case the document is a passport'),
       'date_of_issue.required_if' => __('The date of issue is required in case the document is a passport'),
       'date_of_expiry.required' => __('The expiry date of the document is required'),
-      'attachment.mimetypes' => __('The file is invaild'),
+      'attachment.mimetypes' => __('The file is invalid'),
       'attachment.max' => __('The maximum file upload is 2MBs'),
     ];
   }

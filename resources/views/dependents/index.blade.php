@@ -210,7 +210,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <label for="identification" class="form-label">{{ __('Relationship') }}</label>
+              <label for="relationship" class="form-label">{{ __('Relationship') }}</label>
               <select class="form-select" id="relationship" name="relationship_id" style="width:100%">
                 <option selected disabled>{{ __('Select') }}</option>
                 @foreach ($relationships as $relationship)

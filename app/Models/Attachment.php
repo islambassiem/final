@@ -14,7 +14,7 @@ class Attachment extends Model
   protected $table = 'attachments';
 
   protected $fillable = [
-    'user_id', 'attachment_type', 'link', 'title'
+    'user_id', 'attachment_type', 'link', 'title', 'attachmentable_type', 'attachmentable_id'
   ];
 
   public function attachmentable(){

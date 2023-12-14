@@ -119,7 +119,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('attachments.*') ? '' : 'collapsed'  }}" href="{{ route('attachments.index') }}">
+          <a class="nav-link {{ request()->segment(1) == 'attachments' ? '' : 'collapsed'  }}" href="{{ route('attachments.index') }}">
             <i class="bi bi-paperclip"></i>
             <span>{{ __('Attachments') }}</span>
           </a>

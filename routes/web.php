@@ -118,4 +118,7 @@ Route::post('add/attachment/vacation/{id}', [VacationController::class, 'attachA
 Route::resource('permissions', PermissionController::class);
 Route::get('attachment/permission/{id}', [PermissionController::class, 'getAttachment'])->name('attachment.permission');
 
-Route::get('attachmments', [AttachmentController::class, 'index'])->name('attachments.index');
+Route::get('attachments', [AttachmentController::class, 'index'])->name('attachments.index');
+Route::post('attachment/store', [AttachmentController::class, 'store'])->name('attachment.store');
+Route::get('attachments/{folder}',[AttachmentController::class, 'folderContent'])->name('folder.contents');
+Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
