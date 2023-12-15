@@ -21,6 +21,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
@@ -127,3 +128,6 @@ Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachm
 
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
 Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visits.store');
+
+Route::get('reentry', [ExitReentryController::class, 'index'])->name('reentry.index');
+Route::post('reentryStore', [ExitReentryController::class, 'store'])->name('reentry.store');

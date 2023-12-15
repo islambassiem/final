@@ -99,7 +99,7 @@
             </a>
           </li>
           <li>
-            <a href="" class="{{ Request::routeIs('reentry.*') ? 'active' : '' }}">
+            <a href="{{ route('reentry.index') }}" class="{{ Request::routeIs('reentry.*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i>
               <span>{{ __('Exit Re-entry') }}</span>
             </a>
