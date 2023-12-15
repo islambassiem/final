@@ -117,7 +117,7 @@
             </a>
           </li>
           <li>
-            <a href="" class="{{ request()->routeIs('generics.*') ? 'active' : ''  }}" >
+            <a href="{{ route('generics.index') }}" class="{{ request()->routeIs('generics.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
               <span>{{ __('Generic Request') }}</span>
             </a>

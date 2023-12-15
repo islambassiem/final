@@ -8,6 +8,7 @@ use App\Models\Experience;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
@@ -19,14 +20,14 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AchievementController;
-use App\Http\Controllers\TranslationController;
-use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
-use App\Http\Controllers\LetterController;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
-use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
+use App\Http\Controllers\OtherExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,3 +140,8 @@ Route::post('lettersStore', [LetterController::class, 'store'])->name('letters.s
 
 Route::get('transportation/requests', [TransportationController::class, 'index'])->name('transportation.index');
 Route::post('transportation/requestsStore', [TransportationController::class, 'store'])->name('transportation.store');
+
+Route::get('generics', [GenericRequestController::class, 'index'])->name('generics.index');
+Route::get('genericsShow/{id}', [GenericRequestController::class, 'show'])->name('generics.show');
+Route::get('genericsAdd', [GenericRequestController::class, 'create'])->name('generics.create');
+Route::post('genericsStore', [GenericRequestController::class, 'store'])->name('generics.store');
