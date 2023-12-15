@@ -99,13 +99,13 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('reentry.index') }}" class="{{ Request::routeIs('reentry.*') ? 'active' : '' }}">
+            <a href="{{ route('reentry.index') }}" class="{{ request()->routeIs('reentry.*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i>
               <span>{{ __('Exit Re-entry') }}</span>
             </a>
           </li>
           <li>
-            <a href="" class="{{ request()->routeIs('letters.*') ? 'active' : ''  }}" >
+            <a href="{{ route('letters.index') }}" class="{{ request()->routeIs('letters.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
               <span>{{ __('Letters') }}</span>
             </a>

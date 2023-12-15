@@ -23,6 +23,7 @@ use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
 
@@ -131,3 +132,6 @@ Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visi
 
 Route::get('reentry', [ExitReentryController::class, 'index'])->name('reentry.index');
 Route::post('reentryStore', [ExitReentryController::class, 'store'])->name('reentry.store');
+
+Route::get('letters', [LetterController::class, 'index'])->name('letters.index');
+Route::post('lettersStore', [LetterController::class, 'store'])->name('letters.store');

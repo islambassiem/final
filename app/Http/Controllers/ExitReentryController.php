@@ -35,6 +35,11 @@ class ExitReentryController extends Controller
       'deduction.required' => __('Kindly agree to the deduction for extra days')
     ]);
     $validated['user_id'] = auth()->user()->id;
+      if(isset($validated['deduction'])){
+        if($validated['deduction'] == "on"){
+          $validated['deduction'] = $this->check($request->from, $request->to) > 60 ? "1" : '0';
+        }
+      }
     ExitReentry::create($validated);
     return redirect()->route('reentry.index')->with('success', __('You have applied for an exit re-entry visa successfully'));
   }

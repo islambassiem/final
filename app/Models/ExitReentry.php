@@ -13,7 +13,7 @@ class ExitReentry extends Model
   protected $table = 'exit_reentries';
 
   protected $fillable = [
-    'user_id' , 'from', 'to'
+    'user_id' , 'from', 'to', 'deduction'
   ];
 
   public function days()

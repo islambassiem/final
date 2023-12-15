@@ -11,12 +11,16 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('exit_reentries', function (Blueprint $table) {
+    Schema::create('letters', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')->constrained("users");
-      $table->date('from');
-      $table->date('to');
+      $table->foreignId('user_id')->constrained('users');
+      $table->string('addressee');
+      $table->boolean('english')->default(0);
+      $table->boolean('salary')->default(0);
+      $table->boolean('loan')->default(0);
+      $table->boolean('attested')->default(0);
       $table->boolean('deduction')->default(0);
+      $table->string('notes')->nullable();
       $table->timestamps();
     });
   }
@@ -26,6 +30,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('exit_reentries');
+    Schema::dropIfExists('letters');
   }
 };
