@@ -21,6 +21,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
 
@@ -122,3 +123,7 @@ Route::get('attachments', [AttachmentController::class, 'index'])->name('attachm
 Route::post('attachment/store', [AttachmentController::class, 'store'])->name('attachment.store');
 Route::get('attachments/{folder}',[AttachmentController::class, 'folderContent'])->name('folder.contents');
 Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
+
+
+Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
+Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visits.store');

@@ -58,12 +58,21 @@
 
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('vacations.*') || request()->routeIs('permissions.*') ? '' : 'collapsed'  }}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link
+            {{ request()->routeIs('vacations.*') ||
+            request()->routeIs('permissions.*')
+            ? '' : 'collapsed'  }}"
+            data-bs-target="#charts-nav"
+            data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-walking"></i><span>{{ __('Leaves') }}</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content collapse {{ request()->routeIs('vacations.*') || request()->routeIs('permissions.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content collapse
+          {{ request()->routeIs('vacations.*') ||
+          request()->routeIs('permissions.*')
+          ? 'show' : '' }}"
+          data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('vacations.index') }}" class="{{ Request::routeIs('vacations.*') ? 'active' : '' }}">
+            <a href="{{ route('vacations.index') }}" class="{{ request()->routeIs('vacations.*') ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>{{ __('Vacations') }}</span>
             </a>
           </li>
@@ -75,6 +84,53 @@
           </li>
         </ul>
       </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('visits.*') || request()->routeIs('reentry.*') || request()->routeIs('letters.*') || request()->routeIs('transportation.*') || request()->routeIs('generics.*') ? '' : 'collapsed'  }}"
+          data-bs-target="#requests"
+          data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-raised-hand"></i><span>{{ __('Requests') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="requests" class="nav-content collapse {{ request()->routeIs('visits.*') || request()->routeIs('reentry.*') || request()->routeIs('letters.*') || request()->routeIs('transportation.*') || request()->routeIs('generics.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('visits.index') }}" class="{{ request()->routeIs('visits.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Family Visit') }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="{{ Request::routeIs('reentry.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Exit Re-entry') }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="{{ request()->routeIs('letters.*') ? 'active' : ''  }}" >
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Letters') }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="{{ request()->routeIs('transportation.*') ? 'active' : ''  }}" >
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Transportation') }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="{{ request()->routeIs('generics.*') ? 'active' : ''  }}" >
+              <i class="bi bi-circle"></i>
+              <span>{{ __('Generic Request') }}</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {{ request()->segment(1) == 'faq' ? '' : 'collapsed'  }}" href="">
+          <i class="bi bi-question-circle"></i>
+          <span>{{ __('F.A.Q') }}</span>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('documents.*') ? '' : 'collapsed'  }}" href="{{ route('documents.index') }}">
