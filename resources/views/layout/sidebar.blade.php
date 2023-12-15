@@ -111,7 +111,7 @@
             </a>
           </li>
           <li>
-            <a href="" class="{{ request()->routeIs('transportation.*') ? 'active' : ''  }}" >
+            <a href="{{ route('transportation.index') }}" class="{{ request()->routeIs('transportation.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
               <span>{{ __('Transportation') }}</span>
             </a>

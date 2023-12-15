@@ -26,6 +26,7 @@ use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\TransportationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,3 +136,6 @@ Route::post('reentryStore', [ExitReentryController::class, 'store'])->name('reen
 
 Route::get('letters', [LetterController::class, 'index'])->name('letters.index');
 Route::post('lettersStore', [LetterController::class, 'store'])->name('letters.store');
+
+Route::get('transportation/requests', [TransportationController::class, 'index'])->name('transportation.index');
+Route::post('transportation/requestsStore', [TransportationController::class, 'store'])->name('transportation.store');
