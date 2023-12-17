@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Attachment;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Models\PermissionType;
 use App\Models\PermissionDetail;
 use App\Http\Requests\PermissionRequest;
+use App\Notifications\ApplyPermission;
+use Illuminate\Support\Facades\Notification;
 
 class PermissionController extends Controller
 {
@@ -53,9 +56,11 @@ class PermissionController extends Controller
       return redirect()->back()->with('error', 'The permission cannot be more than 4 hours');
     }
     Permission::create($validated);
-    $latest_id = Permission::latest('id')->first();
-    $this->permissionDetial($request, $latest_id->id);
-    $this->attach($request, $latest_id);
+    $latest_permission = Permission::latest('id')->first();
+    $head = User::find(auth()->user()->head);
+    Notification::send($head, new ApplyPermission($latest_permission));
+    $this->permissionDetial($request, $latest_permission->id);
+    $this->attach($request, $latest_permission);
     return redirect()->back()->with('success', 'You have applied for a permission successfully');
   }
 
