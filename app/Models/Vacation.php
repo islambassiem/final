@@ -27,6 +27,11 @@ class Vacation extends Model
     return $this->days();
   }
 
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function type()
   {
     return $this->belongsTo(VacationType::class, 'vacation_type', 'id');

@@ -11,13 +11,11 @@ class TranslationController extends Controller
    */
   public function __invoke($lang)
   {
-    if(in_array($lang, ['en', 'ar', 'in', 'pk', 'ph'])){
+    if(in_array($lang, ['en', 'ar', 'in', 'ph'])){
       $dir = 'ltr';
       $_lang = '_en';
-      if($lang == 'ar' || $lang == 'pk'){
-        $dir = 'rtl';
-      }
       if($lang == 'ar'){
+        $dir = 'rtl';
         $_lang = '_ar';
       }
       session()->put('_lang', $_lang);

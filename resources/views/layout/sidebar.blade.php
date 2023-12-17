@@ -126,6 +126,31 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('staff.*') || request()->routeIs('lLeave.*') || request()->routeIs('sLeave.*') ? '' : 'collapsed'  }}" data-bs-target="#head" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>{{ __('Head') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="head" class="nav-content collapse {{ request()->routeIs('staff.*') || request()->routeIs('lLeave.*') || request()->routeIs('sLeave.*')? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('staff.index') }}" class="{{ Request::routeIs('staff.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>{{ __("Staff") }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('sLeave.index') }}" class="{{ Request::routeIs('sLeave.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>{{ __("Permissions") }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('lLeave.index') }}" class="{{ Request::routeIs('lLeave.*') ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>{{ __('Vacations') }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+
+      <li class="nav-item">
         <a class="nav-link {{ request()->segment(1) == 'faq' ? '' : 'collapsed'  }}" href="">
           <i class="bi bi-question-circle"></i>
           <span>{{ __('F.A.Q') }}</span>

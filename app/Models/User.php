@@ -4,20 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Tables\Country;
 use App\Models\Tables\Gender;
-use App\Models\Tables\MaritalStatus;
+use App\Models\Tables\Country;
+use App\Models\Tables\Section;
+use App\Models\Tables\Category;
 use App\Models\Tables\Position;
 use App\Models\Tables\Religion;
-use App\Models\Tables\Section;
-use App\Models\Tables\SpecialNeeds;
-use App\Models\Tables\Sponsorship;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Tables\SpecialNeed;
+use App\Models\Tables\Sponsorship;
+use App\Models\Tables\MaritalStatus;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use PHPUnit\Framework\Constraint\Count;
 
 class User extends Authenticatable
 {
@@ -88,37 +88,37 @@ class User extends Authenticatable
     );
   }
 
-  public function first_name_en(): Attribute
-  {
-    return new Attribute(
-      set: fn (string $value) => strtolower($value),
-      get: fn(string $value)  => ucfirst($value)
-    );
-  }
+  // public function first_name_en(): Attribute
+  // {
+  //   return new Attribute(
+  //     set: fn (string $value) => strtolower($value),
+  //     get: fn(string $value)  => ucfirst($value)
+  //   );
+  // }
 
-  public function middle_name_en(): Attribute
-  {
-    return new Attribute(
-      set: fn (string $value) => strtolower($value),
-      get: fn(string $value)  => ucfirst($value)
-    );
-  }
+  // public function middle_name_en(): Attribute
+  // {
+  //   return new Attribute(
+  //     set: fn (string $value) => strtolower($value),
+  //     get: fn(string $value)  => ucfirst($value)
+  //   );
+  // }
 
-  public function third_name_en(): Attribute
-  {
-    return new Attribute(
-      set: fn (string $value) => strtolower($value),
-      get: fn(string $value)  => ucfirst($value)
-    );
-  }
+  // public function third_name_en(): Attribute
+  // {
+  //   return new Attribute(
+  //     set: fn (string $value) => strtolower($value),
+  //     get: fn(string $value)  => ucfirst($value)
+  //   );
+  // }
 
-  public function family_name_en(): Attribute
-  {
-    return new Attribute(
-      set: fn (string $value) => strtolower($value),
-      get: fn(string $value)  => ucfirst($value)
-    );
-  }
+  // public function family_name_en(): Attribute
+  // {
+  //   return new Attribute(
+  //     set: fn (string $value) => strtolower($value),
+  //     get: fn(string $value)  => ucfirst($value)
+  //   );
+  // }
 
   public function gender()
   {
@@ -154,10 +154,28 @@ class User extends Authenticatable
   }
 
   public function category(){
-    return $this->belongsTo(category::class);
+    return $this->belongsTo(Category::class);
   }
 
   public function specialNeed(){
-    return $this->belongsTo(SpecialNeeds::class);
+    return $this->belongsTo(SpecialNeed::class);
+  }
+
+  public function mobile($user)
+  {
+    return Contact::where('user_id', $user)->where('type', '1')->first();
+  }
+
+  public function extension($user)
+  {
+    return Contact::where('user_id', $user)->where('type', '3')->first();
+  }
+
+  public function vacations(){
+    return $this->hasMany(Vacation::class);
+  }
+
+  public function permissions(){
+    return $this->hasMany(Permission::class);
   }
 }

@@ -1,11 +1,6 @@
 <?php
 
-use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Vacation;
-use App\Models\Attachment;
-use App\Models\Experience;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LetterController;
@@ -45,6 +40,7 @@ Route::get('/', function () {
 });
 
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/head.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -60,8 +56,6 @@ Route::post('/minor/{code}', [QualificationController::class, 'minor']);
 
 Route::resource('dependents', DependentController::class);
 Route::resource('acquaintances', AcquaintanceController::class);
-
-
 
 
 Route::resource('achievements', AchievementController::class);

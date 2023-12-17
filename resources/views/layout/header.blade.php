@@ -196,15 +196,6 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="{{ route('lang', 'pk') }}">
-              <i class="flag flag-pakistan"></i>
-              <span>اردو</span>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
           <a class="dropdown-item d-flex align-items-center" href="{{ route('lang', 'in') }}">
             <i class="flag flag-india"></i>
             <span>भारतीय</span>
@@ -228,7 +219,7 @@
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
             <h6>{{ auth()->user()->{'first_name' .session('_lang')} . ' ' . auth()->user()->{'family_name' .session('_lang')} }}</h6>
-            <span>{{ auth()->user()->position->{'position'. session('_lang')} }}</span>
+            <span>{{ auth()->user()->position?->{'position'. session('_lang')} }}</span>
           </li>
           <li>
             <hr class="dropdown-divider">

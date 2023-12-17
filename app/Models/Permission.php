@@ -27,6 +27,11 @@ class Permission extends Model
     return $this->hours();
   }
 
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function type()
   {
     return $this->belongsTo(PermissionType::class, 'permission_type', 'id');
