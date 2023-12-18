@@ -28,79 +28,54 @@
           <span class="badge bg-primary badge-number">{{ auth()->user()->unreadNotifications()->count() }}</span>
         </a><!-- End Notification Icon -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-          <li class="dropdown-header">
-            {{ __('You have '. auth()->user()->unreadNotifications()->count()) . ' new notifications' }}
-            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          @foreach (auth()->user()->unreadNotifications()->get() as $notification)
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>{{ __('Permission') }}</h4>
-                <p>{{ $notification->data['title'] }}</p>
-                <p>{{ $notification->created_at }}</p>
-              </div>
+          @if (auth()->user()->unreadNotifications()->count() == 0)
+            <li class="dropdown-header">
+              <span>{{ __('There are no notifications as of now') }}</span>
             </li>
-            {{-- <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li> --}}
-          @endforeach
-          {{-- <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="notification-item">
-            <i class="bi bi-x-circle text-danger"></i>
-            <div>
-              <h4>Atque rerum nesciunt</h4>
-              <p>Quae dolorem earum veritatis oditseno</p>
-              <p>1 hr. ago</p>
-            </div>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="notification-item">
-            <i class="bi bi-check-circle text-success"></i>
-            <div>
-              <h4>Sit rerum fuga</h4>
-              <p>Quae dolorem earum veritatis oditseno</p>
-              <p>2 hrs. ago</p>
-            </div>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="notification-item">
-            <i class="bi bi-info-circle text-primary"></i>
-            <div>
-              <h4>Dicta reprehenderit</h4>
-              <p>Quae dolorem earum veritatis oditseno</p>
-              <p>4 hrs. ago</p>
-            </div>
-          </li> --}}
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="dropdown-footer">
+          @else
+            <li class="dropdown-header">
+              {{ __('You have '. auth()->user()->unreadNotifications()->count()) . ' notifications' }}
+              <a href="{{ route('read.all.notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Mark All as read') }}</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            @foreach (auth()->user()->unreadNotifications()->get() as $notification)
+              <a href="{{ route('read.notification', $notification->id) }}">
+                <li class="notification-item">
+                  <i class="bi bi-exclamation-circle text-warning"></i>
+                  <div>
+                    <h4>{{ $notification->data['type'] }}</h4>
+                    <p>{{ $notification->data['title'] }}</p>
+                    <p>{{ $notification->created_at }}</p>
+                  </div>
+                </li>
+              </a>
+            @endforeach
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          @endif
+          {{-- <li class="dropdown-footer">
             <a href="#">Show all notifications</a>
-          </li>
-        </ul><!-- End Notification Dropdown Items -->
+          </li> --}}
+        </ul>
+        <!-- End Notification Dropdown Items -->
       </li><!-- End Notification Nav -->
-      {{-- <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-chat-left-text"></i>
-          <span class="badge bg-success badge-number">3</span>
+          <span class="badge bg-success badge-number">0</span>
         </a><!-- End Messages Icon -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
           <li class="dropdown-header">
+            <span>{{ __('There are no memos as of now') }}</span>
+          </li>
+          {{-- <li class="dropdown-header">
+            You have 3 new messages
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li> --}}
+          {{-- <li class="dropdown-header">
             You have 3 new messages
             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
           </li>
@@ -148,40 +123,10 @@
           </li>
           <li class="dropdown-footer">
             <a href="#">Show all messages</a>
-          </li>
-        </ul><!-- End Messages Dropdown Items -->
-      </li><!-- End Messages Nav --> --}}
-      {{-- <li class="nav-item nav-profile dropdown d-none d-md-block">
-        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-          <span class="nav-profile-text"><i class="mdi mdi-earth"></i> {{ __('template.language') }}</span>
-        </a>
-        <div class="dropdown-menu center navbar-dropdown" aria-labelledby="profileDropdown">
-          <a class="dropdown-item" href="{{ route('lang', 'en') }}">
-            <i class="flag-icon flag-icon-us me-3"></i>
-            <span>English</span>
-          </a>
-          <hr class="dropdown-divider">
-          <a class="dropdown-item" href="{{ route('lang', 'ar') }}">
-            <i class="flag-icon flag-icon-sa me-3"></i>
-            <span>العربية</span>
-          </a>
-          <hr class="dropdown-divider">
-          <a class="dropdown-item" href="{{ route('lang', 'pk') }}">
-            <i class="flag-icon flag-icon-pk me-3"></i>
-            <span>اردو</span>
-          </a>
-          <hr class="dropdown-divider">
-          <a class="dropdown-item" href="{{ route('lang', 'in') }}">
-            <i class="flag-icon flag-icon-in me-3"></i>
-            <span>भारतीय</span>
-          </a>
-          <hr class="dropdown-divider">
-          <a class="dropdown-item" href="{{ route('lang', 'ph') }}">
-            <i class="flag-icon flag-icon-ph me-3"></i>
-            <span>Filipino</span>
-          </a>
-        </div>
-      </li> --}}
+          </li> --}}
+        </ul>
+        <!-- End Messages Dropdown Items -->
+      </li><!-- End Messages Nav -->
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
           <img src="{{ asset('assets/img/weather.png') }}" alt="Profile" class="rounded-circle">

@@ -42,6 +42,7 @@ class Permission extends Model
     return $this->belongsTo(WorkflowStatus::class, 'status_id', 'code');
   }
 
+
   public function detail()
   {
     return $this->hasOne(PermissionDetail::class);

@@ -139,3 +139,17 @@ Route::get('generics', [GenericRequestController::class, 'index'])->name('generi
 Route::get('genericsShow/{id}', [GenericRequestController::class, 'show'])->name('generics.show');
 Route::get('genericsAdd', [GenericRequestController::class, 'create'])->name('generics.create');
 Route::post('genericsStore', [GenericRequestController::class, 'store'])->name('generics.store');
+
+
+
+Route::get('notification/{id}', function($id){
+  auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+  return redirect()->back();
+})->name('read.notification');
+
+Route::get('readAll', function(){
+  foreach (auth()->user()->unreadNotifications as $notification) {
+    $notification->markAsRead();
+  }
+  return redirect()->back();
+})->name('read.all.notifications');

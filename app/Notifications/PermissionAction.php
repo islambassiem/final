@@ -4,15 +4,15 @@ namespace App\Notifications;
 
 use App\Models\Permission;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class ApplyPermission extends Notification
+class PermissionAction extends Notification
 {
   use Queueable;
 
-  private $permission;
+  protected $permission;
 
   /**
    * Create a new notification instance.
@@ -60,7 +60,7 @@ class ApplyPermission extends Notification
     return [
       'id' => $this->permission->id,
       'type' => 'Permission',
-      'title' => __('A new permission has been requested'),
+      'title' => __('You permission had an action'),
       'user' => auth()->user()->id
     ];
   }

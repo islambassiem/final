@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vacation;
+use App\Models\Attachment;
 use Illuminate\Http\Request;
+use App\Models\VacationDetail;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tables\VacationType;
 use App\Http\Requests\VacationRequest;
-use App\Models\Attachment;
-use App\Models\VacationDetail;
-use DateTime;
+use App\Notifications\ApplyVacation;
 
 class VacationController extends Controller
 {
@@ -52,7 +54,7 @@ class VacationController extends Controller
    */
   public function store(VacationRequest $request)
   {
-    $validated = $request->all();
+    $validated = $request->validated();
     $validated['user_id'] = auth()->user()->id;
     $validated['status_id'] = 0;
     if($request->vacation_type == 1){
@@ -129,10 +131,11 @@ class VacationController extends Controller
     return redirect()->route('vacations.index')->with('success', 'You have deleted your vacation successfully');
   }
 
-  private function annual(VacationRequest $request, array $validated)
+  private function annual(VacationRequest $request, array $validated) 
   {
     if($request->vacation_type == 1)
     {
+      $head = User::find(auth()->user()->head);
       $days = $this->days($request->start_date, $request->end_date);
       $balance = $this->balance($request->end_date);
       if($days > $balance){
@@ -149,18 +152,20 @@ class VacationController extends Controller
         $latest = Vacation::latest('id')->first();
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
+        $head->notify(new ApplyVacation($latest));
 
         //process the unpaid portion
         $this->createVacation($unpaidStartDate, $unpaidEndDate, '4');
         $latest = Vacation::latest('id')->first();
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
-
+        $head->notify(new ApplyVacation($latest));
       }elseif($days <= $balance){
         Vacation::create($validated);
         $latest = Vacation::latest('id')->first();
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
+        $head->notify(new ApplyVacation($latest));
       }
     }
   }
@@ -169,10 +174,12 @@ class VacationController extends Controller
   {
     if($request->vacation_type != 1)
     {
+      $head = User::find(auth()->user()->head);
       Vacation::create($validated);
       $latest = Vacation::latest('id')->first();
       $this->detail($validated, $latest->id);
       $this->attach($request, $latest);
+      $head->notify(new ApplyVacation($latest));
     }
   }
 

@@ -2,24 +2,24 @@
 
 namespace App\Notifications;
 
-use App\Models\Permission;
+use App\Models\Vacation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ApplyPermission extends Notification
+class ApplyVacation extends Notification
 {
   use Queueable;
 
-  private $permission;
+  protected $vacation;
 
   /**
    * Create a new notification instance.
    */
-  public function __construct(Permission $permission)
+  public function __construct(Vacation $vacation)
   {
-    return $this->permission = $permission;
+    return $this->vacation = $vacation;
   }
 
   /**
@@ -58,9 +58,9 @@ class ApplyPermission extends Notification
   public function toDataBase($notifiable)
   {
     return [
-      'id' => $this->permission->id,
-      'type' => 'Permission',
-      'title' => __('A new permission has been requested'),
+      'id' => $this->vacation->id,
+      'type' => 'Vacation',
+      'title' => __('A new vacation has been requested'),
       'user' => auth()->user()->id
     ];
   }
