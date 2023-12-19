@@ -2,24 +2,24 @@
 
 namespace App\Notifications;
 
-use App\Models\Permission;
+use App\Models\Leave;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class ApplyPermission extends Notification
+class LeaveAction extends Notification
 {
   use Queueable;
 
-  private $permission;
+  protected $leave;
 
   /**
    * Create a new notification instance.
    */
-  public function __construct(Permission $permission)
+  public function __construct(Leave $leave)
   {
-    return $this->permission = $permission;
+    return $this->leave = $leave;
   }
 
   /**
@@ -58,9 +58,9 @@ class ApplyPermission extends Notification
   public function toDataBase($notifiable)
   {
     return [
-      'id' => $this->permission->id,
-      'type' => 'Permission',
-      'title' => __('A new permission has been requested'),
+      'id' => $this->leave->id,
+      'type' => 'Leave',
+      'title' => __('You permission had an action'),
       'user' => auth()->user()->id
     ];
   }

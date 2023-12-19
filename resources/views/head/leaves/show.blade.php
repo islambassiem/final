@@ -17,6 +17,25 @@
 
 @section('content')
   <section class="section">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card py-2">
+          <div class="card-body pb-0">
+            <div class="card-title mb-0 py-2">
+              {{ session('_lang') == '_ar' ? $permission->user->getFullArabicNameAttribute : $permission->user->getFullEnglishNameAttribute }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <a href="{{ route('sLeave.index') }}" class="btn btn-danger">{{ __('Back') }}</a>
+          <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
+            {{ __('Take action') }}
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="row text-center">
       <div class="col-md-3">
         <div class="card">
@@ -55,7 +74,7 @@
             <i class="bi bi-vinyl-fill text-info fs-1"></i>
           </div>
           <div class="h5">
-            {{ $permission->type->{'permission_type'. session('_lang')} }}
+            {{ $permission->type->{'leave_type'. session('_lang')} }}
           </div>
         </div>
       </div>
@@ -206,6 +225,44 @@
       </div>
     </div>
   </section>
+
+<!-- Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="actionModalLabel">{{ __('Take an action') }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('sLeave.update', $permission->id) }}" method="post" id="actionForm">
+          @csrf
+          <div class="mb-3">
+            <label for="action">{{ __('Action') }}</label>
+            <select name="action" id="" class="form-select">
+              <option value="">{{ __('Select') }}</option>
+              <option value="1">{{ __('Approve') }}</option>
+              <option value="2">{{ __('Decline') }}</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="notes">{{ __('Notes') }}</label>
+              <textarea class="form-control" name="head_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+        <button type="submit" form="actionForm" class="btn btn-primary">{{ __('Submit') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 @endsection
 
 @section('script')

@@ -11,11 +11,11 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('_permission_types', function (Blueprint $table) {
+    Schema::create('_leave_types', function (Blueprint $table) {
       $table->unsignedTinyInteger('id', true);
-      $table->string('permission_type_en', 50);
-      $table->string('permission_type_ar', 50);
-      $table->string('permission_type_code', 10)->unique();
+      $table->string('leave_type_en', 50);
+      $table->string('leave_type_ar', 50);
+      $table->string('leave_type_code', 10)->unique();
       $table->timestamps();
     });
   }
@@ -25,6 +25,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('_permission_types');
+    Schema::dropIfExists('_leave_types');
   }
 };

@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Permissions') }}
+  {{ __('Leaves') }}
 @endsection
 
 @section('style')
@@ -11,11 +11,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Permissions') }}
+  {{ __('Leaves') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Permissions / All') }}
+  {{ __('Leaves / All') }}
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
         <button
           type="button"
           data-bs-toggle="modal"
-          data-bs-target="#addPermission"
+          data-bs-target="#addleave"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
           {{ __('Add') }}
@@ -50,8 +50,8 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body mt-4">
-            <h5 class="card-title">{{ __('Permissions') }}</h5>
-            @if (count($permissions) == 0)
+            <h5 class="card-title">{{ __('Leaves') }}</h5>
+            @if (count($leaves) == 0)
               <div class="alert alert-danger" role="alert">
                 {{ __('There are no vacations availed yet') }}
               </div>
@@ -81,15 +81,15 @@
                 </thead>
                 <tbody>
                   @php $c = 1; @endphp
-                  @foreach ($permissions as $permission)
+                  @foreach ($leaves as $leave)
                     <tr>
                       <td>{{ $c }}</td>
-                      <td>{{ $permission->date }}</td>
-                      <td>{{ $permission->from }}</td>
-                      <td>{{ $permission->to }}</td>
-                      <td>{{ $permission->type->{'permission_type' . session('_lang')} }}</td>
+                      <td>{{ $leave->date }}</td>
+                      <td>{{ $leave->from }}</td>
+                      <td>{{ $leave->to }}</td>
+                      <td>{{ $leave->type->{'leave_type' . session('_lang')} }}</td>
                       <td>
-                        @switch($permission->status_id)
+                        @switch($leave->status_id)
                           @case(1)
                             <i class="bi bi-check-square-fill text-success fs-5"></i>
                             @break
@@ -99,11 +99,11 @@
                           @default
                           <i class="bi bi-hourglass-top text-warning fs-5"></i>
                         @endswitch
-                        <span class="mx-2">{{ $permission->status->{'workflow_status' . session('_lang')} }}</span>
+                        <span class="mx-2">{{ $leave->status->{'workflow_status' . session('_lang')} }}</span>
                       </td>
                       <td>
                         <a
-                        href="{{ route('permissions.show', $permission->id) }}"
+                        href="{{ route('leaves.show', $leave->id) }}"
                         class="btn btn-secondary btn-sm py-0">
                         <i class="bi bi-eye-fill"></i>
                       </a>
@@ -126,13 +126,13 @@
                           type="button"
                           class="btn btn-danger btn-sm py-0"
                           id="deleteBtn"
-                          data-id = "{{ $permission->id }}"
+                          data-id = "{{ $leave->id }}"
                           data-bs-toggle="modal"
                           data-bs-target="#delteConfirmation">
                           <i class="bi bi-trash3"></i>
                         </button>
                         <a
-                          href="{{ route('attachment.permission', $permission->id) }}"
+                          href="{{ route('attachment.leave', $leave->id) }}"
                           class="btn btn-info btn-sm py-0">
                           <i class="bi bi-paperclip"></i>
                         </a>
@@ -217,16 +217,16 @@
     </div>
   </div> --}}
 
-  <!-- Add a permission Modal -->
-  <div class="modal fade" id="addPermission" tabindex="-1" aria-labelledby="addPermissionLabel" aria-hidden="true">
+  <!-- Add a leave Modal -->
+  <div class="modal fade" id="addleave" tabindex="-1" aria-labelledby="addleaveLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addPermissionLabel">{{ __('Add a new vacation request') }}</h1>
+          <h1 class="modal-title fs-5" id="addleaveLabel">{{ __('Add a new vacation request') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('permissions.store') }}" method="post" enctype="multipart/form-data" id="addPermissionForm" >
+          <form action="{{ route('leaves.store') }}" method="post" enctype="multipart/form-data" id="addleaveForm" >
             @csrf
             <div class="row">
               <div class="col-6 mb-3">
@@ -236,11 +236,11 @@
                 </div>
               </div>
               <div class="col-6 mb-3">
-                <label for="permission_type">{{ __('Permission Type') }}</label>
-                <select class="form-select" name="permission_type" id="permission_type" style="width: 100%">
+                <label for="leave_type">{{ __('Permission Type') }}</label>
+                <select class="form-select" name="leave_type" id="leave_type" style="width: 100%">
                   <option selected disabled>{{ __('Select') }}</option>
                   @foreach ($types as $type)
-                    <option value="{{ $type->id }}">{{ $type->{'permission_type' . session('_lang')} }}</option>
+                    <option value="{{ $type->id }}">{{ $type->{'leave_type' . session('_lang')} }}</option>
                   @endforeach
                 </select>
               </div>
@@ -283,13 +283,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="addPermissionForm" class="btn btn-primary">{{ __('Save') }}</button>
+          <button type="submit" form="addleaveForm" class="btn btn-primary">{{ __('Save') }}</button>
         </div>
       </div>
     </div>
   </div>
 
-  {{-- Delete a permission modal --}}
+  {{-- Delete a leave modal --}}
 
   <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -346,8 +346,8 @@
       }
     });
 
-    $("#permission_type").select2({
-      dropdownParent: $('#addPermission')
+    $("#leave_type").select2({
+      dropdownParent: $('#addleave')
     });
 
 
@@ -364,7 +364,7 @@
       let button = $(event.relatedTarget);
       let id = button.data('id');
       let form = document.getElementById('deleteForm');
-      form.action = "permissions/" + id;
+      form.action = "leaves/" + id;
     });
   });
 </script>

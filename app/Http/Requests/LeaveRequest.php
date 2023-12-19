@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PermissionRequest extends FormRequest
+class LeaveRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class PermissionRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'permission_type' => 'required',
+      'leave_type' => 'required',
       'date' => 'required|date',
       'from' => 'required|date_format:H:i|before:to',
       'to' => 'required|date_format:H:i|after:from',
@@ -34,7 +34,7 @@ class PermissionRequest extends FormRequest
   public function messages()
   {
     return [
-      'permission_type.required' => __('The permission type is required'),
+      'leave_type.required' => __('The permission type is required'),
       'date.required' => __('The permission date is required'),
       'from.required' => __('The start time of the permisson is required'),
       'from.before' => __('The start time of the permission should be before the end time'),

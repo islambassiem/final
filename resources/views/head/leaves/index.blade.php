@@ -163,7 +163,7 @@
           <div class="mb-3">
             <label for="action">{{ __('Action') }}</label>
             <select name="action" id="" class="form-select">
-              <option value=""></option>
+              <option value="">{{ __('Select') }}</option>
               <option value="1">{{ __('Approve') }}</option>
               <option value="2">{{ __('Decline') }}</option>
             </select>

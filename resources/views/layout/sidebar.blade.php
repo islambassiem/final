@@ -60,7 +60,7 @@
       <li class="nav-item">
         <a class="nav-link
             {{ request()->routeIs('vacations.*') ||
-            request()->routeIs('permissions.*')
+            request()->routeIs('leaves.*')
             ? '' : 'collapsed'  }}"
             data-bs-target="#charts-nav"
             data-bs-toggle="collapse" href="#">
@@ -68,7 +68,7 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse
           {{ request()->routeIs('vacations.*') ||
-          request()->routeIs('permissions.*')
+          request()->routeIs('leaves.*')
           ? 'show' : '' }}"
           data-bs-parent="#sidebar-nav">
           <li>
@@ -77,7 +77,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('permissions.index') }}" class="{{ request()->routeIs('permissions.*') ? 'active' : ''  }}" >
+            <a href="{{ route('leaves.index') }}" class="{{ request()->routeIs('leaves.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
               <span>{{ __('Permissions') }}</span>
             </a>

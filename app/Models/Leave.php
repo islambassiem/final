@@ -3,21 +3,22 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Models\PermissionDetail;
+use App\Models\LeaveDetail;
+use App\Models\Tables\LeaveType;
 use App\Models\Tables\WorkflowStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Permission extends Model
+class Leave extends Model
 {
   use HasFactory;
   use SoftDeletes;
 
-  protected $table = 'permissions';
+  protected $table = 'leaves';
 
   protected $fillable = [
-    'user_id', 'permission_type', 'date', 'from', 'to', 'status_id'
+    'user_id', 'leave_type', 'date', 'from', 'to', 'status_id'
   ];
 
   protected $appends = ['hours'];
@@ -34,7 +35,7 @@ class Permission extends Model
 
   public function type()
   {
-    return $this->belongsTo(PermissionType::class, 'permission_type', 'id');
+    return $this->belongsTo(LeaveType::class, 'leave_type', 'id');
   }
 
   public function status()
@@ -45,7 +46,7 @@ class Permission extends Model
 
   public function detail()
   {
-    return $this->hasOne(PermissionDetail::class);
+    return $this->hasOne(LeaveDetail::class);
   }
 
   public function attachment()

@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PermissionDetail extends Model
+class LeaveDetail extends Model
 {
   use HasFactory;
   use SoftDeletes;
 
-  protected $table = 'permission_details';
+  protected $table = 'leave_details';
 
   protected $fillable = [
-    'permission_id',
+    'leave_id',
     'employee_notes',
     'employee_time',
     'head_status',

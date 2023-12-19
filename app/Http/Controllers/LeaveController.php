@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Attachment;
-use App\Models\Permission;
+use App\Models\Leave;
 use Illuminate\Http\Request;
-use App\Models\PermissionType;
-use App\Models\PermissionDetail;
-use App\Http\Requests\PermissionRequest;
-use App\Notifications\ApplyPermission;
+use App\Models\Tables\LeaveType;
+use App\Models\LeaveDetail;
+use App\Http\Requests\LeaveRequest;
+use App\Notifications\ApplyLeave;
 use Illuminate\Support\Facades\Notification;
 
-class PermissionController extends Controller
+class LeaveController extends Controller
 {
 
   public function __construct()
@@ -27,9 +27,9 @@ class PermissionController extends Controller
    */
   public function index()
   {
-    return view('permissions.index', [
-      'permissions' => Permission::with(['detail', 'attachment'])->where('user_id', auth()->user()->id)->orderByDesc('id')->get(),
-      'types' => PermissionType::all(),
+    return view('leaves.index', [
+      'leaves' => Leave::with(['detail', 'attachment'])->where('user_id', auth()->user()->id)->orderByDesc('id')->get(),
+      'types' => LeaveType::all(),
     ]);
   }
 
@@ -44,7 +44,7 @@ class PermissionController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(PermissionRequest $request)
+  public function store(LeaveRequest $request)
   {
     $validated = $request->validated();
     $validated['user_id'] = auth()->user()->id;
@@ -55,12 +55,12 @@ class PermissionController extends Controller
     if($diff > 4){
       return redirect()->back()->with('error', 'The permission cannot be more than 4 hours');
     }
-    Permission::create($validated);
-    $latest_permission = Permission::latest('id')->first();
+    Leave::create($validated);
+    $latest_leave = Leave::latest('id')->first();
     $head = User::find(auth()->user()->head);
-    Notification::send($head, new ApplyPermission($latest_permission));
-    $this->permissionDetial($request, $latest_permission->id);
-    $this->attach($request, $latest_permission);
+    Notification::send($head, new ApplyLeave($latest_leave));
+    $this->leaveDetial($request, $latest_leave->id);
+    $this->attach($request, $latest_leave);
     return redirect()->back()->with('success', 'You have applied for a permission successfully');
   }
 
@@ -69,8 +69,8 @@ class PermissionController extends Controller
    */
   public function show(string $id)
   {
-    return view('permissions.show', [
-      'permission' => Permission::with(['detail', 'attachment'])->find($id)
+    return view('leaves.show', [
+      'leave' => Leave::with(['detail', 'attachment'])->find($id)
     ]);
   }
 
@@ -95,26 +95,26 @@ class PermissionController extends Controller
    */
   public function destroy(string $id)
   {
-    $permission = Permission::find($id);
-    if($permission->status_id > 0){
+    $leave = Leave::find($id);
+    if($leave->status_id > 0){
       return redirect()->back()->with('error', 'An action has been taken on your permission; you cannot delete it');
     }
-    $detail = PermissionDetail::where('permission_id', $permission->id)->first();
-    $attachment = Attachment::where('attachmentable_type', 'App\Models\Permission')->where('attachmentable_id', $permission->id)->first();
+    $detail = LeaveDetail::where('leave_id', $leave->id)->first();
+    $attachment = Attachment::where('attachmentable_type', 'App\Models\leave')->where('attachmentable_id', $leave->id)->first();
     if($detail){
       $detail->delete();
     }
     if($attachment){
       $attachment->delete();
     }
-    $permission->delete();
+    $leave->delete();
     return redirect()->back()->with('success', 'You have deleted your permission successfully');
   }
 
-  private function permissionDetial(PermissionRequest $request, string $id)
+  private function leaveDetial(LeaveRequest $request, string $id)
   {
-    PermissionDetail::create([
-      'permission_id' => $id,
+    LeaveDetail::create([
+      'leave_id' => $id,
       'employee_notes' => $request->employee_notes,
       'employee_time' => Carbon::now(),
       'head_status' => '0',
@@ -122,16 +122,16 @@ class PermissionController extends Controller
     ]);
   }
 
-  private function attach(PermissionRequest $request, Permission $latest)
+  private function attach(LeaveRequest $request, Leave $latest)
   {
     if($request->has('attachment'))
     {
-      $filepath = $request->file('attachment')->store(auth()->user()->id . '/permissions', 'public');
+      $filepath = $request->file('attachment')->store(auth()->user()->id . '/leaves', 'public');
       $latest->attachment()->create([
         'user_id' => auth()->user()->id,
         'attachment_type' => '9',
         'link' => $filepath,
-        'title' => 'permission'
+        'title' => 'leave'
       ]);
     }
   }
@@ -139,7 +139,7 @@ class PermissionController extends Controller
   public function getAttachment($id)
   {
     $link = Attachment::where('user_id', auth()->user()->id)
-      ->where('attachmentable_type', 'App\Models\Permission')
+      ->where('attachmentable_type', 'App\Models\Leave')
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {

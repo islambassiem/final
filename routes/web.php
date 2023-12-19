@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
@@ -114,8 +114,8 @@ Route::get('attachment/vacation/{id}', [VacationController::class, 'getAttachmen
 Route::post('add/attachment/vacation/{id}', [VacationController::class, 'attachAttachment'])->name('vacation.addAttachment');
 
 
-Route::resource('permissions', PermissionController::class);
-Route::get('attachment/permission/{id}', [PermissionController::class, 'getAttachment'])->name('attachment.permission');
+Route::resource('leaves', LeaveController::class);
+Route::get('attachment/leave/{id}', [LeaveController::class, 'getAttachment'])->name('attachment.leave');
 
 Route::get('attachments', [AttachmentController::class, 'index'])->name('attachments.index');
 Route::post('attachment/store', [AttachmentController::class, 'store'])->name('attachment.store');
