@@ -45,7 +45,7 @@
           @endif
           <div class="form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="email" id="inputEmail" class="form-control form-control-lg" placeholder="Email address" autofocus="" value="{{ old('email') }}">
+            <input type="hidden" name="email" id="inputEmail" class="form-control form-control-lg" placeholder="Email address" autofocus="" value="{{ request()->segment(4) }}">
           </div>
           <div class="form-group position-relative">
             <label for="password" class="sr-only">Email address</label>

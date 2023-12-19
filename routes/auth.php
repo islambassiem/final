@@ -16,7 +16,7 @@ Route::get('/forget-password', [ForgetPasswordController::class, 'forgotPassword
 Route::post('/forget-password', [ForgetPasswordController::class, 'forgotPasswordPost'])->name('forgot-password.post');
 
 //reset password
-Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
+Route::get('/reset-password/{token}/email/{email}', [ResetPasswordController::class, 'resetPassword'])->name('reset.password');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPasswordPost'])->name('reset-password.post') ;
 
 // sign in with google
