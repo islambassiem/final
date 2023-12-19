@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
-              <a href="{{ route('lLeave.index') }}" class="btn btn-danger">{{ __('Clear Filter') }}</a>
+              <a href="{{ route('lLeave.index') }}" class="btn btn-danger">{{ __('Clear') }}</a>
               <button type="submit" class="btn btn-primary mx-2">{{ __('Filter') }}</button>
             </div>
           </div>
@@ -128,10 +128,10 @@
                     class="btn btn-secondary btn-sm py-0">
                     <i class="bi bi-eye-fill"></i>
                   </a>
-                  <button  
-                    type="button" 
-                    class="btn btn-primary btn-sm py-0" 
-                    data-bs-toggle="modal" 
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm py-0"
+                    data-bs-toggle="modal"
                     data-bs-target="#actionModal"
                     data-id="{{ $vacation->id }}">
                     <i class="bi bi-activity"></i>

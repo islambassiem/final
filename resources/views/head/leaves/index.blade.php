@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
-              <a href="{{ route('sLeave.index') }} " class="btn btn-danger mx-2">{{ __('Clear Filter') }}</a>
+              <a href="{{ route('sLeave.index') }} " class="btn btn-danger mx-2">{{ __('Clear') }}</a>
               <button type="submit" class="btn btn-primary">{{ __('Filter') }}</button>
             </div>
           </div>
@@ -112,7 +112,7 @@
                   <td>{{ $permission->to }}</td>
                   <td>{{ $permission->type->{'permission_type' . session('_lang')} }}</td>
                   <td>
-                    @switch($permission->detail->head_status)
+                    @switch($permission->detail?->head_status)
                       @case(1)
                         <i class="bi bi-check-square-fill text-success fs-5"></i>
                         @break
@@ -122,7 +122,7 @@
                       @default
                       <i class="bi bi-hourglass-top text-warning fs-5"></i>
                     @endswitch
-                    <span class="mx-2">{{ $permission->detail->headStatus->{'workflow_status' . session('_lang')} }}</span>
+                    <span class="mx-2">{{ $permission->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
                     <a
@@ -130,10 +130,10 @@
                       class="btn btn-secondary btn-sm py-0">
                       <i class="bi bi-eye-fill"></i>
                     </a>
-                    <button  
-                      type="button" 
-                      class="btn btn-primary btn-sm py-0" 
-                      data-bs-toggle="modal" 
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm py-0"
+                      data-bs-toggle="modal"
                       data-bs-target="#actionModal"
                       data-id="{{ $permission->id }}">
                       <i class="bi bi-activity"></i>
