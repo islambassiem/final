@@ -11,9 +11,9 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('permission_details', function (Blueprint $table) {
+    Schema::create('leave_details', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('permission_id')->constrained('permissions');
+      $table->foreignId('leave_id')->constrained('leaves');
       $table->string('employee_notes')->nullable();
       $table->timestamp('employee_time')->nullable();
       $table->string('head_status', 10);

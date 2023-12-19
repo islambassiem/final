@@ -49,7 +49,7 @@ INSERT INTO `_attachment_types` (`id`, `attachment_type_en`, `attachment_type_ar
 (6, 'Affiliation', 'انتساب', '6', '2023-12-06 10:11:23', '2023-12-06 10:11:23'),
 (7, 'Other', 'مستندات أخرى', '6', '2023-07-16 04:52:05', '2023-07-16 04:52:05'),
 (8, 'Vacation', 'اجازة', '6', '2023-12-09 06:55:51', '2023-12-09 06:55:51'),
-(9, 'Permission', 'إستئذان', '6', '2023-12-11 14:49:48', '2023-12-11 14:49:48'),
+(9, 'Leave', 'إستئذان', '6', '2023-12-11 14:49:48', '2023-12-11 14:49:48'),
 (10, 'Achievement', 'إنجاز', '6', '2023-12-12 12:57:26', '2023-12-12 12:57:26'),
 (11, 'Course', 'دورة تدريبية', '6', '2023-12-12 13:09:55', '2023-12-12 13:09:55');
 
@@ -6634,7 +6634,7 @@ INSERT INTO `_workflow_status` (`id`, `workflow_status_en`, `workflow_status_ar`
 (3, 'Rejected', 'مرفوض', '2', '2023-07-16 07:42:51', '2023-07-16 07:42:51');
 
 
-INSERT INTO `_permission_types` (`id`, `permission_type_en`, `permission_type_ar`, `permission_type_code`, `created_at`, `updated_at`) VALUES
+INSERT INTO `_leave_types` (`id`, `leave_type_en`, `leave_type_ar`, `leave_type_code`, `created_at`, `updated_at`) VALUES
 (1, 'Personal', 'شخصي', '1', '2023-12-11 09:19:57', '2023-12-11 09:19:57'),
 (2, 'Business', 'عمل', '2', '2023-12-11 09:19:57', '2023-12-11 09:19:57'),
 (3, 'Overtime', 'بدل ساعات اضافية', '3', '2023-12-11 09:19:57', '2023-12-11 09:19:57');
