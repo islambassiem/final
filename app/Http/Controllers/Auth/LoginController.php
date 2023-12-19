@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,15 +23,17 @@ class LoginController extends Controller
   public function login(Request $request)
   {
     $validated = $request->validate([
-      'empid'    => 'required',
+      'empid'    => ['required', Rule::exists('users')->where(fn($query) => $query->where('active', 1))],
       'password' => 'required'
+    ],[
+      'empid.rule' => 'You are not allowed to log in to the system'
     ]);
 
     $remember = $request->remember == "on" ? true : false;
     if (Auth::attempt($validated, $remember)) {
       $request->session()->regenerate();
       session()->put('_lang', '_en');
-      return redirect()->route('dashboard', ['id', 'dashboard']);
+      return redirect()->route('dashboard');
     }
     return redirect()->route('login')->with('error', 'Login information is not correct');
   }
