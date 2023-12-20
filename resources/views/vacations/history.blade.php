@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <style>
+    #vacationsTable{
+      min-width: 800px;
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -23,67 +28,116 @@
     <div class="row">
       <div class="col d-flex justify-content-end pb-2">
         <a
-          href="{{ route('vacations.history') }}"
-          class="btn btn-primary mx-2">
+          href="{{ route('vacations.index') }}"
+          class="btn btn-danger mx-2">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('History') }}
+          {{ __('Back') }}
         </a>
         <a
           href="{{ route('vacations.create') }}"
-          class="btn btn-success mx-2">
+          class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
           {{ __('Add') }}
         </a>
       </div>
     </div>
-    @if (session('success'))
-      <div class="alert alert-success" role="alert">
-        {{ session('success') }}
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
       </div>
     @endif
+    @if (session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+    @endif
+    @if (session('message'))
+      <div class="alert alert-warning" role="alert">
+        {{ session('message') }}
+      </div>
+    @endif
+    <div class="alert alert-danger d-none" id="editAttempt"></div>
     <div class="row">
-      <div class="col-md-4 mx-auto text-center">
-        <div class="card mb-0">
-          <div class="card-body">
-            <div class="card-title text-center h3 mt-2">{{ __('Balance') }}</div>
-            <div class="h1">{{ $balance }}</div>
-            <form action="{{ route('vacations.index') }}" method="get">
-              @csrf
-              <input type="date" name="tillDate" min="{{ date('Y-m-d') }}" class="form-control" value="{{ request()->has('tillDate') ? request()->get('tillDate') : ''}}">
-              <input type="submit" value="Submit" class="btn btn-secondary mt-3">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-4">
+      <div class="col-lg-12">
         <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center">
-              {{ __('Availed Annual') }}
-            </h5>
-            <div class="h1 text-center">{{ $availedAnnual }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center">
-              {{ __('Availed Sick Leave') }}
-            </h5>
-            <div class="h1 text-center">{{ $availedSick }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center">
-              {{ __('Absceces') }}
-            </h5>
-            <div class="h1 text-center">{{ $availedAbsent }}</div>
+          <div class="card-body mt-4">
+            @if (count($vacations) == 0)
+              <div class="alert alert-danger" role="alert">
+                {{ __('There are no vacations availed yet') }}
+              </div>
+            @else
+              @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                  {{ session('success') }}
+                </div>
+              @endif
+              <!-- Table with stripped rows -->
+              <table class="table table-striped" id="vacationsTable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ __('Start Date') }}</th>
+                    <th scope="col">{{ __('End Date') }}</th>
+                    <th scope="col">{{ __('Duration') }}</th>
+                    <th scope="col">{{ __('Type') }}</th>
+                    <th scope="col">{{ __('Status') }}</th>
+                    <th scope="col">{{ __('Actions') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @php $c = 1; @endphp
+                  @foreach ($vacations as $vacation)
+                    <tr>
+                      <td>{{ $c }}</td>
+                      <td>{{ $vacation->start_date }}</td>
+                      <td>{{ $vacation->end_date }}</td>
+                      <td>{{ $vacation->days }}</td>
+                      <td>{{ $vacation->type->{'vacation_type' . session('_lang')} }}</td>
+                      <td>
+                        @switch($vacation->status_id)
+                          @case(1)
+                            <i class="bi bi-check-square-fill text-success fs-5"></i>
+                            @break
+                          @case(2)
+                            <i class="bi bi-x-square-fill text-danger fs-5"></i>
+                            @break
+                          @default
+                          <i class="bi bi-hourglass-top text-warning fs-5"></i>
+                        @endswitch
+                        <span class="mx-2">{{ $vacation->status->{'workflow_status' . session('_lang')} }}</span>
+                      </td>
+                      <td>
+                        <a
+                        href="{{ route('vacations.show', $vacation->id) }}"
+                        class="btn btn-secondary btn-sm py-0">
+                        <i class="bi bi-eye-fill"></i>
+                        </a>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm py-0"
+                          id="deleteBtn"
+                          data-id = "{{ $vacation->id }}"
+                          data-bs-toggle="modal"
+                          data-bs-target="#delteConfirmation">
+                          <i class="bi bi-trash3"></i>
+                        </button>
+                        <a
+                          href="{{ route('attachment.vacation', $vacation->id) }}"
+                          class="btn btn-info btn-sm py-0">
+                          <i class="bi bi-paperclip"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    @php $c++; @endphp
+                  @endforeach
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+            @endif
           </div>
         </div>
       </div>
@@ -216,8 +270,6 @@
       $("#vacation_type").select2({
         dropdownParent: $('#addVacation')
       });
-
-
 
       $('.dropify').dropify({
         messages: {

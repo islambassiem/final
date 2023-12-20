@@ -31,41 +31,4 @@ class DashboardController extends Controller
     $end = Carbon::now()->endOfMonth()->format('Y-m-d');
     return $this->availedInDuration($start, $end);
   }
-
-  private function availedVacationThisYear()
-  {
-    $start = Carbon::now()->startOfYear()->format('Y-m-d');
-    $end = Carbon::now()->endOfYear()->format('Y-m-d');
-    return $this->availedInDuration($start, $end);
-  }
-
-  private function availedInDuration($start, $end)
-  {
-    $vacations = Vacation::where('user_id', auth()->user()->id)
-    ->where('status_id', '1')
-    ->where('start_date', '<=', $end)
-    ->where('end_date', '>=', $start)
-    ->get();
-    $total = 0;
-    foreach ($vacations as $vacation) {
-      if($vacation->start_date >= $start){
-        $start_date = $vacation->start_date;
-        if($vacation->end_date >= $end){
-          $end_date = $end;
-        }else{
-          $end_date = $vacation->end_date;
-        }
-      }else{
-        $start_date = $start;
-        if($vacation->end_date <= $end){
-          $end_date = $vacation->end_date;
-        }else{
-          $end_date = $end;
-        }
-      }
-      $diff = Carbon::parse($end_date)->diffIndays(Carbon::parse($start_date)) + 1;
-      $total += $diff;
-    }
-    return $total ;
-  }
 }

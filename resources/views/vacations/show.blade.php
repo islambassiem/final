@@ -26,7 +26,7 @@
     @endif
     <div class="row">
       <div class="col d-flex justify-content-end mb-3">
-        <a href="{{ route('vacations.index') }}"
+        <a href="{{ route('vacations.history') }}"
           class="btn btn-warning mx-2">
           <i class="bi bi-arrow-left-circle me-1"></i>
           {{ __('Back') }}

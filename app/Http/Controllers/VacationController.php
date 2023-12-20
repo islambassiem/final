@@ -10,7 +10,6 @@ use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Traits\VacationTrait;
 use App\Models\VacationDetail;
-use Illuminate\Support\Facades\DB;
 use App\Models\Tables\VacationType;
 use App\Notifications\ApplyVacation;
 use App\Http\Requests\VacationRequest;
@@ -18,6 +17,7 @@ use App\Http\Requests\VacationRequest;
 class VacationController extends Controller
 {
   use VacationTrait;
+
   public function __construct()
   {
     return $this->middleware('auth');
@@ -26,7 +26,7 @@ class VacationController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index()
+  public function index(Request $request)
   {
     $vacations = Vacation::with('detail')->where('user_id', auth()->user()->id)
       ->where('start_date', '!=', auth()->user()->joining_date)
@@ -34,10 +34,27 @@ class VacationController extends Controller
       ->orderByDesc('start_date')
       ->get();
     return view('vacations.index', [
-      'balance' => $this->balance(),
+      'balance' => $this->balance($request->tillDate),
+      'availedAnnual' => $this->availedVacationThisYear(1),
+      'availedSick' => $this->availedVacationThisYear(2),
+      'availedAbsent' => $this->availedVacationThisYear(3, 2),
       'vacations' => $vacations,
       'types' => VacationType::orderBy('ordering')->get(),
     ]);
+  }
+
+  public function history()
+  {
+    $vacations = Vacation::with('detail')->where('user_id', auth()->user()->id)
+    ->where('start_date', '!=', auth()->user()->joining_date)
+    ->orderByDesc('id')
+    ->orderByDesc('start_date')
+    ->get();
+  return view('vacations.history', [
+    'balance' => $this->balance(),
+    'vacations' => $vacations,
+    'types' => VacationType::orderBy('ordering')->get(),
+  ]);
   }
 
   /**
@@ -63,7 +80,7 @@ class VacationController extends Controller
     }else{
       $this->vacation($request, $validated);
     }
-    return redirect()->route('vacations.index')->with('success', 'You have applied for a vacation successfully');
+    return redirect()->route('vacations.history')->with('success', 'You have applied for a vacation successfully');
   }
 
   /**
@@ -106,7 +123,7 @@ class VacationController extends Controller
         'link' => $filepath,
         'title' => 'vacation'
       ]);
-      return redirect()->back()->with('success', 'You have uploaded a file succcessfully');
+      return redirect()->back()->with('success', 'You have uploaded a file successfully');
     }
     return redirect()->back()->with('error', 'No files were uploaded');
   }
@@ -118,7 +135,7 @@ class VacationController extends Controller
   {
     $vacation = Vacation::find($id);
     if($vacation->status_id > 0){
-      return redirect()->route('vacations.index')->with('error', 'An action has been taken on your vacation; you cannot delete it');
+      return redirect()->route('vacations.history')->with('error', 'An action has been taken on your vacation; you cannot delete it');
     }
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
     $attachment = Attachment::where('attachmentable_type', 'App\Models\Vacation')->where('attachmentable_id', $vacation->id)->first();
@@ -129,7 +146,7 @@ class VacationController extends Controller
       $attachment->delete();
     }
     $vacation->delete();
-    return redirect()->route('vacations.index')->with('success', 'You have deleted your vacation successfully');
+    return redirect()->route('vacations.history')->with('success', 'You have deleted your vacation successfully');
   }
 
   private function annual(VacationRequest $request, array $validated)

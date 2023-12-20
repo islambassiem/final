@@ -18,6 +18,25 @@
 @endsection
 
 @section('content')
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+  @if (session('error'))
+    <div class="alert alert-danger">
+      {{ session('error') }}
+    </div>
+  @endif
+  @if (session('message'))
+    <div class="alert alert-warning" role="alert">
+      {{ session('message') }}
+    </div>
+  @endif
   <section class="section">
     <div class="row">
       <div class="col-md-6 offset-md-3">

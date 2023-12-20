@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
+use App\Models\Vacation;
 use Illuminate\Support\Facades\DB;
 
 trait VacationTrait{
@@ -52,5 +53,43 @@ trait VacationTrait{
     $start = Carbon::parse($start_date);
     $end = Carbon::parse($end_date);
     return $end->diffInDays($start) + 1;
+  }
+
+  public function availedVacationThisYear($vacation_type = 1, $status_id = 1)
+  {
+    $start = Carbon::now()->startOfYear()->format('Y-m-d');
+    $end = Carbon::now()->endOfYear()->format('Y-m-d');
+    return $this->availedInDuration($start, $end, $vacation_type, $status_id);
+  }
+
+  public function availedInDuration($start, $end, $vacation_type = 1, $status_id = 1)
+  {
+    $vacations = Vacation::where('user_id', auth()->user()->id)
+    ->where('status_id', $status_id)
+    ->where('vacation_type', $vacation_type)
+    ->where('start_date', '<=', $end)
+    ->where('end_date', '>=', $start)
+    ->get();
+    $total = 0;
+    foreach ($vacations as $vacation) {
+      if($vacation->start_date >= $start){
+        $start_date = $vacation->start_date;
+        if($vacation->end_date >= $end){
+          $end_date = $end;
+        }else{
+          $end_date = $vacation->end_date;
+        }
+      }else{
+        $start_date = $start;
+        if($vacation->end_date <= $end){
+          $end_date = $vacation->end_date;
+        }else{
+          $end_date = $end;
+        }
+      }
+      $diff = Carbon::parse($end_date)->diffIndays(Carbon::parse($start_date)) + 1;
+      $total += $diff;
+    }
+    return $total ;
   }
 }
