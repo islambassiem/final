@@ -37,7 +37,7 @@
               <div class="text-center text-info icon">
                 <i class="bi bi-calendar3-week-fill"></i>
               </div>
-              <div class="number text-center">{{ $availdMonth }}</div>
+              <div class="number text-center">{{ $availedMonth }}</div>
               <div class="card-title text-center">{{ __('This Month') }}</div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <div class="text-center text-danger icon">
                 <i class="bi bi-bank"></i>
               </div>
-              <div class="number text-center">{{ $availdYear }}</div>
+              <div class="number text-center">{{ $availedYear }}</div>
               <div class="card-title text-center">{{ __('This Year') }}</div>
             </div>
           </div>
