@@ -525,6 +525,7 @@
     document.getElementById('docType').addEventListener('change', function (){
       if(this.value == 2){
         document.getElementById('notification').value = 180;
+        document.getElementById('description').value = 'Passport';
       }else{
         document.getElementById('notification').value = 30;
       }

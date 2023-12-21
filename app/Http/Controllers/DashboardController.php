@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Leave;
+use App\Models\Document;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
 use App\Traits\VacationTrait;
@@ -24,8 +25,14 @@ class DashboardController extends Controller
       'availedYear' => $this->availedVacationThisYear(),
       'balance' => $this->balance(),
       'leaveMonth' => $this->AvailedLeaveThisMonth(),
-      'leaveYear' => $this->AvailedLeaveThisYear()
+      'leaveYear' => $this->AvailedLeaveThisYear(),
+      'documents' => $this->documents(),
     ]);
+  }
+
+  private function documents()
+  {
+    return Document::where('user_id', auth()->user()->id)->orderBy('id')->get();
   }
 
   private function availedVacationThisMonth()

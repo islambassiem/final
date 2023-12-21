@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Tables\AttachmentType;
+use Carbon\Carbon;
 use App\Models\Tables\DocumentType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tables\AttachmentType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Document extends Model
 {
@@ -31,5 +32,12 @@ class Document extends Model
 
   public function attachment(){
     return $this->morphOne(Attachment::class, 'attachmentable');
+  }
+
+  public function getExpiryAttribute()
+  {
+    $start = Carbon::createMidnightDate(date('Y-m-d'));
+    $end = Carbon::parse($this->date_of_expiry);
+    return  $start->diffInDays($end, false);
   }
 }

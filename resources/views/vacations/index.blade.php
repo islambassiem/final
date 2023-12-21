@@ -25,7 +25,7 @@
         <a
           href="{{ route('vacations.history') }}"
           class="btn btn-primary mx-2">
-          <i class="bi bi-plus-square-fill me-1"></i>
+          <i class="bi bi-hourglass-split me-1"></i>
           {{ __('History') }}
         </a>
         <a
@@ -46,6 +46,7 @@
         <div class="card mb-0">
           <div class="card-body">
             <div class="card-title text-center h3 mt-2">{{ __('Balance') }}</div>
+            <i class="bi bi-graph-down text-success fs-1"></i>
             <div class="h1">{{ $balance }}</div>
             <form action="{{ route('vacations.index') }}" method="get">
               @csrf
@@ -63,7 +64,9 @@
             <h5 class="card-title text-center">
               {{ __('Availed Annual') }}
             </h5>
+            <div class="text-center"><i class="bi bi-calendar2-date-fill fs-1 text-info"></i></div>
             <div class="h1 text-center">{{ $availedAnnual }}</div>
+            <div class="card-title text-center">{{ __('This Year') }}</div>
           </div>
         </div>
       </div>
@@ -73,7 +76,9 @@
             <h5 class="card-title text-center">
               {{ __('Availed Sick Leave') }}
             </h5>
+            <div class="text-center"><i class="bi bi-capsule-pill text-warning fs-1"></i></div>
             <div class="h1 text-center">{{ $availedSick }}</div>
+            <div class="card-title text-center">{{ __('This Year') }}</div>
           </div>
         </div>
       </div>
@@ -83,7 +88,9 @@
             <h5 class="card-title text-center">
               {{ __('Absceces') }}
             </h5>
+            <div class="text-center text-danger"><i class="bi bi-emoji-tear-fill fs-1"></i></div>
             <div class="h1 text-center">{{ $availedAbsent }}</div>
+            <div class="card-title text-center">{{ __('This Year') }}</div>
           </div>
         </div>
       </div>
