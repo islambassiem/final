@@ -1,0 +1,3 @@
+The salary package is composed of basic salary in addition to other allowances including but not limited to housing allowance and transportation allowance. <br>
+The employees who avail the housing and / or transportation of the company do not receive the housing and / or the transportation allowance.
+The salary is paid at the beginning of every Gregorian month through wire transfer in a national bank inside Kingdom of Saudi Arabia.

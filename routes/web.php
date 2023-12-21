@@ -19,6 +19,7 @@ use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
@@ -145,6 +146,7 @@ Route::get('genericsAdd', [GenericRequestController::class, 'create'])->name('ge
 Route::post('genericsStore', [GenericRequestController::class, 'store'])->name('generics.store');
 
 
+Route::get('faq', [FAQController::class, 'index'])->name('faq');
 
 Route::get('notification/{id}', function($id){
   auth()->user()->unreadNotifications->where('id', $id)->markAsRead();

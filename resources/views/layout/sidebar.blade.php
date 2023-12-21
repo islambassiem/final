@@ -127,7 +127,7 @@
 
       <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('staff.*') || request()->routeIs('lLeave.*') || request()->routeIs('sLeave.*') ? '' : 'collapsed'  }}" data-bs-target="#head" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>{{ __('Head') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-person-bounding-box"></i><span>{{ __('Head') }}</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="head" class="nav-content collapse {{ request()->routeIs('staff.*') || request()->routeIs('lLeave.*') || request()->routeIs('sLeave.*')? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
@@ -151,7 +151,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->segment(1) == 'faq' ? '' : 'collapsed'  }}" href="">
+        <a class="nav-link {{ request()->segment(1) == 'faq' ? '' : 'collapsed'  }}" href="{{ route('faq') }}">
           <i class="bi bi-question-circle"></i>
           <span>{{ __('F.A.Q') }}</span>
         </a>

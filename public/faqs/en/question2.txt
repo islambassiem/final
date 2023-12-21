@@ -1,0 +1,1 @@
+Any financial transactions based on the salary is calculated based on the salary package as a whole. The leave pay or absence deduction are no exception. When an employee is absent or on unpaid leave, the deduction is based on the salary package. Likewise, the paid annual vacation pay is based in the salary package.
