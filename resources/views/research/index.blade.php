@@ -63,7 +63,7 @@
                   <tr>
                     <td>{{ $c }}</td>
                     <td style="width:50%">@php echo $r->title  @endphp</td>
-                    <td>{{ $r->progress->{'research_progress' . session('_lang')} }}</td>
+                    <td>{{ $r->progress?->{'research_progress' . session('_lang')} }}</td>
                     <td>
                       <a
                         href="{{ route('research.show', $r->id) }}"

@@ -12,6 +12,7 @@ use App\Models\Tables\ResearchStatus;
 use App\Models\Tables\ResearchLanguage;
 use App\Models\Tables\ResearchProgress;
 use App\Http\Requests\ResearchRequest;
+use App\Models\Tables\CitationType;
 use Illuminate\Support\Facades\Storage;
 
 class ResearchController extends Controller
@@ -44,7 +45,8 @@ class ResearchController extends Controller
       'nature' => ResearchNature::all(),
       'domain' => ResearchDomain::all(),
       'location' => Country::all(),
-      'language' => ResearchLanguage::all()
+      'language' => ResearchLanguage::all(),
+      'citations' => CitationType::all()
     ]);
   }
 
@@ -53,8 +55,12 @@ class ResearchController extends Controller
    */
   public function store(ResearchRequest $request)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
-    Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
+    if($request->has('title') && $request->title != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
+    }
+    if($request->has('research_summary') && $request->research_summary != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
+    }
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
     $validated['title'] = strip_tags($request->title);
@@ -86,7 +92,8 @@ class ResearchController extends Controller
       'nature' => ResearchNature::all(),
       'domain' => ResearchDomain::all(),
       'location' => Country::all(),
-      'language' => ResearchLanguage::all()
+      'language' => ResearchLanguage::all(),
+      'citations' => CitationType::all()
     ]);
   }
 

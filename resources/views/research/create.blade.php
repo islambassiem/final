@@ -147,16 +147,11 @@
                     </div>
                     <div class="col-md-3">
                       <label for="country_id" class="form-label">{{ __('Research Country') }}</label>
-                      <select class="form-select" id="country_id" name="publication_location" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
-                        @foreach ($location as $c)
-                          <option value="{{ $c->id }}" @selected( $c->id == old('c->id'))>{{  $c->{'country' . session('_lang')} }}</option>
-                        @endforeach
-                      </select>
+                      <input type="text" class="form-control" id="country_id" name="country_id" value="{{ old('country_id') }}">
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-7">
                       <label for="publisher" class="form-label">{{ __('Publisher') }}</label>
                       <div class="col-sm-12">
                         <input type="text" class="form-control" id="publisher" name="publisher" value="{{ old('publisher') }}">
@@ -167,6 +162,15 @@
                       <div class="col-sm-12">
                         <input type="date" class="form-control" id="date" name="publishing_date" value="{{ old('publishing_date') }}">
                       </div>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="citation" class="form-label">{{ __('Citation') }}</label>
+                      <select class="form-select" id="citation" name="citation" style="width:100%">
+                        <option selected disabled>{{ __('Select') }}</option>
+                        @foreach ($citations as $citation)
+                          <option value="{{ $citation->id }}" @selected( $citation->id == old('citation->id'))>{{  $citation->name }}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
                   <div class="book">

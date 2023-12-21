@@ -22,23 +22,23 @@ class ResearchRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'type_id' => 'required',
-      'status_id' => 'required',
-      'progress_id' => 'required',
-      'nature_id' => 'required',
-      'domain_id' => 'required',
-      'title' => 'required|max:255',
-      'lang_id' => 'required',
-      'publication_location' => 'required',
-      'publishing_date' => 'required|date',
-      'publisher' => 'nullable',
-      'edition' => 'nullable',
-      'isbn' =>'nullable',
-      'magazine' => 'nullable',
-      'publishing_url' => 'nullable',
+      'type_id' => 'nullable',
+      'status_id' => 'nullable',
+      'progress_id' => 'nullable',
+      'nature_id' => 'nullable',
+      'domain_id' => 'nullable',
+      'title' => 'nullable|',
+      'lang_id' => 'nullable',
+      'publication_location' => 'nullable|max:100',
+      'publishing_date' => 'nullable|date',
+      'publisher' => 'nullable|max:60',
+      'edition' => 'nullable|max:10',
+      'isbn' =>'nullable|max:13',
+      'magazine' => 'nullable|max:100',
+      'publishing_url' => 'nullable|max:1000',
       'summary' => 'nullable',
-      'key_words' => 'nullable',
-      'pages_number' => 'nullable',
+      'key_words' => 'nullable|max:200',
+      'pages_number' => 'nullable|max:5',
 
     ];
   }
@@ -46,17 +46,16 @@ class ResearchRequest extends FormRequest
   public function messages()
   {
     return [
-      'type_id.required' => __('The research type is required'),
-      'status_id.required' => __('Research status is required'),
-      'progress_id.required' => __('The research Progress is required'),
-      'nature_id.required' => __('The research nature is required'),
-      'domain_id.required' => __('The research domain is required'),
-      'title.required' => __('The research title is required'),
-      'title.max' => __('The maximum number of allowed characters is 255'),
-      'publishing_date.required' => __('The publication date is required'),
       'publishing_date.date' => __('The date is invalid'),
       'lang_id.required' => __('The research language is required'),
-      'publication_location.required' => __('The publication location is required')
+      'publication_location.max' => __('The maximum number of allowed characters is 100 characters'),
+      'publisher.max' => __('The maximum number of allowed characters is 60 characters'),
+      'edition.max' => __('The maximum number of allowed characters is 10 characters'),
+      'isbn.max' => __('The maximum number of allowed characters is 13 characters'),
+      'magazine.max' => __('The maximum number of allowed characters is 100 characters'),
+      'publishing_url.max' => __('The maximum number of allowed characters is 1000 characters'),
+      'key_words.max' => __('The maximum number of allowed characters is 200 characters'),
+      'pages_number.max' => __('The maximum number of allowed characters is 5 characters'),
     ];
   }
 }
