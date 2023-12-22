@@ -19,7 +19,7 @@ return new class extends Migration
       $table->unsignedTinyInteger('progress_id')->nullable();
       $table->unsignedTinyInteger('nature_id')->nullable();
       $table->unsignedTinyInteger('domain_id')->nullable();
-      $table->boolean('citation_type')->nullable();
+      $table->unsignedTinyInteger('citation_type')->nullable();
       $table->string('title')->nullable();
       $table->unsignedSmallInteger('lang_id')->nullable();
       $table->string('publication_location', 100)->nullable();

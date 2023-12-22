@@ -11,9 +11,6 @@
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
 
   <style>
-    .book, .research{
-      display: none;
-    }
     #phase2{
       display: none;
     }
@@ -66,7 +63,7 @@
             </div>
 
 
-            <form action="{{ route('research.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('research.store') }}" method="POST">
               @csrf
               <div id="phase1">
                 <div class="container">
@@ -84,7 +81,6 @@
                         </div>
                         <div id="text-input-title" contenteditable="true"></div>
                         <input id="title" type="hidden" class="form-control" name="title" value="{{ old('title') }}" >
-                        {{-- <span class="text-secondary"><small id="small"></small></span> --}}
                       </div>
                     </div>
                   </div>
@@ -146,26 +142,31 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label for="country_id" class="form-label">{{ __('Research Country') }}</label>
-                      <input type="text" class="form-control" id="country_id" name="country_id" value="{{ old('country_id') }}">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-7">
-                      <label for="publisher" class="form-label">{{ __('Publisher') }}</label>
-                      <div class="col-sm-12">
-                        <input type="text" class="form-control" id="publisher" name="publisher" value="{{ old('publisher') }}">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
                       <label for="date" class="form-label">{{ __('Publishing Date') }}</label>
                       <div class="col-sm-12">
                         <input type="date" class="form-control" id="date" name="publishing_date" value="{{ old('publishing_date') }}">
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <label for="publisher" class="form-label">{{ __('Publisher') }}</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" id="publisher" name="publisher" maxlength="60" value="{{ old('publisher') }}">
+                        @error('publisher')
+                          <small class="text-danger">{{ $message }}</small><br>
+                        @enderror
+                        <span class="text-secondary"><small id="publisherSmall"></small></span>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <label for="country_id" class="form-label">{{ __('Country') }}</label>
+                      <input type="text" class="form-control" id="publication_location" name="publication_location" maxlength="100"  value="{{ old('publication_location') }}">
+                      <span class="text-secondary"><small id="locationSmall"></small></span>
+                    </div>
                     <div class="col-md-2">
                       <label for="citation" class="form-label">{{ __('Citation') }}</label>
-                      <select class="form-select" id="citation" name="citation" style="width:100%">
+                      <select class="form-select" id="citation" name="citation_type" style="width:100%">
                         <option selected disabled>{{ __('Select') }}</option>
                         @foreach ($citations as $citation)
                           <option value="{{ $citation->id }}" @selected( $citation->id == old('citation->id'))>{{  $citation->name }}</option>
@@ -173,34 +174,20 @@
                       </select>
                     </div>
                   </div>
-                  <div class="book">
-                    <div class="my-3 row">
-                      <label for="isbn" class="col-sm-1 col-form-label">{{ __('ISBN') }}</label>
-                      <div class="col-sm-3">
-                        <input type="text" class="form-control" id="isbn" name="isbn">
-                      </div>
-                    </div>
-                    <div class="mb-3 row">
-                      <label for="edition" class="col-sm-1 col-form-label">{{ __('Edition') }}</label>
-                      <div class="col-sm-3">
-                        <input type="text" class="form-control" id="edition" name="edition" value="{{ old('edition') }}">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="research">
                     <div class="my-3 row">
                       <label for="magazine" class="col-sm-3 col-form-label">{{ __('Publishing Magazine') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="magazine" name="magazine" value="{{ old('magazine') }}">
+                        <input type="text" class="form-control" id="magazine" maxlength="100" name="magazine" value="{{ old('magazine') }}">
+                        <span class="text-secondary"><small id="magazineSmall"></small></span>
                       </div>
                     </div>
                     <div class="mb-3 row">
                       <label for="url" class="col-sm-3 col-form-label">{{ __('URL') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="url" name="publishing_url" value="{{ old('url') }}">
+                        <input type="text" class="form-control" id="url" name="publishing_url" maxlength="1000" value="{{ old('url') }}">
+                        <span class="text-secondary"><small id="urlSmall"></small></span>
                       </div>
                     </div>
-                  </div>
                   <div class="d-flex justify-content-end my-3">
                     <button type="button" class="btn btn-primary" id="next1">{{ __("Next") }}</button>
                   </div>
@@ -209,15 +196,35 @@
               </div>
               <div id="phase2">
                 <div class="row">
-                  <div class="col-md-10">
+                  <div class="col-12">
                     <label for="keyWords" class="col-sm-3 col-form-label">{{ __('Key Words') }}</label>
-                    <input type="text" class="form-control" id="keyWords" name="key_words" value="{{ old('key_words') }}">
-                  </div>
-                  <div class="col-md-2">
-                      <label for="pagesNumber" class="col-form-label">{{ __('Page Numbers') }}</label>
-                      <input type="text" class="form-control" id="pagesNumber" name="pages_number" value="{{ old('pages_number') }}">
+                    <input type="text" class="form-control" id="keyWords" name="key_words" maxlength="200" value="{{ old('key_words') }}">
+                    <span class="text-secondary"><small id="keyWordsSmall"></small></span>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="isbn" class="col-form-label">{{ __('ISBN') }}</label>
+                      <input type="text" class="form-control" id="isbn" maxlength="13" name="isbn" value="{{ old('isbn') }}">
+                      <span class="text-secondary"><small id="isbnSmall"></small></span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="edition" class="col-form-label">{{ __('Edition') }}</label>
+                      <input type="text" class="form-control" id="edition" name="edition" maxlength="10" value="{{ old('edition') }}">
+                      <span class="text-secondary"><small id="editionSmall"></small></span>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="pagesNumber" class="col-form-label">{{ __('Page Numbers') }}</label>
+                      <input type="text" maxlength="5" class="form-control" id="pagesNumber" name="pages_number" onkeypress="return /[0-9]/i.test(event.key)" value="{{ old('pages_number') }}">
+                      <span class="text-secondary"><small id="pagesNumberSmall"></small></span>
+                    </div>
+                  </div>
+                  </div>
                 <div class="row">
                   <div class="col">
                     <div class="my-3">
@@ -256,27 +263,71 @@
     $(document).ready(function (){
       $('select').select2();
 
-      $('#type_id').on('change.select2', function (){
-        var type_id = $(this).val();
-        console.log(type_id)
-        if (type_id == 1) {
-          $('.book').show();
-          $('.research').hide();
-        }else{
-          $('.book').hide();
-          $('.research').show();
-        }
+      let max = "{{ __('Max characters') }}";
+      let publication_location = document.getElementById('publication_location');
+      let locationSmall = document.getElementById('locationSmall');
+      let publisher = document.getElementById('publisher');
+      let publisherSmall = document.getElementById('publisherSmall');
+      let magazine = document.getElementById('magazine');
+      let magazineSmall = document.getElementById('magazineSmall');
+      let url = document.getElementById('url');
+      let urlsmall = document.getElementById('urlSmall');
+      let keyWords = document.getElementById('keyWords');
+      let keyWordsSmall = document.getElementById('keyWordsSmall');
+      let isbn = document.getElementById('isbn');
+      let isbnSmall = document.getElementById('isbnSmall');
+      let edition = document.getElementById('edition');
+      let editionSmall = document.getElementById('editionSmall');
+      let pagesNumber = document.getElementById('pagesNumber');
+      let pagesNumberSmall = document.getElementById('pagesNumberSmall');
+
+      pagesNumber.addEventListener('keyup', function(){
+        let char = this.value.length;
+        pagesNumberSmall.innerHTML = `${max} ${char} / 5`;
       });
+      pagesNumberSmall.innerHTML = `${max} ${title.value.length} / 5`;
 
-      // let title = document.getElementById('title');
-      // let small = document.getElementById('small');
+      edition.addEventListener('keyup', function(){
+        let char = this.value.length;
+        editionSmall.innerHTML = `${max} ${char} / 10`;
+      });
+      editionSmall.innerHTML = `${max} ${title.value.length} / 10`;
 
-      // title.addEventListener('keyup', function(){
-      //   let char = this.value.length;
-      //   small.innerHTML = `Max characters ${char} / 255`;
-      // });
+      isbn.addEventListener('keyup', function(){
+        let char = this.value.length;
+        isbnSmall.innerHTML = `${max} ${char} / 13`;
+      });
+      isbnSmall.innerHTML = `${max} ${title.value.length} / 13`;
 
-      // small.innerHTML = `Max characters ${title.value.length} / 255`;
+      keyWords.addEventListener('keyup', function(){
+        let char = this.value.length;
+        keyWordsSmall.innerHTML = `${max} ${char} / 200`;
+      });
+      keyWordsSmall.innerHTML = `${max} ${title.value.length} / 200`;
+
+      url.addEventListener('keyup', function(){
+        let char = this.value.length;
+        urlSmall.innerHTML = `${max} ${char} / 1000`;
+      });
+      urlSmall.innerHTML = `${max} ${title.value.length} / 1000`;
+
+      magazine.addEventListener('keyup', function(){
+        let char = this.value.length;
+        magazineSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      magazineSmall.innerHTML = `${max} ${title.value.length} / 100`;
+
+      publication_location.addEventListener('keyup', function(){
+        let char = this.value.length;
+        locationSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      locationSmall.innerHTML = `${max} ${title.value.length} / 100`;
+
+      publisher.addEventListener('keyup', function(){
+        let char = this.value.length;
+        publisherSmall.innerHTML = `${max} ${char} / 60`;
+      });
+      publisherSmall.innerHTML = `${max} ${title.value.length} / 60`;
 
       document.getElementById('next1').addEventListener('click', () => {
         document.getElementById('phase1').style.display = "none";

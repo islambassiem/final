@@ -39,23 +39,7 @@ class ResearchRequest extends FormRequest
       'summary' => 'nullable',
       'key_words' => 'nullable|max:200',
       'pages_number' => 'nullable|max:5',
-
-    ];
-  }
-
-  public function messages()
-  {
-    return [
-      'publishing_date.date' => __('The date is invalid'),
-      'lang_id.required' => __('The research language is required'),
-      'publication_location.max' => __('The maximum number of allowed characters is 100 characters'),
-      'publisher.max' => __('The maximum number of allowed characters is 60 characters'),
-      'edition.max' => __('The maximum number of allowed characters is 10 characters'),
-      'isbn.max' => __('The maximum number of allowed characters is 13 characters'),
-      'magazine.max' => __('The maximum number of allowed characters is 100 characters'),
-      'publishing_url.max' => __('The maximum number of allowed characters is 1000 characters'),
-      'key_words.max' => __('The maximum number of allowed characters is 200 characters'),
-      'pages_number.max' => __('The maximum number of allowed characters is 5 characters'),
+      'citation_type' => 'nullable'
     ];
   }
 }

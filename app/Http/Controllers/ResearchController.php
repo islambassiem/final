@@ -55,17 +55,18 @@ class ResearchController extends Controller
    */
   public function store(ResearchRequest $request)
   {
-    if($request->has('title') && $request->title != null){
-      Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
-    }
-    if($request->has('research_summary') && $request->research_summary != null){
-      Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
-    }
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
-    $validated['title'] = strip_tags($request->title);
-    $validated['summary'] = strip_tags($request->summary);
+    $validated['title'] = substr(strip_tags($request->title), 0, 200);
+    $validated['summary'] = substr(strip_tags($request->summary), 0, 1000);
     Research::create($validated);
+    $latest = Research::latest()->first();
+    if($request->has('title') && $request->title != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$latest->id.'_research_title.txt', $request->title);
+    }
+    if($request->has('summary') && $request->summary != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$latest->id.'_research_summary.txt', $request->summary);
+    }
     return redirect()->route('research.index')->with('success', __('You have added research successfully'));
   }
 
@@ -102,12 +103,16 @@ class ResearchController extends Controller
    */
   public function update(ResearchRequest $request, Research $research)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/research_title.txt', $request->title);
-    Storage::disk('public')->put(auth()->user()->id . '/text/research_summary.txt', $request->summary);
+    if($request->has('title') && $request->title != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$research->id.'_research_title.txt', $request->title);
+    }
+    if($request->has('summary') && $request->summary != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$research->id.'_research_summary.txt', $request->summary);
+    }
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
-    $validated['title'] = strip_tags($request->title);
-    $validated['summary'] = strip_tags($request->summary);
+    $validated['title'] = substr(strip_tags(trim($request->title)), 0, 200);
+    $validated['summary'] = substr(strip_tags(trim($request->summary)), 0, 1000);
     $research->update($request->validated());
     return redirect()->route('research.index')->with('success', __('You have updated research successfully'));
   }

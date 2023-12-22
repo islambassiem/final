@@ -49,8 +49,8 @@
             <h5 class="card-title pb-1">{{ __('Research Title') }}</h5>
             <div class="pb-3">
               @php
-                if(file_exists(public_path('storage/' . auth()->user()->id . '/text/research_title.txt'))){
-                  echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/research_title.txt'));
+                if(file_exists(public_path('storage/' . auth()->user()->id . '/text//'.$research->id.'_research_title.txt'))){
+                  echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text//'.$research->id.'_research_title.txt'));
                 }
               @endphp
             </div>
@@ -125,7 +125,12 @@
 
               <div class="row">
                 <div class="col-md-4 label ">{{ __('Publication Location') }}</div>
-                <div class="col-md-8">{{ $research->location?->{'country' . session('_lang')} }}</div>
+                <div class="col-md-8">{{ $research->publication_location }}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 label ">{{ __('Citation') }}</div>
+                <div class="col-md-8">{{ $research->citation?->name }}</div>
               </div>
 
             </div>
@@ -183,8 +188,8 @@
               <h5 class="card-title">{{ __('Summary') }}</h5>
               <div>
                 @php
-                  if(file_exists(public_path('storage/' . auth()->user()->id . '/text/research_summary.txt'))){
-                    echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/research_summary.txt'));
+                  if(file_exists(public_path('storage/' . auth()->user()->id . '/text//'.$research->id.'_research_summary.txt'))){
+                    echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text//'.$research->id.'_research_summary.txt'));
                   }
                 @endphp
               </div>
