@@ -23,19 +23,19 @@ class QualificationRequest extends FormRequest
   {
     return [
       'qualification' => 'required',
-      'study_type' => 'required',
-      'study_nature' => 'required',
-      'graduation_date' => 'required',
-      'graduation_university' => 'required',
-      'graduation_college' => 'required',
-      'graduation_country' => 'required',
-      'city' => 'required',
-      'thesis' => 'sometimes',
+      'thesis' => 'sometimes|max:255',
       'major_id' => 'required',
-      'minor_id' => 'required',
-      'gpa'=> 'required',
-      'gpa_type' => 'required',
-      'rating' => 'required',
+      'minor_id' => 'nullable',
+      'rating' => 'nullable',
+      'gpa'=> 'nullable',
+      'gpa_type' => 'nullable',
+      'study_type' => 'nullable',
+      'graduation_university' => 'required',
+      'graduation_college' => 'nullable',
+      'graduation_date' => 'required',
+      'city' => 'nullable',
+      'graduation_country' => 'required',
+      'study_nature' => 'nullable',
       'attachment.*' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
@@ -44,18 +44,10 @@ class QualificationRequest extends FormRequest
   {
     return [
       'qualification.required' => __('The Qualification is required'),
-      'study_type.required' => __('The study type is required'),
-      'study_nature.required' => __('The nature of the study is required'),
-      'graduation_date.required' => __('The graduation date is required'),
-      'graduation_university.required' => __('The graduation University is required'),
-      'graduation_college.required' => __('The graduation college is required'),
-      'graduation_country.required' => __('The graduation country is required'),
-      'city.required' => __('The city where the university is located is required'),
       'major_id.required' => __('The major is required'),
-      'minor_id.required' => __('The minor is required'),
-      'gpa.required' => __('Your GPA is required'),
-      'gpa_type.required' => __('The GPA type is required'),
-      'rating.required' => __('The rating is required'),
+      'graduation_university.required' => __('The graduation University is required'),
+      'graduation_date.required' => __('The graduation date is required'),
+      'graduation_country.required' => __('The graduation country is required'),
       'attachment.mimes' => __('The attachment file must be an image or a pdf file'),
       'attachment.max' => __('The maximum file size should not exceed 2 MBs')
     ];

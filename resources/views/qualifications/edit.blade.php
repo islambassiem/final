@@ -101,12 +101,14 @@
 
                 <div class="col-md-6">
                   <label for="university" class="form-label">{{ __('University') }}</label>
-                  <input type="text" class="form-control" id="university" name="graduation_university" value="{{ old('graduation_university', $q->graduation_university) }}">
+                  <input type="text" class="form-control" id="university" name="graduation_university" maxlength="100" value="{{ old('graduation_university', $q->graduation_university) }}">
+                  <span class="text-secondary"><small id="universitySmall"></small></span>
                 </div>
 
                 <div class="col-md-6">
                   <label for="college" class="form-label">{{ __('College') }}</label>
-                  <input type="text" class="form-control" id="college" name="graduation_college" value="{{ old('graduation_college',$q->graduation_college) }}">
+                  <input type="text" class="form-control" id="college" name="graduation_college" maxlength="100" value="{{ old('graduation_college',$q->graduation_college) }}">
+                  <span class="text-secondary"><small id="collegeSmall"></small></span>
                 </div>
 
                 <div class="col-md-6">
@@ -121,7 +123,8 @@
 
                 <div class="col-md-6">
                   <label for="city" class="form-label">{{ __('City') }}</label>
-                  <input type="text" class="form-control" id="city" name="city" value="{{ old('city', $q->city) }}">
+                  <input type="text" class="form-control" id="city" name="city" maxlength="30" value="{{ old('city', $q->city) }}">
+                  <span class="text-secondary"><small id="citySmall"></small></span>
                 </div>
 
                 <div class="col-12">
@@ -140,7 +143,8 @@
 
                 <div class="col-md-12">
                   <label for="thesis" class="form-label">{{ __('Thesis / Disertation') }}</label>
-                  <input type="text" class="form-control" id="thesis" name="thesis" value="{{ old('thesis',$q->thesis) }}">
+                  <input type="text" class="form-control" id="thesis" maxlength="255" name="thesis" value="{{ old('thesis',$q->thesis) }}">
+                  <span class="text-secondary"><small id="thesisSmall"></small></span>
                 </div>
 
                 <div class="col-md-7 offset-md-3">
@@ -295,6 +299,45 @@
           'error': "{{ __('Ooops, something wrong happended.') }}"
         }
       })
+
+
+      let max = "{{ __('Max characters') }}";
+      let university = document.getElementById('university');
+      let universitySmall = document.getElementById('universitySmall');
+      let college = document.getElementById('college');
+      let colelgeSmall = document.getElementById('colelgeSmall');
+      let city = document.getElementById('city');
+      let citySmall = document.getElementById('citySmall');
+      let thesis = document.getElementById('thesis');
+      let thesisSmall = document.getElementById('thesisSmall');
+
+      university.addEventListener('keyup', function(){
+        let char = this.value.length;
+        universitySmall.innerHTML = `${max} ${char} / 100`;
+      });
+      universitySmall.innerHTML = `${max} ${university.value.length} / 100`;
+
+      college.addEventListener('keyup', function(){
+        let char = this.value.length;
+        collegeSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      collegeSmall.innerHTML = `${max} ${college.value.length} / 100`;
+
+
+      city.addEventListener('keyup', function(){
+        let char = this.value.length;
+        citySmall.innerHTML = `${max} ${char} / 30`;
+      });
+      citySmall.innerHTML = `${max} ${city.value.length} / 30`;
+
+
+      thesis.addEventListener('keyup', function(){
+        let char = this.value.length;
+        thesisSmall.innerHTML = `${max} ${char} / 255`;
+      });
+      thesisSmall.innerHTML = `${max} ${thesis.value.length} / 255`;
+
+
     });
   </script>
 @endsection
