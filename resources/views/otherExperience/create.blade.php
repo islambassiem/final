@@ -10,7 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
-
+  <style>
+    label.required{
+      color: red;
+      position: relative;
+    }
+    label.required::after{
+      content: '*';
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -46,14 +54,16 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
-                    <label for="organization_name" class="form-label">{{ __('Organization Name') }}</label>
-                    <input type="text" class="form-control" id="organization_name" name="organization_name" value="{{ old('organization_name') }}">
+                    <label for="organization_name" class="form-label required">{{ __('Organization Name') }}</label>
+                    <input type="text" class="form-control" id="organization_name" maxlength="100" name="organization_name" value="{{ old('organization_name') }}">
+                    <span class="text-secondary"><small id="organizationSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="mb-3">
-                    <label for="profession" class="form-label">{{ __('Profession') }}</label>
-                    <input type="text" class="form-control" id="profession" name="profession" value="{{ old('profession') }}">
+                    <label for="profession" class="form-label required">{{ __('Profession') }}</label>
+                    <input type="text" class="form-control" id="profession" name="profession" maxlength="100" value="{{ old('profession') }}">
+                    <span class="text-secondary"><small id="professionSmall"></small></span>
                   </div>
                 </div>
               </div>
@@ -61,19 +71,21 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="section" class="form-label">{{ __('Section') }}</label>
-                    <input type="text" class="form-control" id="section" name="section" value="{{ old('section') }}">
+                    <input type="text" class="form-control" id="section" maxlength="100" name="section" value="{{ old('section') }}">
+                    <span class="text-secondary"><small id="sectionSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="department" class="form-label">{{ __('Department') }}</label>
-                    <input type="text" class="form-control" id="department" name="department" value="{{ old('department') }}">
+                    <input type="text" class="form-control" id="department" maxlength="100" name="department" value="{{ old('department') }}">
+                    <span class="text-secondary"><small id="departmentSmall"></small></span>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-3">
-                  <label for="country_id" class="form-label">{{ __('Country') }}</label>
+                  <label for="country_id" class="form-label required">{{ __('Country') }}</label>
                   <select class="form-select" id="country_id" name="country_id" style="width:100%">
                     <option selected disabled>{{ __('Select') }}</option>
                     @foreach ($countries as $country)
@@ -85,17 +97,18 @@
                   <div class="mb-3">
                     <label for="city" class="form-label">{{ __('City') }}</label>
                     <input type="text" class="form-control" id="city" name="city" value="{{ old('city') }}">
+                    <span class="text-secondary"><small id="citySmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="start_date" class="form-label">{{ __('Start Date') }}</label>
+                    <label for="start_date" class="form-label required">{{ __('Start Date') }}</label>
                     <input type="date" class="form-control" id="start_date" name="start_date" value="{{ old('start_date') }}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="end_date" class="form-label">{{ __('End Date') }}</label>
+                    <label for="end_date" class="form-label required">{{ __('End Date') }}</label>
                     <input type="date" class="form-control" id="end_date" name="end_date" value="{{ old('end_date') }}">
                   </div>
                 </div>
@@ -192,6 +205,7 @@
     $(document).ready(function (){
       $("#country_id_add").select2();
       $("#type_add").select2();
+      $("#country_id").select2();
     });
 
     document.getElementById('text-input').innerHTML = document.getElementById('functional_tasks').value;
@@ -201,12 +215,54 @@
     });
 
     $('.dropify').dropify({
-        messages: {
-          'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+      messages: {
+        'default': "",
+        'replace': "{{ __('Drag and drop or click to replace') }}",
+        'remove':  "{{ __('Delete') }}",
+        'error': "{{ __('Ooops, something wrong happended.') }}"
         }
       });
+
+      let max = "{{ __('Max characters') }}";
+      let organization = document.getElementById('organization_name');
+      let organizationSmall = document.getElementById('organizationSmall');
+      let profession = document.getElementById('profession');
+      let professionSmall = document.getElementById('professionSmall');
+      let section = document.getElementById('section');
+      let sectionSmall = document.getElementById('sectionSmall');
+      let department = document.getElementById('department');
+      let departmentSmall = document.getElementById('departmentSmall');
+      let city = document.getElementById('city');
+      let citySmall = document.getElementById('citySmall');
+
+      city.addEventListener('keyup', function(){
+        let char = this.value.length;
+        citySmall.innerHTML = `${max} ${char} / 30`;
+      });
+      citySmall.innerHTML = `${max} ${city.value.length} / 30`;
+
+      department.addEventListener('keyup', function(){
+        let char = this.value.length;
+        departmentSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      departmentSmall.innerHTML = `${max} ${department.value.length} / 100`;
+
+      section.addEventListener('keyup', function(){
+        let char = this.value.length;
+        sectionSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      sectionSmall.innerHTML = `${max} ${section.value.length} / 100`;
+
+      profession.addEventListener('keyup', function(){
+        let char = this.value.length;
+        professionSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      professionSmall.innerHTML = `${max} ${profession.value.length} / 100`;
+
+      organization.addEventListener('keyup', function(){
+        let char = this.value.length;
+        organizationSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      organizationSmall.innerHTML = `${max} ${organization.value.length} / 100`;
   </script>
 @endsection

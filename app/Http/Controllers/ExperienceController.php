@@ -63,12 +63,14 @@ class ExperienceController extends Controller
    */
   public function store(ExperienceRequest $request)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/experience.txt', $request->tasks);
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
-    $validated['functional_tasks'] = strip_tags($request->tasks);
+    $validated['functional_tasks'] = substr(strip_tags($request->tasks),0, 500);
     Experience::create($validated);
     $latest = Experience::latest('created_at')->first();
+    if($request->has('tasks') && $request->tasks != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$latest->id.'_experience.txt', $request->tasks);
+    }
     if($request->hasFile('attachment')){
         $filepath = $request->file('attachment')->store(auth()->user()->id . '/experiences', 'public');
         $latest->attachment()->create([
@@ -119,10 +121,12 @@ class ExperienceController extends Controller
    */
   public function update(ExperienceRequest $request, Experience $experience)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/experience.txt', $request->tasks);
+    if($request->has('tasks') && $request->tasks != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$experience->id.'_experience.txt', $request->tasks);
+    }
     $validated = $request->validated();
     $validated['user_id'] =  auth()->user()->id;
-    $validated['functional_tasks'] = strip_tags($request->asks);
+    $validated['functional_tasks'] = substr(strip_tags($request->asks), 0, 500);
     $experience->update($request->validated());
     return redirect()->route('experience.index')->with('success', 'You have updated the experience successfully');
   }
@@ -133,7 +137,6 @@ class ExperienceController extends Controller
   public function destroy(string $id)
   {
     Experience::find($id)->delete();
-    $file = $this->getLink($id);
     $attachments = Attachment::where('user_id', auth()->user()->id)
     ->where('attachmentable_type', 'App\Models\Experience')
     ->where('attachmentable_id', $id)->get();
@@ -141,9 +144,6 @@ class ExperienceController extends Controller
       foreach ($attachments as $attachment) {
         $attachment->delete();
       }
-    }
-    if($file){
-      unlink($file);
     }
     return redirect()->route('experience.index')->with('success', __('You have deleted the experience successfully'));
   }

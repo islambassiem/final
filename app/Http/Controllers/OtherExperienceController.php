@@ -42,12 +42,14 @@ class OtherExperienceController extends Controller
    */
   public function store(OtherExperienceRequest $request)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/otherExperience.txt', $request->functional_tasks);
     $validated = $request->validated();
     $validated['user_id'] = auth()->user()->id;
-    $validated['functional_tasks'] = strip_tags($request->functional_tasks);
+    $validated['functional_tasks'] = substr(strip_tags($request->functional_tasks), 0, 500);
     OtherExperience::create($validated);
     $latest = OtherExperience::latest('created_at')->first();
+    if($request->has('functional_tasks') && $request->functional_tasks != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$latest->id.'_otherExperience.txt', $request->functional_tasks);
+    }
     if($request->hasFile('attachment')){
         $filepath = $request->file('attachment')->store(auth()->user()->id . '/otherExperience', 'public');
         $latest->attachment()->create([
@@ -56,7 +58,6 @@ class OtherExperienceController extends Controller
           'link' => $filepath,
           'title' => 'Other Experience'
         ]);
-
     }
     return redirect()->route('other_experience.index')->with('success', __('You have added an experience outside KSA successfully'));
   }
@@ -89,9 +90,11 @@ class OtherExperienceController extends Controller
    */
   public function update(OtherExperienceRequest $request, OtherExperience $otherExperience)
   {
-    Storage::disk('public')->put(auth()->user()->id . '/text/otherExperience.txt', $request->functional_tasks);
+    if($request->has('functional_tasks') && $request->functional_tasks != null){
+      Storage::disk('public')->put(auth()->user()->id . '/text//'.$otherExperience->id.'_otherExperience.txt', $request->functional_tasks);
+    }
     $validated = $request->validated();
-    $validated['functional_tasks'] = strip_tags($request->functional_tasks);
+    $validated['functional_tasks'] = substr(strip_tags($request->functional_tasks), 0, 500);
     $otherExperience->update($request->validated());
     if($request->hasFile('attachment')){
       $filepath = $request->file('attachment')->store(auth()->user()->id, 'public');
@@ -119,9 +122,6 @@ class OtherExperienceController extends Controller
       foreach ($attachments as $attachment) {
         $attachment->delete();
       }
-    }
-    if($file){
-      unlink($file);
     }
     return redirect()->route('other_experience.index')->with('success', __('You have deleted the experience outside KSA successfully'));
   }

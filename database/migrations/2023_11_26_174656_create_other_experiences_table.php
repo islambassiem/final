@@ -16,13 +16,13 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained('users');
       $table->string('profession', 100)->nullable();
       $table->string('organization_name', 100)->nullable();
-      $table->string('city', 100)->nullable();
-      $table->unsignedSmallInteger('country_id');
+      $table->string('city', 30)->nullable();
+      $table->unsignedSmallInteger('country_id')->nullable();
       $table->string('department', 100)->nullable();
       $table->string('section', 100)->nullable();
       $table->date('start_date')->nullable();
       $table->date('end_date')->nullable();
-      $table->text('functional_tasks')->nullable();
+      $table->text('functional_tasks', 500)->nullable();
       $table->softDeletes();
       $table->timestamps();
 

@@ -11,6 +11,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <style>
+    label.required{
+      color: red;
+      position: relative;
+    }
+    label.required::after{
+      content: '*';
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -51,7 +60,16 @@
               @csrf
               <div class="row g-3 mt-3" id="phase1">
 
-                <div class="row py-2">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="employment_number" class="form-label">{{ __('Employment Number') }}</label>
+                      <input type="text" class="form-control" name="employment_number" id="employment_number" value="{{ old('employment_number') }}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-4">
                     <label for="institutions" class="form-label">{{ __('Insitiution Sector') }}</label>
                     <select id="institutions" class="form-select">
@@ -62,7 +80,7 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <label for="institution_id" class="form-label">{{ __('Educational Insitiution') }}</label>
+                    <label for="institution_id" class="form-label required">{{ __('Educational Insitiution') }}</label>
                     <select id="institution_id" class="form-select" name="institution_id"></select>
                   </div>
                 </div>
@@ -98,7 +116,7 @@
                     <select id="department_major" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_minor" class="form-label">{{ __('Level 3') }}</label>
+                    <label for="department_minor" class="form-label required">{{ __('Department') }}</label>
                     <select id="department_minor" class="form-select" name="section_id"></select>
                   </div>
                 </div>
@@ -118,7 +136,7 @@
                     <select id="governorate" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="city" class="form-label">{{ __('City') }}</label>
+                    <label for="city" class="form-label required">{{ __('City') }}</label>
                     <select id="city" class="form-select" name="city_id"></select>
                   </div>
                 </div>

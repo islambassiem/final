@@ -68,7 +68,7 @@ class Research extends Model
 
   public function title()
   {
-    $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->title.'_research_title.txt');
+    $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->id.'_research_title.txt');
     if(file_exists($file))
     {
       return file_get_contents($file);
@@ -77,7 +77,7 @@ class Research extends Model
   }
   public function summary()
   {
-    $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->title.'_research_summary.txt');
+    $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->id.'_research_summary.txt');
     if(file_exists($file))
     {
       return file_get_contents($file);

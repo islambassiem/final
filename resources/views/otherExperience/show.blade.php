@@ -63,7 +63,7 @@
 
               <div class="row">
                 <div class="col-md-4 label ">{{ __('Country') }}</div>
-                <div class="col-md-8">{{ $experience->country->{'country' . session('_lang')} }}</div>
+                <div class="col-md-8">{{ $experience->country?->{'country' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
@@ -112,7 +112,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Tasks') }}</h5>
-                <div>@php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/otherExperience.txt')) @endphp</div>
+                <div>{{ $experience->tasks() }}</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>

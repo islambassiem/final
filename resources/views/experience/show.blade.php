@@ -167,7 +167,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('Tasks') }}</h5>
-              <div>@php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text/experience.txt')) @endphp</div>
+              <div>{{ $experience->tasks() }}</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>

@@ -10,7 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
-
+  <style>
+    label.required{
+      color: red;
+      position: relative;
+    }
+    label.required::after{
+      content: '*';
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -47,14 +55,16 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
-                    <label for="organization_name" class="form-label">{{ __('Organization Name') }}</label>
-                    <input type="text" class="form-control" name="organization_name" value="{{ old('organization_name', $experience->organization_name) }}">
+                    <label for="organization_name" class="form-label required">{{ __('Organization Name') }}</label>
+                    <input type="text" class="form-control" name="organization_name" maxlength="100" value="{{ old('organization_name', $experience->organization_name) }}">
+                    <span class="text-secondary"><small id="organizationSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="mb-3">
-                    <label for="profession" class="form-label">{{ __('Profession') }}</label>
-                    <input type="text" class="form-control" name="profession" value="{{ old('profession',$experience->profession) }}">
+                    <label for="profession" class="form-label requied">{{ __('Profession') }}</label>
+                    <input type="text" class="form-control" name="profession" maxlength="100" value="{{ old('profession',$experience->profession) }}">
+                    <span class="text-secondary"><small id="professionSmall"></small></span>
                   </div>
                 </div>
               </div>
@@ -62,13 +72,15 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="section" class="form-label">{{ __('Section') }}</label>
-                    <input type="text" class="form-control" name="section" value="{{ old('section', $experience->section) }}">
+                    <input type="text" class="form-control" name="section" maxlength="100" value="{{ old('section', $experience->section) }}">
+                    <span class="text-secondary"><small id="sectionSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="department" class="form-label">{{ __('Department') }}</label>
-                    <input type="text" class="form-control" name="department" value="{{ old('department', $experience->department) }}">
+                    <input type="text" class="form-control" name="department" maxlength="100" value="{{ old('department', $experience->department) }}">
+                    <span class="text-secondary"><small id="departmentSmall"></small></span>
                   </div>
                 </div>
               </div>
@@ -85,18 +97,19 @@
                 <div class="col-md-3">
                   <div class="mb-3">
                     <label for="city" class="form-label">{{ __('City') }}</label>
-                    <input type="text" class="form-control" name="city" value="{{ old('city', $experience->city) }}">
+                    <input type="text" class="form-control" name="city" maxlength="30" value="{{ old('city', $experience->city) }}">
+                    <span class="text-secondary"><small id="citySmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="start_date" class="form-label">{{ __('Start Date') }}</label>
+                    <label for="start_date" class="form-label required">{{ __('Start Date') }}</label>
                     <input type="date" class="form-control" name="start_date" value="{{ old('start_date', $experience->start_date) }}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="end_date" class="form-label">{{ __('End Date') }}</label>
+                    <label for="end_date" class="form-label required">{{ __('End Date') }}</label>
                     <input type="date" class="form-control" name="end_date" value="{{ old('end_date', $experience->end_date) }}">
                   </div>
                 </div>
@@ -166,7 +179,7 @@
 
                     </div>
                     <div id="text-input" contenteditable="true"></div>
-                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', file_get_contents(public_path('storage/' . auth()->user()->id . '/text/otherExperience.txt'))) }}">
+                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', $experience->tasks()) }}">
                   </div>
                 </div>
               </div>
@@ -210,7 +223,49 @@
           'remove':  "{{ __('Delete') }}",
           'error': "{{ __('Ooops, something wrong happended.') }}"
         }
-      })
+      });
+
+      let max = "{{ __('Max characters') }}";
+      let organization = document.getElementById('organization_name');
+      let organizationSmall = document.getElementById('organizationSmall');
+      let profession = document.getElementById('profession');
+      let professionSmall = document.getElementById('professionSmall');
+      let section = document.getElementById('section');
+      let sectionSmall = document.getElementById('sectionSmall');
+      let department = document.getElementById('department');
+      let departmentSmall = document.getElementById('departmentSmall');
+      let city = document.getElementById('city');
+      let citySmall = document.getElementById('citySmall');
+
+      city.addEventListener('keyup', function(){
+        let char = this.value.length;
+        citySmall.innerHTML = `${max} ${char} / 100`;
+      });
+      citySmall.innerHTML = `${max} ${city.value.length} / 100`;
+
+      department.addEventListener('keyup', function(){
+        let char = this.value.length;
+        departmentSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      departmentSmall.innerHTML = `${max} ${department.value.length} / 100`;
+
+      section.addEventListener('keyup', function(){
+        let char = this.value.length;
+        sectionSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      sectionSmall.innerHTML = `${max} ${section.value.length} / 100`;
+
+      profession.addEventListener('keyup', function(){
+        let char = this.value.length;
+        professionSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      professionSmall.innerHTML = `${max} ${profession.value.length} / 100`;
+
+      organization.addEventListener('keyup', function(){
+        let char = this.value.length;
+        organizationSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      organizationSmall.innerHTML = `${max} ${organization.value.length} / 100`;
 
   </script>
 @endsection
