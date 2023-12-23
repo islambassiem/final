@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -138,8 +139,9 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Achievement Title') }}</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                <label for="title" class="form-label required">{{ __('Achievement Title') }}</label>
+                <input type="text" class="form-control" id="titleEdit" name="title" value="{{ old('title') }}">
+                <span class="text-secondary"><small id="titleEditSmall"></small></span>
               </div>
             </div>
           </div>
@@ -147,13 +149,14 @@
             <div class="col">
               <div class="mb-3">
                 <label for="donor" class="form-label">{{ __('Donor') }}</label>
-                <input type="text" class="form-control" id="donor" name="donor" value="{{ old('donor') }}">
+                <input type="text" class="form-control" id="donorEdit" name="donor" value="{{ old('donor') }}">
+                <span class="text-secondary"><small id="donorEditSmall"></small></span>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
-              <label for="year" class="form-label">{{ __('Year') }}</label>
+              <label for="year" class="form-label required">{{ __('Year') }}</label>
               <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
             </div>
           </div>
@@ -196,8 +199,9 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Achievement Title') }}</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                <label for="titleAdd" class="form-label required">{{ __('Achievement Title') }}</label>
+                <input type="text" class="form-control" maxlength="100" id="titleAdd" name="title" value="{{ old('title') }}">
+                <span class="text-secondary"><small id="titleAddSmall"></small></span>
               </div>
             </div>
           </div>
@@ -205,14 +209,15 @@
             <div class="col-12">
               <div class="mb-3">
                 <label for="donor" class="form-label">{{ __('Donor') }}</label>
-                <input type="text" class="form-control" id="donor" name="donor" value="{{ old('donor') }}">
+                <input type="text" class="form-control" id="donorAdd" maxlength="100" name="donor" value="{{ old('donor') }}">
+                <span class="text-secondary"><small id="donorAddSmall"></small></span>
               </div>
             </div>
           </div>
             <div class="row">
               <div class="col-12">
                 <div class="mb-3">
-                  <label for="year" class="form-label">{{ __('Year') }}</label>
+                  <label for="year" class="form-label required">{{ __('Year') }}</label>
                   <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
                 </div>
               </div>
@@ -318,8 +323,8 @@
           $('#attachmentRow').remove();
         }
         $('#id').val(id);
-        $('#title').val(title);
-        $('#donor').val(mobile);
+        $('#titleEdit').val(title);
+        $('#donorEdit').val(mobile);
         $('#year').val(email);
         form.action = "achievements/" + id;
       });
@@ -332,6 +337,40 @@
           'error': "{{ __('Ooops, something wrong happended.') }}"
         }
       });
+
+      let max = "{{ __('Max characters') }}";
+      let titleAdd = document.getElementById('titleAdd');
+      let titleAddSmall = document.getElementById('titleAddSmall');
+      let donorAdd = document.getElementById('donorAdd');
+      let donorAddSmall = document.getElementById('donorAddSmall');
+      let titleEdit = document.getElementById('titleEdit');
+      let titleEditSmall = document.getElementById('titleEditSmall');
+      let donorEdit = document.getElementById('donorEdit');
+      let donorEditSmall = document.getElementById('donorEditSmall');
+
+      donorAdd.addEventListener('keyup', function(){
+        let char = this.value.length;
+        donorAddSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      donorAddSmall.innerHTML = `${max} ${donorAdd.value.length} / 100`;
+
+      titleAdd.addEventListener('keyup', function(){
+        let char = this.value.length;
+        titleAddSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      titleAddSmall.innerHTML = `${max} ${titleAdd.value.length} / 100`;
+
+      donorEdit.addEventListener('keyup', function(){
+        let char = this.value.length;
+        donorEditSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      donorEditSmall.innerHTML = `${max} ${donorEdit.value.length} / 100`;
+
+      titleEdit.addEventListener('keyup', function(){
+        let char = this.value.length;
+        titleEditSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      titleEditSmall.innerHTML = `${max} ${titleEdit.value.length} / 100`;
     });
   </script>
 @endsection

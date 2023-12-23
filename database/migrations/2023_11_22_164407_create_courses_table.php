@@ -15,12 +15,12 @@ return new class extends Migration
       $table->id();
       $table->foreignId('user_id')->constrained('users');
       $table->string('name', 100)->nullable();
-      $table->unsignedTinyInteger('type_id');
+      $table->unsignedTinyInteger('type_id')->nullable();
       $table->string('issuer', 100)->nullable();
       $table->date('courseDate')->nullable();
-      $table->string('period', 100)->nullable();
-      $table->string('city', 100)->nullable();
-      $table->unsignedSmallInteger('country_id');
+      $table->string('period', 20)->nullable();
+      $table->string('city', 30)->nullable();
+      $table->unsignedSmallInteger('country_id')->nullable();
       $table->softDeletes();
       $table->timestamps();
 

@@ -23,8 +23,8 @@ class AchievementRequest extends FormRequest
   {
     return [
       'user_id' => 'required',
-      'title' => 'required|max:255',
-      'donor' => 'required|max:255',
+      'title' => 'required|max:100',
+      'donor' => 'nullable|max:100',
       'year' => 'numeric|min:1900|max:2100',
       'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
@@ -34,9 +34,8 @@ class AchievementRequest extends FormRequest
   {
     return [
       'title.required' => __('The achievement title is required'),
-      'title.max' => __('The max number of character allowed is 255 characters'),
-      'donor.required' => __('The donor is required'),
-      'donor.max' => __('The max number of character allowed is 255 characters'),
+      'title.max' => __('The max number of character allowed is 100 characters'),
+      'donor.max' => __('The max number of character allowed is 100 characters'),
       'year.numeric' => __('The achievement year is required'),
       'year.min' => __('The year you entered is invalid'),
       'year.max' => __('The year you entered is invalid'),

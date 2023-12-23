@@ -1,0 +1,7 @@
+label.required{
+  color: red;
+  position: relative;
+}
+label.required::after{
+  content: '*';
+}

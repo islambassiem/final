@@ -23,12 +23,12 @@ class CourseRequest extends FormRequest
   {
     return [
       'user_id' => 'required',
-      'name' => 'required|string|max:255',
-      'issuer' => 'required|string|max:255',
+      'name' => 'required|string|max:100',
+      'issuer' => 'required|string|max:100',
       'courseDate' => 'required|date',
-      'period' => 'required|string|max:255',
+      'period' => 'required|string|max:20',
       'country_id' => 'required',
-      'city' => 'required',
+      'city' => 'required|max:30',
       'type_id' => 'required',
       'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
@@ -39,15 +39,15 @@ class CourseRequest extends FormRequest
     return [
       'name.required' => __('The course name is required'),
       'name.string' => __('The course name is invalid'),
-      'name.max' => __('The maximum length for the course name is 255 characters'),
+      'name.max' => __('The maximum length for the course name is 100 characters'),
       'issuer.required' => __('The course issuer is required'),
       'issuer.string' => __('The course issuer is invalid'),
-      'issuer.max' => __('The maximum length for the course issuer is 255 characters'),
+      'issuer.max' => __('The maximum length for the course issuer is 100 characters'),
       'courseDate.required' => __('The course date is required'),
       'courseDate.date' => __('The course date is invalid'),
       'period.required' => __('The course period is required'),
       'period.string' => __('The course period is invalid'),
-      'period.max' => __('The maximum length for the course period is 255 characters'),
+      'period.max' => __('The maximum length for the course period is 100 characters'),
       'country_id.required' => __('The country of the course is required'),
       'city' => __('The course city is required'),
       'type_id.required' => __('The course type is required'),
