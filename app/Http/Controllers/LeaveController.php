@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Attachment;
 use App\Models\Leave;
+use App\Models\Attachment;
+use App\Models\LeaveDetail;
 use Illuminate\Http\Request;
 use App\Models\Tables\LeaveType;
-use App\Models\LeaveDetail;
-use App\Http\Requests\LeaveRequest;
 use App\Notifications\ApplyLeave;
+use App\Http\Requests\LeaveRequest;
+use App\Mail\LeaveApplication;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class LeaveController extends Controller
@@ -58,9 +60,10 @@ class LeaveController extends Controller
     Leave::create($validated);
     $latest_leave = Leave::latest('id')->first();
     $head = User::find(auth()->user()->head);
-    Notification::send($head, new ApplyLeave($latest_leave));
     $this->leaveDetial($request, $latest_leave->id);
     $this->attach($request, $latest_leave);
+    Notification::send($head, new ApplyLeave($latest_leave));
+    Mail::send(new LeaveApplication($latest_leave));
     return redirect()->back()->with('success', 'You have applied for a permission successfully');
   }
 
