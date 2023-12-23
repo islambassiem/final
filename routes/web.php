@@ -149,6 +149,10 @@ Route::post('genericsStore', [GenericRequestController::class, 'store'])->name('
 
 Route::get('faq', [FAQController::class, 'index'])->name('faq');
 
+
+Route::get('forbidden', function(){
+  return view('not-allowed');
+})->name('not-allowed');
 Route::get('notification/{id}', function($id){
   auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
   return redirect()->back();
