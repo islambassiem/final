@@ -291,49 +291,49 @@
         let char = this.value.length;
         pagesNumberSmall.innerHTML = `${max} ${char} / 5`;
       });
-      pagesNumberSmall.innerHTML = `${max} ${title.value.length} / 5`;
+      pagesNumberSmall.innerHTML = `${max} ${pagesNumber.value.length} / 5`;
 
       edition.addEventListener('keyup', function(){
         let char = this.value.length;
         editionSmall.innerHTML = `${max} ${char} / 10`;
       });
-      editionSmall.innerHTML = `${max} ${title.value.length} / 10`;
+      editionSmall.innerHTML = `${max} ${edition.value.length} / 10`;
 
       isbn.addEventListener('keyup', function(){
         let char = this.value.length;
         isbnSmall.innerHTML = `${max} ${char} / 13`;
       });
-      isbnSmall.innerHTML = `${max} ${title.value.length} / 13`;
+      isbnSmall.innerHTML = `${max} ${isbn.value.length} / 13`;
 
       keyWords.addEventListener('keyup', function(){
         let char = this.value.length;
         keyWordsSmall.innerHTML = `${max} ${char} / 200`;
       });
-      keyWordsSmall.innerHTML = `${max} ${title.value.length} / 200`;
+      keyWordsSmall.innerHTML = `${max} ${keyWords.value.length} / 200`;
 
       url.addEventListener('keyup', function(){
         let char = this.value.length;
         urlSmall.innerHTML = `${max} ${char} / 1000`;
       });
-      urlSmall.innerHTML = `${max} ${title.value.length} / 1000`;
+      urlSmall.innerHTML = `${max} ${url.value.length} / 1000`;
 
       magazine.addEventListener('keyup', function(){
         let char = this.value.length;
         magazineSmall.innerHTML = `${max} ${char} / 100`;
       });
-      magazineSmall.innerHTML = `${max} ${title.value.length} / 100`;
+      magazineSmall.innerHTML = `${max} ${magazine.value.length} / 100`;
 
       publication_location.addEventListener('keyup', function(){
         let char = this.value.length;
         locationSmall.innerHTML = `${max} ${char} / 100`;
       });
-      locationSmall.innerHTML = `${max} ${title.value.length} / 100`;
+      locationSmall.innerHTML = `${max} ${publication_location.value.length} / 100`;
 
       publisher.addEventListener('keyup', function(){
         let char = this.value.length;
         publisherSmall.innerHTML = `${max} ${char} / 60`;
       });
-      publisherSmall.innerHTML = `${max} ${title.value.length} / 60`;
+      publisherSmall.innerHTML = `${max} ${publisher.value.length} / 60`;
 
       document.getElementById('next1').addEventListener('click', () => {
         document.getElementById('phase1').style.display = "none";

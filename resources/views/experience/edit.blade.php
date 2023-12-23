@@ -242,6 +242,7 @@
                   <div class="col-md-4">
                     <label for="position" class="form-label">{{ __('Possition') }}</label>
                     <input type="text" class="form-control" id="position" name="position" value="{{ old('position', $e->position) }}">
+                    <span class="text-secondary"><small id="positionSmall"></small></span>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between my-3">
@@ -551,6 +552,16 @@
       document.getElementsByTagName("form")[0].addEventListener("submit", function () {
         document.getElementById("tasks").value = document.getElementById("text-input").innerHTML;
       });
+
+      let max = "{{ __('Max characters') }}";
+      let position = document.getElementById('position');
+      let posiitionSmall = document.getElementById('posiitionSmall');
+
+      position.addEventListener('keyup', function(){
+        let char = this.value.length;
+        positionSmall.innerHTML = `${max} ${char} / 100`;
+      });
+      positionSmall.innerHTML = `${max} ${position.value.length} / 100`;
     });
   </script>
 @endsection

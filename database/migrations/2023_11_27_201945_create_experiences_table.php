@@ -15,11 +15,11 @@ return new class extends Migration
       $table->id();
       $table->foreignId('user_id')->constrained('users');
       $table->string('position', 100)->nullable();
-      $table->unsignedTinyInteger('institution_id')->nullable();
-      $table->unsignedSmallInteger('college_id')->nullable();
-      $table->unsignedSmallInteger('city_id')->nullable();
-      $table->unsignedSmallInteger('section_id')->nullable();
-      $table->unsignedSmallInteger('major_id')->nullable();
+      $table->unsignedTinyInteger('institution_id');
+      $table->unsignedSmallInteger('city_id');
+      $table->unsignedSmallInteger('college_id');
+      $table->unsignedSmallInteger('section_id');
+      $table->unsignedSmallInteger('major_id');
       $table->unsignedSmallInteger('minor_id')->nullable();
       $table->unsignedTinyInteger('academic_rank_id')->nullable();
       $table->unsignedTinyInteger('professional_rank_id')->nullable();
