@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('style')
@@ -15,11 +15,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Experience / Add') }}
+  {{ __('experience.experience') . ' / ' . __('global.add') }}
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ __('Experience Details') }}</h5>
+            <h5 class="card-title">{{ __('experience.expDetials') }}</h5>
 
             <div class="progress my-3">
               <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
@@ -55,7 +55,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="mb-3">
-                      <label for="employment_number" class="form-label">{{ __('Employment Number') }}</label>
+                      <label for="employment_number" class="form-label">{{  __('experience.empNo') }}</label>
                       <input type="text" class="form-control" name="employment_number" id="employment_number" value="{{ old('employment_number') }}">
                     </div>
                   </div>
@@ -63,7 +63,7 @@
 
                 <div class="row">
                   <div class="col-md-4">
-                    <label for="institutions" class="form-label">{{ __('Insitiution Sector') }}</label>
+                    <label for="institutions" class="form-label">{{ __('experience.sector') }}</label>
                     <select id="institutions" class="form-select">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($institutions as $institution)
@@ -72,14 +72,14 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <label for="institution_id" class="form-label required">{{ __('Educational Insitiution') }}</label>
+                    <label for="institution_id" class="form-label required">{{ __('experience.institution') }}</label>
                     <select id="institution_id" class="form-select" name="institution_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-6">
-                    <label for="college_classification" class="form-label">{{ __('College Classifications') }}</label>
+                    <label for="college_classification" class="form-label">{{ __('experience.classification') }}</label>
                     <select id="college_classification" class="form-select">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($college_classification as $college)
@@ -88,14 +88,14 @@
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label for="college_id" class="form-label">{{ __('College') }}</label>
+                    <label for="college_id" class="form-label">{{ __('experience.college') }}</label>
                     <select id="college_id" class="form-select" name="college_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="department_domain" class="form-label">{{ __('Level 1') }}</label>
+                    <label for="department_domain" class="form-label">{{ __('experience.major') }}</label>
                     <select id="department_domain" class="form-select">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($department_domain as $department)
@@ -104,18 +104,18 @@
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_major" class="form-label">{{ __('Level 2') }}</label>
+                    <label for="department_major" class="form-label">{{ __('experience.minor') }}</label>
                     <select id="department_major" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_minor" class="form-label required">{{ __('Department') }}</label>
+                    <label for="department_minor" class="form-label required">{{ __('experience.dpeartment') }}</label>
                     <select id="department_minor" class="form-select" name="section_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="regions" class="form-label">{{ __('Region') }}</label>
+                    <label for="regions" class="form-label">{{ __('experience.reigion') }}</label>
                     <select id="regions" class="form-select">
                       <option selected disabled>{{ __('Choose...') }}</option>
                       @foreach ($regions as $region)
@@ -124,17 +124,17 @@
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="governorate" class="form-label">{{ __('Governorates') }}</label>
+                    <label for="governorate" class="form-label">{{ __('experience.governerate') }}</label>
                     <select id="governorate" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="city" class="form-label required">{{ __('City') }}</label>
+                    <label for="city" class="form-label required">{{ __('experience.city') }}</label>
                     <select id="city" class="form-select" name="city_id"></select>
                   </div>
                 </div>
 
                 <div class="d-flex justify-content-end mb-3">
-                  <button type="button" class="btn btn-primary" id="next1">{{ __("Next") }}</button>
+                  <button type="button" class="btn btn-primary" id="next1">{{ __('global.next') }}</button>
                 </div>
               </div>
 
@@ -142,15 +142,15 @@
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="hiring_date" class="form-label">{{ __('Hiring Date') }}</label>
+                    <label for="hiring_date" class="form-label">{{ __('experience.hire') }}</label>
                     <input type="date" class="form-control" id="hiring_date" name="hiring_date" value="{{ old('hiring_date') }}">
                   </div>
                   <div class="col-md-4">
-                    <label for="joining_date" class="form-label">{{ __('Joining Date') }}</label>
+                    <label for="joining_date" class="form-label">{{ __('experience.join') }}</label>
                     <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ old('joining_date') }}">
                   </div>
                   <div class="col-md-4">
-                    <label for="resignation_date" class="form-label">{{ __('Resegniation Date') }}</label>
+                    <label for="resignation_date" class="form-label">{{ __('experience.resign') }}</label>
                     <input type="date" class="form-control" id="resignation_date" name="resignation_date" value="{{ old('resignation_date') }}">
                   </div>
                 </div>
@@ -158,7 +158,7 @@
                 @if (auth()->user()->category_id == 1)
                   <div class="row py-2">
                     <div class="col-md-4">
-                      <label for="appointment_type_id" class="form-label">{{ __('Appointment Type') }}</label>
+                      <label for="appointment_type_id" class="form-label">{{ __('experience.apptType') }}</label>
                       <select id="appointment_type_id" class="form-select" name="appointment_type_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($appointment_types as $type)
@@ -167,7 +167,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="job_type_id" class="form-label">{{ __('Job Type') }}</label>
+                      <label for="job_type_id" class="form-label">{{ __('experience.jobType') }}</label>
                       <select id="job_type_id" class="form-select" name="job_type_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($job_types as $type)
@@ -176,7 +176,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="employment_status_id" class="form-label">{{ __('Employment Status') }}</label>
+                      <label for="employment_status_id" class="form-label">{{ __('experience.status') }}</label>
                       <select id="employment_status_id" class="form-select" name="employment_status_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($employment_status as $status)
@@ -187,7 +187,7 @@
                   </div>
                   <div class="row py-2">
                     <div class="col-md-4">
-                      <label for="domain" class="form-label">{{ __('Doamain') }}</label>
+                      <label for="domain" class="form-label">{{ __('experience.domain') }}</label>
                       <select id="domain" class="form-select">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($domains as $domain)
@@ -196,11 +196,11 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="major" class="form-label">{{ __('Major') }}</label>
+                      <label for="major" class="form-label">{{ __('experience.major') }}</label>
                       <select id="major" class="form-select"  name="major_id"></select>
                     </div>
                     <div class="col-md-4">
-                      <label for="minor" class="form-label">{{ __('Minor') }}</label>
+                      <label for="minor" class="form-label">{{ __('experience.minor') }}</label>
                       <select id="minor" class="form-select" name="minor_id"></select>
                     </div>
                     <div class="col-md-4">
@@ -212,7 +212,7 @@
                 <div class="row py-2">
                   @if (auth()->user()->category_id == 1)
                     <div class="col-md-4">
-                      <label for="academic_rank_id" class="form-label">{{ __('Academic Rank') }}</label>
+                      <label for="academic_rank_id" class="form-label">{{ __('experience.aRank') }}</label>
                       <select id="academic_rank_id" class="form-select" name="academic_rank_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($academic_ranks as $rank)
@@ -222,7 +222,7 @@
                     </div>
                   @else
                     <div class="col-md-4">
-                      <label for="professional_rank_id" class="form-label">{{ __('Professional Rank') }}</label>
+                      <label for="professional_rank_id" class="form-label">{{ __('experience.pRank') }}</label>
                       <select id="professional_rank_id" class="form-select" name="professional_rank_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($professional_ranks as $rank)
@@ -231,7 +231,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="accommodation_status_id" class="form-label">{{ __('Accommodation Status') }}</label>
+                      <label for="accommodation_status_id" class="form-label">{{ __('experience.accStatus') }}</label>
                       <select id="accommodation_status_id" class="form-select" name="accommodation_status_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($accommodation_types as $type)
@@ -241,14 +241,14 @@
                     </div>
                   @endif
                   <div class="col-md-4">
-                    <label for="position" class="form-label">{{ __('Possition') }}</label>
+                    <label for="position" class="form-label">{{ __('experience.position') }}</label>
                     <input type="text" class="form-control" id="position" maxlength="100" name="position" value="{{ old('position') }}">
                     <span class="text-secondary"><small id="positionSmall"></small></span>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between my-3">
-                  <button type="button" class="btn btn-danger" id="back1">{{ __("Back") }}</button>
-                  <button type="button" class="btn btn-primary" id="next2">{{ __("Next") }}</button>
+                  <button type="button" class="btn btn-danger" id="back1">{{ __('global.back') }}</button>
+                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.next') }}</button>
                 </div>
 
               </div>

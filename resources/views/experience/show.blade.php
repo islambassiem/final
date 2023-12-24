@@ -1,18 +1,19 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Experiences') }}
+  {{ __('experience.experience') }}
 @endsection
+
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Experience / Show') }}
+  {{ __('experience.experience') . ' / ' . __('global.show')}}
 @endsection
 
 @section('content')
@@ -23,7 +24,7 @@
       <a href="{{ route('experience.index') }}"
         class="btn btn-warning mx-2">
         <i class="bi bi-arrow-left-circle me-1"></i>
-        {{ __('Back') }}
+        {{ __('global.back') }}
       </a>
       <button
         type="button"
@@ -33,12 +34,12 @@
         data-bs-toggle="modal"
         data-bs-target="#delteConfirmation">
         <i class="bi bi-trash3"></i>
-        {{ __('Delete') }}
+        {{ __('global.del') }}
       </button>
       <a href="{{ route('experience.edit',$experience->id) }}"
         class="btn btn-primary">
         <i class="bi bi-pencil-square me-1"></i>
-        {{ __('Edit') }}
+        {{ __('global.edit') }}
       </a>
     </div>
   </div>
@@ -49,7 +50,7 @@
           <!-- Bordered Tabs -->
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-              <h5 class="card-title">{{ __('Experience Details') }}</h5>
+              <h5 class="card-title">{{ __('experience.expDetials') }}</h5>
 
               <div class="row">
                 <div class="col-md-4 label ">{{ __('Position') }}</div>
@@ -57,52 +58,52 @@
               </div>
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('Institution') }}</div>
-                <div class="col-md-8">{{ $experience->institution->{'institute'. session('_lang')} }}</div>
+                <div class="col-md-4 label">{{ __('experience.institution') }}</div>
+                <div class="col-md-8">{{ $experience->institution?->{'institute'. session('_lang')} }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('College') }}</div>
-                <div class="col-md-8">{{ $experience->college->{'college' . session('_lang')} }}</div>
+                <div class="col-md-4 label">{{ __('experience.college') }}</div>
+                <div class="col-md-8">{{ $experience->college?->{'college' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('Department') }}</div>
+                <div class="col-md-4 label">{{ __('experience.dpeartment') }}</div>
                 <div class="col-md-8">{{ $experience->section->{'section' . session('_lang')} }}</div>
               </div>
 
               @if (auth()->user()->category_id == 1)
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Academic Rank') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.aRank') }}</div>
                   <div class="col-md-8">{{ $experience->academicRank->{'rank' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Appotintment Type') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.apptType') }}</div>
                   <div class="col-md-8">{{ $experience->appointment->{'appointment_type' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Employement Status') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.status') }}</div>
                   <div class="col-md-8">{{ $experience->employment->{'employment_status' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Job Type') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.jobType') }}</div>
                   <div class="col-md-8">{{ $experience->jobType->{'job_type' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Major') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.major') }}</div>
                   <div class="col-md-8">{{ $experience->major->{'specialty' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Minor') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.minor') }}</div>
                   <div class="col-md-8">{{ $experience->minor->{'specialty' . session('_lang')} }}</div>
                 </div>
               @else
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Professional Rank') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.pRank') }}</div>
                   <div class="col-md-8">{{ $experience->professionalRank->{'rank' . session('_lang')} }}</div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 label">{{ __('Accommodation Type') }}</div>
+                  <div class="col-md-4 label">{{ __('experience.accStatus') }}</div>
                   <div class="col-md-8">{{ $experience->accommodation->{'accommodation_status' . session('_lang')} }}</div>
                 </div>
               @endif
@@ -124,17 +125,17 @@
 
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('Hiring Date') }}</div>
+                <div class="col-md-4 label">{{ __('experience.hire') }}</div>
                 <div class="col-md-8">{{ $experience->hiring_date}}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('Joining Date') }}</div>
+                <div class="col-md-4 label">{{ __('experience.join') }}</div>
                 <div class="col-md-8">{{ $experience->joining_date}}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label">{{ __('End Date') }}</div>
+                <div class="col-md-4 label">{{ __('experience.resign') }}</div>
                 <div class="col-md-8">{{ $experience->resignation_date}}</div>
               </div>
 
@@ -144,7 +145,7 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ __('Attachment') }}</h5>
+          <h5 class="card-title">{{ __('global.attachment') }}</h5>
           @if ($link)
             <div class="fs-1 text-center" style="cursor: pointer;">
               <a href="{{ url($link) }}" target="_blank" class="d-flex justify-content-center">
@@ -153,7 +154,7 @@
             </div>
           @else
             <div class="alert alert-danger text-center">
-              {{ __("No Attachments") }}
+              {{ __('global.noAttach') }}
             </div>
           @endif
         </div>
@@ -166,7 +167,7 @@
         <div class="card-body">
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-              <h5 class="card-title">{{ __('Tasks') }}</h5>
+              <h5 class="card-title">{{ __('experience.tasks') }}</h5>
               <div>{{ $experience->tasks() }}</div>
             </div>
           </div><!-- End Bordered Tabs -->
@@ -182,19 +183,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the experience?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>

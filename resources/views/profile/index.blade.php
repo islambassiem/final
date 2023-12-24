@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Profile') }}
+  {{ __('profile.profile') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Profile') }}
+{{ __('profile.profile') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Profile') }}
+{{ __('profile.profile') }}
 @endsection
 
 @section('content')
@@ -62,19 +62,19 @@
             <ul class="nav nav-tabs nav-tabs-bordered">
 
               <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">{{ __('Overview') }}</button>
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">{{ __('profile.overview') }}</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">{{ __('Edit Profile') }}</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">{{ __('profile.edit') }}</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#address">{{ __('Address') }}</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#address">{{ __('profile.address') }}</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#national-address">{{ __('National Address') }}</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#national-address">{{ __('profile.national') }}</button>
               </li>
 
               {{-- <li class="nav-item">
@@ -85,45 +85,45 @@
             <div class="tab-content pt-2">
 
               <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                <h5 class="card-title">{{ __('Profile Details') }}</h5>
+                <h5 class="card-title">{{ __('profile.details') }}</h5>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label ">{{ __('Full Name') }}</div>
+                  <div class="col-lg-3 col-md-4 label ">{{ __('profile.fullName') }}</div>
                   <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Position') }}</div>
-                  <div class="col-lg-9 col-md-8">{{ $user->position->{'position' . session('_lang')} }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.position') }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $user->position?->{'position' . session('_lang')} }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Country</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.country') }}</div>
                   <div class="col-lg-9 col-md-8">{{ $user->nationality->{'country' . session('_lang')} }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Mobile') }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.mobile') }}</div>
                   <div class="col-lg-9 col-md-8">{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Personal Email') }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.personalEmail') }}</div>
                   <div class="col-lg-9 col-md-8">{{ blank($email?->contact) ? __('N/A') : $email->contact }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Official Email') }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.officialEmail') }}</div>
                   <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Office Number') }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.office') }}</div>
                   <div class="col-lg-9 col-md-8">{{ blank($office?->contact) ? __('N/A') : $office?->contact}}</div>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">{{ __('Extention') }}</div>
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.ext') }}</div>
                   <div class="col-lg-9 col-md-8">{{ blank($extension?->contact) ? __('N/A') : $extension?->contact }}</div>
                 </div>
 
@@ -135,7 +135,7 @@
                 <form action="{{ route('upload.picture', auth()->user()->empid) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <div class="row mb-3">
-                    <div for="profileImage" class="col-md-4 col-lg-3 col-form-label" style="font-weight:600; color:rgba(1, 41, 112, 0.6); ">{{ __('Profile Image') }}</div>
+                    <div for="profileImage" class="col-md-4 col-lg-3 col-form-label" style="font-weight:600; color:rgba(1, 41, 112, 0.6); ">{{ __('profile.image') }}</div>
                     <div class="col-md-8 col-lg-9">
                       <img src="{{ auth()->user()->picture() }}" alt="Profile" id="profileImage">
                       <div class="pt-2">
@@ -149,31 +149,31 @@
                 <form action="{{ route('profile.edit', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <div class="row mb-3">
-                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">{{ __('Phone') }}</label>
+                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">{{ __('profile.phone') }}</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="phone" type="text" class="form-control" id="Phone" value="{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}" autocomplete="off">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Personal Email') }}</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('profile.personalEmail') }}</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="email" type="email" class="form-control" id="Email" value="{{ blank($email?->contact) ? __('N/A') : $email->contact }}" autocomplete="off">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Date of Birth') }}</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('profile.dob') }}</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="date_of_birth" type="date" class="form-control" id="dob" value="{{ $user->date_of_birth }}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Marital Status') }}</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('profile.status') }}</label>
                     <div class="col-md-8 col-lg-9">
                         <select class="form-select" name="marital_status_id" id="maritalStatus" style="width: 100%">
-                          <option disabled selected>{{ __('Select') }}</option>
+                          <option disabled selected>{{ __('global.select') }}</option>
                           @foreach ($status as $s)
                             <option value="{{ $s->id }}" @selected($s->id == $user->marital_status_id)>{{ $s->{'marital_status' . session('_lang')} }}</option>
                           @endforeach
@@ -182,10 +182,10 @@
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('Place of Birth') }}</label>
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">{{ __('profile.placeOfBirth') }}</label>
                     <div class="col-md-8 col-lg-9">
                         <select class="form-select" name="place_of_birth_id" id="placeOfBirth" style="width: 100%">
-                          <option disabled selected>{{ __('Select') }}</option>
+                          <option disabled selected>{{ __('global.select') }}</option>
                           @foreach ($countries as $country)
                             <option value="{{ $country->id }}" @selected($country->id == $user->place_of_birth_id)>{{ $country->{'country' . session('_lang')} }}</option>
                           @endforeach
@@ -219,7 +219,7 @@
                   </div> --}}
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('global.save') }}</button>
                   </div>
                 </form><!-- End Profile Edit Form -->
 
@@ -228,55 +228,55 @@
               <div class="tab-pane fade" id="address">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">{{ __('Address Details') }}</h5>
+                  <h5 class="card-title">{{ __('profile.addressDetails') }}</h5>
                   @if (blank($address))
                     <div class="alert alert-danger">
-                      {{ __('There is no address registered') }}
+                      {{ __('profile.noAddress') }}
                     </div>
                     <div class="row">
                       <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddress">{{ __('Add') }}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddress">{{ __('global.add') }}</button>
                       </div>
                     </div>
                   @else
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Home Country ID') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.homeCountryID') }}</div>
                       <div class="col-lg-9 col-md-8">{{ blank($user->home_country_id) ? 'N/A' : $user->home_country_id}}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Building Number') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.buildingNumber') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->building_no }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Street') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.street') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->street_name }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('District') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.district') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->district_name }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('City') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('prifile.city') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->city }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Country') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.country') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address->country->{'country' . session('_lang')} }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Postal Code') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.postalCode') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $address?->zip_code }}</div>
                     </div>
 
                     <div class="row">
                       <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddress">{{ __('Edit') }}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddress">{{ __('global.edit') }}</button>
                       </div>
                     </div>
                   @endif
@@ -287,50 +287,50 @@
               <div class="tab-pane fade" id="national-address">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">{{ __('National Address Details') }}</h5>
+                  <h5 class="card-title">{{ __('profile.nationalAddressDetails') }}</h5>
                   @if (blank($national_address))
                     <div class="alert alert-danger">
-                      {{ __('There is no national address registered') }}
+                      {{ __('profile.noNational') }}
                     </div>
                     <div class="row">
                       <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNationalAddress">{{ __('Add') }}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNationalAddress">{{ __('global.add') }}</button>
                       </div>
                     </div>
                   @else
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Building Number') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.buildingNumber') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->building_no }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Street') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.street') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->street_name }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('District') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.district') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->district_name }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('City') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.city') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->city }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Postal Code') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.postalCode') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->zip_code }}</div>
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label ">{{ __('Secondary Number') }}</div>
+                      <div class="col-lg-3 col-md-4 label ">{{ __('profile.secondaryNumber') }}</div>
                       <div class="col-lg-9 col-md-8">{{ $national_address?->secondary_number }}</div>
                     </div>
 
                     <div class="row">
                       <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editNationalAddress">{{ __('Edit') }}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editNationalAddress">{{ __('global.edit') }}</button>
                       </div>
                     </div>
                   @endif
@@ -386,41 +386,41 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addNationalAddressLabel">{{ __('Add National Address') }}</h1>
+            <h1 class="modal-title fs-5" id="addNationalAddressLabel">{{ __('profile.addNAddress') }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="{{ route('national.address') }}" id="addNationalAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoNational" name="building_noNational" placeholder="{{ __('Building Number') }}">
-                <label for="buildingNoNational">{{ __('Building Number') }}</label>
+                <input type="text" class="form-control" id="buildingNoNational" name="building_noNational" placeholder="{{ __('profile.buildingNumber') }}">
+                <label for="buildingNoNational">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetNational" name="street_name" placeholder="{{ __('Street name') }}">
-                <label for="streetNational">{{ __('Street name') }}</label>
+                <input type="text" class="form-control" id="streetNational" name="street_name" placeholder="{{ __('profile.street') }}">
+                <label for="streetNational">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtNational" name="district_name" placeholder="{{ __('District') }}">
-                <label for="district">{{ __('District') }}</label>
+                <input type="text" class="form-control" id="districtNational" name="district_name" placeholder="{{ __('profile.district') }}">
+                <label for="district">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityNational" name="city" placeholder="{{ __('City') }}">
-                <label for="cityNational">{{ __('City') }}</label>
+                <input type="text" class="form-control" id="cityNational" name="city" placeholder="{{ __('profile.city') }}">
+                <label for="cityNational">{{ __('profile.city') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeNational" name="zip_code" placeholder="{{ __('Postal Code') }}">
-                <label for="zip_codeNational">{{ __('Postal Code') }}</label>
+                <input type="text" class="form-control" id="zip_codeNational" name="zip_code" placeholder="{{ __('profile.postalCode') }}">
+                <label for="zip_codeNational">{{ __('profile.postalCode') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="secondary_numberNational" name="secondary_number" placeholder="{{ __('Secondary Number') }}">
-                <label for="secondary_numberNational">{{ __('Secondary Number') }}</label>
+                <input type="text" class="form-control" id="secondary_numberNational" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}">
+                <label for="secondary_numberNational">{{ __('profile.secondaryNumber') }}</label>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="addNationalAddressForm">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+            <button type="submit" class="btn btn-primary" form="addNationalAddressForm">{{ __('global.save') }}</button>
           </div>
         </div>
       </div>
@@ -432,41 +432,41 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editNationalAddressLabel">{{ __('Add National Address') }}</h1>
+            <h1 class="modal-title fs-5" id="editNationalAddressLabel">{{ __('profile.addNAddress') }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="{{ route('national.address.edit', $national_address->id) }}" id="editNationalAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoNationalEdit" name="building_no" placeholder="{{ __('Building Number') }}" value="{{ $national_address->building_no }}">
-                <label for="buildingNoNationalEdit">{{ __('Building Number') }}</label>
+                <input type="text" class="form-control" id="buildingNoNationalEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $national_address->building_no }}">
+                <label for="buildingNoNationalEdit">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetNationalEdit" name="street_name" placeholder="{{ __('Street name') }}" value="{{ $national_address->street_name }}">
-                <label for="streetNationalEdit">{{ __('Street name') }}</label>
+                <input type="text" class="form-control" id="streetNationalEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $national_address->street_name }}">
+                <label for="streetNationalEdit">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtNationalEdit" name="district_name" placeholder="{{ __('District') }}" value="{{ $national_address->district_name }}">
-                <label for="districtNationalEdit">{{ __('District') }}</label>
+                <input type="text" class="form-control" id="districtNationalEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $national_address->district_name }}">
+                <label for="districtNationalEdit">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityNationalEdit" name="city" placeholder="{{ __('City') }}" value="{{ $national_address->city }}">
-                <label for="cityNationalEdit">{{ __('City') }}</label>
+                <input type="text" class="form-control" id="cityNationalEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $national_address->city }}">
+                <label for="cityNationalEdit">{{ __('profile.city') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeNationalEdit" name="zip_code" placeholder="{{ __('Postal Code') }}" value="{{ $national_address->zip_code }}">
-                <label for="zip_codeNationalEdit">{{ __('Postal Code') }}</label>
+                <input type="text" class="form-control" id="zip_codeNationalEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $national_address->zip_code }}">
+                <label for="zip_codeNationalEdit">{{ __('profile.postalCode') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="secondary_numberNationalEdit" name="secondary_number" placeholder="{{ __('Secondary Number') }}" value="{{ $national_address->secondary_number }}">
-                <label for="secondary_numberNationalEdit">{{ __('Secondary Number') }}</label>
+                <input type="text" class="form-control" id="secondary_numberNationalEdit" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}" value="{{ $national_address->secondary_number }}">
+                <label for="secondary_numberNationalEdit">{{ __('profile.secondaryNumber') }}</label>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="editNationalAddressForm">{{ __('Save') }}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+            <button type="submit" class="btn btn-primary" form="editNationalAddressForm">{{ __('global.save') }}</button>
           </div>
         </div>
       </div>
@@ -479,50 +479,50 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addAddressLabel">{{ __('Add Address') }}</h1>
+            <h1 class="modal-title fs-5" id="addAddressLabel">{{ __('profile.addAddress') }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="{{ route('address') }}" id="addAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeCountryIdAdd" name="home_country_id" placeholder="{{ __('Home Country ID') }}">
-                <label for="homeCountryIdAdd">{{ __('Home Country ID') }}</label>
+                <input type="text" class="form-control" id="homeCountryIdAdd" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}">
+                <label for="homeCountryIdAdd">{{ __('profile.homeCountryID') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNo" name="building_no" placeholder="{{ __('Building Number') }}">
-                <label for="buildingNo">{{ __('Building Number') }}</label>
+                <input type="text" class="form-control" id="buildingNo" name="building_no" placeholder="{{ __('profile.buildingNumber') }}">
+                <label for="buildingNo">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="street" name="street_name" placeholder="{{ __('Street name') }}">
-                <label for="street">{{ __('Street name') }}</label>
+                <input type="text" class="form-control" id="street" name="street_name" placeholder="{{ __('profile.street') }}">
+                <label for="street">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="district" name="district_name" placeholder="{{ __('District') }}">
-                <label for="district">{{ __('District') }}</label>
+                <input type="text" class="form-control" id="district" name="district_name" placeholder="{{ __('profile.district') }}">
+                <label for="district">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('City') }}">
-                <label for="city">{{ __('City') }}</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('profile.city') }}">
+                <label for="city">{{ __('profile.city') }}</label>
               </div>
               <div class="mb-3">
-                <label for="countryAdd">{{ __('Country') }}</label>
+                <label for="countryAdd">{{ __('profile.country') }}</label>
                 <select class="form-select" name="country_id" id="countryAdd" style="width: 100%">
-                  <option disabled selected>{{ __('Select') }}</option>
+                  <option disabled selected>{{ __('global.select') }}</option>
                   @foreach ($countries as $country)
                     <option value="{{ $country->id }}">{{ $country->{'country' . session('_lang')} }}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="{{ __('Postal Code') }}">
-                <label for="zip_code">{{ __('Postal Code') }}</label>
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="{{ __('profile.postalCode') }}">
+                <label for="zip_code">{{ __('profile.postalCode') }}</label>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="addAddressForm">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+            <button type="submit" class="btn btn-primary" form="addAddressForm">{{ __('global.save') }}</button>
           </div>
         </div>
       </div>
@@ -534,50 +534,50 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editAddressLabel">{{ __('Edit Address') }}</h1>
+            <h1 class="modal-title fs-5" id="editAddressLabel">{{ __('profile.addressDetails') }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="{{ route('address.edit', $address->id) }}" id="editAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeCountryIdEdit" name="home_country_id" placeholder="{{ __('Home Country ID') }}" value="{{ $user->home_country_id }}">
-                <label for="homeCountryIdEdit">{{ __('Home Country ID') }}</label>
+                <input type="text" class="form-control" id="homeCountryIdEdit" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}" value="{{ $user->home_country_id }}">
+                <label for="homeCountryIdEdit">{{ __('profile.homeCountryID') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoEdit" name="building_no" placeholder="{{ __('Building Number') }}" value="{{ $address->building_no }}">
-                <label for="buildingNoEdit">{{ __('Building Number') }}</label>
+                <input type="text" class="form-control" id="buildingNoEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $address->building_no }}">
+                <label for="buildingNoEdit">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetEdit" name="street_name" placeholder="{{ __('Street name') }}" value="{{ $address->street_name }}">
-                <label for="streetEdit">{{ __('Street name') }}</label>
+                <input type="text" class="form-control" id="streetEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $address->street_name }}">
+                <label for="streetEdit">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtEdit" name="district_name" placeholder="{{ __('District') }}" value="{{ $address->district_name }}">
-                <label for="districtEdit">{{ __('District') }}</label>
+                <input type="text" class="form-control" id="districtEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $address->district_name }}">
+                <label for="districtEdit">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityEdit" name="city" placeholder="{{ __('City') }}" value="{{ $address->city }}">
-                <label for="cityEdit">{{ __('City') }}</label>
+                <input type="text" class="form-control" id="cityEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $address->city }}">
+                <label for="cityEdit">{{ __('profile.city') }}</label>
               </div>
               <div class="mb-3">
-                <label for="countryEdit">{{ __('Country') }}</label>
+                <label for="countryEdit">{{ __('profile.country') }}</label>
                 <select class="form-select" name="country_id" id="countryEdit" style="width: 100%">
-                  <option disabled>{{ __('Select') }}</option>
+                  <option disabled>{{ __('global.select') }}</option>
                   @foreach ($countries as $country)
                     <option value="{{ $country->id }}" @selected($country->id == $address->country_id)>{{ $country->{'country' . session('_lang')} }}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeEdit" name="zip_code" placeholder="{{ __('Postal Code') }}" value="{{ $address->zip_code }}">
-                <label for="zip_codeEdit">{{ __('Postal Code') }}</label>
+                <input type="text" class="form-control" id="zip_codeEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $address->zip_code }}">
+                <label for="zip_codeEdit">{{ __('profile.postalCode') }}</label>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" form="editAddressForm">{{ __('Save') }}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+            <button type="submit" class="btn btn-primary" form="editAddressForm">{{ __('global.save') }}</button>
           </div>
         </div>
       </div>
@@ -589,19 +589,19 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="removePictureLabel">{{ __('Remove Picture') }}</h1>
+            <h1 class="modal-title fs-5" id="removePictureLabel">{{ __('profile.removepic') }}</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form action="{{ route('delete.picture', auth()->user()->empid) }}" method="post" id="deleteForm">
               @csrf
               @method('delete')
-              {{ __('Are you sure you want to delete the picture?') }}
+              {{ __('global.deleteConfirmation') }}
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-            <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.cancel') }}</button>
+            <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
           </div>
         </div>
       </div>

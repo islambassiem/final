@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Other Experience') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('style')
@@ -9,11 +9,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Othe Experience') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Other Experience / All') }}
+  {{ __('otherExperience.otherExperience') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
       <a href="{{ route('other_experience.create') }}"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('Add') }}
+        {{ __('global.all') }}
       </a>
     </div>
   </div>
@@ -33,10 +33,10 @@
         <div class="card-body pb-0">
           @if (count($experiences) == 0)
             <div class="alert alert-danger my-5" role="alert">
-              {{ __('There are no experience Registered') }}
+              {{ __('otherExperience.noOtherExp') }}
             </div>
           @else
-            <h5 class="card-title">{{ __('Other Experience') }}</h5>
+            <h5 class="card-title">{{ __('otherExperience.otherExperience') }}</h5>
             @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -52,10 +52,11 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ __('Position') }}</th>
-                  <th scope="col">{{ __('Organization') }}</th>
-                  <th scope="col">{{ __('Experience') }}</th>
-                  <th scope="col">{{ __('Action') }}</th>
+                  <th scope="col">{{ __('otherExperience.position') }}</th>
+                  <th scope="col">{{ __('otherExperience.organiztion') }}</th>
+                  <th scope="col">{{ __('otherExperience.start') }}</th>
+                  <th scope="col">{{ __('otherExperience.end') }}</th>
+                  <th scope="col">{{ __('global.action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,6 +67,7 @@
                     <td>{{ $experience->organization_name }}</td>
                     <td>{{ $experience->profession }}</td>
                     <td>{{ $experience->start_date }}</td>
+                    <td>{{ $experience->end_date }}</td>
                     <td>
                       <a
                         href="{{ route('other_experience.show', $experience->id) }}"
@@ -109,19 +111,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="" method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the experience record?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>

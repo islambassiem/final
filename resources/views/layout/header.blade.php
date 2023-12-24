@@ -30,12 +30,12 @@
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           @if (auth()->user()->unreadNotifications()->count() == 0)
             <li class="dropdown-header">
-              <span>{{ __('There are no notifications as of now') }}</span>
+              <span>{{ __('header.noNotifications') }}</span>
             </li>
           @else
             <li class="dropdown-header">
               {{ __('You have '. auth()->user()->unreadNotifications()->count()) . ' notifications' }}
-              <a href="{{ route('read.all.notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Mark All as read') }}</span></a>
+              <a href="{{ route('read.all.notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('header.markall') }}</span></a>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -69,7 +69,7 @@
         </a><!-- End Messages Icon -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
           <li class="dropdown-header">
-            <span>{{ __('There are no memos as of now') }}</span>
+            <span>{{ __('header.noMemos') }}</span>
           </li>
           {{-- <li class="dropdown-header">
             You have 3 new messages
@@ -200,7 +200,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{ route('faq') }}">
               <i class="bi bi-question-circle"></i>
-              <span>Need Help?</span>
+              <span>{{ __('header.help') }}</span>
             </a>
           </li>
           <li>
@@ -209,7 +209,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
               <i class="bi bi-box-arrow-right"></i>
-              <span>Sign Out</span>
+              <span>{{ __('header.signout') }}</span>
             </a>
           </li>
         </ul><!-- End Profile Dropdown Items -->

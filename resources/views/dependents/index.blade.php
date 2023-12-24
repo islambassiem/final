@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Dependents') }}
+  {{ __('dependants.dependents') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Dependents') }}
+  {{ __('dependants.dependents') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Dependents / All') }}
+  {{ __('dependants.dependents') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -27,14 +27,14 @@
         data-bs-target="#addDependent"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('Add') }}
+        {{ __('global.add') }}
       </button>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <div class="card-body pb-0">
+        <div class="card-body">
           @if ($errors->any())
             <div class="alert alert-danger mt-5">
               <ul>
@@ -46,10 +46,10 @@
           @endif
           @if (count($dependents) == 0)
             <div class="alert alert-danger my-5" role="alert">
-              {{ __('There are no dependents Registered') }}
+              {{ __('dependants.noDepen') }}
             </div>
           @else
-            <h5 class="card-title">{{ __('Dependents') }}</h5>
+            <h5 class="card-title">{{ __('dependants.dependents') }}</h5>
             @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -65,11 +65,11 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ __('Name') }}</th>
-                  <th scope="col">{{ __('ID') }}</th>
-                  <th scope="col">{{ __('Date Of Birth') }}</th>
-                  <th scope="col">{{ __('Relationship') }}</th>
-                  <th scope="col">{{ __('Actions') }}</th>
+                  <th scope="col">{{ __('dependants.name') }}</th>
+                  <th scope="col">{{ __('dependants.id') }}</th>
+                  <th scope="col">{{ __('dependants.dob') }}</th>
+                  <th scope="col">{{ __('dependants.dob') }}</th>
+                  <th scope="col">{{ __('global.action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +122,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editDependentLabel">{{ __('Edit a dependent') }}</h1>
+        <h1 class="modal-title fs-5" id="editDependentLabel">{{ __('dependants.editDepen') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -134,7 +134,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('Dependent Name') }}</label>
+                <label for="name" class="form-label">{{ __('dependants.deptName') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -142,22 +142,22 @@
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="identification" class="form-label">{{ __('Dependent ID') }}</label>
+                <label for="identification" class="form-label">{{ __('dependants.deptId') }}</label>
                 <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}" autocomplete="off">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="date_of_birth" class="form-label">{{ __('Date of Birth') }}</label>
+                <label for="date_of_birth" class="form-label">{{ __('dependants.dob') }}</label>
                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="identification" class="form-label">{{ __('Relationship') }}</label>
+              <label for="identification" class="form-label">{{ __('dependants.relationship') }}</label>
               <select class="form-select" id="relationship_id_edit" name="relationship_id" style="width:100%">
-                <option selected disabled>{{ __('Select') }}</option>
+                <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($relationships as $relationship)
                   <option value="{{ $relationship->id }}" @selected( $relationship->id == old('relationship->id'))>{{  $relationship->{'relationship' . session('_lang')} }}</option>
                 @endforeach
@@ -167,8 +167,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="editForm">{{ __('Save') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="editForm">{{ __('global.save') }}</button>
       </div>
     </div>
   </div>
@@ -179,7 +179,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addDependentLabel">{{ __('Add a dependent') }}</h1>
+        <h1 class="modal-title fs-5" id="addDependentLabel">{{ __('dependants.addDepn') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -189,7 +189,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('Dependent Name') }}</label>
+                <label for="name" class="form-label">{{ __('dependants.deptName') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -197,22 +197,22 @@
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="identification" class="form-label">{{ __('Dependent ID') }}</label>
+                <label for="identification" class="form-label">{{ __('dependants.deptId') }}</label>
                 <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="date_of_birth" class="form-label">{{ __('Date of Birth') }}</label>
+                <label for="date_of_birth" class="form-label">{{ __('dependants.dob') }}</label>
                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="relationship" class="form-label">{{ __('Relationship') }}</label>
+              <label for="relationship" class="form-label">{{ __('dependants.relationship') }}</label>
               <select class="form-select" id="relationship" name="relationship_id" style="width:100%">
-                <option selected disabled>{{ __('Select') }}</option>
+                <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($relationships as $relationship)
                   <option value="{{ $relationship->id }}" @selected( $relationship->id == old('relationship->id'))>{{  $relationship->{'relationship' . session('_lang')} }}</option>
                 @endforeach
@@ -222,8 +222,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>
@@ -235,19 +235,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('dependants.delDepen') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="" method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the dependent?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>

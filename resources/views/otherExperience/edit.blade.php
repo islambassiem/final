@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Other Experiences') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('style')
@@ -22,11 +22,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Other Experiences') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Other Experiences / Edit') }}
+  {{ __('otherExperience.otherExperience') . ' / '  . __('global.edit')}}
 @endsection
 
 @section('content')
@@ -45,7 +45,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ __('Add Other Experience') }}</h5>
+          <h5 class="card-title">{{ __('otherExperience.editOther') }}</h5>
 
           <form action="{{ route('other_experience.update', $experience->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -55,14 +55,14 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
-                    <label for="organization_name" class="form-label required">{{ __('Organization Name') }}</label>
+                    <label for="organization_name" class="form-label required">{{ __('otherExperience.organiztion') }}</label>
                     <input type="text" class="form-control" name="organization_name" maxlength="100" value="{{ old('organization_name', $experience->organization_name) }}">
                     <span class="text-secondary"><small id="organizationSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="mb-3">
-                    <label for="profession" class="form-label requied">{{ __('Profession') }}</label>
+                    <label for="profession" class="form-label requied">{{ __('otherExperience.position') }}</label>
                     <input type="text" class="form-control" name="profession" maxlength="100" value="{{ old('profession',$experience->profession) }}">
                     <span class="text-secondary"><small id="professionSmall"></small></span>
                   </div>
@@ -71,14 +71,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="section" class="form-label">{{ __('Section') }}</label>
+                    <label for="section" class="form-label">{{ __('otherExperience.section') }}</label>
                     <input type="text" class="form-control" name="section" maxlength="100" value="{{ old('section', $experience->section) }}">
                     <span class="text-secondary"><small id="sectionSmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="mb-3">
-                    <label for="department" class="form-label">{{ __('Department') }}</label>
+                    <label for="department" class="form-label">{{ __('otherExperience.department') }}</label>
                     <input type="text" class="form-control" name="department" maxlength="100" value="{{ old('department', $experience->department) }}">
                     <span class="text-secondary"><small id="departmentSmall"></small></span>
                   </div>
@@ -86,7 +86,7 @@
               </div>
               <div class="row">
                 <div class="col-md-3">
-                  <label for="country_id" class="form-label">{{ __('Country') }}</label>
+                  <label for="country_id" class="form-label">{{ __('otherExperience.country') }}</label>
                   <select class="form-select" id="country_id" name="country_id" style="width:100%">
                     <option selected disabled>{{ __('Select') }}</option>
                     @foreach ($countries as $country)
@@ -96,20 +96,20 @@
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="city" class="form-label">{{ __('City') }}</label>
+                    <label for="city" class="form-label">{{ __('otherExperience.city') }}</label>
                     <input type="text" class="form-control" name="city" maxlength="30" value="{{ old('city', $experience->city) }}">
                     <span class="text-secondary"><small id="citySmall"></small></span>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="start_date" class="form-label required">{{ __('Start Date') }}</label>
+                    <label for="start_date" class="form-label required">{{ __('otherExperience.start') }}</label>
                     <input type="date" class="form-control" name="start_date" value="{{ old('start_date', $experience->start_date) }}">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="mb-3">
-                    <label for="end_date" class="form-label required">{{ __('End Date') }}</label>
+                    <label for="end_date" class="form-label required">{{ __('otherExperience.end') }}</label>
                     <input type="date" class="form-control" name="end_date" value="{{ old('end_date', $experience->end_date) }}">
                   </div>
                 </div>
@@ -117,7 +117,7 @@
 
               @if (!$link)
                 <div class="col-md-12">
-                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                   <div class="col-sm-12">
                     <input
                     type="file"
@@ -133,7 +133,7 @@
               <div class="row">
                 <div class="col">
                   <div class="my-3">
-                    <label for="functional_tasks" class="form-label">{{ __('Tasks') }}</label>
+                    <label for="functional_tasks" class="form-label">{{ __('otherExperience.tasks') }}</label>
                     <div class="options">
                       <!-- Text Format -->
                       <button type="button" id="bold" class="option-button format button">
@@ -185,7 +185,7 @@
               </div>
               <div class="row">
                 <div class="col d-flex justify-content-end">
-                  <button class="btn btn-primary">{{ __('Submit') }}</button>
+                  <button class="btn btn-primary">{{ __('global.submit') }}</button>
                 </div>
               </div>
             </div>

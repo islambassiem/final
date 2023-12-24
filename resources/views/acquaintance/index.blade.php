@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Acquaintance') }}
+  {{ __('acquaintance.acquaintance') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Acquaintance') }}
+  {{ __('acquaintance.acquaintance') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Acquaintance / All') }}
+  {{ __('acquaintance.acquaintance') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
         data-bs-target="#addAcquaintance"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('Add') }}
+        {{ __('global.add') }}
       </button>
     </div>
   </div>
@@ -46,10 +46,10 @@
           @endif
           @if (count($acquaintances) == 0)
             <div class="alert alert-danger my-5" role="alert">
-              {{ __('There are no Acquaintance Registered') }}
+              {{ __('acquaintance.noAcq') }}
             </div>
           @else
-            <h5 class="card-title">{{ __('Acquaintance') }}</h5>
+            <h5 class="card-title">{{ __('acquaintance.acquaintance') }}</h5>
             @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -65,11 +65,11 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ __('Name') }}</th>
-                  <th scope="col">{{ __('Mobile') }}</th>
-                  <th scope="col">{{ __('Email') }}</th>
-                  <th scope="col">{{ __('Position') }}</th>
-                  <th scope="col">{{ __('Actions') }}</th>
+                  <th scope="col">{{ __('acquaintance.name') }}</th>
+                  <th scope="col">{{ __('acquaintance.mobile') }}</th>
+                  <th scope="col">{{ __('acquaintance.email') }}</th>
+                  <th scope="col">{{ __('acquaintance.position') }}</th>
+                  <th scope="col">{{ __('global.action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +122,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editAcquaintanceLabel">{{ __('Edit a dependent') }}</h1>
+        <h1 class="modal-title fs-5" id="editAcquaintanceLabel">{{ __('acquaintance.editAcq') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -134,7 +134,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('Name') }}</label>
+                <label for="name" class="form-label">{{ __('acquaintance.name') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -142,7 +142,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="mobile" class="form-label">{{ __('Mobile') }}</label>
+                <label for="mobile" class="form-label">{{ __('acquaintance.mobile') }}</label>
                 <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
               </div>
             </div>
@@ -150,14 +150,14 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <label for="email" class="form-label">{{ __('acquaintance.email') }}</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="position" class="form-label">{{ __('Position') }}</label>
+              <label for="position" class="form-label">{{ __('acquaintance.position') }}</label>
               <input type="text" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
               </select>
             </div>
@@ -165,8 +165,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="editForm">{{ __('Save') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="editForm">{{ __('global.save') }}</button>
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addAcquaintanceLabel">{{ __('Add an Acquaintance') }}</h1>
+        <h1 class="modal-title fs-5" id="addAcquaintanceLabel">{{ __('acquaintance.addAcq') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -187,7 +187,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('Name') }}</label>
+                <label for="name" class="form-label">{{ __('acquaintance.name') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -195,7 +195,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="mobile" class="form-label">{{ __('Mobile') }}</label>
+                <label for="mobile" class="form-label">{{ __('acquaintance.mobile') }}</label>
                 <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
               </div>
             </div>
@@ -203,22 +203,22 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <label for="email" class="form-label">{{ __('acquaintance.email') }}</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="position" class="form-label">{{ __('Position') }}</label>
+              <label for="position" class="form-label">{{ __('acquaintance.position') }}</label>
               <input type="position" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>
@@ -230,19 +230,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('acquaintance.addAcq') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="" method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the Acquantance?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>

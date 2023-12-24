@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('style')
@@ -22,11 +22,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Experience / Edit') }}
+  {{ __('experience.experience') .  ' / ' . __('global.edit')}}
 @endsection
 
 @section('content')
@@ -53,7 +53,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ __('Experience Details') }}</h5>
+            <h5 class="card-title">{{ __('experience.expDetials') }}</h5>
 
             <div class="progress my-3">
               <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
@@ -72,7 +72,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="mb-3">
-                      <label for="employment_number" class="form-label">{{ __('Employment Number') }}</label>
+                      <label for="employment_number" class="form-label">{{ __('experience.empNo') }}</label>
                       <input type="text" class="form-control" name="employment_number" id="employment_number" value="{{ old('employment_number', $e->employment_number) }}">
                     </div>
                   </div>
@@ -80,78 +80,78 @@
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="institutions" class="form-label required">{{ __('Insitiution Sector') }}</label>
+                    <label for="institutions" class="form-label required">{{ __('experience.sector') }}</label>
                     <select id="institutions" class="form-select">
-                      <option selected disabled>{{ __('Choose...') }}</option>
+                      <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($institutions as $institution)
                         <option value="{{ $institution->code }}" @selected($institution->code == old('institution_id', $e->institution_id))>{{  $institution->{'institute' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <label for="institution_id" class="form-label">{{ __('Educational Insitiution') }}</label>
+                    <label for="institution_id" class="form-label">{{ __('experience.institution') }}</label>
                     <select id="institution_id" class="form-select" name="institution_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-6">
-                    <label for="college_classification" class="form-label">{{ __('College Classifications') }}</label>
+                    <label for="college_classification" class="form-label">{{ __('experience.classification') }}</label>
                     <select id="college_classification" class="form-select">
-                      <option selected disabled>{{ __('Choose...') }}</option>
+                      <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($college_classification as $college)
                         <option value="{{ $college->code }}">{{  $college->{'college' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label for="college_id" class="form-label">{{ __('College') }}</label>
+                    <label for="college_id" class="form-label">{{ __('experience.college') }}</label>
                     <select id="college_id" class="form-select" name="college_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="department_domain" class="form-label">{{ __('Level 1') }}</label>
+                    <label for="department_domain" class="form-label">{{ __('experience.major') }}</label>
                     <select id="department_domain" class="form-select">
-                      <option selected disabled>{{ __('Choose...') }}</option>
+                      <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($department_domain as $department)
                         <option value="{{ $department->code }}">{{  $department->{'section' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_major" class="form-label">{{ __('Level 2') }}</label>
+                    <label for="department_major" class="form-label">{{ __('experience.minor') }}</label>
                     <select id="department_major" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_minor" class="form-label required">{{ __('Department') }}</label>
+                    <label for="department_minor" class="form-label required">{{ __('experience.dpeartment') }}</label>
                     <select id="department_minor" class="form-select" name="section_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="regions" class="form-label">{{ __('Region') }}</label>
+                    <label for="regions" class="form-label">{{ __('experience.reigion') }}</label>
                     <select id="regions" class="form-select">
-                      <option selected disabled>{{ __('Choose...') }}</option>
+                      <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($regions as $region)
                         <option value="{{ $region->code }}" >{{  $region->{'city' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="governorate" class="form-label">{{ __('Governorates') }}</label>
+                    <label for="governorate" class="form-label">{{ __('experience.governerate') }}</label>
                     <select id="governorate" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="city" class="form-label required">{{ __('City') }}</label>
+                    <label for="city" class="form-label required">{{ __('experience.city') }}</label>
                     <select id="city" class="form-select" name="city_id"></select>
                   </div>
                 </div>
 
                 <div class="d-flex justify-content-end mb-3">
-                  <button type="button" class="btn btn-primary" id="next1">{{ __("Next") }}</button>
+                  <button type="button" class="btn btn-primary" id="next1">{{ __('global.next') }}</button>
                 </div>
               </div>
 
@@ -159,15 +159,15 @@
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="hiring_date" class="form-label">{{ __('Hiring Date') }}</label>
+                    <label for="hiring_date" class="form-label">{{ __('experience.hire') }}</label>
                     <input type="date" class="form-control" id="hiring_date" name="hiring_date" value="{{ old('hiring_date', $e->hiring_date) }}">
                   </div>
                   <div class="col-md-4">
-                    <label for="joining_date" class="form-label">{{ __('Joining Date') }}</label>
+                    <label for="joining_date" class="form-label">{{ __('experience.join') }}</label>
                     <input type="date" class="form-control" id="joining_date" name="joining_date" value="{{ old('joining_date', $e->joining_date) }}">
                   </div>
                   <div class="col-md-4">
-                    <label for="resignation_date" class="form-label">{{ __('Resegniation Date') }}</label>
+                    <label for="resignation_date" class="form-label">{{ __('experience.resign') }}</label>
                     <input type="date" class="form-control" id="resignation_date" name="resignation_date" value="{{ old('resignation_date', $e->resignation_date ) }}">
                   </div>
                 </div>
@@ -175,27 +175,27 @@
                 @if (auth()->user()->category_id == 1)
                   <div class="row py-2">
                     <div class="col-md-4">
-                      <label for="appointment_type_id" class="form-label">{{ __('Appointment Type') }}</label>
+                      <label for="appointment_type_id" class="form-label">{{ __('experience.apptType') }}</label>
                       <select id="appointment_type_id" class="form-select" name="appointment_type_id">
-                        <option disabled>{{ __('Choose...') }}</option>
+                        <option disabled>{{ __('global.select') }}</option>
                         @foreach ($appointment_types as $type)
                           <option value="{{ $type->id }}" @selected($type->id == old('appointment_type_id', $e->appointment_type_id))>{{  $type->{'appointment_type' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="job_type_id" class="form-label">{{ __('Job Type') }}</label>
+                      <label for="job_type_id" class="form-label">{{ __('experience.jobType') }}</label>
                       <select id="job_type_id" class="form-select" name="job_type_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($job_types as $type)
                           <option value="{{ $type->id }}" @selected($type->id == old('job_type_id', $e->job_type_id))>{{  $type->{'job_type' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="employment_status_id" class="form-label">{{ __('Employment Status') }}</label>
+                      <label for="employment_status_id" class="form-label">{{ __('expiernce.status') }}</label>
                       <select id="employment_status_id" class="form-select" name="employment_status_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($employment_status as $status)
                           <option value="{{ $status->id }}" @selected($status->id == old('employment_status_id', $e->employment_status_id))>{{  $status->{'employment_status' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
@@ -204,20 +204,20 @@
                   </div>
                   <div class="row py-2">
                     <div class="col-md-4">
-                      <label for="domain" class="form-label">{{ __('Doamain') }}</label>
+                      <label for="domain" class="form-label">{{ __('experience.domain') }}</label>
                       <select id="domain" class="form-select">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($domains as $domain)
                           <option value="{{ $domain->code }}">{{  $domain->{'specialty' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="major" class="form-label">{{ __('Major') }}</label>
+                      <label for="major" class="form-label">{{ __('experience.major') }}</label>
                       <select id="major" class="form-select"  name="major_id"></select>
                     </div>
                     <div class="col-md-4">
-                      <label for="minor" class="form-label">{{ __('Minor') }}</label>
+                      <label for="minor" class="form-label">{{ __('experience.minor') }}</label>
                       <select id="minor" class="form-select" name="minor_id"></select>
                     </div>
                     <div class="col-md-4">
@@ -229,9 +229,9 @@
                 <div class="row py-2">
                   @if (auth()->user()->category_id == 1)
                     <div class="col-md-4">
-                      <label for="academic_rank_id" class="form-label">{{ __('Academic Rank') }}</label>
+                      <label for="academic_rank_id" class="form-label">{{ __('experience.aRank') }}</label>
                       <select id="academic_rank_id" class="form-select" name="academic_rank_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($academic_ranks as $rank)
                           <option value="{{ $rank->id }}" @selected($rank->id == old('academic_rank_id', $e->academic_rank_id))>{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
@@ -239,18 +239,18 @@
                     </div>
                   @else
                     <div class="col-md-4">
-                      <label for="professional_rank_id" class="form-label">{{ __('Professional Rank') }}</label>
+                      <label for="professional_rank_id" class="form-label">{{ __('experience.pRank') }}</label>
                       <select id="professional_rank_id" class="form-select" name="professional_rank_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($professional_ranks as $rank)
                           <option value="{{ $rank->id }}" @selected($rank->id == old('professional_rank_id', $e->professional_rank_id)) >{{  $rank->{'rank' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="accommodation_status_id" class="form-label">{{ __('Accommodation Status') }}</label>
+                      <label for="accommodation_status_id" class="form-label">{{ __('experience.accStatus') }}</label>
                       <select id="accommodation_status_id" class="form-select" name="accommodation_status_id">
-                        <option selected disabled>{{ __('Choose...') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($accommodation_types as $type)
                           <option value="{{ $type->id }}" @selected( $type->id == old('accommodation_status_id', $e->accommodation_status_id))>{{  $type->{'accommodation_status' . session('_lang') ?? 'en' } }}</option>
                         @endforeach
@@ -258,14 +258,14 @@
                     </div>
                   @endif
                   <div class="col-md-4">
-                    <label for="position" class="form-label">{{ __('Possition') }}</label>
+                    <label for="position" class="form-label">{{ __('experience.position') }}</label>
                     <input type="text" class="form-control" id="position" name="position" value="{{ old('position', $e->position) }}">
                     <span class="text-secondary"><small id="positionSmall"></small></span>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between my-3">
-                  <button type="button" class="btn btn-danger" id="back1">{{ __("Back") }}</button>
-                  <button type="button" class="btn btn-primary" id="next2">{{ __("Next") }}</button>
+                  <button type="button" class="btn btn-danger" id="back1">{{ __('global.back') }}</button>
+                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.next') }}</button>
                 </div>
 
               </div>
@@ -276,7 +276,7 @@
                     <div class="my-3">
                       {{-- <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
                       <textarea class="form-control" id="tasks" rows="11" name="tasks">{{ old('tasks', $e->tasks) }}</textarea> --}}
-                      <label for="tasks" class="form-label">{{ __('Tasks') }}</label>
+                      <label for="tasks" class="form-label">{{ __('experience.tasks') }}</label>
 											<div class="options">
 												<!-- Text Format -->
 												<button type="button" id="bold" class="option-button format button">
@@ -327,8 +327,8 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between my-3">
-                  <button type="button" class="btn btn-danger" id="back2">{{ __("Back") }}</button>
-                  <button type="submit" class="btn btn-primary" id="submit">{{ __("Submit") }}</button>
+                  <button type="button" class="btn btn-danger" id="back2">{{ __('global.back') }}</button>
+                  <button type="submit" class="btn btn-primary" id="submit">{{ __('global.submit') }}</button>
                 </div>
               </div>
 
@@ -360,7 +360,7 @@
             dataType: "json",
             success: function(data){
               $('#institution_id').empty();
-              $('#institution_id').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#institution_id').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 let institute = element.institute_en;
@@ -387,8 +387,8 @@
             success: function (data){
               $('#governorate').empty();
               $('#city').empty();
-              $('#governorate').append("<option selected disabled>{{ __('Choose...') }}</option>");
-              $('#city').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#governorate').append("<option selected disabled>{{ __('global.select') }}</option>");
+              $('#city').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 let governorate = element.city_en;
@@ -414,7 +414,7 @@
             dataType: "json",
             success: function (data){
               $('#city').empty();
-              $('#city').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#city').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 let city = element.city_en;
@@ -439,7 +439,7 @@
             dataType: 'JSON',
             success:function(response){
               $('#college_id').empty();
-              $('#college_id').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#college_id').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < response.length; i++) {
                 const element = response[i];
                 let college = element.college_en;
@@ -465,7 +465,7 @@
             dataType: 'JSON',
             success:function(response){
               $('#department_major').empty();
-              $('#department_major').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#department_major').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < response.length; i++) {
                 const element = response[i];
                 let section = element.section_en;
@@ -491,7 +491,7 @@
             dataType: 'JSON',
             success:function(response){
               $('#department_minor').empty();
-              $('#department_minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#department_minor').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < response.length; i++) {
                 const element = response[i];
                 let section = element.section_en;
@@ -518,9 +518,9 @@
             dataType: "json",
             success: function(data){
               $('#major').empty();
-              $('#major').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#major').append("<option selected disabled>{{ __('global.select') }}</option>");
               $('#minor').empty();
-              $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#minor').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 let major = element.specialty_en;
@@ -543,7 +543,7 @@
             dataType: "json",
             success: function (data){
               $('#minor').empty();
-              $('#minor').append("<option selected disabled>{{ __('Choose...') }}</option>");
+              $('#minor').append("<option selected disabled>{{ __('global.select') }}</option>");
               for (let i = 0; i < data.length; i++) {
                 const element = data[i];
                 let minor = element.specialty_en;
@@ -559,9 +559,9 @@
 
       $('#institution_id').append("<option selected value='{{ $e->institution_id }}'>{{ $e->institution->{'institute' . session('_lang')} }}</option>");
       $('#college_id').append("<option selected value='{{ $e->college_id }}'>{{ $e->college->{'college' . session('_lang')} }}</option>");
-      $('#department_major').append("<option selected disabled>{{ __('Choose...') }}</option>");
+      $('#department_major').append("<option selected disabled>{{ __('global.select') }}</option>");
       $('#department_minor').append("<option selected value='{{ $e->section_id }}'>{{ $e->section->{'section' . session('_lang')} }}</option>");
-      $('#governorate').append("<option selected disabled>{{ __('Choose...') }}</option>");
+      $('#governorate').append("<option selected disabled>{{ __('global.select') }}</option>");
       $('#city').append("<option selected value='{{ $e->city_id }}'>{{ $e->city->{'city' . session('_lang')} }}</option>");
       $('#major').append("<option selected value='{{ $e->major_id }}'>{{ $e->major->{'specialty' . session('_lang')} }}</option>");
       $('#minor').append("<option selected value='{{ $e->minor_id }}'>{{ $e->minor->{'specialty' . session('_lang')} }}</option>");

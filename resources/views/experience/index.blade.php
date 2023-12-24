@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('style')
@@ -9,11 +9,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Experience') }}
+  {{ __('experience.experience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Experience / All') }}
+  {{ __('experience.experience') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -33,10 +33,10 @@
           <div class="card-body pb-0">
             @if (count($experiences) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no experience Registered') }}
+                {{ __('experience.noExp') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Experience') }}</h5>
+              <h5 class="card-title">{{ __('experience.experience') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -52,10 +52,10 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th>{{ __('Institution') }}</th>
-                    <th>{{ __('Position') }}</th>
-                    <th>{{ __('Start Date') }}</th>
-                    <th>{{ __('End Date') }}</th>
+                    <th>{{ __('experience.institution') }}</th>
+                    <th>{{ __('experience.position') }}</th>
+                    <th>{{ __('experience.start') }}</th>
+                    <th>{{ __('experience.end') }}</th>
                     <th scope="col">{{ __('Actions') }}</th>
                   </tr>
                 </thead>
@@ -112,7 +112,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+        <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -123,8 +123,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-        <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
       </div>
     </div>
   </div>

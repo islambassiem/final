@@ -1,18 +1,18 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Other Experience') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('Other Experience') }}
+  {{ __('otherExperience.otherExperience') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Other Experience / Show') }}
+  {{ __('otherExperience.otherExperience')  . ' / ' . __('global.show') }}
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
       <a href="{{ route('other_experience.index') }}"
         class="btn btn-warning mx-2">
         <i class="bi bi-arrow-left-circle me-1"></i>
-        {{ __('Back') }}
+        {{ __('global.back') }}
       </a>
       <button
         type="button"
@@ -33,12 +33,12 @@
         data-bs-toggle="modal"
         data-bs-target="#delteConfirmation">
         <i class="bi bi-trash3"></i>
-        {{ __('Delete') }}
+        {{ __('global.del') }}
       </button>
       <a href="{{ route('other_experience.edit',$experience->id) }}"
         class="btn btn-primary">
         <i class="bi bi-pencil-square me-1"></i>
-        {{ __('Edit') }}
+        {{ __('global.edit') }}
       </a>
     </div>
   </div>
@@ -52,32 +52,32 @@
               <h5 class="card-title">{{ __('Experience Details') }}</h5>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('Organization Name') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.organiztion') }}</div>
                 <div class="col-md-8">{{ $experience->organization_name }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('Position') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.position') }}</div>
                 <div class="col-md-8">{{ $experience->profession }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('Country') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.country') }}</div>
                 <div class="col-md-8">{{ $experience->country?->{'country' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('City') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.city') }}</div>
                 <div class="col-md-8">{{ $experience->city }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('Start Date') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.start') }}</div>
                 <div class="col-md-8">{{ $experience->start_date }}</div>
               </div>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('End Date') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.end') }}</div>
                 <div class="col-md-8">{{ $experience->end_date }}</div>
               </div>
             </div>
@@ -89,7 +89,7 @@
     <div class="col-md-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ __('Attachment') }}</h5>
+          <h5 class="card-title">{{ __('global.attachment') }}</h5>
           @if ($link)
             <div class="fs-1 text-center" style="cursor: pointer;">
               <a href="{{ url($link) }}" target="_blank" class="d-flex justify-content-center">
@@ -98,7 +98,7 @@
             </div>
           @else
             <div class="alert alert-danger text-center">
-              {{ __("No Attachments") }}
+              {{ __('global.noAttach') }}
             </div>
           @endif
         </div>
@@ -111,7 +111,7 @@
         <div class="card-body">
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-              <h5 class="card-title">{{ __('Tasks') }}</h5>
+              <h5 class="card-title">{{ __('otherExperience.tasks') }}</h5>
                 <div>{{ $experience->tasks() }}</div>
             </div>
           </div><!-- End Bordered Tabs -->
@@ -127,19 +127,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the experience?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>

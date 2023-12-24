@@ -46,7 +46,7 @@ class ProfileController extends Controller
     $validated['type'] = 'national';
     $validated['country_id'] = '1';
     Address::create($validated);
-    return redirect('profile')->with('success', 'You have added your national address successfully');
+    return redirect('profile')->with('success', __('profile.nAddressSuccess'));
   }
 
   public function storeAddress(Request $request)
@@ -64,7 +64,7 @@ class ProfileController extends Controller
     $validated['user_id'] = auth()->user()->id;
     $validated['type'] = 'international';
     Address::create($validated);
-    return redirect('profile')->with('success', 'You have added your address successfully');
+    return redirect('profile')->with('success', __('prfile.addressSuccess'));
   }
 
   public function updateNationalAddress(Request $request, string $id)
@@ -85,7 +85,7 @@ class ProfileController extends Controller
       'secondary_number.max' => __('The secondary number must not be greater than 10 characters.'),
     ]);
     Address::find($id)->update($validated);
-    return redirect()->back()->with('success', 'You have updated your national address successfully');
+    return redirect()->back()->with('success', __('profile.nAddressUpdated'));
   }
 
   public function updateAddress(Request $request, string $id)
@@ -109,7 +109,7 @@ class ProfileController extends Controller
     // return dd(['home_country_id' => $validated['home_country_id']]);
     Address::find($id)->update($validated);
     User::find(auth()->user()->id)->update(['home_country_id' => $validated['home_country_id']]);
-    return redirect()->back()->with('success', 'You have updated your address successfully');
+    return redirect()->back()->with('success', __('profile.addressUpdated'));
   }
 
   public function editProfile(Request $request, string $id)
@@ -151,7 +151,7 @@ class ProfileController extends Controller
       }
       $request->file('picture')->storeAs('profile/', auth()->user()->empid . '.jpeg','public');
     }
-    return redirect()->back()->with('success', 'You have updated your profile successfully');
+    return redirect()->back()->with('success', __('profile.profileUpdated'));
   }
 
   public function deletePicture($id)
@@ -160,7 +160,7 @@ class ProfileController extends Controller
     if(file_exists($path)){
       unlink($path);
     }
-    return redirect()->back()->with('success', 'You have deleted your profile picture successfully');
+    return redirect()->back()->with('success', __('profile.imageDeleted'));
   }
 
   public function uploadPicture(Request $request)
@@ -173,6 +173,6 @@ class ProfileController extends Controller
       $request->file('picture')->storeAs('profile/', auth()->user()->empid . '.jpeg','public');
       return redirect()->back()->with('success', 'You have updated your profile successfully');
     }
-    return redirect()->back()->with('error', 'You did not choose any photo. Press the picture and choose a photo');
+    return redirect()->back()->with('error', __('profile.noChosenImage'));
   }
 }
