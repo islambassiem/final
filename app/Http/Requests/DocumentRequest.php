@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DocumentRequest extends FormRequest
@@ -25,7 +26,7 @@ class DocumentRequest extends FormRequest
       'user_id' => 'nullable',
       'document_type_id' => 'required',
       'document_id' => 'required',
-      'description' => 'nullable',
+      'description' => Rule::requiredIf(fn () => 'document_type_id'  != 2 ? true : false ),
       'place_of_issue' => 'required_if:document_type_id,2',
       'date_of_issue' => 'required_if:document_type_id,2',
       'date_of_expiry' => 'required',
@@ -39,6 +40,7 @@ class DocumentRequest extends FormRequest
     return [
       'document_type_id.required' => __('You must choose the type of your document'),
       'document_id.required' => __('You document ID is required'),
+      'description.required' => __('The document description is required'),
       'place_of_issue.required_if' => __('The place of issue is required in case the document is a passport'),
       'date_of_issue.required_if' => __('The date of issue is required in case the document is a passport'),
       'date_of_expiry.required' => __('The expiry date of the document is required'),

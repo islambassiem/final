@@ -19,7 +19,7 @@ return new class extends Migration
       $table->unsignedSmallInteger('city_id');
       $table->unsignedSmallInteger('college_id')->nullable();
       $table->unsignedSmallInteger('section_id');
-      $table->unsignedSmallInteger('major_id');
+      $table->unsignedSmallInteger('major_id')->nullable();
       $table->unsignedSmallInteger('minor_id')->nullable();
       $table->string('employment_number', 10)->nullable();
       $table->unsignedTinyInteger('academic_rank_id')->nullable();

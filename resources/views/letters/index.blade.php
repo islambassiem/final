@@ -6,6 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -109,7 +110,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="addressee" class="form-label">{{ __('Addressee') }}</label>
+                <label for="addressee" class="form-label required">{{ __('Addressee') }}</label>
                 <input type="text" class="form-control" id="addressee" name="addressee" value="{{ old('addressee') }}" autocomplete="off">
               </div>
             </div>

@@ -6,6 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -48,7 +49,7 @@
                 {{ __('There are no visits Registered') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Acquaintance') }}</h5>
+              <h5 class="card-title">{{ __('Family Visits') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -97,7 +98,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="number" class="form-label">{{ __('Request Number') }}</label>
+                <label for="number" class="form-label required">{{ __('Request Number') }}</label>
                 <input type="number" class="form-control" id="number" name="number" value="{{ old('number') }}" autocomplete="off">
               </div>
             </div>

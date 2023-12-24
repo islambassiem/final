@@ -51,7 +51,7 @@
               {{ __('There are no Acquaintance Registered') }}
             </div>
           @else
-            <h5 class="card-title">{{ __('Acquaintance') }}</h5>
+            <h5 class="card-title">{{ __('Achievement') }}</h5>
             @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}

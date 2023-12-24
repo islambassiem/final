@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
   <style>
     label.required{
       color: red;
@@ -80,7 +82,7 @@
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="institutions" class="form-label required">{{ __('experience.sector') }}</label>
+                    <label for="institutions" class="form-label">{{ __('experience.sector') }}</label>
                     <select id="institutions" class="form-select">
                       <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($institutions as $institution)
@@ -89,7 +91,7 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <label for="institution_id" class="form-label">{{ __('experience.institution') }}</label>
+                    <label for="institution_id" class="form-label required">{{ __('experience.institution') }}</label>
                     <select id="institution_id" class="form-select" name="institution_id"></select>
                   </div>
                 </div>
@@ -105,7 +107,7 @@
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label for="college_id" class="form-label">{{ __('experience.college') }}</label>
+                    <label for="college_id" class="form-label required">{{ __('experience.college') }}</label>
                     <select id="college_id" class="form-select" name="college_id"></select>
                   </div>
                 </div>
@@ -213,7 +215,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="major" class="form-label">{{ __('experience.major') }}</label>
+                      <label for="major" class="form-label required">{{ __('experience.major') }}</label>
                       <select id="major" class="form-select"  name="major_id"></select>
                     </div>
                     <div class="col-md-4">
@@ -229,7 +231,7 @@
                 <div class="row py-2">
                   @if (auth()->user()->category_id == 1)
                     <div class="col-md-4">
-                      <label for="academic_rank_id" class="form-label">{{ __('experience.aRank') }}</label>
+                      <label for="academic_rank_id" class="form-label required">{{ __('experience.aRank') }}</label>
                       <select id="academic_rank_id" class="form-select" name="academic_rank_id">
                         <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($academic_ranks as $rank)
@@ -326,6 +328,20 @@
                     </div>
                   </div>
                 </div>
+                @if (!$link)
+                <div class="col-md-12">
+                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                  <div class="col-sm-12">
+                    <input
+                    type="file"
+                    class="dropify"
+                    id="attachment"
+                    name="attachment"
+                    data-height="100"
+                    accept="image/*, .pdf">
+                  </div>
+                </div>
+              @endif
                 <div class="d-flex justify-content-between my-3">
                   <button type="button" class="btn btn-danger" id="back2">{{ __('global.back') }}</button>
                   <button type="submit" class="btn btn-primary" id="submit">{{ __('global.submit') }}</button>
@@ -344,6 +360,7 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/js/qualifications.form.js') }}"></script>
+  <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script src="{{ asset('assets/js/rich-format-text.js') }}"></script>
   <script>
     $(document).ready(function (){
@@ -569,6 +586,15 @@
       document.getElementById('text-input').innerHTML = document.getElementById('tasks').value;
       document.getElementsByTagName("form")[0].addEventListener("submit", function () {
         document.getElementById("tasks").value = document.getElementById("text-input").innerHTML;
+      });
+
+      $('.dropify').dropify({
+        messages: {
+          'default': "",
+          'replace': "{{ __('Drag and drop or click to replace') }}",
+          'remove':  "{{ __('Delete') }}",
+          'error': "{{ __('Ooops, something wrong happended.') }}"
+        }
       });
 
       let max = "{{ __('Max characters') }}";

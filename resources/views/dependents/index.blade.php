@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -129,12 +130,11 @@
         <form method="POST" id="editForm">
           @csrf
           @method('PUT')
-          <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
           <input type="hidden" id="dependent_id" name="dependent_id" autocomplete="off">
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('dependants.deptName') }}</label>
+                <label for="name" class="form-label required">{{ __('dependants.deptName') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -142,20 +142,20 @@
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="identification" class="form-label">{{ __('dependants.deptId') }}</label>
+                <label for="identification" class="form-label required">{{ __('dependants.deptId') }}</label>
                 <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}" autocomplete="off">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="date_of_birth" class="form-label">{{ __('dependants.dob') }}</label>
+                <label for="date_of_birth" class="form-label required">{{ __('dependants.dob') }}</label>
                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="identification" class="form-label">{{ __('dependants.relationship') }}</label>
+              <label for="identification" class="form-label required">{{ __('dependants.relationship') }}</label>
               <select class="form-select" id="relationship_id_edit" name="relationship_id" style="width:100%">
                 <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($relationships as $relationship)
@@ -189,7 +189,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('dependants.deptName') }}</label>
+                <label for="name" class="form-label required">{{ __('dependants.deptName') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -197,20 +197,20 @@
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="identification" class="form-label">{{ __('dependants.deptId') }}</label>
+                <label for="identification" class="form-label required">{{ __('dependants.deptId') }}</label>
                 <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}">
               </div>
             </div>
             <div class="col-6">
               <div class="mb-3">
-                <label for="date_of_birth" class="form-label">{{ __('dependants.dob') }}</label>
+                <label for="date_of_birth" class="form-label required">{{ __('dependants.dob') }}</label>
                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="relationship" class="form-label">{{ __('dependants.relationship') }}</label>
+              <label for="relationship" class="form-label required">{{ __('dependants.relationship') }}</label>
               <select class="form-select" id="relationship" name="relationship_id" style="width:100%">
                 <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($relationships as $relationship)

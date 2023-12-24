@@ -6,6 +6,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 <style>
   table thead tr th{
     font-weight: 900 !important;
@@ -193,7 +194,7 @@
             @csrf
             <div class="row">
               <div class="col-8">
-                <label for="docType" class="form-label">{{ __('Document Type') }}</label>
+                <label for="docType" class="form-label required">{{ __('Document Type') }}</label>
                 <select class="form-select" aria-label="Default select example" id="docType" name="document_type_id">
                   <option selected disabled>{{ __('Select') }}</option>
                   <option value="2" @selected(old('document_type_id') == 2)>{{ __('Passport') }}</option>
@@ -211,7 +212,7 @@
             <div class="row d-none" id="descriptionRow">
               <div class="col">
                 <div class="mb-3">
-                  <label for="description" class="form-label">{{ __('Description') }}</label>
+                  <label for="description" class="form-label required">{{ __('Description') }}</label>
                   <input type="text" class="form-control" id="description" name="description">
                 </div>
               </div>
@@ -219,7 +220,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="document_id" class="form-label">{{ __('Document Numner') }}</label>
+                  <label for="document_id" class="form-label required">{{ __('Document Numner') }}</label>
                   <input type="text" id="document_id" class="form-control" name="document_id" value="{{ old('document_id') }}">
                 </div>
               </div>
@@ -239,7 +240,7 @@
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_expiry" class="form-label">{{ __('Expiry Date') }}</label>
+                  <label for="date_of_expiry" class="form-label required">{{ __('Expiry Date') }}</label>
                   <input type="date" class="form-control" id="date_of_expiry" name="date_of_expiry" value="{{ old('date_of_expiry') }}">
                 </div>
               </div>

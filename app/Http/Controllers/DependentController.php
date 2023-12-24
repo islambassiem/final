@@ -41,6 +41,8 @@ class DependentController extends Controller
    */
   public function store(DependentRequest $request)
   {
+    $validated = $request->validated();
+    $validated['user_id'] = auth()->user()->id;
     Dependent::create($request->validated());
     return redirect()->route('dependents.index')->with('success', __('You have added a dependent successfully'));
   }

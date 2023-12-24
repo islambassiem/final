@@ -86,7 +86,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title text-center">
-              {{ __('Absceces') }}
+              {{ __('Absence') }}
             </h5>
             <div class="text-center text-danger"><i class="bi bi-emoji-tear-fill fs-1"></i></div>
             <div class="h1 text-center">{{ $availedAbsent }}</div>

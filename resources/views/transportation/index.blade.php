@@ -6,6 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -104,7 +105,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3">
-                  <label for="destination" class="form-label">{{ __('Destination') }}</label>
+                  <label for="destination" class="form-label required">{{ __('Destination') }}</label>
                   <input type="text" class="form-control" id="destination" name="destination" value="{{ old('destination') }}" autocomplete="off">
                 </div>
               </div>
@@ -112,25 +113,25 @@
             <div class="row">
               <div class="col-6 mb-3">
                 <div class="mb-3">
-                  <label for="date">{{ __('Date') }}</label>
+                  <label for="date" class="form-label required">{{ __('Date') }}</label>
                   <input type="date" class="form-control" name="date" id="date" min="{{ date('Y-m-d') }}" value="{{ old('date') }}">
                 </div>
               </div>
               <div class="col-6 mb-3">
-                <label for="passengers" class="form-label">{{ __('Passengers') }}</label>
+                <label for="passengers" class="form-label required">{{ __('Passengers') }}</label>
                 <input type="number" min="0" class="form-control" id="passengers" name="passengers" value="{{ old('passengers') }}" autocomplete="off">
               </div>
             </div>
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="from">{{ __('From') }}</label>
+                  <label for="from" class="form-label required">{{ __('From') }}</label>
                   <input type="time" class="form-control" name="from" id="from" value="{{ old('from') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="to">{{ __('To') }}</label>
+                  <label for="to" class="form-label required">{{ __('To') }}</label>
                   <input type="time" class="form-control" name="to" id="to" value="{{ old('to') }}">
                 </div>
               </div>

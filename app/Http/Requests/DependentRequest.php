@@ -22,7 +22,6 @@ class DependentRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
       'name' => 'required|string|max:255',
       'identification' => 'required|string|max:10|min:10',
       'date_of_birth' => 'required|date',
@@ -33,7 +32,6 @@ class DependentRequest extends FormRequest
   public function messages()
   {
     return [
-      'name.required' => __('The dependent name is required'),
       'name.string' => __('The dependent name must be a text'),
       'name.max' => __('The dependent name can not exceed 255 characters'),
       'identification.required'  => __('The ID number of the dependent is required'),

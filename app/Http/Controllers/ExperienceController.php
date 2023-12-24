@@ -112,7 +112,8 @@ class ExperienceController extends Controller
       'employment_status' => EmploymentStatus::all(),
       'accommodation_types' => AccommodationStatus::all(),
       'job_types' => JobType::all(),
-      'domains' => DB::select("SELECT * FROM _specialties WHERE LENGTH(code) = ?", ['1'])
+      'domains' => DB::select("SELECT * FROM _specialties WHERE LENGTH(code) = ?", ['1']),
+      'link' => $this->getLink($experience->id),
     ]);
   }
 

@@ -6,6 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -101,7 +102,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="from" class="form-label">{{ __('Departure Date') }}</label>
+                <label for="from" class="form-label required">{{ __('Departure Date') }}</label>
                 <input type="date" class="form-control" id="from" name="from" value="{{ old('from') }}" autocomplete="off">
               </div>
             </div>
@@ -109,7 +110,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="to" class="form-label">{{ __('Return Date') }}</label>
+                <label for="to" class="form-label required">{{ __('Return Date') }}</label>
                 <input type="date" class="form-control" id="to" name="to" value="{{ old('to') }}" autocomplete="off">
               </div>
             </div>

@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -49,20 +50,20 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-3">
-                    <label for="start_date">{{ __('Start Date') }}</label>
+                    <label for="start_date" class="required">{{ __('Start Date') }}</label>
                     <input type="date" class="form-control" name="start_date" id="start_date">
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="mb-3">
-                    <label for="start_date">{{ __('End Date') }}</label>
+                    <label for="start_date" class="required">{{ __('End Date') }}</label>
                     <input type="date" class="form-control" name="end_date" id="end_date">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col mb-3">
-                  <label for="vacation_type">{{ __('Vacation Type') }}</label>
+                  <label for="vacation_type" class="required">{{ __('Vacation Type') }}</label>
                   <select class="form-select" name="vacation_type" id="vacation_type" style="width: 100%">
                     <option disabled selected>{{ __('Select') }}</option>
                     @foreach ($types as $type)

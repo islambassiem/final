@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -222,7 +223,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addleaveLabel">{{ __('Add a new vacation request') }}</h1>
+          <h1 class="modal-title fs-5" id="addleaveLabel">{{ __('Add a new leave request') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -231,12 +232,12 @@
             <div class="row">
               <div class="col-6 mb-3">
                 <div class="mb-3">
-                  <label for="date">{{ __('Date') }}</label>
+                  <label for="date" class="required">{{ __('Date') }}</label>
                   <input type="date" class="form-control" name="date" id="date" value="{{ old('date') }}">
                 </div>
               </div>
               <div class="col-6 mb-3">
-                <label for="leave_type">{{ __('Permission Type') }}</label>
+                <label for="leave_type" class="required">{{ __('Permission Type') }}</label>
                 <select class="form-select" name="leave_type" id="leave_type" style="width: 100%">
                   <option selected disabled>{{ __('Select') }}</option>
                   @foreach ($types as $type)
@@ -248,13 +249,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="from">{{ __('From') }}</label>
+                  <label for="from" class="required">{{ __('From') }}</label>
                   <input type="time" class="form-control" name="from" id="from" value="{{ old('from') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="to">{{ __('To') }}</label>
+                  <label for="to" class="required">{{ __('To') }}</label>
                   <input type="time" class="form-control" name="to" id="to" value="{{ old('to') }}">
                 </div>
               </div>

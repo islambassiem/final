@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -266,7 +267,7 @@
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label ">{{ __('profile.country') }}</div>
-                      <div class="col-lg-9 col-md-8">{{ $address->country->{'country' . session('_lang')} }}</div>
+                      <div class="col-lg-9 col-md-8">{{ $address->country?->{'country' . session('_lang')} }}</div>
                     </div>
 
                     <div class="row">
@@ -393,27 +394,27 @@
             <form action="{{ route('national.address') }}" id="addNationalAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoNational" name="building_noNational" placeholder="{{ __('profile.buildingNumber') }}">
+                <input type="text" class="form-control" id="buildingNoNational" name="building_noNational" placeholder="{{ __('profile.buildingNumber') }}" autocomplete="off">
                 <label for="buildingNoNational">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetNational" name="street_name" placeholder="{{ __('profile.street') }}">
+                <input type="text" class="form-control" id="streetNational" name="street_name" placeholder="{{ __('profile.street') }}" autocomplete="off">
                 <label for="streetNational">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtNational" name="district_name" placeholder="{{ __('profile.district') }}">
+                <input type="text" class="form-control" id="districtNational" name="district_name" placeholder="{{ __('profile.district') }}" autocomplete="off">
                 <label for="district">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityNational" name="city" placeholder="{{ __('profile.city') }}">
+                <input type="text" class="form-control" id="cityNational" name="city" placeholder="{{ __('profile.city') }}" autocomplete="off">
                 <label for="cityNational">{{ __('profile.city') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeNational" name="zip_code" placeholder="{{ __('profile.postalCode') }}">
+                <input type="text" class="form-control" id="zip_codeNational" name="zip_code" placeholder="{{ __('profile.postalCode') }}" autocomplete="off">
                 <label for="zip_codeNational">{{ __('profile.postalCode') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="secondary_numberNational" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}">
+                <input type="text" class="form-control" id="secondary_numberNational" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}" autocomplete="off">
                 <label for="secondary_numberNational">{{ __('profile.secondaryNumber') }}</label>
               </div>
             </form>
@@ -439,27 +440,27 @@
             <form action="{{ route('national.address.edit', $national_address->id) }}" id="editNationalAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoNationalEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $national_address->building_no }}">
+                <input type="text" class="form-control" id="buildingNoNationalEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $national_address->building_no }}" autocomplete="off">
                 <label for="buildingNoNationalEdit">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetNationalEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $national_address->street_name }}">
+                <input type="text" class="form-control" id="streetNationalEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $national_address->street_name }}" autocomplete="off">
                 <label for="streetNationalEdit">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtNationalEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $national_address->district_name }}">
+                <input type="text" class="form-control" id="districtNationalEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $national_address->district_name }}" autocomplete="off">
                 <label for="districtNationalEdit">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityNationalEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $national_address->city }}">
+                <input type="text" class="form-control" id="cityNationalEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $national_address->city }}" autocomplete="off">
                 <label for="cityNationalEdit">{{ __('profile.city') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeNationalEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $national_address->zip_code }}">
+                <input type="text" class="form-control" id="zip_codeNationalEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $national_address->zip_code }}" autocomplete="off">
                 <label for="zip_codeNationalEdit">{{ __('profile.postalCode') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="secondary_numberNationalEdit" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}" value="{{ $national_address->secondary_number }}">
+                <input type="text" class="form-control" id="secondary_numberNationalEdit" name="secondary_number" placeholder="{{ __('profile.secondaryNumber') }}" value="{{ $national_address->secondary_number }}" autocomplete="off">
                 <label for="secondary_numberNationalEdit">{{ __('profile.secondaryNumber') }}</label>
               </div>
             </form>
@@ -486,23 +487,23 @@
             <form action="{{ route('address') }}" id="addAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeCountryIdAdd" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}">
+                <input type="text" class="form-control" id="homeCountryIdAdd" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}" autocomplete="off">
                 <label for="homeCountryIdAdd">{{ __('profile.homeCountryID') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNo" name="building_no" placeholder="{{ __('profile.buildingNumber') }}">
+                <input type="text" class="form-control" id="buildingNo" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" autocomplete="off">
                 <label for="buildingNo">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="street" name="street_name" placeholder="{{ __('profile.street') }}">
+                <input type="text" class="form-control" id="street" name="street_name" placeholder="{{ __('profile.street') }}" autocomplete="off">
                 <label for="street">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="district" name="district_name" placeholder="{{ __('profile.district') }}">
+                <input type="text" class="form-control" id="district" name="district_name" placeholder="{{ __('profile.district') }}" autocomplete="off">
                 <label for="district">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('profile.city') }}">
+                <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('profile.city') }}" autocomplete="off">
                 <label for="city">{{ __('profile.city') }}</label>
               </div>
               <div class="mb-3">
@@ -515,7 +516,7 @@
                 </select>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="{{ __('profile.postalCode') }}">
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="{{ __('profile.postalCode') }}" autocomplete="off">
                 <label for="zip_code">{{ __('profile.postalCode') }}</label>
               </div>
             </form>
@@ -541,23 +542,23 @@
             <form action="{{ route('address.edit', $address->id) }}" id="editAddressForm" method="POST">
               @csrf
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="homeCountryIdEdit" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}" value="{{ $user->home_country_id }}">
+                <input type="text" class="form-control" id="homeCountryIdEdit" name="home_country_id" placeholder="{{ __('profile.homeCountryID') }}" value="{{ $user->home_country_id }}" autocomplete="off">
                 <label for="homeCountryIdEdit">{{ __('profile.homeCountryID') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="buildingNoEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $address->building_no }}">
+                <input type="text" class="form-control" id="buildingNoEdit" name="building_no" placeholder="{{ __('profile.buildingNumber') }}" value="{{ $address->building_no }}" autocomplete="off">
                 <label for="buildingNoEdit">{{ __('profile.buildingNumber') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="streetEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $address->street_name }}">
+                <input type="text" class="form-control" id="streetEdit" name="street_name" placeholder="{{ __('profile.street') }}" value="{{ $address->street_name }}" autocomplete="off">
                 <label for="streetEdit">{{ __('profile.street') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="districtEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $address->district_name }}">
+                <input type="text" class="form-control" id="districtEdit" name="district_name" placeholder="{{ __('profile.district') }}" value="{{ $address->district_name }}" autocomplete="off">
                 <label for="districtEdit">{{ __('profile.district') }}</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cityEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $address->city }}">
+                <input type="text" class="form-control" id="cityEdit" name="city" placeholder="{{ __('profile.city') }}" value="{{ $address->city }}" autocomplete="off">
                 <label for="cityEdit">{{ __('profile.city') }}</label>
               </div>
               <div class="mb-3">
@@ -570,7 +571,7 @@
                 </select>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="zip_codeEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $address->zip_code }}">
+                <input type="text" class="form-control" id="zip_codeEdit" name="zip_code" placeholder="{{ __('profile.postalCode') }}" value="{{ $address->zip_code }}" autocomplete="off">
                 <label for="zip_codeEdit">{{ __('profile.postalCode') }}</label>
               </div>
             </form>

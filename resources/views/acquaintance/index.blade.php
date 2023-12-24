@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -134,7 +135,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('acquaintance.name') }}</label>
+                <label for="name" class="form-label required">{{ __('acquaintance.name') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -142,7 +143,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="mobile" class="form-label">{{ __('acquaintance.mobile') }}</label>
+                <label for="mobile" class="form-label required">{{ __('acquaintance.mobile') }}</label>
                 <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
               </div>
             </div>
@@ -150,14 +151,14 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="email" class="form-label">{{ __('acquaintance.email') }}</label>
+                <label for="email" class="form-label required">{{ __('acquaintance.email') }}</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="position" class="form-label">{{ __('acquaintance.position') }}</label>
+              <label for="position" class="form-label required">{{ __('acquaintance.position') }}</label>
               <input type="text" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
               </select>
             </div>
@@ -187,7 +188,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="name" class="form-label">{{ __('acquaintance.name') }}</label>
+                <label for="name" class="form-label required">{{ __('acquaintance.name') }}</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
               </div>
             </div>
@@ -195,7 +196,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="mobile" class="form-label">{{ __('acquaintance.mobile') }}</label>
+                <label for="mobile" class="form-label required">{{ __('acquaintance.mobile') }}</label>
                 <input type="text" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}" autocomplete="off">
               </div>
             </div>
@@ -203,14 +204,14 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="email" class="form-label">{{ __('acquaintance.email') }}</label>
+                <label for="email" class="form-label required">{{ __('acquaintance.email') }}</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="position" class="form-label">{{ __('acquaintance.position') }}</label>
+              <label for="position" class="form-label required">{{ __('acquaintance.position') }}</label>
               <input type="position" class="form-control" id="position" name="position" value="{{ old('position') }}" autocomplete="off">
             </div>
           </div>

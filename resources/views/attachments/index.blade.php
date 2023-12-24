@@ -56,7 +56,7 @@
               <div class="col-md-3 text-center my-3">
                   <a href="{{ route('folder.contents', Str::lower(Str::after($folder->attachmentable_type, 'App\Models\\'))) }}">
                     <img src="{{ asset('assets/img/folder-icon.png') }}" width="128" height="128">
-                    <div>{{ __(Str::after($folder->attachmentable_type, 'App\Models\\')) }}</div>
+                    <div>{{ __('folders.' . Str::after($folder->attachmentable_type, 'App\Models\\')) }}</div>
                   </a>
                 </div>
             @endforeach

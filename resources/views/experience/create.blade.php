@@ -88,7 +88,7 @@
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label for="college_id" class="form-label">{{ __('experience.college') }}</label>
+                    <label for="college_id" class="form-label required">{{ __('experience.college') }}</label>
                     <select id="college_id" class="form-select" name="college_id"></select>
                   </div>
                 </div>
@@ -196,7 +196,7 @@
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="major" class="form-label">{{ __('experience.major') }}</label>
+                      <label for="major" class="form-label required">{{ __('experience.major') }}</label>
                       <select id="major" class="form-select"  name="major_id"></select>
                     </div>
                     <div class="col-md-4">
@@ -212,7 +212,7 @@
                 <div class="row py-2">
                   @if (auth()->user()->category_id == 1)
                     <div class="col-md-4">
-                      <label for="academic_rank_id" class="form-label">{{ __('experience.aRank') }}</label>
+                      <label for="academic_rank_id" class="form-label required">{{ __('experience.aRank') }}</label>
                       <select id="academic_rank_id" class="form-select" name="academic_rank_id">
                         <option selected disabled>{{ __('Choose...') }}</option>
                         @foreach ($academic_ranks as $rank)

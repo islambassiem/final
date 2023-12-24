@@ -7,6 +7,7 @@
 @section('style')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="{{ asset('assets/css/rich-format-text.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 
 @section('h1')
@@ -38,13 +39,13 @@
                 </div>
               @endif
               <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Title') }}</label>
+                <label for="title" class="form-label required">{{ __('Title') }}</label>
                 <input type="text" class="form-control" id="title" name="title"  value="{{ old('title') }}">
               </div>
               <div class="row">
                 <div class="col">
                   <div class="my-3">
-                    <span for="subject" class="form-label">{{ __('Subject') }}</span>
+                    <label for="subject" class="form-label required">{{ __('Subject') }}</label>
                     <div class="options">
                       <!-- Text Format -->
                       <button type="button" id="bold" class="option-button format button">

@@ -64,7 +64,8 @@ class ProfileController extends Controller
     $validated['user_id'] = auth()->user()->id;
     $validated['type'] = 'international';
     Address::create($validated);
-    return redirect('profile')->with('success', __('prfile.addressSuccess'));
+    User::find(auth()->user()->id)->update(['home_country_id' => $validated['home_country_id']]);
+    return redirect('profile')->with('success', __('profile.addressSuccess'));
   }
 
   public function updateNationalAddress(Request $request, string $id)
@@ -121,16 +122,18 @@ class ProfileController extends Controller
       'marital_status_id' => $request->marital_status_id
     ]);
     $mobile = Contact::where('user_id', auth()->user()->id)->where('type', '1')->first();
-    if($mobile){
+    if($mobile && $request->phone){
       $mobile->update([
         'contact' => $request->phone,
       ]);
     }else{
-      Contact::create([
-        'user_id' => auth()->user()->id,
-        'contact' => $request->phone,
-        'type' => '1'
-      ]);
+      if($request->phone){
+        Contact::create([
+          'user_id' => auth()->user()->id,
+          'contact' => $request->phone,
+          'type' => '1'
+        ]);
+      }
     }
     $email = Contact::where('user_id', auth()->user()->id)->where('type', '2')->first();
     if($email){
@@ -138,11 +141,13 @@ class ProfileController extends Controller
         'contact' => $request->email,
       ]);
     }else{
-      Contact::create([
-        'user_id' => auth()->user()->id,
-        'contact' => $request->email,
-        'type' => '2'
-      ]);
+      if($request->email){
+        Contact::create([
+          'user_id' => auth()->user()->id,
+          'contact' => $request->email,
+          'type' => '2'
+        ]);
+      }
     }
     if($request->hasFile('picture')){
       $path = 'storage/profile/' . auth()->user()->empid . '.jpeg';

@@ -288,8 +288,8 @@
           });
         }
       })
-      $('#major').append("<option value='{{ old('>major_id',$q->major_id) }}' selected>{{ $q->major->{'specialty' . session('_lang')} }}</option>");
-      $('#minor').append("<option value='{{ old('>minor_id',$q->minor_id)}}' selected>{{ $q->minor->{'specialty' . session('_lang')} }}</option>");
+      $('#major').append("<option value='{{ old('>major_id',$q->major_id) }}' selected>{{ $q->major?->{'specialty' . session('_lang')} }}</option>");
+      $('#minor').append("<option value='{{ old('>minor_id',$q->minor_id)}}' selected>{{ $q->minor?->{'specialty' . session('_lang')} }}</option>");
 
       $('.dropify').dropify({
         messages: {
