@@ -37,6 +37,8 @@ class AcquaintanceController extends Controller
    */
   public function store(AcquaintanceRequest $request)
   {
+    $validated = $request->validated();
+    $validated['user_id'] = auth()->user()->id;
     Acquaintance::create($request->validated());
     return redirect()->route('acquaintances.index')->with('success', __('You have added an acquaintance successfully'));
   }

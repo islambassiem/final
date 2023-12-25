@@ -29,7 +29,7 @@
         data-bs-target="#addAchievement"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('global.all') }}
+        {{ __('global.add') }}
       </button>
     </div>
   </div>

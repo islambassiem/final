@@ -6,6 +6,6 @@
     'name' => 'Name',
     'gender' => 'Gender',
     'mobile' => 'Mobile',
-    'ext' => 'Extention',
+    'ext' => 'Extension',
     'noStaff' => 'There are no staff under your supervision'
   ];

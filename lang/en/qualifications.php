@@ -1,9 +1,9 @@
 <?php
 
   return [
-    'qualificaitons' => 'Qualifications',
+    'qualifications' => 'Qualifications',
     'noQual' => 'There are no qualifications Registered',
-    'qualification' => 'Qualificaiton',
+    'qualification' => 'Qualification',
     'university' => 'University',
     'college' => 'College',
     'country' => 'Graduation Country',
@@ -15,13 +15,13 @@
     'nature' => 'Study Nature',
     'date' => 'Graduation Date',
     'attested' => 'Attested for the Saudi Cultural Attache',
-    'thesis' => 'Thesis / Disertation',
+    'thesis' => 'Thesis / Dissertation',
     'domain' => 'Domain',
     'gpa' => 'GPA',
     'gpaType' => 'GPA Type',
     'rating' => 'Rating',
-    'degree' => 'Scientic Degree',
+    'degree' => 'Scientific Degree',
     'noAtt' => 'No Attachment',
-    'details' => 'Qualificaition Details',
+    'details' => 'Qualification Details',
     'performance' => 'Performance'
   ];

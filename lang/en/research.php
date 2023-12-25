@@ -14,7 +14,7 @@
     'publisher' => 'Publisher',
     'country' => 'Country',
     'citation' => 'Citation',
-    'magazine' => 'Publishing Magazine',
+    'magazine' => 'Magazine',
     'url' => 'Publishing URL',
     'words' => 'Key Words',
     'isbn' => 'ISBN',

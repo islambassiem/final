@@ -4,7 +4,7 @@
     'otherExperience' => 'Other Experience',
     'noOtherExp' => 'There are no experience Registered',
     'position' => 'Position',
-    'organiztion' => 'Organizaiton',
+    'organization' => 'Organization',
     'start' => 'Start Date',
     'end' => 'End Date',
     'country' => 'Country',

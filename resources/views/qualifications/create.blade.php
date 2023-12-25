@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('style')
@@ -13,11 +13,11 @@
 @endsection
 
 @section('h1')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('qualifications.qualificaitons') . ' / ' . __('global.add') }}
+  {{ __('qualifications.qualifications') . ' / ' . __('global.add') }}
 @endsection
 
 @section('content')
@@ -84,14 +84,14 @@
                 </div>
 
                 <div class="col-md-4">
-                  <label for="date" class="form-label">{{ __('qualifications.date') }}</label>
+                  <label for="date" class="form-label required">{{ __('qualifications.date') }}</label>
                   <div class="col-sm-12">
                     <input type="date" class="form-control" id="date" name="graduation_date" value="{{ old('graduation_date',$qualification->graduation_date) }}">
                   </div>
                 </div>
 
                 <div class="col-md-6">
-                  <label for="university" class="form-label">{{ __('qualifications.university') }}</label>
+                  <label for="university" class="form-label required">{{ __('qualifications.university') }}</label>
                   <input type="text" class="form-control" id="university" name="graduation_university" maxlength="100" value="{{ old('graduation_university', $qualification->graduation_university) }}">
                   <span class="text-secondary"><small id="universitySmall"></small></span>
                 </div>
@@ -159,7 +159,7 @@
 
                 <div class="d-flex justify-content-between my-3">
                   <button type="button" class="btn btn-danger" id="back1">{{ __('global.back') }}</button>
-                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.back') }}</button>
+                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.next') }}</button>
                 </div>
               </div>
 

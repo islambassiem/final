@@ -133,6 +133,16 @@
                 <div class="col-md-8">{{ $research->citation?->name }}</div>
               </div>
 
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label ">{{ __('research.edition') }}</div>
+                <div class="col-lg-9 col-md-8">{{ $research->edition }}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 label ">{{ __('research.magazine') }}</div>
+                <div class="col-md-8">{{ $research->magazine }}</div>
+              </div>
+
             </div>
           </div><!-- End Bordered Tabs -->
 
@@ -150,10 +160,6 @@
                 <div class="col-lg-3 col-md-4 label ">{{ __('research.isbn') }}</div>
                 <div class="col-lg-9 col-md-8">{{ $research->isbn }}</div>
               </div>
-              <div class="row">
-                <div class="col-lg-3 col-md-4 label ">{{ __('research.edition') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $research->edition }}</div>
-              </div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>
@@ -164,10 +170,6 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('research.research') }}</h5>
-              <div class="row">
-                <div class="col-md-4 label ">{{ __('research.magazine') }}</div>
-                <div class="col-md-8">{{ $research->magazine }}</div>
-              </div>
               <div class="row">
                 <div class="col-md-4 label">{{ __('research.url') }}</div>
                 <div class="col-md-8"><a href="{{ blank($research->publishing_url) ? '' : url($research->publishing_url) }}" target="_blank">{{ $research->publishing_url }}</a></div>

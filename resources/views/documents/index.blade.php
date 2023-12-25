@@ -74,7 +74,7 @@
                     <th scope="col">{{ __('documents.place') }}</th>
                     <th scope="col">{{ __('documents.issue') }}</th>
                     <th scope="col">{{ __('documents.expiry') }}</th>
-                    <th scope="col">{{ __('documents.notificaiton') }}</th>
+                    <th scope="col">{{ __('documents.notification') }}</th>
                     <th scope="col">{{ __('global.action') }}</th>
                   </tr>
                 </thead>
@@ -204,7 +204,7 @@
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label for="notification" class="form-label">{{ __('docuemnts.notification') }}</label>
+                  <label for="notification" class="form-label">{{ __('documents.notification') }}</label>
                   <input type="number" class="form-control" id="notification" value="30" name="notification">
                 </div>
               </div>

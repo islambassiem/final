@@ -54,7 +54,7 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="mb-3">
-                    <label for="organization_name" class="form-label required">{{ __('otherExperience.organiztion') }}</label>
+                    <label for="organization_name" class="form-label required">{{ __('otherExperience.organization') }}</label>
                     <input type="text" class="form-control" id="organization_name" maxlength="100" name="organization_name" value="{{ old('organization_name') }}">
                     <span class="text-secondary"><small id="organizationSmall"></small></span>
                   </div>

@@ -42,7 +42,7 @@
               <div class="mb-3">
                 <label for="subject" class="form-label">{{ __('requests.subject') }}</label>
                 <div id="subject" class="form-control">
-                  @php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text//' . $generic->id . '.txt')) @endphp
+                  @php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text//' . $generic->id . '_request.txt')) @endphp
                 </div>
               </div>
             </form>

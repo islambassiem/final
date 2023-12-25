@@ -142,7 +142,7 @@
           <div class="col-12 d-none" id="deductionAcceptance">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="deduction" name="deduction" @if (old('deduction')) checked  @endif>
-              <label class="form-check-label" for="deduction">{{ __('letters.attested') }}</label>
+              <label class="form-check-label" for="deduction">{{ __('letters.agree') }}</label>
             </div>
           </div>
         </form>

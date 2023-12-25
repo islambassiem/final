@@ -108,14 +108,14 @@
                     <select id="department_major" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_minor" class="form-label required">{{ __('experience.dpeartment') }}</label>
+                    <label for="department_minor" class="form-label required">{{ __('experience.department') }}</label>
                     <select id="department_minor" class="form-select" name="section_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="regions" class="form-label">{{ __('experience.reigion') }}</label>
+                    <label for="regions" class="form-label">{{ __('experience.region') }}</label>
                     <select id="regions" class="form-select">
                       <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($regions as $region)
@@ -124,7 +124,7 @@
                     </select>
                   </div>
                   <div class="col-md-4">
-                    <label for="governorate" class="form-label">{{ __('experience.governerate') }}</label>
+                    <label for="governorate" class="form-label">{{ __('experience.governorate') }}</label>
                     <select id="governorate" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
@@ -158,7 +158,7 @@
                 @if (auth()->user()->category_id == 1)
                   <div class="row py-2">
                     <div class="col-md-4">
-                      <label for="appointment_type_id" class="form-label">{{ __('experience.apptType') }}</label>
+                      <label for="appointment_type_id" class="form-label">{{ __('experience.appType') }}</label>
                       <select id="appointment_type_id" class="form-select" name="appointment_type_id">
                         <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($appointment_types as $type)

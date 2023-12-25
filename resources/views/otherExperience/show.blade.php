@@ -52,7 +52,7 @@
               <h5 class="card-title">{{ __('Experience Details') }}</h5>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('otherExperience.organiztion') }}</div>
+                <div class="col-md-4 label ">{{ __('otherExperience.organization') }}</div>
                 <div class="col-md-8">{{ $experience->organization_name }}</div>
               </div>
 

@@ -127,14 +127,14 @@
                     <select id="department_major" class="form-select"></select>
                   </div>
                   <div class="col-md-4">
-                    <label for="department_minor" class="form-label required">{{ __('experience.dpeartment') }}</label>
+                    <label for="department_minor" class="form-label required">{{ __('experience.department') }}</label>
                     <select id="department_minor" class="form-select" name="section_id"></select>
                   </div>
                 </div>
 
                 <div class="row py-2">
                   <div class="col-md-4">
-                    <label for="regions" class="form-label">{{ __('experience.reigion') }}</label>
+                    <label for="regions" class="form-label">{{ __('experience.region') }}</label>
                     <select id="regions" class="form-select">
                       <option selected disabled>{{ __('global.select') }}</option>
                       @foreach ($regions as $region)

@@ -23,7 +23,7 @@
       <a href="{{ route('other_experience.create') }}"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('global.all') }}
+        {{ __('global.add') }}
       </a>
     </div>
   </div>
@@ -53,7 +53,7 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">{{ __('otherExperience.position') }}</th>
-                  <th scope="col">{{ __('otherExperience.organiztion') }}</th>
+                  <th scope="col">{{ __('otherExperience.organization') }}</th>
                   <th scope="col">{{ __('otherExperience.start') }}</th>
                   <th scope="col">{{ __('otherExperience.end') }}</th>
                   <th scope="col">{{ __('global.action') }}</th>

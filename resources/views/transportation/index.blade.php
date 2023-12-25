@@ -146,7 +146,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
-          <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.all') }}</button>
+          <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
         </div>
       </div>
     </div>

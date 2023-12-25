@@ -73,7 +73,7 @@
                       </div><hr>
                       <div class="row">
                         <div class="col-md-2"><strong>{{ __('courses.country') }}</strong></div>
-                        <div class="col-md-4">{{ $course->country->{'country' . session('_lang')} }}</div>
+                        <div class="col-md-4">{{ $course->country?->{'country' . session('_lang')} }}</div>
                         <div class="col-md-1"><strong>{{ __('courses.city') }}</strong></div>
                         <div class="col-md-4">{{ $course->city }}</div>
                       </div><hr>

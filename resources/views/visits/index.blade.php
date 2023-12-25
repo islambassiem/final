@@ -46,10 +46,10 @@
             @endif
             @if (count($visits) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('visits.addVisiy') }}
+                {{ __('visits.addVisit') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Family Visits') }}</h5>
+              <h5 class="card-title">{{ __('visits.familyVisits') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -89,7 +89,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('visits.addVisiy') }}</h1>
+        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('visits.addVisit') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

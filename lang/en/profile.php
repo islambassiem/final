@@ -13,7 +13,7 @@
     'personalEmail' => 'Personal Email',
     'officialEmail' => 'Official Email',
     'office' => 'Office Number',
-    'ext' => 'Extention',
+    'ext' => 'Extension',
     'image' => 'Profile Image',
     'phone' => 'Phone',
     'dob' => 'Date of Birth',

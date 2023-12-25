@@ -184,7 +184,6 @@
       <div class="modal-body">
         <form action="{{ route('acquaintances.store') }}" method="POST" id="addForm">
           @csrf
-          <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
           <div class="row">
             <div class="col">
               <div class="mb-3">

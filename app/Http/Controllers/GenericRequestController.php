@@ -40,9 +40,9 @@ class GenericRequestController extends Controller
       'subject' => null
     ]);
     $latest = GenericRequest::latest('id')->first();
-    Storage::disk('public')->put(auth()->user()->id . '//text/' . $latest->id . '.txt', $validated['subject']);
+    Storage::disk('public')->put(auth()->user()->id . '//text/' . $latest->id . '_request.txt', $validated['subject']);
     $latest->update([
-      'link' => auth()->user()->id . '//text/' . $latest->id . '.txt'
+      'link' => auth()->user()->id . '/text/' . $latest->id . '_request.txt'
     ]);
     return redirect()->route('generics.index')->with('success', 'You request has been receive successfully');
   }
