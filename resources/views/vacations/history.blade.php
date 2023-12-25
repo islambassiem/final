@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Vacations') }}
+  {{ __('vacations.vacations') }}
 @endsection
 
 @section('style')
@@ -16,11 +16,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Vacations') }}
+  {{ __('vacations.vacations') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Vacations / All') }}
+  {{ __('vacations.vacations') . ' / ' . __('vacations.history')}}
 @endsection
 
 @section('content')
@@ -31,13 +31,13 @@
           href="{{ route('vacations.index') }}"
           class="btn btn-danger mx-2">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Back') }}
+          {{ __('global.back') }}
         </a>
         <a
           href="{{ route('vacations.create') }}"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </a>
       </div>
     </div>
@@ -67,7 +67,7 @@
           <div class="card-body mt-4">
             @if (count($vacations) == 0)
               <div class="alert alert-danger" role="alert">
-                {{ __('There are no vacations availed yet') }}
+                {{ __('vacations.noVac') }}
               </div>
             @else
               @if (session('success'))
@@ -80,12 +80,12 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Start Date') }}</th>
-                    <th scope="col">{{ __('End Date') }}</th>
-                    <th scope="col">{{ __('Duration') }}</th>
-                    <th scope="col">{{ __('Type') }}</th>
-                    <th scope="col">{{ __('Status') }}</th>
-                    <th scope="col">{{ __('Actions') }}</th>
+                    <th scope="col">{{ __('vacations.start') }}</th>
+                    <th scope="col">{{ __('vacations.end') }}</th>
+                    <th scope="col">{{ __('vacations.duration') }}</th>
+                    <th scope="col">{{ __('vacations.type') }}</th>
+                    <th scope="col">{{ __('vacations.status') }}</th>
+                    <th scope="col">{{ __('global.action') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -143,96 +143,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Add a vacation Modal -->
-  <div class="modal fade" id="addVacation" tabindex="-1" aria-labelledby="addVacationLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addVacationLabel">{{ __('Add a new vacation request') }}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="{{ route('vacations.store') }}" method="post" enctype="multipart/form-data" id="addVacationForm" >
-            @csrf
-            <div class="row">
-              <div class="col-6">
-                <div class="mb-3">
-                  <label for="start_date">{{ __('Start Date') }}</label>
-                  <input type="date" class="form-control" name="start_date" id="start_date" value="{{ old('start_date') }}">
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="mb-3">
-                  <label for="start_date">{{ __('End Date') }}</label>
-                  <input type="date" class="form-control" name="end_date" id="end_date" value="{{ old('end_date') }}">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="vacation_type">{{ __('Vacation Type') }}</label>
-                <select class="form-select" name="vacation_type" id="vacation_type" style="width: 100%">
-                  <option selected disabled>{{ __('Select') }}</option>
-                  @foreach ($types as $type)
-                    <option value="{{ $type->id }}">{{ $type->{'vacation_type' . session('_lang')} }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <label for="notes">{{ __('Notes') }}</label>
-                <textarea class="form-control" name="employee_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
-                <div class="col-sm-12">
-                  <input
-                    type="file"
-                    class="dropify"
-                    id="attachment"
-                    name="attachment"
-                    data-height="100"
-                    accept="image/*, .pdf">
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="addVacationForm" class="btn btn-primary">{{ __('Save') }}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {{-- Delete a vacation modal --}}
-
-  <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="post" id="deleteForm">
-            @csrf
-            @method('delete')
-            {{ __('Are you sure you want to delete the vacation and its related document?') }}
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
 
 @section('script')
@@ -274,9 +184,9 @@
       $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
 

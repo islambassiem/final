@@ -1,18 +1,18 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Requests') }}
+  {{ __('requests.requests')}}
 @endsection
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('Requests') }}
+  {{ __('requests.generic') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Requests / Show') }}
+  {{__('requests.requests') .  ' / ' . __('requests.generic') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
-          {{ __('Add your request') }}
+          {{ __('requests.addReq') }}
         </h5>
         <div class="row">
           <div class="col">
@@ -36,11 +36,11 @@
                 </div>
               @endif
               <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Title') }}</label>
+                <label for="title" class="form-label">{{ __('requests.title') }}</label>
                 <input type="text" class="form-control" id="title" name="title" readonly value="{{ $generic->title }}">
               </div>
               <div class="mb-3">
-                <label for="subject" class="form-label">{{ __('Subject') }}</label>
+                <label for="subject" class="form-label">{{ __('requests.subject') }}</label>
                 <div id="subject" class="form-control">
                   @php echo file_get_contents(public_path('storage/' . auth()->user()->id . '/text//' . $generic->id . '.txt')) @endphp
                 </div>

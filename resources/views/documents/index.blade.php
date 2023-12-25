@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Documents') }}
+  {{ __('documents.documents') }}
 @endsection
 
 @section('style')
@@ -15,11 +15,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Documents') }}
+  {{ __('documents.documents') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Documents / Al') }}
+  {{ __('documents.documents') . ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
@@ -32,7 +32,7 @@
           data-bs-target="#addDocument"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </button>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ __('All Documents') }}</h5>
+            <h5 class="card-title">{{ __('documents.allDoc') }}</h5>
             @if ($errors->any())
               <div class="alert alert-danger pb-0">
                 <ul>
@@ -57,7 +57,7 @@
             @endif
             @if ($docNum == 0)
               <div class="alert alert-danger" role="alert">
-                {{ __('There are no documents Registered') }}
+                {{ __('documents.noDoc') }}
               </div>
             @else
               @if (session('message'))
@@ -69,13 +69,13 @@
               <table class="table table-striped text-center">
                 <thead>
                   <tr>
-                    <th scope="col">{{ __('Document') }}</th>
-                    <th scope="col">{{ __('Document Number') }}</th>
-                    <th scope="col">{{ __('Place of issue') }}</th>
-                    <th scope="col">{{ __('Date of issue') }}</th>
-                    <th scope="col">{{ __('Date of Expiry') }}</th>
-                    <th scope="col">{{ __('Notification') }}</th>
-                    <th scope="col">{{ __('Actions') }}</th>
+                    <th scope="col">{{ __('documents.document') }}</th>
+                    <th scope="col">{{ __('documents.docNum') }}</th>
+                    <th scope="col">{{ __('documents.place') }}</th>
+                    <th scope="col">{{ __('documents.issue') }}</th>
+                    <th scope="col">{{ __('documents.expiry') }}</th>
+                    <th scope="col">{{ __('documents.notificaiton') }}</th>
+                    <th scope="col">{{ __('global.action') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -186,7 +186,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addDocumentLabel">{{ __('Add a new document') }}</h1>
+          <h1 class="modal-title fs-5" id="addDocumentLabel">{{ __('documents.addDoc') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -194,17 +194,17 @@
             @csrf
             <div class="row">
               <div class="col-8">
-                <label for="docType" class="form-label required">{{ __('Document Type') }}</label>
+                <label for="docType" class="form-label required">{{ __('documents.type') }}</label>
                 <select class="form-select" aria-label="Default select example" id="docType" name="document_type_id">
-                  <option selected disabled>{{ __('Select') }}</option>
-                  <option value="2" @selected(old('document_type_id') == 2)>{{ __('Passport') }}</option>
-                  <option value="6" @selected(old('document_type_id') == 6)>{{ __('Affiliation') }}</option>
-                  <option value="7" @selected(old('document_type_id') == 7)>{{ __('Other') }}</option>
+                  <option selected disabled>{{ __('global.select') }}</option>
+                  <option value="2" @selected(old('document_type_id') == 2)>{{ __('documents.passport') }}</option>
+                  <option value="6" @selected(old('document_type_id') == 6)>{{ __('documents.affiliation') }}</option>
+                  <option value="7" @selected(old('document_type_id') == 7)>{{ __('documents.other') }}</option>
                 </select>
               </div>
               <div class="col-4">
                 <div class="mb-3">
-                  <label for="notification" class="form-label">{{ __('Notification') }}</label>
+                  <label for="notification" class="form-label">{{ __('docuemnts.notification') }}</label>
                   <input type="number" class="form-control" id="notification" value="30" name="notification">
                 </div>
               </div>
@@ -212,7 +212,7 @@
             <div class="row d-none" id="descriptionRow">
               <div class="col">
                 <div class="mb-3">
-                  <label for="description" class="form-label required">{{ __('Description') }}</label>
+                  <label for="description" class="form-label required">{{ __('documents.desc') }}</label>
                   <input type="text" class="form-control" id="description" name="description">
                 </div>
               </div>
@@ -220,13 +220,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="document_id" class="form-label required">{{ __('Document Numner') }}</label>
+                  <label for="document_id" class="form-label required">{{ __('documents.docNum') }}</label>
                   <input type="text" id="document_id" class="form-control" name="document_id" value="{{ old('document_id') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="place_of_issue" class="form-label">{{ __('Place of Issue') }}</label>
+                  <label for="place_of_issue" class="form-label">{{ __('documents.place') }}</label>
                   <input type="text" class="form-control" id="place_of_issue" name="place_of_issue" value="{{ old('place_of_issue') }}">
                 </div>
               </div>
@@ -234,20 +234,20 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_issue" class="form-label">{{ __('Issue Date') }}</label>
+                  <label for="date_of_issue" class="form-label">{{ __('documents.issue') }}</label>
                   <input type="date" class="form-control" id="date_of_issue" name="date_of_issue" value="{{ old('date_of_issue') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_expiry" class="form-label required">{{ __('Expiry Date') }}</label>
+                  <label for="date_of_expiry" class="form-label required">{{ __('documents.expiry') }}</label>
                   <input type="date" class="form-control" id="date_of_expiry" name="date_of_expiry" value="{{ old('date_of_expiry') }}">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -263,8 +263,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="addDocForm" class="btn btn-primary">{{ __('Save') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="addDocForm" class="btn btn-primary">{{ __('global.save') }}</button>
         </div>
       </div>
     </div>
@@ -275,7 +275,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editIDLabel">{{ __('Edit National ID details') }}</h1>
+          <h1 class="modal-title fs-5" id="editIDLabel">{{ __('documents.editID') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -284,24 +284,24 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_issue_iqama_edit" class="form-label">{{ __('Date of Issue') }}</label>
+                  <label for="date_of_issue_iqama_edit" class="form-label">{{ __('documents.issue') }}</label>
                   <input type="date" class="form-control" id="date_of_issue_iqama_edit" name="date_of_issue_iqama_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="notification_iqama_edit" class="form-label">{{ __('Notification in Days') }}</label>
+                  <label for="notification_iqama_edit" class="form-label">{{ __('documents.notDays') }}</label>
                   <input type="number" min="0" class="form-control" id="notification_iqama_edit" name="notification_iqama_edit">
                 </div>
               </div>
             </div>
             <div class="mb-3">
-              <label for="place_of_issue_iqama_edit" class="form-label">{{ __('Place of Issue') }}</label>
+              <label for="place_of_issue_iqama_edit" class="form-label">{{ __('documents.place') }}</label>
               <input type="text" class="form-control" id="place_of_issue_iqama_edit" name="place_of_issue_iqama_edit">
             </div>
             <div class="row" id="IDAttachmentRow">
               <div class="col-12">
-                <label for="attachmentIqama" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentIqama" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -316,8 +316,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="editIDForm" class="btn btn-primary">{{ __('Save') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="editIDForm" class="btn btn-primary">{{ __('global.save') }}</button>
         </div>
       </div>
     </div>
@@ -328,7 +328,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editPassportLabel">{{ __('Edit Passport details') }}</h1>
+          <h1 class="modal-title fs-5" id="editPassportLabel">{{ __('documents.editPassport') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -337,13 +337,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_issue_passport_edit" class="form-label">{{ __('Date of Issue') }}</label>
+                  <label for="date_of_issue_passport_edit" class="form-label">{{ __('documents.issue') }}</label>
                   <input type="date" class="form-control" id="date_of_issue_passport_edit" name="date_of_issue_passport_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_expiry_passport_edit" class="form-label">{{ __('Date of Expiry') }}</label>
+                  <label for="date_of_expiry_passport_edit" class="form-label">{{ __('documents.expiry') }}</label>
                   <input type="date" class="form-control" id="date_of_expiry_passport_edit" name="date_of_expiry_passport_edit">
                 </div>
               </div>
@@ -351,20 +351,20 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="place_of_issue_passport_edit" class="form-label">{{ __('Place of Issue') }}</label>
+                  <label for="place_of_issue_passport_edit" class="form-label">{{ __('documents.place') }}</label>
                   <input type="text" class="form-control" id="place_of_issue_passport_edit" name="place_of_issue_passport_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="notification_passport_edit" class="form-label">{{ __('Notification in Days') }}</label>
+                  <label for="notification_passport_edit" class="form-label">{{ __('documents.notDays') }}</label>
                   <input type="number" min="0" class="form-control" id="notification_passport_edit" name="notification_passport_edit">
                 </div>
               </div>
             </div>
             <div class="row" id="PassportAttachmentRow">
               <div class="col-12">
-                <label for="attachmentPassport" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentPassport" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -379,8 +379,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="editPassportForm" class="btn btn-primary">{{ __('Save') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="editPassportForm" class="btn btn-primary">{{ __('global.save') }}</button>
         </div>
       </div>
     </div>
@@ -391,7 +391,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editDocumentLabel">{{ __('Edit Document Details') }}</h1>
+          <h1 class="modal-title fs-5" id="editDocumentLabel">{{ __('documents.editDoc') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -400,13 +400,13 @@
             <div class="row" id="editDescriptionRow">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="description_edit" class="form-label">{{ __('Description') }}</label>
+                  <label for="description_edit" class="form-label">{{ __('documents.desc') }}</label>
                   <input type="text" class="form-control" id="description_edit" name="description_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="notification_edit" class="form-label">{{ __('Notification') }}</label>
+                  <label for="notification_edit" class="form-label">{{ __('documents.notificaiton') }}</label>
                   <input type="number" class="form-control" id="notification_edit" name="notification_edit">
                 </div>
               </div>
@@ -414,13 +414,13 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="document_id_edit" class="form-label">{{ __('Document Number') }}</label>
+                  <label for="document_id_edit" class="form-label">{{ __('documents.docNum') }}</label>
                   <input type="text" class="form-control" name="document_id_edit" id="document_id_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="place_of_issue_edit" class="form-label">{{ __('Place of Issue') }}</label>
+                  <label for="place_of_issue_edit" class="form-label">{{ __('documents.place') }}</label>
                   <input type="text" class="form-control" name="place_of_issue_edit" id="place_of_issue_edit">
                 </div>
               </div>
@@ -428,20 +428,20 @@
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_issue_edit" class="form-label">{{ __('Issue Date') }}</label>
+                  <label for="date_of_issue_edit" class="form-label">{{ __('documents.issue') }}</label>
                   <input type="date" class="form-control" name="date_of_issue_edit" id="date_of_issue_edit">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="date_of_expiry_edit" class="form-label">{{ __('Expiry Date') }}</label>
+                  <label for="date_of_expiry_edit" class="form-label">{{ __('dashboard.expiry') }}</label>
                   <input type="date" class="form-control" name="date_of_expiry_edit" id="date_of_expiry_edit">
                 </div>
               </div>
             </div>
             <div class="row" id="docAttachmentRow">
               <div class="col-12">
-                <label for="attachmentDoc" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachmentDoc" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -456,8 +456,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" form="editDocForm" class="btn btn-primary">{{ __('Save') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="editDocForm" class="btn btn-primary">{{ __('global.save') }}</button>
         </div>
       </div>
     </div>
@@ -472,9 +472,9 @@
       $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
 

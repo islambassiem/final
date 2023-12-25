@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Research') }}
+  {{ __('research.research') }}
 @endsection
 
 @section('style')
@@ -31,11 +31,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Research') }}
+  {{ __('research.research') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Research / Add') }}
+  {{ __('research.research') . ' / ' . __('global.add') }}
 @endsection
 
 @section('content')
@@ -53,7 +53,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ __('Research Details') }}</h5>
+            <h5 class="card-title">{{ __('research.details') }}</h5>
 
             <div class="progress my-3">
               <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
@@ -71,7 +71,7 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
-                        <div for="title" class="form-label" role="label">{{ __('Research Title') }}</div>
+                        <div for="title" class="form-label" role="label">{{ __('research.title') }}</div>
                         <div class="options">
                           <button type="button" id="superscript" class="option-button script button">
                             <i class="fa-solid fa-superscript"></i>
@@ -87,36 +87,36 @@
                   </div>
                   <div class="row">
                     <div class="col-md-3">
-                      <label for="type_id" class="form-label">{{ __('Research Type') }}</label>
+                      <label for="type_id" class="form-label">{{ __('research.type') }}</label>
                       <select class="form-select" id="type_id" name="type_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($type as $t)
                           <option value="{{ $t->id }}" @selected( $t->id == old('t->id'))>{{  $t->{'research_type' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label for="status_id" class="form-label">{{ __('Research Status') }}</label>
+                      <label for="status_id" class="form-label">{{ __('research.status') }}</label>
                       <select class="form-select" id="status_id" name="status_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($status as $s)
                           <option value="{{ $s->id }}" @selected( $s->id == old('s->id'))>{{  $s->{'research_status' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-2">
-                      <label for="lang_id" class="form-label">{{ __('Research Language') }}</label>
+                      <label for="lang_id" class="form-label">{{ __('research.lang') }}</label>
                       <select class="form-select" id="lang_id" name="lang_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($language as $l)
                           <option value="{{ $l->id }}" @selected( $l->id == old('l->id'))>{{  $l->{'research_language' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-4">
-                      <label for="progress_id" class="form-label">{{ __('Research Progress') }}</label>
+                      <label for="progress_id" class="form-label">{{ __('research.progress') }}</label>
                       <select class="form-select" id="progress_id" name="progress_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($progress as $p)
                           <option value="{{ $p->id }}" @selected( $p->id == old('p->id'))>{{  $p->{'research_progress' . session('_lang')} }}</option>
                         @endforeach
@@ -125,25 +125,25 @@
                   </div>
                   <div class="row">
                     <div class="col-md-4">
-                      <label for="nature_id" class="form-label">{{ __('Research Narure') }}</label>
+                      <label for="nature_id" class="form-label">{{ __('research.nature') }}</label>
                       <select class="form-select" id="nature_id" name="nature_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($nature as $n)
                           <option value="{{ $n->id }}" @selected( $n->id == old('n->id'))>{{  $n->{'research_nature' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-5">
-                      <label for="domain_id" class="form-label">{{ __('Research Domain') }}</label>
+                      <label for="domain_id" class="form-label">{{ __('research.domain') }}</label>
                       <select class="form-select" id="domain_id" name="domain_id" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($domain as $d)
                           <option value="{{ $d->id }}" @selected( $d->id == old('d->id'))>{{  $d->{'research_domain' . session('_lang')} }}</option>
                         @endforeach
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label for="date" class="form-label">{{ __('Publishing Date') }}</label>
+                      <label for="date" class="form-label">{{ __('research.date') }}</label>
                       <div class="col-sm-12">
                         <input type="date" class="form-control" id="date" name="publishing_date" value="{{ old('publishing_date') }}">
                       </div>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-5">
-                      <label for="publisher" class="form-label">{{ __('Publisher') }}</label>
+                      <label for="publisher" class="form-label">{{ __('research.publisher') }}</label>
                       <div class="col-sm-12">
                         <input type="text" class="form-control" id="publisher" name="publisher" maxlength="60" value="{{ old('publisher') }}">
                         @error('publisher')
@@ -161,14 +161,14 @@
                       </div>
                     </div>
                     <div class="col-md-5">
-                      <label for="country_id" class="form-label">{{ __('Country') }}</label>
+                      <label for="country_id" class="form-label">{{ __('research.location') }}</label>
                       <input type="text" class="form-control" id="publication_location" name="publication_location" maxlength="100"  value="{{ old('publication_location') }}">
                       <span class="text-secondary"><small id="locationSmall"></small></span>
                     </div>
                     <div class="col-md-2">
-                      <label for="citation" class="form-label">{{ __('Citation') }}</label>
+                      <label for="citation" class="form-label">{{ __('research.citation') }}</label>
                       <select class="form-select" id="citation" name="citation_type" style="width:100%">
-                        <option selected disabled>{{ __('Select') }}</option>
+                        <option selected disabled>{{ __('global.select') }}</option>
                         @foreach ($citations as $citation)
                           <option value="{{ $citation->id }}" @selected( $citation->id == old('citation->id'))>{{  $citation->name }}</option>
                         @endforeach
@@ -176,21 +176,21 @@
                     </div>
                   </div>
                     <div class="my-3 row">
-                      <label for="magazine" class="col-sm-3 col-form-label">{{ __('Publishing Magazine') }}</label>
+                      <label for="magazine" class="col-sm-3 col-form-label">{{ __('research.magazine') }}</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="magazine" maxlength="100" name="magazine" value="{{ old('magazine') }}">
                         <span class="text-secondary"><small id="magazineSmall"></small></span>
                       </div>
                     </div>
                     <div class="mb-3 row">
-                      <label for="url" class="col-sm-3 col-form-label">{{ __('URL') }}</label>
+                      <label for="url" class="col-sm-3 col-form-label">{{ __('research.url') }}</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="url" name="publishing_url" maxlength="1000" value="{{ old('url') }}">
                         <span class="text-secondary"><small id="urlSmall"></small></span>
                       </div>
                     </div>
                   <div class="d-flex justify-content-end my-3">
-                    <button type="button" class="btn btn-primary" id="next1">{{ __("Next") }}</button>
+                    <button type="button" class="btn btn-primary" id="next1">{{ __('global.next') }}</button>
                   </div>
 
                 </div>
@@ -198,7 +198,7 @@
               <div id="phase2">
                 <div class="row">
                   <div class="col-12">
-                    <label for="keyWords" class="col-sm-3 col-form-label">{{ __('Key Words') }}</label>
+                    <label for="keyWords" class="col-sm-3 col-form-label">{{ __('research.words') }}</label>
                     <input type="text" class="form-control" id="keyWords" name="key_words" maxlength="200" value="{{ old('key_words') }}">
                     <span class="text-secondary"><small id="keyWordsSmall"></small></span>
                   </div>
@@ -206,21 +206,21 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="mb-3">
-                      <label for="isbn" class="col-form-label">{{ __('ISBN') }}</label>
+                      <label for="isbn" class="col-form-label">{{ __('research.isbn') }}</label>
                       <input type="text" class="form-control" id="isbn" maxlength="13" name="isbn" value="{{ old('isbn') }}">
                       <span class="text-secondary"><small id="isbnSmall"></small></span>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="mb-3">
-                      <label for="edition" class="col-form-label">{{ __('Edition') }}</label>
+                      <label for="edition" class="col-form-label">{{ __('research.edition') }}</label>
                       <input type="text" class="form-control" id="edition" name="edition" maxlength="10" value="{{ old('edition') }}">
                       <span class="text-secondary"><small id="editionSmall"></small></span>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="mb-3">
-                      <label for="pagesNumber" class="col-form-label">{{ __('Page Numbers') }}</label>
+                      <label for="pagesNumber" class="col-form-label">{{ __('research.pageNo') }}</label>
                       <input type="text" maxlength="5" class="form-control" id="pagesNumber" name="pages_number" onkeypress="return /[0-9]/i.test(event.key)" value="{{ old('pages_number') }}">
                       <span class="text-secondary"><small id="pagesNumberSmall"></small></span>
                     </div>
@@ -229,7 +229,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="my-3">
-                      <div for="summary" class="form-label">{{ __('Research Summary') }}</label>
+                      <div for="summary" class="form-label">{{ __('research.summary') }}</label>
                       <div class="options">
                         <button type="button" id="superscript" class="option-button script button">
                           <i class="fa-solid fa-superscript"></i>
@@ -244,8 +244,8 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between my-3">
-                  <button type="button" class="btn btn-danger" id="back1">{{ __("Back") }}</button>
-                  <button type="submit" class="btn btn-primary" id="submit">{{ __("Submit") }}</button>
+                  <button type="button" class="btn btn-danger" id="back1">{{ __('global.back') }}</button>
+                  <button type="submit" class="btn btn-primary" id="submit">{{ __('global.submit') }}</button>
                 </div>
               </div>
             </form>
@@ -264,7 +264,7 @@
     $(document).ready(function (){
       $('select').select2();
 
-      let max = "{{ __('Max characters') }}";
+      let max = "{{ __('global.max') }}";
       let publication_location = document.getElementById('publication_location');
       let locationSmall = document.getElementById('locationSmall');
       let publisher = document.getElementById('publisher');

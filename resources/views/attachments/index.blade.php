@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Attachments') }}
+  {{ __('attachments.attachments') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Attachments') }}
+  {{ __('attachments.attachments') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Attachments / All') }}
+  {{ __('attachments.attachments') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
       data-bs-target="#addAttachment"
       class="btn btn-success">
       <i class="bi bi-plus-square-fill me-1"></i>
-      {{ __('Add') }}
+      {{ __('global.add') }}
     </button>
   </div>
   @if ($errors->any())
@@ -42,14 +42,14 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-body pb-0">
+      <div class="card-body">
         @if (count($folders) == 0)
           <div class="alert alert-danger my-5" role="alert">
-            {{ __('There are no attachments Registered') }}
+            {{ __('attachments.noAtt') }}
           </div>
         @else
           <h5 class="card-title">
-            {{ __('All Attachments') }}
+            {{ __('attachments.allAtt') }}
           </h5>
           <div class="row">
             @foreach ($folders as $folder)
@@ -67,7 +67,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addAttachmentLabel">{{ __('Add an Attachment') }}</h1>
+        <h1 class="modal-title fs-5" id="addAttachmentLabel">{{ __('attachments.addAtt') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -75,9 +75,9 @@
           @csrf
           <div class="row">
             <div class="col">
-              <label for="attachment_type" class="form-label">{{ __('Attachment Type') }}</label>
+              <label for="attachment_type" class="form-label">{{ __('attachments.type') }}</label>
               <select class="form-select" id="attachment_type" name="attachment_type" style="width:100%">
-                <option selected disabled>{{ __('Select') }}</option>
+                <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($types as $type)
                   <option value="{{ $type->id }}" @selected( $type->id == old('type->id'))>{{  $type->{'attachment_type' . session('_lang')} }}</option>
                 @endforeach
@@ -87,14 +87,14 @@
           <div class="row mt-3">
             <div class="col">
               <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Title') }}</label>
+                <label for="title" class="form-label">{{ __('attachments.title') }}</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" autocomplete="off">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <label for="attachment" class="col-form-label">{{ __('Attachment') }}</label>
+              <label for="attachment" class="col-form-label">{{ __('global.attachment') }}</label>
               <div class="col-sm-12">
                 <input
                   type="file"
@@ -109,8 +109,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>
@@ -131,9 +131,9 @@
       $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
     });

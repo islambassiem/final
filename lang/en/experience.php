@@ -29,6 +29,6 @@
     'pRank' => 'Prodessional Rank',
     'accStatus' => 'Accommodation Status',
     'tasks' => 'Tasks',
-    '' => '',
+    'keyDates' => 'Key Dates',
     '' => '',
   ];

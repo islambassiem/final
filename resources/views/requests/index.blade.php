@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Requests') }}
+  {{ __('requests.requests')}}
 @endsection
 
 
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Requests') }}
+  {{ __('requests.generic') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Requests / All') }}
+  {{ __('requests.requests') .  ' / ' . __('requests.generic') . __('global.all')}}
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
         <a href= "{{ route('generics.create') }}"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </a>
       </div>
     </div>
@@ -43,10 +43,10 @@
             @endif
             @if (count($generics) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no Requests Registered') }}
+                {{ __('requests.noReq') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Generic Requests') }}</h5>
+              <h5 class="card-title">{{ __('requests.generic') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -57,9 +57,9 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Title') }}</th>
-                    <th scope="col">{{ __('Applied At ') }}</th>
-                    <th scope="col">{{ __('Action ') }}</th>
+                    <th scope="col">{{ __('requests.title') }}</th>
+                    <th scope="col">{{ __('requests.appliedAt') }}</th>
+                    <th scope="col">{{ __('global.action') }}</th>
                   </tr>
                 </thead>
                 <tbody>

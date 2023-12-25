@@ -1,18 +1,18 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Permissions') }}
+  {{ __('head/leaves.leaves') }}
 @endsection
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('Permissions') }}
+  {{ __('head/leaves.leaves') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Permissions / Show') }}
+  {{ __('head/leaves.leaves') . ' / ' . __('global.show')}}
 @endsection
 
 @section('content')
@@ -29,9 +29,9 @@
       </div>
       <div class="col-md-6">
         <div class="d-flex justify-content-end">
-          <a href="{{ route('sLeave.index') }}" class="btn btn-danger">{{ __('Back') }}</a>
+          <a href="{{ route('sLeave.index') }}" class="btn btn-danger">{{ __('global.back') }}</a>
           <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
-            {{ __('Take action') }}
+            {{ __('head/leaves.takeAction') }}
           </button>
         </div>
       </div>
@@ -40,7 +40,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h2 class="card-title h2 pb-0">{{ __('From') }}</h2>
+            <h2 class="card-title h2 pb-0">{{ __('head/leaves.from') }}</h2>
           </div>
           @if (session('_lang') == '_ar')
             <i class="bi bi-arrow-left-square-fill text-primary fs-1"></i>
@@ -55,7 +55,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('To') }}</h5>
+            <h5 class="card-title pb-0">{{ __('head/leaves.to') }}</h5>
           </div>
           @if (session('_lang') == '_ar')
           <i class="bi bi-arrow-right-square-fill text-danger fs-1"></i>
@@ -70,7 +70,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('Permission Type') }}</h5>
+            <h5 class="card-title pb-0">{{ __('head/leaves.Type') }}</h5>
             <i class="bi bi-vinyl-fill text-info fs-1"></i>
           </div>
           <div class="h5">
@@ -81,7 +81,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('Status') }}</h5>
+            <h5 class="card-title pb-0">{{ __('head/leaves.status') }}</h5>
           </div>
           @switch($permission->status_id)
             @case(1)
@@ -105,16 +105,16 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Details') }}
+                {{ __('head/leaves.details') }}
               </h5>
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Hours') }}</div>
+            <div>{{ __('head/leaves.hours') }}</div>
             <div>{{ $permission->hours }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('head/leaves.date') }}</div>
             <div>
               @if (!blank($permission->detail?->employee_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->employee_time)) }}
@@ -122,14 +122,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('head/leaves.time') }}</div>
             <div>
               @if (!blank($permission->detail?->employee_time))
                 {{ date('H:i:s', strtotime($permission->detail?->employee_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('head/leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $permission->detail?->employee_notes }}</div>
         </div>
       </div>
@@ -138,7 +138,7 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Department Head') }}
+                {{ __('head/leaves.deptHead') }}
               </h5>
               <div class="py-3">
                 @switch($permission->detail?->head_status)
@@ -155,11 +155,11 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Sataus') }}</div>
+            <div>{{ __('head/leaves.status') }}</div>
             <div>{{ $permission->detail?->headStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('head/leaves.date') }}</div>
             <div>
               @if (!blank($permission->detail?->head_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->head_time)) }}
@@ -167,14 +167,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('head/leaves.time') }}</div>
             <div>
               @if (!blank($permission->detail?->head_time))
                 {{ date('H:i:s', strtotime($permission->detail?->head_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('head/leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $permission->detail?->head_notes }}</div>
         </div>
       </div>
@@ -183,7 +183,7 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Human Resources') }}
+                {{ __('head/leaves.hr') }}
               </h5>
               <div class="py-3">
                 @switch($permission->detail?->hr_status)
@@ -200,11 +200,11 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Sataus') }}</div>
+            <div>{{ __('head/leaves.Status') }}</div>
             <div>{{ $permission->detail?->hrStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('head/leaves.date') }}</div>
             <div>
               @if (!blank($permission->detail?->hr_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->hr_time)) }}
@@ -212,14 +212,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('head/leaves.time') }}</div>
             <div>
               @if (!blank($permission->detail?->hr_time))
                 {{ date('H:i:s', strtotime($permission->detail?->hr_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('head/leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $permission->detail?->hr_notes }}</div>
         </div>
       </div>
@@ -231,31 +231,31 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="actionModalLabel">{{ __('Take an action') }}</h1>
+        <h1 class="modal-title fs-5" id="actionModalLabel">{{ __('head/leaves.takeAction') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="{{ route('sLeave.update', $permission->id) }}" method="post" id="actionForm">
           @csrf
           <div class="mb-3">
-            <label for="action">{{ __('Action') }}</label>
+            <label for="action">{{ __('global.action') }}</label>
             <select name="action" id="" class="form-select">
-              <option value="">{{ __('Select') }}</option>
-              <option value="1">{{ __('Approve') }}</option>
-              <option value="2">{{ __('Decline') }}</option>
+              <option value="">{{ __('global.select') }}</option>
+              <option value="1">{{ __('head/leaves.approve') }}</option>
+              <option value="2">{{ __('head/leaves.decline') }}</option>
             </select>
           </div>
           <div class="row">
             <div class="col">
-              <label for="notes">{{ __('Notes') }}</label>
+              <label for="notes">{{ __('head/leaves.notes') }}</label>
               <textarea class="form-control" name="head_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-        <button type="submit" form="actionForm" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" form="actionForm" class="btn btn-primary">{{ __('global.submit') }}</button>
       </div>
     </div>
   </div>

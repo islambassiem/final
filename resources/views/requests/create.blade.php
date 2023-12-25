@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Requests') }}
+  {{ __('requests.requests')}}
 @endsection
 
 @section('style')
@@ -11,11 +11,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Requests') }}
+  {{ __('requests.generic') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Requests / Add') }}
+  {{__('requests.requests') .  ' / ' . __('requests.generic') . __('global.all')}}
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
-          {{ __('Add your request') }}
+          {{ __('requests.addReq') }}
         </h5>
         <div class="row">
           <div class="col">
@@ -39,13 +39,13 @@
                 </div>
               @endif
               <div class="mb-3">
-                <label for="title" class="form-label required">{{ __('Title') }}</label>
+                <label for="title" class="form-label required">{{ __('requests.title') }}</label>
                 <input type="text" class="form-control" id="title" name="title"  value="{{ old('title') }}">
               </div>
               <div class="row">
                 <div class="col">
                   <div class="my-3">
-                    <label for="subject" class="form-label required">{{ __('Subject') }}</label>
+                    <label for="subject" class="form-label required">{{ __('requests.subject') }}</label>
                     <div class="options">
                       <!-- Text Format -->
                       <button type="button" id="bold" class="option-button format button">
@@ -95,7 +95,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary float-end" >{{ __('Submit') }}</button>
+              <button type="submit" class="btn btn-primary float-end" >{{ __('global.submit') }}</button>
             </form>
           </div>
         </div>

@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Permissions') }}
+  {{ __('head/leaves.leaves') }}
 @endsection
 
 @section('style')
@@ -9,11 +9,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Permissions') }}
+  {{ __('head/leaves.leaves') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Permissions / All') }}
+  {{ __('head/leaves.leaves') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -21,28 +21,28 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
-          {{ __('Filter') }}
+          {{ __('head/leaves.filter') }}
         </h5>
         <form action="{{ route('sLeave.index') }}" method="get">
           @csrf
           <div class="row">
             <div class="col-md-2">
               <div class="mb-3">
-                <label for="from">{{ __('From') }}</label>
+                <label for="from">{{ __('head/leaves.from') }}</label>
                 <input type="date" id="from" class="form-control" name="start" value="{{ request()->has('start') ? request()->get('start') : ''}}">
               </div>
             </div>
             <div class="col-md-2">
               <div class="mb-3">
-                <label for="to">{{ __('To') }}</label>
+                <label for="to">{{ __('head/leaves.to') }}</label>
                 <input type="date" id="to" class="form-control" name="end" value="{{ request()->has('end') ? request()->get('end') : ''}}">
               </div>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
-                <label for="to">{{ __('Permission Type') }}</label>
+                <label for="to">{{ __('head/leaves.type') }}</label>
                 <select name="type" id="" class="form-control">
-                  <option value="" selected>{{ __('Select All') }}</option>
+                  <option value="" selected>{{ __('head/leaves.selectAll') }}</option>
                   @foreach ($types as $type)
                     <option value="{{ $type->id }}" {{ request()->get('type') == $type->id ? 'selected' : ''}}>{{ $type->{'permission_type' . session('_lang')} }}</option>
                   @endforeach
@@ -51,9 +51,9 @@
             </div>
             <div class="col-md-3">
               <div class="mb-3">
-                <label for="to">{{ __('Permission Status') }}</label>
+                <label for="to">{{ __('head/leaves.status') }}</label>
                 <select name="status" id="" class="form-control">
-                  <option value="" selected >{{ __('Select All') }}</option>
+                  <option value="" selected >{{ __('head/leaves.selectAll') }}</option>
                   @foreach ($status as $item)
                     <option value="{{ $item->code }}" {{ request()->get('status') == $item->code ? 'selected' : ''}}>{{ $item->{'workflow_status' . session('_lang')} }}</option>
                   @endforeach
@@ -61,8 +61,8 @@
               </div>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
-              <a href="{{ route('sLeave.index') }} " class="btn btn-danger mx-2">{{ __('Clear') }}</a>
-              <button type="submit" class="btn btn-primary">{{ __('Filter') }}</button>
+              <a href="{{ route('sLeave.index') }} " class="btn btn-danger mx-2">{{ __('head/leaves.clear') }}</a>
+              <button type="submit" class="btn btn-primary">{{ __('head/leaves.filter') }}</button>
             </div>
           </div>
         </form>
@@ -82,22 +82,22 @@
       <div class="card-body">
         @if (count($permissions) == 0)
           <div class="alert alert-danger my-5" role="alert">
-            {{ __('There are no upcoming permissions requests') }}
+            {{ __('head/leaves.noLeaves') }}
           </div>
         @else
           <h5 class="card-title">
-            {{ __('All Staff') }}
+            {{ __('head/leaves.allStaff') }}
           </h5>
           <table class="table table-striped" id="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">{{ __('Name') }}</th>
-                <th scope="col">{{ __('Date') }}</th>
-                <th scope="col">{{ __('From') }}</th>
-                <th scope="col">{{ __('To') }}</th>
-                <th scope="col">{{ __('Type') }}</th>
-                <th scope="col">{{ __('Status') }}</th>
+                <th scope="col">{{ __('head/leaves.name') }}</th>
+                <th scope="col">{{ __('head/leaves.date') }}</th>
+                <th scope="col">{{ __('head/leaves.from') }}</th>
+                <th scope="col">{{ __('head/leaves.to') }}</th>
+                <th scope="col">{{ __('head/leaves.type') }}</th>
+                <th scope="col">{{ __('head/leaves.status') }}</th>
                 <th scope="col">{{ __('Actions') }}</th>
               </tr>
             </thead>
@@ -154,31 +154,31 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="actionModalLabel">{{ __('Take an action') }}</h1>
+        <h1 class="modal-title fs-5" id="actionModalLabel">{{ __('head/leaves.takeAction') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="" method="post" id="actionForm">
           @csrf
           <div class="mb-3">
-            <label for="action">{{ __('Action') }}</label>
+            <label for="action">{{ __('global.action') }}</label>
             <select name="action" id="" class="form-select">
-              <option value="">{{ __('Select') }}</option>
-              <option value="1">{{ __('Approve') }}</option>
-              <option value="2">{{ __('Decline') }}</option>
+              <option selected disabled>{{ __('global.select') }}</option>
+              <option value="1">{{ __('head/leaves.approve') }}</option>
+              <option value="2">{{ __('head/leaves.decline') }}</option>
             </select>
           </div>
           <div class="row">
             <div class="col">
-              <label for="notes">{{ __('Notes') }}</label>
+              <label for="notes">{{ __('head/leaves.notes') }}</label>
               <textarea class="form-control" name="head_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-        <button type="submit" form="actionForm" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" form="actionForm" class="btn btn-primary">{{ __('global.submit') }}</button>
       </div>
     </div>
   </div>

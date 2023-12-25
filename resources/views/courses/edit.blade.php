@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Courses') }}
+  {{ __('courses.courses') }}
 @endsection
 
 @section('style')
@@ -17,11 +17,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Courses') }}
+  {{ __('courses.courses') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Courses / Add') }}
+  {{ __('courses.courses')  . ' / ' . __('global.edit') }}
 @endsection
 
 @section('content')
@@ -41,7 +41,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ __('Course Details') }}</h5>
+          <h5 class="card-title">{{ __('courses.details') }}</h5>
 
           <form action="{{ route('courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col">
                   <div class="mb-3">
-                    <label for="name" class="form-label required">{{ __('Course Name') }}</label>
+                    <label for="name" class="form-label required">{{ __('courses.name') }}</label>
                     <input type="text" class="form-control" name="name" maxlength="100" id="name" value="{{ old('name', $course->name) }}">
                     <span class="text-secondary"><small id="nameSmall"></small></span>
                   </div>
@@ -60,7 +60,7 @@
               <div class="row">
                 <div class="col">
                   <div class="mb-3">
-                    <label for="issuer" class="form-label required">{{ __('Issuer') }}</label>
+                    <label for="issuer" class="form-label required">{{ __('courses.issuer') }}</label>
                     <input type="text" class="form-control" name="issuer" maxlength="100" id="issuer" value="{{ old('issuer', $course->issuer) }}">
                     <span class="text-secondary"><small id="issuerSmall"></small></span>
                   </div>
@@ -68,9 +68,9 @@
               </div>
               <div class="row">
                 <div class="col-4">
-                  <label for="type" class="form-label required">{{ __('Course Type') }}</label>
+                  <label for="type" class="form-label required">{{ __('courses.type') }}</label>
                   <select class="form-select" id="type_add" name="type_id" style="width:100%">
-                    <option selected disabled>{{ __('Select') }}</option>
+                    <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($types as $type)
                       <option value="{{ $type->id }}" @selected( $type->id == old('type->id', $course->type_id))>{{  $type->{'course_type' . session('_lang')} }}</option>
                     @endforeach
@@ -78,13 +78,13 @@
                 </div>
                 <div class="col-4">
                   <div class="mb-3">
-                    <label for="courseDate" class="form-label required">{{ __('Couese Date') }}</label>
+                    <label for="courseDate" class="form-label required">{{ __('courses.date') }}</label>
                     <input type="date" class="form-control" name="courseDate" value="{{ old('courseDate', $course->courseDate) }}">
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="mb-3">
-                    <label for="period" class="form-label">{{ __('Course Period') }}</label>
+                    <label for="period" class="form-label">{{ __('courses.period') }}</label>
                     <input type="text" class="form-control" name="period" maxlength="20" id="period" value="{{ old('period', $course->period) }}">
                     <span class="text-secondary"><small id="periodSmall"></small></span>
                   </div>
@@ -92,9 +92,9 @@
               </div>
               <div class="row">
                 <div class="col-8">
-                  <label for="country_id" class="form-label">{{ __('Country') }}</label>
+                  <label for="country_id" class="form-label">{{ __('courses.country') }}</label>
                   <select class="form-select" id="country_id_add" name="country_id" style="width:100%">
-                    <option selected disabled>{{ __('Select') }}</option>
+                    <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($countries as $country)
                       <option value="{{ $country->id }}" @selected( $country->id == old('country->id', $course->country_id))>{{  $country->{'country' . session('_lang')} }}</option>
                     @endforeach
@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-4">
                   <div class="mb-3">
-                    <label for="city" class="form-label">{{ __('City') }}</label>
+                    <label for="city" class="form-label">{{ __('courses.city') }}</label>
                     <input type="text" class="form-control" name="city" maxlength="30" id="city" value="{{ old('city', $course->city) }}">
                     <span class="text-secondary"><small id="citySmall"></small></span>
                   </div>
@@ -111,7 +111,7 @@
               @if (! $link)
                 <div class="row">
                   <div class="col-12">
-                    <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                    <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                     <div class="col-sm-12">
                       <input
                         type="file"
@@ -125,9 +125,9 @@
                 </div>
               @endif
 
-              <div class="row">
+              <div class="row pt-2">
                 <div class="col d-flex justify-content-end">
-                  <button class="btn btn-primary">{{ __('Submit') }}</button>
+                  <button class="btn btn-primary">{{ __('global.submit') }}</button>
                 </div>
               </div>
             </div>
@@ -152,12 +152,12 @@
       $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
-      let max = "{{ __('Max characters') }}";
+      let max = "{{ __('global.max') }}";
       let name = document.getElementById('name');
       let nameSmall = document.getElementById('nameSmall');
       let issuer = document.getElementById('issuer');

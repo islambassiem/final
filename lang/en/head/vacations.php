@@ -1,0 +1,30 @@
+<?php
+
+return [
+  'vacations' => 'Vacations',
+  'date' => 'Date',
+  'from' => 'Start Date',
+  'to' => 'End Date',
+  'type' => 'Type',
+  'Type' => 'Vacation Type',
+  'notes' => 'Notes',
+  'Status' => 'Vacation Status',
+  'status' => 'Status',
+  'noLeaves' => 'There are no vacations availed yet',
+  'addLeave' => 'Add a new vacation request',
+  'details' => 'Details',
+  'days' => 'Days',
+  'time' => 'Time',
+  'deptHead' => 'Department Head',
+  'hr' => 'Human Resources',
+  'selectAll' => 'Select All',
+  'novacations' => 'There are no upcoming vacation requests',
+  'name' => 'Name',
+  'filter' => 'Filter',
+  'clear' => 'Clear',
+  'approve' => 'Approve',
+  'decline' => 'Decline',
+  'notes' => 'Notes',
+  'takeAction' => 'Take an action',
+  'allStaff' => 'All Staff'
+];

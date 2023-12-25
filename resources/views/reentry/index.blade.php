@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Family Visits') }}
+  {{ __('reentry.visas') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Family Visits') }}
+  {{ __('reentry.visas') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Requests /  Exit Re-entry Visas / All ') }}
+  {{ __('reentry.requests') . ' / ' . __('reentry.reentry') . ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
           data-bs-target="#addVisa"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </button>
       </div>
     </div>
@@ -46,10 +46,10 @@
             @endif
             @if (count($visas) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no Exit Re-entry visas Registered') }}
+                {{ __('reentry.novisas') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Re-entry visas') }}</h5>
+              <h5 class="card-title">{{ __('reentry.reentry') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -60,10 +60,10 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Departure Date') }}</th>
-                    <th scope="col">{{ __('Return Date') }}</th>
-                    <th scope="col">{{ __('Number of Days') }}</th>
-                    <th scope="col">{{ __('Applied At ') }}</th>
+                    <th scope="col">{{ __('reentry.from') }}</th>
+                    <th scope="col">{{ __('reentry.to') }}</th>
+                    <th scope="col">{{ __('dashboard.days') }}</th>
+                    <th scope="col">{{ __('reentry.appliedAt') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,7 +93,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('Add a familt visit') }}</h1>
+        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('reentry.addVisa') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -102,7 +102,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="from" class="form-label required">{{ __('Departure Date') }}</label>
+                <label for="from" class="form-label required">{{ __('reentry.from') }}</label>
                 <input type="date" class="form-control" id="from" name="from" value="{{ old('from') }}" autocomplete="off">
               </div>
             </div>
@@ -110,7 +110,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="to" class="form-label required">{{ __('Return Date') }}</label>
+                <label for="to" class="form-label required">{{ __('reentry.to') }}</label>
                 <input type="date" class="form-control" id="to" name="to" value="{{ old('to') }}" autocomplete="off">
               </div>
             </div>
@@ -118,14 +118,14 @@
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="deduction" name="deduction" @if (old('deduction')) checked  @endif>
-              <label class="form-check-label" for="deduction">{{ __('I agree to be deducted 100 SAR for every extra month') }}</label>
+              <label class="form-check-label" for="deduction">{{ __('reentry.agree') }}</label>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>

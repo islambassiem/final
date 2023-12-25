@@ -45,7 +45,6 @@ class AttachmentController extends Controller
 
   public function store(Request $request)
   {
-    $latest = Attachment::latest('id')->first('id')->id;
     $validated = $request->validate([
       'attachment_type' => 'required',
       'title' => 'required|max:255',
@@ -62,7 +61,8 @@ class AttachmentController extends Controller
     }
     $validated['user_id'] = auth()->user()->id;
     $validated['attachmentable_type'] = 'App\Models\Attachment';
-    $validated['attachmentable_id'] = $latest + 1;
+    $latest = Attachment::latest('id')->first('id');
+    $validated['attachmentable_id'] = $latest == null ? '1': $latest->id +1 ;
     Attachment::create($validated);
     return redirect()->back()->with('success', 'You have added you attachment successfully');
 

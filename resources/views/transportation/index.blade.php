@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Transportation') }}
+  {{ __('transportation.trans') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Transportation Requests') }}
+  {{ __('transportation.trans') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Transportation Requests / All') }}
+  {{ __('transportation.requests')  . ' / '  . __('transportation.trans') }}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
           data-bs-target="#addRequest"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </button>
       </div>
     </div>
@@ -46,10 +46,10 @@
             @endif
             @if (count($requests) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no Transportation requested before') }}
+                {{ __('transportation.noreq') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Transportation Requests') }}</h5>
+              <h5 class="card-title">{{ __('transportation.trans') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -60,12 +60,12 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Destination') }}</th>
-                    <th scope="col">{{ __('Date') }}</th>
-                    <th scope="col">{{ __('From') }}</th>
-                    <th scope="col">{{ __('To') }}</th>
-                    <th scope="col">{{ __('Passengers') }}</th>
-                    <th scope="col">{{ __('Applied At') }}</th>
+                    <th scope="col">{{ __('transportation.dest') }}</th>
+                    <th scope="col">{{ __('transportations.date') }}</th>
+                    <th scope="col">{{ __('transportation.from') }}</th>
+                    <th scope="col">{{ __('transportation.to') }}</th>
+                    <th scope="col">{{ __('transportation.pass') }}</th>
+                    <th scope="col">{{ __('transportation.appliedAt') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,7 +96,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addRequestLabel">{{ __('Add a Transportation Request') }}</h1>
+          <h1 class="modal-title fs-5" id="addRequestLabel">{{ __('transportation.addTrans') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -105,7 +105,7 @@
             <div class="row">
               <div class="col">
                 <div class="mb-3">
-                  <label for="destination" class="form-label required">{{ __('Destination') }}</label>
+                  <label for="destination" class="form-label required">{{ __('transportation.dest') }}</label>
                   <input type="text" class="form-control" id="destination" name="destination" value="{{ old('destination') }}" autocomplete="off">
                 </div>
               </div>
@@ -113,40 +113,40 @@
             <div class="row">
               <div class="col-6 mb-3">
                 <div class="mb-3">
-                  <label for="date" class="form-label required">{{ __('Date') }}</label>
+                  <label for="date" class="form-label required">{{ __('transportation.date') }}</label>
                   <input type="date" class="form-control" name="date" id="date" min="{{ date('Y-m-d') }}" value="{{ old('date') }}">
                 </div>
               </div>
               <div class="col-6 mb-3">
-                <label for="passengers" class="form-label required">{{ __('Passengers') }}</label>
+                <label for="passengers" class="form-label required">{{ __('transportation.pass') }}</label>
                 <input type="number" min="0" class="form-control" id="passengers" name="passengers" value="{{ old('passengers') }}" autocomplete="off">
               </div>
             </div>
             <div class="row">
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="from" class="form-label required">{{ __('From') }}</label>
+                  <label for="from" class="form-label required">{{ __('transportation.from') }}</label>
                   <input type="time" class="form-control" name="from" id="from" value="{{ old('from') }}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="mb-3">
-                  <label for="to" class="form-label required">{{ __('To') }}</label>
+                  <label for="to" class="form-label required">{{ __('transportation.to') }}</label>
                   <input type="time" class="form-control" name="to" id="to" value="{{ old('to') }}">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <label for="notes">{{ __('Notes') }}</label>
+                <label for="notes">{{ __('transportation.notes') }}</label>
                 <textarea class="form-control" name="notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-          <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.all') }}</button>
         </div>
       </div>
     </div>

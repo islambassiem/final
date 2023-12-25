@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Attachment') }}
+  {{ __('attachments.attachments') }}
 @endsection
 
 @section('style')
@@ -13,11 +13,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Attachment') }}
+  {{ __('attachments.attachments') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Attachment / ' . Str::ucfirst(request()->segment(2))) }}
+  {{ __('Attachment / ' .  __('folders.' . Str::ucfirst(request()->segment(2)))) }}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
         <a href="{{ route('attachments.index') }}"
           class="btn btn-danger">
           <i class="bi bi-backspace-fill me-1"></i>
-          {{ __('Back') }}
+          {{ __('global.back') }}
         </a>
       </div>
     </div>

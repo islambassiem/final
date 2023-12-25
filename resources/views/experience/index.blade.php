@@ -23,7 +23,7 @@
         <a href="{{ route('experience.create') }}"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </a>
       </div>
     </div>
@@ -119,7 +119,7 @@
         <form action="" method="post" id="deleteForm">
           @csrf
           @method('delete')
-          {{ __('Are you sure you want to delete the experience?') }}
+          {{ __('global.deleteConfirmation') }}
         </form>
       </div>
       <div class="modal-footer">

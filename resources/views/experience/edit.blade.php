@@ -47,7 +47,7 @@
         <a href="{{ route('experience.index') }}"
           class="btn btn-danger">
           <i class="bi bi-x-octagon-fill me-1"></i>
-          {{ __('Cancel') }}
+          {{ __('global.cancel') }}
         </a>
       </div>
     </div>
@@ -330,7 +330,7 @@
                 </div>
                 @if (!$link)
                 <div class="col-md-12">
-                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                  <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                   <div class="col-sm-12">
                     <input
                     type="file"

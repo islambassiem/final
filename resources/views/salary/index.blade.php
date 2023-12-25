@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Salary') }}
+  {{ __('salary.salary') }}
 @endsection
 
 @section('style')
@@ -13,11 +13,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Salary') }}
+  {{ __('salary.salary') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Salary / show') }}
+  {{ __('salary.salary') . ' / '  . __('global.show')}}
 @endsection
 
 @section('content')
@@ -26,18 +26,18 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ __('Salary History') }}</h5>
+            <h5 class="card-title">{{ __('salary.history') }}</h5>
             <!-- Table with stripped rows -->
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ __('Basic') }}</th>
-                  <th scope="col">{{ __('Housing') }}</th>
-                  <th scope="col">{{ __('Transportation') }}</th>
-                  <th scope="col">{{ __('Food') }}</th>
-                  <th scope="col">{{ __('Package') }}</th>
-                  <th scope="col">{{ __('Effective') }}</th>
+                  <th scope="col">{{ __('salary.basic') }}</th>
+                  <th scope="col">{{ __('salary.housing') }}</th>
+                  <th scope="col">{{ __('salary.transportation') }}</th>
+                  <th scope="col">{{ __('salary.food') }}</th>
+                  <th scope="col">{{ __('salary.package') }}</th>
+                  <th scope="col">{{ __('salary.effective') }}</th>
                 </tr>
               </thead>
               <tbody>

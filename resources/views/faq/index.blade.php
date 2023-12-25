@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('F.A.Q') }}
+  {{ __('faq.faq') }}
 @endsection
 
 @section('style')
@@ -15,11 +15,11 @@
 @endsection
 
 @section('h1')
-  {{ __('F.A.Q') }}
+  {{ __('faq.faq') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('F.A.Q') }}
+  {{ __('faq.faq') }}
 @endsection
 
 @section('content')
@@ -29,12 +29,12 @@
       <div class="col-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"> {{ __('Frequently Asked Questions') }} </h5>
+            <h5 class="card-title"> {{ __('faq.FAQ') }} </h5>
             <div class="accordion accordion-flush" id="accordionFlushExample">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingOne">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    How is my salary is broken down?
+                    {{ __('faq.q1') }}
                   </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -44,7 +44,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwo">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                    How to calculate my leave pay?
+                    {{ __('faq.q2') }}
                   </button>
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
@@ -54,7 +54,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                  What is GOSI and GOSI Deduction?
+                    {{ __('faq.q3') }}
                   </button>
                 </h2>
                 <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
@@ -64,7 +64,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingFour">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                  What is the difference between fixed-term contract and unlimited contract ?
+                    {{ __('faq.q4') }}
                   </button>
                 </h2>
                 <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
@@ -74,7 +74,7 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingFive">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                    How does the contract between the employee and the company terminate?
+                    {{ __('faq.q5') }}
                   </button>
                 </h2>
                 <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">

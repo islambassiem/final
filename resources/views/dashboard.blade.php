@@ -38,7 +38,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-center">
-                  {{ __('Availd Vacations') }}
+                  {{ __('dashboard.avVacations') }}
                 </h5>
                 <div class="text-center text-info icon">
                   <i class="bi bi-battery-half fs-1"></i>
@@ -54,7 +54,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-center">
-                  {{ __('Availd Vacations') }}
+                  {{ __('dashboard.avVacations') }}
                 </h5>
                 <div class="text-center text-danger icon">
                   <i class="bi bi-battery-full fs-1"></i>
@@ -70,7 +70,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-center">
-                  {{ __('Vacation Balance') }}
+                  {{ __('dashboard.balance') }}
                 </h5>
                 <div class="text-center text-success icon">
                   <i class="bi bi-graph-down fs-1"></i>
@@ -88,7 +88,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-center">
-                  {{ __('Availd Permissions') }}
+                  {{ __('dashboard.availedPermissions') }}
                 </h5>
                 <div class="text-center text-info icon">
                   <i class="bi bi-alarm-fill fs-1"></i>

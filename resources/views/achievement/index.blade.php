@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Achievements') }}
+  {{ __('achievements.achievements') }}
 @endsection
 
 @section('style')
@@ -12,11 +12,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Achievements') }}
+  {{ __('achievements.achievements') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Achievements / All') }}
+  {{ __('achievements.achievements') . ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
         data-bs-target="#addAchievement"
         class="btn btn-success">
         <i class="bi bi-plus-square-fill me-1"></i>
-        {{ __('Add') }}
+        {{ __('global.all') }}
       </button>
     </div>
   </div>
@@ -48,10 +48,10 @@
           @endif
           @if (count($achievements) == 0)
             <div class="alert alert-danger my-5" role="alert">
-              {{ __('There are no Acquaintance Registered') }}
+              {{ __('achievements.noAchievements') }}
             </div>
           @else
-            <h5 class="card-title">{{ __('Achievement') }}</h5>
+            <h5 class="card-title">{{ __('achievements.achievements') }}</h5>
             @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -67,10 +67,10 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ __('Achievement') }}</th>
-                  <th scope="col">{{ __('Donor') }}</th>
-                  <th scope="col">{{ __('Year') }}</th>
-                  <th scope="col">{{ __('Actions') }}</th>
+                  <th scope="col">{{ __('achievements.achievements') }}</th>
+                  <th scope="col">{{ __('achievements.donor') }}</th>
+                  <th scope="col">{{ __('achievements.year') }}</th>
+                  <th scope="col">{{ __('global.action') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -127,7 +127,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editAchievementLabel">{{ __('Edit Achievement') }}</h1>
+        <h1 class="modal-title fs-5" id="editAchievementLabel">{{ __('achievements.edit') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -139,7 +139,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="title" class="form-label required">{{ __('Achievement Title') }}</label>
+                <label for="title" class="form-label required">{{ __('achievements.title') }}</label>
                 <input type="text" class="form-control" id="titleEdit" name="title" value="{{ old('title') }}">
                 <span class="text-secondary"><small id="titleEditSmall"></small></span>
               </div>
@@ -148,7 +148,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="donor" class="form-label">{{ __('Donor') }}</label>
+                <label for="donor" class="form-label">{{ __('achievements.title') }}</label>
                 <input type="text" class="form-control" id="donorEdit" name="donor" value="{{ old('donor') }}">
                 <span class="text-secondary"><small id="donorEditSmall"></small></span>
               </div>
@@ -156,13 +156,13 @@
           </div>
           <div class="col">
             <div class="mb-3">
-              <label for="year" class="form-label required">{{ __('Year') }}</label>
+              <label for="year" class="form-label required">{{ __('achievements.title') }}</label>
               <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
             </div>
           </div>
           <div class="row" id="attachmentRow">
             <div class="col-12">
-              <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+              <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
               <div class="col-sm-12">
                 <input
                   type="file"
@@ -177,8 +177,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="editForm">{{ __('Save') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="editForm">{{ __('global.save') }}</button>
       </div>
     </div>
   </div>
@@ -189,7 +189,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addAchievementLabel">{{ __('Add an Achievement') }}</h1>
+        <h1 class="modal-title fs-5" id="addAchievementLabel">{{ __('achievements.add') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -199,7 +199,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="titleAdd" class="form-label required">{{ __('Achievement Title') }}</label>
+                <label for="titleAdd" class="form-label required">{{ __('achievements.title') }}</label>
                 <input type="text" class="form-control" maxlength="100" id="titleAdd" name="title" value="{{ old('title') }}">
                 <span class="text-secondary"><small id="titleAddSmall"></small></span>
               </div>
@@ -208,7 +208,7 @@
           <div class="row">
             <div class="col-12">
               <div class="mb-3">
-                <label for="donor" class="form-label">{{ __('Donor') }}</label>
+                <label for="donor" class="form-label">{{ __('achievements.donor') }}</label>
                 <input type="text" class="form-control" id="donorAdd" maxlength="100" name="donor" value="{{ old('donor') }}">
                 <span class="text-secondary"><small id="donorAddSmall"></small></span>
               </div>
@@ -217,14 +217,14 @@
             <div class="row">
               <div class="col-12">
                 <div class="mb-3">
-                  <label for="year" class="form-label required">{{ __('Year') }}</label>
+                  <label for="year" class="form-label required">{{ __('achievements.year') }}</label>
                   <input type="number" class="form-control" id="year" name="year" value="{{ old('year') }}">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <label for="attachment" class="col-sm-2 col-form-label">{{ __('Attachment') }}</label>
+                <label for="attachment" class="col-sm-2 col-form-label">{{ __('global.attachment') }}</label>
                 <div class="col-sm-12">
                   <input
                     type="file"
@@ -240,8 +240,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>
@@ -253,19 +253,19 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('Delete Confirmation!') }}</h1>
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="" method="post" id="deleteForm">
             @csrf
             @method('delete')
-            {{ __('Are you sure you want to delete the Achievement?') }}
+            {{ __('global.deleteConfirmation') }}
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('Yes, Delete') }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>
@@ -332,13 +332,13 @@
       $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
 
-      let max = "{{ __('Max characters') }}";
+      let max = "{{ __('global.max') }}";
       let titleAdd = document.getElementById('titleAdd');
       let titleAddSmall = document.getElementById('titleAddSmall');
       let donorAdd = document.getElementById('donorAdd');

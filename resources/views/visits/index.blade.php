@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Family Visits') }}
+  {{ __('visits.familyVisits') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Family Visits') }}
+  {{ __('visits.familyVisits') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Requests /  Family Visits / All ') }}
+  {{ __('visits.requests') . ' / ' .  __('visits.familyVisits') . ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
           data-bs-target="#addVisit"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </button>
       </div>
     </div>
@@ -46,7 +46,7 @@
             @endif
             @if (count($visits) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no visits Registered') }}
+                {{ __('visits.addVisiy') }}
               </div>
             @else
               <h5 class="card-title">{{ __('Family Visits') }}</h5>
@@ -60,8 +60,8 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Request Number') }}</th>
-                    <th scope="col">{{ __('Applied At') }}</th>
+                    <th scope="col">{{ __('visits.reqNum') }}</th>
+                    <th scope="col">{{ __('visits.appliedAt') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -89,7 +89,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('Add a familt visit') }}</h1>
+        <h1 class="modal-title fs-5" id="addVisitLabel">{{ __('visits.addVisiy') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -98,7 +98,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="number" class="form-label required">{{ __('Request Number') }}</label>
+                <label for="number" class="form-label required">{{ __('visits.reqNum') }}</label>
                 <input type="number" class="form-control" id="number" name="number" value="{{ old('number') }}" autocomplete="off">
               </div>
             </div>
@@ -106,14 +106,14 @@
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="deduction" name="deduction" @if (old('deduction')) checked  @endif>
-              <label class="form-check-label" for="deduction">{{ __('I agree to be deducted 35 SAR for attestation fees') }}</label>
+              <label class="form-check-label" for="deduction">{{ __('visits.agree') }}</label>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>

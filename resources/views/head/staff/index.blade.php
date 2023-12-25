@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Staff') }}
+  {{ __('head/staff.staff') }}
 @endsection
 
 @section('style')
@@ -9,11 +9,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Staff') }}
+  {{ __('head/staff.staff') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Staff / All') }}
+  {{ __('head/staff.staff') . ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
@@ -22,21 +22,21 @@
       <div class="card-body">
         @if (count($staff) == 0)
           <div class="alert alert-danger my-5" role="alert">
-            {{ __('There are no staff under your supervision') }}
+            {{ __('head/staff.noStaff') }}
           </div>
         @else
           <h5 class="card-title">
-            {{ __('All Staff') }}
+            {{ __('head/staff.allStaff') }}
           </h5>
           <table class="table table-striped" id="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">{{ __('Name') }}</th>
-                <th scope="col">{{ __('Gender') }}</th>
-                <th scope="col">{{ __('Mobile') }}</th>
-                <th scope="col">{{ __('Extention') }}</th>
-                <th scope="col">{{ __('Actions') }}</th>
+                <th scope="col">{{ __('head/staff.name') }}</th>
+                <th scope="col">{{ __('head/staff.gender') }}</th>
+                <th scope="col">{{ __('head/staff.mobile') }}</th>
+                <th scope="col">{{ __('head/staff.ext') }}</th>
+                <th scope="col">{{ __('global.action') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -49,8 +49,8 @@
                   <td>{{ $member->mobile($member->id)?->contact }}</td>
                   <td>{{ $member->extension($member->id)?->contact }}</td>
                   <td>
-										<a href="">{{ __('Permission') }}</a>
-										<a href="">{{ __('Vacation') }}</a>
+										<a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
+										<a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
 									</td>
                 </tr>
                 @php $c++; @endphp

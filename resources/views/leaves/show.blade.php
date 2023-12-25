@@ -1,18 +1,18 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('leaves') }}
+  {{ __('leaves.leaves') }}
 @endsection
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('leaves') }}
+  {{ __('leaves.leaves') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('leaves / Show') }}
+  {{ __('leaves.leaves') . __('global.show') }}
 @endsection
 
 @section('content')
@@ -21,7 +21,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h2 class="card-title h2 pb-0">{{ __('From') }}</h2>
+            <h2 class="card-title h2 pb-0">{{ __('leaves.from') }}</h2>
           </div>
           @if (session('_lang') == '_ar')
             <i class="bi bi-arrow-left-square-fill text-primary fs-1"></i>
@@ -36,7 +36,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('To') }}</h5>
+            <h5 class="card-title pb-0">{{ __('leaves.to') }}</h5>
           </div>
           @if (session('_lang') == '_ar')
           <i class="bi bi-arrow-right-square-fill text-danger fs-1"></i>
@@ -51,7 +51,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('leave Type') }}</h5>
+            <h5 class="card-title pb-0">{{ __('leaves.type') }}</h5>
             <i class="bi bi-vinyl-fill text-info fs-1"></i>
           </div>
           <div class="h5">
@@ -62,7 +62,7 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body pb-1">
-            <h5 class="card-title pb-0">{{ __('Status') }}</h5>
+            <h5 class="card-title pb-0">{{ __('leaves.status') }}</h5>
           </div>
           @switch($leave->status_id)
             @case(1)
@@ -86,16 +86,16 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Details') }}
+                {{ __('leaves.details') }}
               </h5>
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Hours') }}</div>
+            <div>{{ __('leaves.hours') }}</div>
             <div>{{ $leave->hours }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('leaves.date') }}</div>
             <div>
               @if (!blank($leave->detail?->employee_time))
                 {{ date('m/d/Y', strtotime($leave->detail?->employee_time)) }}
@@ -103,14 +103,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('leaves.time') }}</div>
             <div>
               @if (!blank($leave->detail?->employee_time))
                 {{ date('H:i:s', strtotime($leave->detail?->employee_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $leave->detail?->employee_notes }}</div>
         </div>
       </div>
@@ -119,7 +119,7 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Department Head') }}
+                {{ __('leaves.deptHead') }}
               </h5>
               <div class="py-3">
                 @switch($leave->detail?->head_status)
@@ -136,11 +136,11 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Sataus') }}</div>
+            <div>{{ __('leaves.status') }}</div>
             <div>{{ $leave->detail?->headStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('leaves.date') }}</div>
             <div>
               @if (!blank($leave->detail?->head_time))
                 {{ date('m/d/Y', strtotime($leave->detail?->head_time)) }}
@@ -148,14 +148,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('leaves.time') }}</div>
             <div>
               @if (!blank($leave->detail?->head_time))
                 {{ date('H:i:s', strtotime($leave->detail?->head_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $leave->detail?->head_notes }}</div>
         </div>
       </div>
@@ -164,7 +164,7 @@
           <div class="card-body pb-0">
             <div class="d-flex justify-content-between">
               <h5 class="card-title">
-                {{ __('Human Resources') }}
+                {{ __('leaves.hr') }}
               </h5>
               <div class="py-3">
                 @switch($leave->detail?->hr_status)
@@ -181,11 +181,11 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Sataus') }}</div>
+            <div>{{ __('leaves.status') }}</div>
             <div>{{ $leave->detail?->hrStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Date') }}</div>
+            <div>{{ __('leaves.date') }}</div>
             <div>
               @if (!blank($leave->detail?->hr_time))
                 {{ date('m/d/Y', strtotime($leave->detail?->hr_time)) }}
@@ -193,14 +193,14 @@
             </div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('Time') }}</div>
+            <div>{{ __('leaves.time') }}</div>
             <div>
               @if (!blank($leave->detail?->hr_time))
                 {{ date('H:i:s', strtotime($leave->detail?->hr_time)) }}
               @endif
             </div>
           </div>
-          <div class="card-title ps-3 pt-3 pb-0">{{ __('Notes') }}</div>
+          <div class="card-title ps-3 pt-3 pb-0">{{ __('leaves.notes') }}</div>
           <div class="border pt-2 ps-3 mx-3 mb-3" style="min-height:50px">{{ $leave->detail?->hr_notes }}</div>
         </div>
       </div>

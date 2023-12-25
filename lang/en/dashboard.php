@@ -9,5 +9,6 @@
     'hours' => ' Hours',
     'availedPermissions' => 'Availed Permissions',
     'expiry' => 'Document Expiry',
-    '' => '',
+    'avVacations' => 'Availd Vacations',
+    'balance' => 'Vacaion Balance'
   ];

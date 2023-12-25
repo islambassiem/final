@@ -53,7 +53,7 @@
               <h5 class="card-title">{{ __('experience.expDetials') }}</h5>
 
               <div class="row">
-                <div class="col-md-4 label ">{{ __('Position') }}</div>
+                <div class="col-md-4 label ">{{ __('experience.position') }}</div>
                 <div class="col-md-8">{{ $experience->position ?? __('N/A') }}</div>
               </div>
 
@@ -121,7 +121,7 @@
         <div class="card-body">
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-              <h5 class="card-title">{{ __('Key Dates') }}</h5>
+              <h5 class="card-title">{{ __('experience.keyDates') }}</h5>
 
 
               <div class="row">

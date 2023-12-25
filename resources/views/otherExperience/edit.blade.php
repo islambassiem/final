@@ -88,7 +88,7 @@
                 <div class="col-md-3">
                   <label for="country_id" class="form-label">{{ __('otherExperience.country') }}</label>
                   <select class="form-select" id="country_id" name="country_id" style="width:100%">
-                    <option selected disabled>{{ __('Select') }}</option>
+                    <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($countries as $country)
                       <option value="{{ $country->id }}" @selected( $country->id == old('country->id', $experience->country_id))>{{  $country->{'country' . session('_lang')} }}</option>
                     @endforeach
@@ -219,13 +219,13 @@
     $('.dropify').dropify({
         messages: {
           'default': "",
-          'replace': "{{ __('Drag and drop or click to replace') }}",
-          'remove':  "{{ __('Delete') }}",
-          'error': "{{ __('Ooops, something wrong happended.') }}"
+          'replace': "{{ __('global.dnd') }}",
+          'remove':  "{{ __('global.del') }}",
+          'error': "{{ __('global.error') }}"
         }
       });
 
-      let max = "{{ __('Max characters') }}";
+      let max = "{{ __('global.max') }}";
       let organization = document.getElementById('organization_name');
       let organizationSmall = document.getElementById('organizationSmall');
       let profession = document.getElementById('profession');

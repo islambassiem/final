@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('Letters') }}
+  {{ __('letters.letters') }}
 @endsection
 
 @section('style')
@@ -10,11 +10,11 @@
 @endsection
 
 @section('h1')
-  {{ __('Letters') }}
+  {{ __('letters.letters') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('Letters / All') }}
+  {{ __('letters.requests') .   ' / '  .  __('letters.letters') }}
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
           data-bs-target="#addLetter"
           class="btn btn-success">
           <i class="bi bi-plus-square-fill me-1"></i>
-          {{ __('Add') }}
+          {{ __('global.add') }}
         </button>
       </div>
     </div>
@@ -46,10 +46,10 @@
             @endif
             @if (count($letters) == 0)
               <div class="alert alert-danger my-5" role="alert">
-                {{ __('There are no Letters requested before') }}
+                {{ __('letters.noLetters') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('Letters') }}</h5>
+              <h5 class="card-title">{{  __('letters.letters') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}
@@ -60,13 +60,13 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ __('Addressee') }}</th>
-                    <th scope="col">{{ __('Enlgish') }}</th>
-                    <th scope="col">{{ __('Salary') }}</th>
-                    <th scope="col">{{ __('Loan') }}</th>
-                    <th scope="col">{{ __('Attested') }}</th>
-                    <th scope="col">{{ __('Deduction') }}</th>
-                    <th scope="col">{{ __('Applied At') }}</th>
+                    <th scope="col">{{ __('letters.addressee') }}</th>
+                    <th scope="col">{{ __('letters.English') }}</th>
+                    <th scope="col">{{ __('letters.Salary') }}</th>
+                    <th scope="col">{{ __('letters.Loan') }}</th>
+                    <th scope="col">{{ __('letters.Attested') }}</th>
+                    <th scope="col">{{ __('letters.Deduction') }}</th>
+                    <th scope="col">{{ __('letters.appliedAt') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,7 +101,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addLetterLabel">{{ __('Add a familt visit') }}</h1>
+        <h1 class="modal-title fs-5" id="addLetterLabel">{{ __('letters.addLetter') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -110,7 +110,7 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="addressee" class="form-label required">{{ __('Addressee') }}</label>
+                <label for="addressee" class="form-label required">{{ __('letters.addressee') }}</label>
                 <input type="text" class="form-control" id="addressee" name="addressee" value="{{ old('addressee') }}" autocomplete="off">
               </div>
             </div>
@@ -118,38 +118,38 @@
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="english" name="english" @if (old('english')) checked  @endif>
-              <label class="form-check-label" for="english">{{ __('The letter is printed in English') }}</label>
+              <label class="form-check-label" for="english">{{ __('letters.english') }}</label>
             </div>
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="salary" name="salary" @if (old('salary')) checked  @endif>
-              <label class="form-check-label" for="salary">{{ __('The letter should include the salary') }}</label>
+              <label class="form-check-label" for="salary">{{ __('letters.salary') }}</label>
             </div>
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="loan" name="loan" @if (old('loan')) checked  @endif>
-              <label class="form-check-label" for="loan">{{ __('The letter is for requesting a loan from the bank') }}</label>
+              <label class="form-check-label" for="loan">{{ __('letters.loan') }}</label>
             </div>
           </div>
           <div class="col-12">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="attested" name="attested" @if (old('attested')) checked  @endif>
-              <label class="form-check-label" for="attested">{{ __('Chamber of Commberce attestation') }}</label>
+              <label class="form-check-label" for="attested">{{ __('letters.attested') }}</label>
             </div>
           </div>
           <div class="col-12 d-none" id="deductionAcceptance">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="deduction" name="deduction" @if (old('deduction')) checked  @endif>
-              <label class="form-check-label" for="deduction">{{ __('I agree to be deducted 35 SAR for attestation fees') }}</label>
+              <label class="form-check-label" for="deduction">{{ __('letters.attested') }}</label>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-        <button type="submit" class="btn btn-primary" form="addForm">{{ __('Add') }}</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
       </div>
     </div>
   </div>

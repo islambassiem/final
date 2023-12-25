@@ -19,5 +19,8 @@
     'del' => 'delete',
     'attachment' => 'Attachments',
     'noAttach' => 'No Attachments',
-    'create' => 'Create'
+    'create' => 'Create',
+    'dnd' => 'Drag and drop or click to replace',
+    'error' => 'Ooops, something wrong happended.',
+    'max' => 'Max characters',
   ];
