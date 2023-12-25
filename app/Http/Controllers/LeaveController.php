@@ -58,7 +58,7 @@ class LeaveController extends Controller
       return redirect()->back()->with('error', 'The permission cannot be more than 4 hours');
     }
     Leave::create($validated);
-    $latest_leave = Leave::latest('id')->first();
+    $latest_leave = Leave::with('user')->latest('id')->first();
     $head = User::find(auth()->user()->head);
     $this->leaveDetial($request, $latest_leave->id);
     $this->attach($request, $latest_leave);

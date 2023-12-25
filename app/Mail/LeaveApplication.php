@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use App\Models\Leave;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -9,8 +10,8 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LeaveApplication extends Mailable
 {
@@ -21,7 +22,7 @@ class LeaveApplication extends Mailable
    */
   public function __construct(public Leave $leave)
   {
-    //
+
   }
 
   /**
@@ -29,10 +30,13 @@ class LeaveApplication extends Mailable
    */
   public function envelope(): Envelope
   {
+    $user = $this->leave->user->email;
+    $userName = $this->leave->user->name();
+    $head = User::find($this->leave->user->head)->email;
     return new Envelope(
-      from: new Address('islambassiem@inaya.edu.sa', 'Employee Name'),
-      to: 'islambassiem@gmail.com',
-      cc: 'islambassiem@inaya.edu.sa',
+      from: new Address($user, $userName),
+      to: $head,
+      cc: $user,
       subject: 'Leave Application',
     );
   }

@@ -72,7 +72,7 @@ class User extends Authenticatable
 
   public function name()
   {
-    return ucwords($this->first_name_en) . ' ' . ucwords($this->last_name_en);
+    return ucwords($this->first_name_en) . ' ' . ucwords($this->family_name_en);
   }
 
   public function getFullEnglishNameAttribute(): Attribute

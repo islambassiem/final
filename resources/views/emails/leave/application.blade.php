@@ -15,7 +15,7 @@
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Date: {{ $leave->date }} </p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">From: {{ $leave->from }} </p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">To: {{ $leave->to }} </p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Notes: <br>{{ $leave->detail->employee_notes }} </p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Notes: <br>{{ $leave->detail?->employee_notes }} </p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
                   {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
                   <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;margin-bottom:0;text-align:center">
