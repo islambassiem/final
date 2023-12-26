@@ -5,7 +5,11 @@
 @endsection
 
 @section('style')
-  <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  @if (session('dir') == 'rtl')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables-rtl.min.css') }}">
+  @else
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  @endif
   <link rel="stylesheet" href="{{ asset('assets/css/required.css') }}">
 @endsection
 

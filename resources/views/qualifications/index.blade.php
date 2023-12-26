@@ -4,8 +4,12 @@
   {{ __('qualifications.qualificaitons') }}
 @endsection
 
-@section('style')
-  <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  @section('style')
+  @if (session('dir') == 'rtl')
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables-rtl.min.css') }}">
+  @else
+    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+  @endif
 @endsection
 
 @section('h1')

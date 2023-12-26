@@ -23,4 +23,5 @@
     'dnd' => 'Drag and drop or click to replace',
     'error' => 'Ooops, something wrong happened.',
     'max' => 'Max characters',
+    'home' => 'Home',
   ];
