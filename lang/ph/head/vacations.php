@@ -1,0 +1,30 @@
+<?php
+
+return [
+  'vacations' => 'Bakasyon',
+  'date' => 'Petsa',
+  'from' => 'Petsa ng Pagsisimula',
+  'to' => 'Petsa ng Pagtatapos',
+  'type' => 'Uri',
+  'Type' => 'Uri ng Bakasyon',
+  'notes' => 'Mga Tala',
+  'Status' => 'Katayuan ng Bakasyon',
+  'status' => 'Katayuan',
+  'noLeaves' => 'Wala pang nagagamit na bakasyon',
+  'addLeave' => 'Magdagdag ng bagong kahilingan sa bakasyon',
+  'details' => 'Mga Detalye',
+  'days' => 'Mga araw',
+  'time' => 'Oras',
+  'deptHead' => 'Punong Kagawaran',
+  'hr' => 'Human Resources',
+  'selectAll' => 'Piliin lahat',
+  'novacations' => 'Walang paparating na mga kahilingan sa bakasyon',
+  'name' => 'Pangalan',
+  'filter' => 'Salain',
+  'clear' => 'Maaliwalas',
+  'approve' => 'Aprubahan',
+  'decline' => 'Tanggihan',
+  'notes' => 'Mga Tala',
+  'takeAction' => 'Gumawa ng aksyon',
+  'allStaff' => 'Lahat ng staff'
+];

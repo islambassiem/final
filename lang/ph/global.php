@@ -1,0 +1,27 @@
+<?php
+
+  return [
+    'save' => 'I-save',
+    'add' => 'Idagdag',
+    'edit' => 'I-edit',
+    'close' => 'Isara',
+    'select' => 'Pumili',
+    'delConf' => 'Tanggalin ang Kumpirmasyon!',
+    'deleteConfirmation' => 'Sigurado ka bang gusto mong tanggalin ang record na iyon?',
+    'cancel' => 'Kanselahin',
+    'delete' => 'Oo, tanggalin',
+    'all' => 'Lahat',
+    'action' => 'Aksyon',
+    'next' => 'Susunod',
+    'back' => 'Bumalik',
+    'submit' => 'Ipasa',
+    'show' => 'Ipakita',
+    'del' => 'tanggalin',
+    'attachment' => 'Mga kalakip',
+    'noAttach' => 'Walang Attachment',
+    'create' => 'Lumikha',
+    'dnd' => 'I-drag at i-drop o i-click upang palitan',
+    'error' => 'Ooops, may nangyaring mali.',
+    'max' => 'Max na mga character',
+    'home' => 'Bahay',
+  ];

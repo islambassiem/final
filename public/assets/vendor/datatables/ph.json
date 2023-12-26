@@ -1,14 +1,14 @@
 {
     "loadingRecords": "جارٍ التحميل...",
-    "lengthMenu": "أظهر _MENU_ مدخلات",
+    "lengthMenu": "magpakita  _MENU_ Input",
     "zeroRecords": "لم يعثر على أية سجلات",
-    "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+    "info": "palabas _START_ sa _END_  Mula sa _TOTAL_ pasukan",
     "search": " Maghanap :   ",
     "paginate": {
-        "first": "الأول",
-        "previous": "السابق",
-        "next": "التالي",
-        "last": "الأخير"
+        "first": "ang una",
+        "previous": "ang nakaraan",
+        "next": "ang susunod",
+        "last": "ang huli"
     },
     "aria": {
         "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
@@ -243,5 +243,5 @@
     },
     "decimal": ",",
     "infoFiltered": "(مرشحة من مجموع _MAX_ مُدخل)",
-    "searchPlaceholder": "مثال بحث"
+    "searchPlaceholder": "Halimbawa ng paghahanap "
 }

@@ -161,7 +161,7 @@
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{ route('lang', 'ph') }}">
               <i class="flag flag-philippines"></i>
-              <span>Filipino</span>
+              <span>Tagalog</span>
             </a>
           </li>
         </ul><!-- End Profile Dropdown Items -->
