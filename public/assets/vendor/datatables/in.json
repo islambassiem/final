@@ -1,14 +1,14 @@
 {
     "loadingRecords": "جارٍ التحميل...",
-    "lengthMenu": "أظهر _MENU_ مدخلات",
+    "lengthMenu": "धन्यवाद _MENU_ धन्यवाद",
     "zeroRecords": "لم يعثر على أية سجلات",
-    "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+    "info": "दिखाओ _START_ को _END_  से बाहर _TOTAL_ प्रवेश द्वार",
     "search": " खोज :   ",
     "paginate": {
-        "first": "الأول",
-        "previous": "السابق",
-        "next": "التالي",
-        "last": "الأخير"
+        "first": "पहला",
+        "previous": "पूर्व",
+        "next": "अगला",
+        "last": "अंतिम"
     },
     "aria": {
         "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
@@ -243,5 +243,5 @@
     },
     "decimal": ",",
     "infoFiltered": "(مرشحة من مجموع _MAX_ مُدخل)",
-    "searchPlaceholder": "مثال بحث"
+    "searchPlaceholder": "उदाहरण खोजें"
 }
