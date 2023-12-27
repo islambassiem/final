@@ -55,6 +55,7 @@
                   <td>
 										<a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
 										<a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
+										<a href=""class="btn btn-secondary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a>
 									</td>
                 </tr>
                 @php $c++; @endphp

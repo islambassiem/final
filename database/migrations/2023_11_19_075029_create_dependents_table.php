@@ -19,6 +19,7 @@ return new class extends Migration
       $table->date('date_of_birth')->nullable();
       $table->unsignedTinyInteger('relationship_id');
       $table->boolean('ticket')->default(0);
+      $table->boolean('insurance')->default(0);
       $table->softDeletes();
       $table->timestamps();
 
