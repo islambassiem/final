@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Head;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Vacation;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Tables\VacationType;
-use App\Models\Tables\WorkflowStatus;
 use App\Models\VacationDetail;
+use App\Models\Tables\VacationType;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Tables\WorkflowStatus;
 use App\Notifications\VacationAction;
-use Carbon\Carbon;
+use App\Mail\VacationAction as MailVacationAction;
 
 class HeadVacationController extends Controller
 {
@@ -69,6 +71,7 @@ class HeadVacationController extends Controller
         'head_time' => Carbon::now()
       ]);
       $user->notify(new VacationAction($vacation));
+      //Mail::send(new MailVacationAction($vacation));
       return redirect()->route('lLeave.index')->with('success', __('You have taken an action successfully'));
     }
     return redirect()->route('lLeave.index')->with('error', __('You have taken an action already'));

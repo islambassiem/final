@@ -12,7 +12,9 @@ use App\Traits\VacationTrait;
 use App\Models\VacationDetail;
 use App\Models\Tables\VacationType;
 use App\Notifications\ApplyVacation;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\VacationRequest;
+use App\Mail\VacationApplication;
 
 class VacationController extends Controller
 {
@@ -171,6 +173,7 @@ class VacationController extends Controller
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
         $head->notify(new ApplyVacation($latest));
+        // Mail::send(new VacationApplication($latest));
 
         //process the unpaid portion
         $this->createVacation($unpaidStartDate, $unpaidEndDate, '4');
@@ -178,12 +181,14 @@ class VacationController extends Controller
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
         $head->notify(new ApplyVacation($latest));
+        // Mail::send(new VacationApplication($latest));
       }elseif($days <= $balance){
         Vacation::create($validated);
         $latest = Vacation::latest('id')->first();
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
         $head->notify(new ApplyVacation($latest));
+        // Mail::send(new VacationApplication($latest));
       }
     }
   }
@@ -198,6 +203,7 @@ class VacationController extends Controller
       $this->detail($validated, $latest->id);
       $this->attach($request, $latest);
       $head->notify(new ApplyVacation($latest));
+      // Mail::send(new VacationApplication($latest));
     }
   }
 

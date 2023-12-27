@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Head;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Leave;
-use Illuminate\Http\Request;
 use App\Models\LeaveDetail;
+use Illuminate\Http\Request;
 use App\Models\Tables\LeaveType;
+use App\Notifications\LeaveAction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Tables\WorkflowStatus;
-use App\Notifications\LeaveAction;
+use App\Mail\LeaveAction as MailLeaveAction;
 
 class HeadLeaveController extends Controller
 {
@@ -68,6 +70,7 @@ class HeadLeaveController extends Controller
         'head_time' => Carbon::now()
       ]);
       $user->notify(new LeaveAction($leave));
+      Mail::send(new MailLeaveAction($leave));
       return redirect()->route('sLeave.index')->with('success', __('You have taken an action successfully'));
     }
     return redirect()->route('sLeave.index')->with('error', __('You have taken an action already'));
