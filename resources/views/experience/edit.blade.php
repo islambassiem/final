@@ -324,7 +324,7 @@
 
 											</div>
 											<div id="text-input" contenteditable="true"></div>
-                      <input type="hidden" class="form-control" id="tasks" name="tasks" value='{{ old('tasks', $e->tasks) }} '>
+                      <input type="hidden" class="form-control" id="tasks" name="tasks" value='{{ old('tasks', $e->tasksEdit()) }} '>
                     </div>
                   </div>
                 </div>

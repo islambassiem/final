@@ -179,7 +179,7 @@
 
                     </div>
                     <div id="text-input" contenteditable="true"></div>
-                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', $experience->tasks()) }}">
+                    <input type="hidden" id="functional_tasks" name="functional_tasks" value="{{ old('functional_tasks', $experience->tasksEdit()) }}">
                   </div>
                 </div>
               </div>

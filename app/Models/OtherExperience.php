@@ -28,7 +28,16 @@ class OtherExperience extends Model
     return $this->morphOne(Attachment::class, 'attachmentable');
   }
 
-  public function tasks(){
+  public function tasksShow(){
+    $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->id.'_otherExperience.txt');
+    if(file_exists($file))
+    {
+      echo file_get_contents($file);
+    }
+    return '';
+  }
+
+  public function tasksEdit(){
     $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->id.'_otherExperience.txt');
     if(file_exists($file))
     {

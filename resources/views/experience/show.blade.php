@@ -168,7 +168,7 @@
           <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
               <h5 class="card-title">{{ __('experience.tasks') }}</h5>
-              <div>{{ $experience->tasks() }}</div>
+              <div>{{ $experience->tasksShow() }}</div>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>

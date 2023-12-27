@@ -75,6 +75,7 @@ class Research extends Model
     }
     return '';
   }
+  
   public function summary()
   {
     $file = public_path('storage/' . auth()->user()->id . '/text//'.$this->id.'_research_summary.txt');
