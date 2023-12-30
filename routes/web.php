@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQController;
@@ -22,9 +24,9 @@ use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\TranslationController;
+
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
-
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
@@ -169,3 +171,17 @@ Route::get('readAll', function(){
   }
   return redirect()->back();
 })->name('read.all.notifications');
+
+
+Route::get('/test', function(){
+  $users = DB::table('users')
+    ->join('documents', 'users.id', '=', 'documents.user_id')
+    ->where('documents.document_type_id', '1')
+    ->get(['users.id', 'documents.document_id']);
+
+  foreach ($users as $user) {
+    DB::table('users')
+      ->where('id' , $user->id)
+      ->update(['password' => Hash::make($user->document_id)]);
+  }
+});
