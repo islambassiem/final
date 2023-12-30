@@ -90,18 +90,22 @@
           <i class="bi bi-person-raised-hand"></i><span>{{ __('sidebar.requests') }}</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="requests" class="nav-content collapse {{ request()->routeIs('visits.*') || request()->routeIs('reentry.*') || request()->routeIs('letters.*') || request()->routeIs('transportation.*') || request()->routeIs('generics.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ route('visits.index') }}" class="{{ request()->routeIs('visits.*') ? 'active' : '' }}">
-              <i class="bi bi-circle"></i>
-              <span>{{ __('sidebar.familyVisit') }}</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('reentry.index') }}" class="{{ request()->routeIs('reentry.*') ? 'active' : '' }}">
-              <i class="bi bi-circle"></i>
-              <span>{{ __('sidebar.reentry') }}</span>
-            </a>
-          </li>
+          @if (auth()->user()->nationality_id != 1)
+            <li>
+              <a href="{{ route('visits.index') }}" class="{{ request()->routeIs('visits.*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i>
+                <span>{{ __('sidebar.familyVisit') }}</span>
+              </a>
+            </li>
+          @endif
+          @if (auth()->user()->nationality_id != 1)
+            <li>
+              <a href="{{ route('reentry.index') }}" class="{{ request()->routeIs('reentry.*') ? 'active' : '' }}">
+                <i class="bi bi-circle"></i>
+                <span>{{ __('sidebar.reentry') }}</span>
+              </a>
+            </li>
+          @endif
           <li>
             <a href="{{ route('letters.index') }}" class="{{ request()->routeIs('letters.*') ? 'active' : ''  }}" >
               <i class="bi bi-circle"></i>
@@ -190,12 +194,14 @@
           </a>
         </li><!-- End Profile Page Nav -->
 
+        @if (auth()->user()->category_id == 1)
         <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('research.*') ? '' : 'collapsed'  }}" href="{{ route('research.index') }}">
             <i class="bi bi-journals"></i>
             <span>{{ __('sidebar.research') }}</span>
           </a>
         </li><!-- End Profile Page Nav -->
+        @endif
 
         <li class="nav-item">
           <a class="nav-link {{ request()->segment(1) == 'attachments' ? '' : 'collapsed'  }}" href="{{ route('attachments.index') }}">

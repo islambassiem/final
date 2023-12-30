@@ -74,9 +74,11 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">{{ __('profile.edit') }}</button>
               </li>
 
-              <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#address">{{ __('profile.address') }}</button>
-              </li>
+              @if (auth()->user()->nationality_id != 1)
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#address">{{ __('profile.address') }}</button>
+                </li>
+              @endif
 
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#national-address">{{ __('profile.national') }}</button>

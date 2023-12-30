@@ -171,17 +171,3 @@ Route::get('readAll', function(){
   }
   return redirect()->back();
 })->name('read.all.notifications');
-
-
-Route::get('/test', function(){
-  $users = DB::table('users')
-    ->join('documents', 'users.id', '=', 'documents.user_id')
-    ->where('documents.document_type_id', '1')
-    ->get(['users.id', 'documents.document_id']);
-
-  foreach ($users as $user) {
-    DB::table('users')
-      ->where('id' , $user->id)
-      ->update(['password' => Hash::make($user->document_id)]);
-  }
-});
