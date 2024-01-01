@@ -24,16 +24,25 @@ class LoginController extends Controller
   {
     $validated = $request->validate([
       'empid'    => ['required', Rule::exists('users')->where(fn($query) => $query->where('active', 1))],
-      'password' => 'required'
+      'password' => 'required',
+      'hr'       => 'nullable'
     ],[
       'empid.rule' => 'You are not allowed to log in to the system'
     ]);
-
     $remember = $request->remember == "on" ? true : false;
-    if (Auth::attempt($validated, $remember)) {
-      $request->session()->regenerate();
-      session()->put('_lang', '_en');
-      return redirect()->route('dashboard');
+    if($request->has('hr') && $request['hr'] == 'on'){
+      unset($validated['hr']);
+      if(Auth::attempt($validated, $remember)){
+        $request->session()->regenerate();
+        session()->put('_lang', '_en');
+        return redirect()->route('admin.dashboard');
+      }
+    }else{
+      if (Auth::attempt($validated, $remember)) {
+        $request->session()->regenerate();
+        session()->put('_lang', '_en');
+        return redirect()->route('dashboard');
+      }
     }
     return redirect()->route('login')->with('error', 'Login information is not correct');
   }

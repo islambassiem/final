@@ -44,15 +44,12 @@ use App\Http\Controllers\OtherExperienceController;
 
 Route::get('/', function () {
   return view('auth.login');
-});
-
-Route::get('test', function () {
-  return view('auth.login');
-});
+})->middleware('guest');
 
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/head.php';
+require_once __DIR__ . '/admin.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

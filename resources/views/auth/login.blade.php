@@ -60,6 +60,19 @@
               <a href="{{ route('forgot-password') }}">Forgot Password?</a>
             </div>
           </div>
+          <div class="checkbox mb-3 d-flex felx-column justify-content-between">
+            <div>
+              <label>
+                Sign in as
+              </label>
+            </div>
+            <div class="d-flex justify-content-end w-50">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="hr">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Sign as HR</label>
+              </div>
+            </div>
+          </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
           <div class="mb-3">
             <a href="{{ route('google') }}" class="mt-5">

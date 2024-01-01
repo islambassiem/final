@@ -1,8 +1,10 @@
-@extends('layout.master')
+@extends('admin.layout.master')
+
 
 @section('title')
-  {{ __('head/leaves.leaves') }}
+  {{ __('leaves.leaves') }}
 @endsection
+
 
 @section('style')
   @if (session('dir') == 'rtl')
@@ -13,21 +15,23 @@
 @endsection
 
 @section('h1')
-  {{ __('head/leaves.leaves') }}
+{{ __('leaves.leaves') }}
 @endsection
 
+
 @section('breadcrumb')
-  {{ __('head/leaves.leaves') . ' / ' . __('global.all')}}
+{{ __('leaves.leaves') .  ' / ' . __('global.all')}}
 @endsection
 
 @section('content')
+
   <section class="section">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
           {{ __('head/leaves.filter') }}
         </h5>
-        <form action="{{ route('sLeave.index') }}" method="get">
+        <form action="{{ route('admin.leaves') }}" method="get">
           @csrf
           <div class="row">
             <div class="col-md-2">
@@ -65,23 +69,13 @@
               </div>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
-              <a href="{{ route('sLeave.index') }} " class="btn btn-danger mx-2">{{ __('head/leaves.clear') }}</a>
+              <a href="{{ route('admin.leaves') }} " class="btn btn-danger mx-2">{{ __('head/leaves.clear') }}</a>
               <button type="submit" class="btn btn-primary">{{ __('head/leaves.filter') }}</button>
             </div>
           </div>
         </form>
       </div>
     </div>
-    @if (session('success'))
-      <div class="alert alert-success">
-        {{ session('success') }}
-      </div>
-    @endif
-    @if (session('error'))
-      <div class="alert alert-danger">
-        {{ session('error') }}
-      </div>
-    @endif
     <div class="card">
       <div class="card-body">
         @if (count($permissions) == 0)
@@ -116,7 +110,7 @@
                   <td>{{ $permission->to }}</td>
                   <td>{{ $permission->type->{'leave_type' . session('_lang')} }}</td>
                   <td>
-                    @switch($permission->detail?->head_status)
+                    @switch($permission->status_id)
                       @case(1)
                         <i class="bi bi-check-square-fill text-success fs-5"></i>
                         @break
@@ -126,11 +120,11 @@
                       @default
                       <i class="bi bi-hourglass-top text-warning fs-5"></i>
                     @endswitch
-                    <span class="mx-2">{{ $permission->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
+                    <span class="mx-2">{{ $permission->status->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
                     <a
-                      href="{{ route('sLeave.show', $permission->id) }}"
+                      href="{{ route('admin.leave', $permission->id) }}"
                       class="btn btn-secondary btn-sm py-0">
                       <i class="bi bi-eye-fill"></i>
                     </a>
@@ -153,7 +147,7 @@
     </div>
   </section>
 
-      <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -175,7 +169,7 @@
           <div class="row">
             <div class="col">
               <label for="notes">{{ __('head/leaves.notes') }}</label>
-              <textarea class="form-control" name="head_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
+              <textarea class="form-control" name="hr_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
             </div>
           </div>
         </form>
@@ -187,6 +181,8 @@
     </div>
   </div>
 </div>
+
+
 @endsection
 
 @section('script')
@@ -222,7 +218,7 @@
       let button = $(event.relatedTarget);
       let id = button.data('id');
       let form = document.getElementById('actionForm');
-      form.action = "sLeave/update/" + id;
+      form.action = "leaves/action/" + id;
     });
     });
 </script>

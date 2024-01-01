@@ -20,7 +20,7 @@
 @endsection
 
 @section('breadcrumb')
-  {{ __('leaves.leaves') . __('global.all') }}
+  {{ __('leaves.leaves') .  ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
