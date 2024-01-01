@@ -18,6 +18,13 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'vacations' ? '' : 'collapsed'  }}" href="{{ route('admin.vacations') }}">
+            <i class="bi bi-person-walking"></i>
+            <span>{{ __('sidebar.vacations') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">
