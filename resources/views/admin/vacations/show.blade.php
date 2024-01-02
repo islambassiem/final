@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-6">
         <div class="d-flex justify-content-end">
-          <a href="{{ route('lLeave.index') }}" class="btn btn-danger">{{ __('global.back') }}</a>
+          <a href="{{ route('admin.vacations') }}" class="btn btn-danger">{{ __('global.back') }}</a>
           <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
             {{ __('head/vacations.takeAction') }}
           </button>
@@ -262,12 +262,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('lLeave.update', $vacation->id) }}" method="post" id="actionForm">
+        <form action="{{ route('admin.vacations.action', $vacation->id) }}" method="post" id="actionForm">
           @csrf
           <div class="mb-3">
             <label for="action">{{ __('global.action') }}</label>
             <select name="action" id="" class="form-select">
-              <option value=""></option>
+              <option value="0" selected disabled>{{ __('global.select') }}</option>
               <option value="1">{{ __('head/vacations.approve') }}</option>
               <option value="2">{{ __('head/vacations.decline') }}</option>
             </select>
@@ -294,12 +294,7 @@
 <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
   <script>
     $(document).ready(function (){
-      $('#delteConfirmation').on('show.bs.modal', function (event){
-        let button = $(event.relatedTarget);
-        let id = button.data('id');
-        let form = document.getElementById('deleteForm');
-        form.action = "../vacations/" + id;
-      });
+
       $('.dropify').dropify({
         messages: {
           'default': "",

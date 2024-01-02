@@ -158,7 +158,7 @@
           <div class="mb-3">
             <label for="action">{{ __('global.action') }}</label>
             <select name="action" id="" class="form-select">
-              <option value=""></option>
+              <option value="0" selected disabled>{{ __('global.select') }}</option>
               <option value="1">{{ __('head/vacations.approve') }}</option>
               <option value="2">{{ __('head/vacations.decline') }}</option>
             </select>

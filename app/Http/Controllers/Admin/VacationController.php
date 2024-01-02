@@ -59,16 +59,20 @@ class VacationController extends Controller
     $vacation = Vacation::find($id);
     $user = User::find($vacation->user_id);
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
-    if($detail->head_time == null){
-      $detail->update([
-        'head_status' => $request->action,
-        'head_notes' => $request->head_notes,
-        'head_time' => Carbon::now()
-      ]);
-      $user->notify(new VacationAction($vacation));
-      Mail::send(new MailVacationAction($vacation));
-      return redirect()->route('lLeave.index')->with('success', __('You have taken an action successfully'));
-    }
-    return redirect()->route('lLeave.index')->with('error', __('You have taken an action already'));
+
+    $vacation->update([
+      'status_id' => $request->action ?? $vacation->status_id
+    ]);
+
+    $detail->update([
+      'hr_status' => $request->action ?? $vacation->status_id,
+      'hr_notes' => $request->hr_notes,
+      'hr_time' => Carbon::now(),
+      'action_by' => auth()->user()->id
+    ]);
+
+    $user->notify(new VacationAction($vacation));
+    //Mail::send(new MailVacationAction($vacation));
+    return redirect()->route('admin.vacations')->with('success', __('You have taken an action successfully'));
   }
 }

@@ -66,7 +66,7 @@ class HeadVacationController extends Controller
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
     if($detail->head_time == null){
       $detail->update([
-        'head_status' => $request->action,
+        'head_status' => $request->action ?? 0,
         'head_notes' => $request->head_notes,
         'head_time' => Carbon::now()
       ]);
