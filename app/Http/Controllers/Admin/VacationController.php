@@ -72,7 +72,7 @@ class VacationController extends Controller
     ]);
 
     $user->notify(new VacationAction($vacation));
-    //Mail::send(new MailVacationAction($vacation));
+    Mail::send(new MailVacationAction($vacation));
     return redirect()->route('admin.vacations')->with('success', __('You have taken an action successfully'));
   }
 }

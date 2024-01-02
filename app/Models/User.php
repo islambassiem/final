@@ -167,9 +167,9 @@ class User extends Authenticatable
     return Contact::where('user_id', $user)->where('type', '1')->first();
   }
 
-  public function extension($user)
+  public function extension(string $user_id)
   {
-    return Contact::where('user_id', $user)->where('type', '3')->first();
+    return Contact::where('user_id', $user_id)->where('type', '3')->first()?->contact;
   }
 
   public function vacations(){
@@ -178,5 +178,13 @@ class User extends Authenticatable
 
   public function leaves(){
     return $this->hasMany(Leave::class);
+  }
+
+  public function latestSalary(string $user_id){
+    return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->package();
+  }
+
+  public function iqama(string $user_id){
+    return Document::where('user_id', $user_id)->where('document_type_id', '1')->first()->document_id;
   }
 }

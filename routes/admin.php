@@ -3,10 +3,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LeaveController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
-
-
 
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
@@ -20,4 +19,6 @@ use App\Http\Controllers\Admin\DashboardController;
     Route::get('/vacations', [VacationController::class, 'index'])->name('admin.vacations');
     Route::get('/vacations/{id}', [VacationController::class, 'show'])->name('admin.vacation');
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');
+
+    Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
   });

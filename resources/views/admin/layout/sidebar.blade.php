@@ -25,6 +25,13 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'staff' ? '' : 'collapsed'  }}" href="{{ route('admin.staff') }}">
+            <i class="bi bi-people-fill"></i>
+            <span>{{ __('sidebar.staff') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">

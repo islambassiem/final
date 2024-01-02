@@ -83,7 +83,7 @@
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.minor') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->minor->{'specialty' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->minor?->{'specialty' . session('_lang')} }}</div>
               </div>
 
 
@@ -138,12 +138,12 @@
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.gpaType') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->GPAType->{'gpa_type' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->GPAType?->{'gpa_type' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.rating') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->ratings->{'rating' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->ratings?->{'rating' . session('_lang')} }}</div>
               </div>
 
             </div>
