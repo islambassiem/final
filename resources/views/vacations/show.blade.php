@@ -55,6 +55,7 @@
         @else
         <a
           href="{{ route('attachment.vacation', $vacation->id) }}"
+          target="_blank"
           class="btn btn-info mx-2">
           <i class="bi bi-paperclip"></i>
           {{ __('global.attachment') }}

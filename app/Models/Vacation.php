@@ -58,4 +58,15 @@ class Vacation extends Model
     $end = Carbon::parse($this->end_date);
     return $end->diffInDays($start) + 1;
   }
+
+  public function hasAttachment()
+  {
+    $link = Attachment::where('attachmentable_type', 'App\Models\Vacation')
+      ->where('attachmentable_id', $this->id)
+      ->first('link');
+    if($link){
+      return true;
+    }
+    return false;
+  }
 }
