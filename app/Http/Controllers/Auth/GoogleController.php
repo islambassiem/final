@@ -27,6 +27,7 @@ class GoogleController extends Controller
       return redirect()->route('login')->with('error', 'Please use your official email not your personal email');
     }
     Auth::login($finduser);
+    session()->put('_lang', '_en');
     return redirect()->route('dashboard');
   }
 }
