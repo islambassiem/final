@@ -40,7 +40,7 @@
               <th scope="col">{{ __('admin/staff.salary') }}</th>
               <th scope="col">{{ __('head/staff.ext') }}</th>
               <th scope="col">{{ __('admin/staff.email') }}</th>
-              {{-- <th scope="col">{{ __('head/staff.ext') }}</th> --}}
+              <th scope="col">{{ __('global.action') }}</th>
               {{-- <th scope="col">{{ __('global.action') }}</th> --}}
             </tr>
           </thead>
@@ -55,8 +55,8 @@
                 <td>{{ $member->latestSalary($member->id) }}</td>
                 <td>{{ $member->extension($member->id) }}</td>
                 <td>{{ $member->email }}</td>
-                {{-- <td>{{ $member->extension($member->id)?->contact }}</td>
-                <td>
+                <td><a href="{{ route('admin.employee', $member->id) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
+                {{-- <td>
                   <a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
                   <a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
                   <a href=""class="btn btn-secondary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a>

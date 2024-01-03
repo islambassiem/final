@@ -15,4 +15,11 @@ class StaffController extends Controller
       'staff' => $staff
     ]);
   }
+
+  public function show(User $user)
+  {
+    return view('admin.staff.show', [
+      'employee' => $user
+    ]);
+  }
 }

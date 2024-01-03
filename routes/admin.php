@@ -21,4 +21,5 @@ use App\Http\Controllers\Admin\DashboardController;
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');
 
     Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
+    Route::get('/employee/{id}', [StaffController::class, 'show'])->name('admin.employee');
   });

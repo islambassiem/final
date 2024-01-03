@@ -93,7 +93,8 @@
                 <th scope="col">{{ __('head/vacations.from') }}</th>
                 <th scope="col">{{ __('head/vacations.to') }}</th>
                 <th scope="col">{{ __('head/vacations.type') }}</th>
-                <th scope="col">{{ __('head/vacations.status') }}</th>
+                <th scope="col">{{ __('admin/vacations.headStatus') }}</th>
+                <th scope="col">{{ __('admin/vacations.hrStatus') }}</th>
                 <th scope="col">{{ __('global.action') }}</th>
               </tr>
             </thead>
@@ -118,6 +119,19 @@
                       <i class="bi bi-hourglass-top text-warning fs-5"></i>
                     @endswitch
                     <span class="mx-2">{{ $vacation->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
+                  </td>
+                  <td>
+                    @switch($vacation->detail?->hr_status)
+                      @case(1)
+                        <i class="bi bi-check-square-fill text-success fs-5"></i>
+                        @break
+                      @case(2)
+                        <i class="bi bi-x-square-fill text-danger fs-5"></i>
+                        @break
+                      @default
+                      <i class="bi bi-hourglass-top text-warning fs-5"></i>
+                    @endswitch
+                    <span class="mx-2">{{ $vacation->detail?->hrStatus->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
                   <a
