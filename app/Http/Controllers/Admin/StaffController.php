@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,10 +17,14 @@ class StaffController extends Controller
     ]);
   }
 
-  public function show(User $user)
+  public function show(string $id)
   {
     return view('admin.staff.show', [
-      'employee' => $user
+      'user' => User::find($id),
+      'mobile' => Contact::where('user_id', $id)->where('type', '1')->first(),
+      'email' => Contact::where('user_id', $id)->where('type', '2')->first(),
+      'extension' => Contact::where('user_id', $id)->where('type', '3')->first(),
+      'office' => Contact::where('user_id', $id)->where('type', '4')->first(),
     ]);
   }
 }

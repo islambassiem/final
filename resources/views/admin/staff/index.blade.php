@@ -55,7 +55,7 @@
                 <td>{{ $member->latestSalary($member->id) }}</td>
                 <td>{{ $member->extension($member->id) }}</td>
                 <td>{{ $member->email }}</td>
-                <td><a href="{{ route('admin.employee', $member->id) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
+                <td><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
                 {{-- <td>
                   <a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
                   <a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
