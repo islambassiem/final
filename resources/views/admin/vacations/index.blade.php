@@ -120,11 +120,20 @@
                     <span class="mx-2">{{ $vacation->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
-                    <a
+                  <a
                     href="{{ route('admin.vacation', $vacation->id) }}"
                     class="btn btn-secondary btn-sm py-0">
                     <i class="bi bi-eye-fill"></i>
                   </a>
+                  @if ($vacation->hasAttachment())
+                    <a
+                      href="{{ route('attachment.leave', $vacation->id) }}"
+                      class="btn btn-info btn-sm py-0">
+                      <i class="bi bi-paperclip"></i>
+                    </a>
+                  @else
+                    <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                  @endif
                   <button
                     type="button"
                     class="btn btn-primary btn-sm py-0"

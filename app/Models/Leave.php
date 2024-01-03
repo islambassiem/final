@@ -61,4 +61,15 @@ class Leave extends Model
     $diff = $end->floatDiffInHours($start);
     return $diff;
   }
+
+  public function hasAttachment()
+  {
+    $link = Attachment::where('attachmentable_type', 'App\Models\Leave')
+      ->where('attachmentable_id', $this->id)
+      ->first('link');
+    if($link){
+      return true;
+    }
+    return false;
+  }
 }
