@@ -56,7 +56,6 @@ class VacationController extends Controller
 
   public function update(string $id, Request $request)
   {
-    return $request->all();
     $vacation = Vacation::find($id);
     $user = User::find($vacation->user_id);
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
