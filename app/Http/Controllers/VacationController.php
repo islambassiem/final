@@ -245,8 +245,7 @@ class VacationController extends Controller
 
   public function getAttachment($id)
   {
-    $link = Attachment::where('user_id', auth()->user()->id)
-      ->where('attachmentable_type', 'App\Models\Vacation')
+    $link = Attachment::where('attachmentable_type', 'App\Models\Vacation')
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {

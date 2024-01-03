@@ -141,8 +141,7 @@ class LeaveController extends Controller
 
   public function getAttachment($id)
   {
-    $link = Attachment::where('user_id', auth()->user()->id)
-      ->where('attachmentable_type', 'App\Models\Leave')
+    $link = Attachment::where('attachmentable_type', 'App\Models\Leave')
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
