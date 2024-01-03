@@ -175,7 +175,7 @@
           <div class="row">
             <div class="col">
               <label for="notes">{{ __('head/vacations.notes') }}</label>
-              <textarea class="form-control" name="head_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
+              <textarea class="form-control" name="hr_notes" cols="30" rows="3" id="notes">{{ old('notes') }}</textarea>
             </div>
           </div>
         </form>

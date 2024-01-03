@@ -45,7 +45,7 @@ class VacationAction extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'emails.vacation.action',
+      view: 'emails.vacation.admin.action',
     );
   }
 
