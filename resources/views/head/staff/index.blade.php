@@ -50,8 +50,8 @@
                   <td>{{ $c }}</td>
                   <td>{{ session('_lang') == '_ar' ? $member->getFullArabicNameAttribute : $member->getFullEnglishNameAttribute }}</td>
                   <td>{{ $member->gender->{'gender' . session('_lang')} }}</td>
-                  <td>{{ $member->mobile($member->id)?->contact }}</td>
-                  <td>{{ $member->extension($member->id)?->contact }}</td>
+                  <td>{{ $member->mobile($member->id) }}</td>
+                  <td>{{ $member->extension($member->id) }}</td>
                   <td>
 										<a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
 										<a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>

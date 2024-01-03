@@ -164,7 +164,7 @@ class User extends Authenticatable
 
   public function mobile($user)
   {
-    return Contact::where('user_id', $user)->where('type', '1')->first();
+    return Contact::where('user_id', $user)->where('type', '1')->first()?->contact;
   }
 
   public function extension(string $user_id)
