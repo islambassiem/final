@@ -127,7 +127,7 @@
                   </a>
                   @if ($vacation->hasAttachment())
                     <a
-                      href="{{ route('attachment.leave', $vacation->id) }}"
+                      href="{{ route('attachment.vacation', $vacation->id) }}"
                       class="btn btn-info btn-sm py-0">
                       <i class="bi bi-paperclip"></i>
                     </a>
