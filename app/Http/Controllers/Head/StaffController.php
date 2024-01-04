@@ -15,7 +15,10 @@ class StaffController extends Controller
 
   public function index(){
     return view('head.staff.index', [
-      'staff' => User::where('head', auth()->user()->id)->where('active', '1')->orderBy('joining_date', 'asc')->get()
+      'staff' => User::where('head', auth()->user()->id)->where('active', '1')
+        ->where('category_id' , '!=', '8')
+        ->orderBy('joining_date', 'asc')
+        ->get()
     ]);
   }
 }
