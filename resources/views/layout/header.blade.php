@@ -176,13 +176,24 @@
             <h6>{{ auth()->user()->{'first_name' .session('_lang')} . ' ' . auth()->user()->{'family_name' .session('_lang')} }}</h6>
             <span>{{ auth()->user()->position?->{'position'. session('_lang')} }}</span>
           </li>
+          @if (in_array(auth()->user()->id, ['15', '71', '100', '206']))
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.dashboard') }}">
+                <i class="bi bi-person"></i>
+                <span>{{ __('HR') }}</span>
+              </a>
+            </li>
+          @endif
           <li>
             <hr class="dropdown-divider">
           </li>
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.index') }}">
               <i class="bi bi-person"></i>
-              <span>My Profile</span>
+              <span>{{ __('header.myprofile') }}</span>
             </a>
           </li>
           {{-- <li>
