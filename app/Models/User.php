@@ -70,6 +70,15 @@ class User extends Authenticatable
     return 'storage/profile/default.jpeg';
   }
 
+  public function employeePicture(string $empid)
+  {
+    $path = 'storage/profile/' . $empid . '.jpeg';
+    if(file_exists($path)){
+      return asset($path);
+    }
+    return asset('storage/profile/default.jpeg');
+  }
+
   public function name()
   {
     return ucwords($this->first_name_en) . ' ' . ucwords($this->family_name_en);
@@ -185,6 +194,10 @@ class User extends Authenticatable
   }
 
   public function iqama(string $user_id){
-    return Document::where('user_id', $user_id)->where('document_type_id', '1')->first()->document_id;
+    return Document::where('user_id', $user_id)->where('document_type_id', '1')->first();
+  }
+
+  public function passport(string $user_id){
+    return Document::where('user_id', $user_id)->where('document_type_id', '2')->first();
   }
 }

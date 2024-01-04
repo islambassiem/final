@@ -39,6 +39,7 @@
               <th scope="col">{{ __('admin/staff.iqama') }}</th>
               <th scope="col">{{ __('admin/staff.salary') }}</th>
               <th scope="col">{{ __('head/staff.ext') }}</th>
+              <th scope="col">{{ __('head/staff.mobile') }}</th>
               <th scope="col">{{ __('admin/staff.email') }}</th>
               <th scope="col">{{ __('global.action') }}</th>
               {{-- <th scope="col">{{ __('global.action') }}</th> --}}
@@ -51,9 +52,10 @@
                 <td>{{ $c }}</td>
                 <td>{{ $member->empid }}</td>
                 <td>{{ session('_lang') == '_ar' ? $member->getFullArabicNameAttribute : $member->getFullEnglishNameAttribute }}</td>
-                <td>{{ $member->iqama($member->id) }}</td>
+                <td>{{ $member->iqama($member->id)->document_id }}</td>
                 <td>{{ $member->latestSalary($member->id) }}</td>
                 <td>{{ $member->extension($member->id) }}</td>
+                <td>{{ $member->mobile($member->id) }}</td>
                 <td>{{ $member->email }}</td>
                 <td><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
                 {{-- <td>
