@@ -29,14 +29,18 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-6">
         <div class="d-flex justify-content-end">
           <a href="{{ route('lLeave.index') }}" class="btn btn-danger">{{ __('global.back') }}</a>
-          <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
-            {{ __('head/vacations.takeAction') }}
-          </button>
+          @if (auth()->user()->id != $vacation->user->id)
+            <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
+              {{ __('head/vacations.takeAction') }}
+            </button>
+          @endif
         </div>
       </div>
+
     </div>
     @if (session('message'))
       <div class="alert alert-warning" role="alert">

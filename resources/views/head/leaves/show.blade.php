@@ -30,9 +30,11 @@
       <div class="col-md-6">
         <div class="d-flex justify-content-end">
           <a href="{{ route('sLeave.index') }}" class="btn btn-danger">{{ __('global.back') }}</a>
-          <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
-            {{ __('head/leaves.takeAction') }}
-          </button>
+          @if (auth()->user()->id != $permission->user->id)
+            <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
+              {{ __('head/leaves.takeAction') }}
+            </button>
+          @endif
         </div>
       </div>
     </div>
