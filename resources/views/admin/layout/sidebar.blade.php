@@ -32,6 +32,13 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'iqama' ? '' : 'collapsed'  }}" href="{{ route('admin.iqama') }}">
+            <i class="bi bi-people-fill"></i>
+            <span>{{ __('admin/iqama.iqama') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">

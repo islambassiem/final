@@ -224,11 +224,11 @@
         }
       });
       $('#actionModal').on('show.bs.modal', function (event){
-      let button = $(event.relatedTarget);
-      let id = button.data('id');
-      let form = document.getElementById('actionForm');
-      form.action = "leaves/action/" + id;
-    });
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let form = document.getElementById('actionForm');
+        form.action = "leaves/action/" + id;
+      });
     });
 </script>
 @endsection

@@ -40,4 +40,9 @@ class Document extends Model
     $end = Carbon::parse($this->date_of_expiry);
     return  $start->diffInDays($end, false);
   }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\IqamaController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -22,4 +22,7 @@ use App\Http\Controllers\Admin\DashboardController;
 
     Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
     Route::get('/staff/{id}', [StaffController::class, 'show'])->name('admin.employee');
+
+    Route::get('/iqama', [IqamaController::class, 'index'])->name('admin.iqama');
+    Route::post('iqama/renewal/{id}', [IqamaController::class, 'update']);
   });
