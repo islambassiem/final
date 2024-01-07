@@ -28,7 +28,7 @@ class IqamaController extends Controller
   public function update(string $id, Request $request)
   {
     $validated = $request->validate([
-      'expiry' => 'required|after_or_equal:now|before_or_equal:'. now()->addYear()
+      'expiry' => 'required|after_or_equal:now|before_or_equal:'. now()->addYears(2)
     ]);
     $iqama = Document::find($id);
     $iqama->update([
