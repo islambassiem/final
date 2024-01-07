@@ -28,7 +28,7 @@ class IqamaRenewal extends Mailable
    */
   public function envelope(): Envelope
   {
-    $user = $this->iqama->user;
+    $user = $this->iqama->user->email;
     return new Envelope(
       from: new Address('hr@inaya.edu.sa'),
       subject: 'Iqama Renewal',
