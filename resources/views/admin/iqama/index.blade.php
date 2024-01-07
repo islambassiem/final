@@ -38,6 +38,7 @@
               <th>#</th>
               <th>{{ __('admin/iqama.empid') }}</th>
               <th>{{ __('admin/iqama.name') }}</th>
+              <th>{{ __('admin/iqama.num') }}</th>
               <th>{{ __('admin/iqama.expiry') }}</th>
               <th>{{ __('admin/iqama.expiry') }}</th>
               <th>{{ __('admin/iqama.action') }}</th>
@@ -50,6 +51,7 @@
                 <th>{{ $c; }}</th>
                 <th>{{ $iqama->user->empid }}</th>
                 <th>{{ session('_lang') == '_ar' ? $iqama->user->getFullArabicNameAttribute : $iqama->user->getFullEnglishNameAttribute }}</th>
+                <th>{{ $iqama->document_id }}</th>
                 <th>{{ $iqama->date_of_expiry; }}</th>
                 <th>{{ $iqama->expiry; }}</th>
                 <th>
