@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailables\Address;
 
 class IqamaRenewal extends Mailable
 {
@@ -29,6 +30,7 @@ class IqamaRenewal extends Mailable
   {
     $user = $this->iqama->user;
     return new Envelope(
+      from: new Address('hr@inaya.edu.sa'),
       subject: 'Iqama Renewal',
       to: $user
     );
