@@ -13,7 +13,7 @@ class StaffController extends Controller
 {
   public function index()
   {
-    $staff = User::where('active', '1')->orderBy('empid')->get();
+    $staff = User::orderBy('empid')->get();
     return view('admin.staff.index',[
       'staff' => $staff
     ]);

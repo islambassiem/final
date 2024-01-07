@@ -49,15 +49,15 @@
             @php $c = 1; @endphp
             @foreach ($staff as $member)
               <tr>
-                <td>{{ $c }}</td>
-                <td>{{ $member->empid }}</td>
-                <td>{{ session('_lang') == '_ar' ? $member->getFullArabicNameAttribute : $member->getFullEnglishNameAttribute }}</td>
-                <td>{{ $member->iqama($member->id)->document_id }}</td>
-                <td>{{ $member->latestSalary($member->id) }}</td>
-                <td>{{ $member->extension($member->id) }}</td>
-                <td>{{ $member->mobile($member->id) }}</td>
-                <td>{{ $member->email }}</td>
-                <td><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $c }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->empid }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ session('_lang') == '_ar' ? $member->getFullArabicNameAttribute : $member->getFullEnglishNameAttribute }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->iqama($member->id)->document_id }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->latestSalary($member->id) }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->extension($member->id) }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->mobile($member->id) }}</td>
+                <td @if (! $member->active) class="text-danger" @endif>{{ $member->email }}</td>
+                <td @if (! $member->active) class="text-danger" @endif><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
                 {{-- <td>
                   <a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
                   <a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
