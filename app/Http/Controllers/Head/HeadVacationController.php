@@ -72,7 +72,7 @@ class HeadVacationController extends Controller
       ]);
       $user->notify(new VacationAction($vacation));
       Mail::send(new MailVacationAction($vacation));
-      return redirect()->route('lLeave.index')->with('success', __('You have taken an action successfully'));
+      return redirect()->back()->with('success', __('You have taken an action successfully'));
     }
     return redirect()->route('lLeave.index')->with('error', __('You have taken an action already'));
   }
