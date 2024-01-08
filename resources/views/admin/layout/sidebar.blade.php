@@ -39,6 +39,13 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'letters' ? '' : 'collapsed'  }}" href="{{ route('admin.letters') }}">
+            <i class="bi bi-people-fill"></i>
+            <span>{{ __('admin/letters.letters') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">

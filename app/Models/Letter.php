@@ -22,4 +22,9 @@ class Letter extends Model
     }
     return '<i class="bi bi-file-x-fill text-danger"></i>';
   }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 }

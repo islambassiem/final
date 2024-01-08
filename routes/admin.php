@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IqamaController;
+use App\Http\Controllers\Admin\LetterController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -25,4 +26,6 @@ use App\Http\Controllers\Admin\IqamaController;
 
     Route::get('/iqama', [IqamaController::class, 'index'])->name('admin.iqama');
     Route::post('iqama/renewal/{id}', [IqamaController::class, 'update']);
+
+    Route::get('/letters', [LetterController::class, 'index'])->name('admin.letters');
   });
