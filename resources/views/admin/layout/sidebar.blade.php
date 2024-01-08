@@ -46,6 +46,14 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'visas' ? '' : 'collapsed'  }}" href="{{ route('admin.visas') }}">
+            <i class="bi bi-people-fill"></i>
+            <span>{{ __('admin/exit-reentry.visas') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">

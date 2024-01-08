@@ -16,10 +16,22 @@ class ExitReentry extends Model
     'user_id' , 'from', 'to', 'deduction'
   ];
 
+  public function boolToIcon($value)
+  {
+    if($value){
+      return '<i class="bi bi-check-square-fill text-success"></i>';
+    }
+    return '<i class="bi bi-file-x-fill text-danger"></i>';
+  }
+
   public function days()
   {
     $start = Carbon::parse($this->from);
     $end = Carbon::parse($this->to);
     return $end->diffInDays($start) + 1;
+  }
+
+  public function user(){
+    return $this->belongsTo(User::class);
   }
 }
