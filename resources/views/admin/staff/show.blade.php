@@ -195,6 +195,25 @@
               </div>
 
               <div class="tab-pane fade" id="salary">
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="title" class="fs-5">{{ __('salary.iban') }}</label>
+                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->iban }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="title" class="fs-5">{{ __('salary.bankName') }}</label>
+                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->bank->{'bank_name' . session('_lang')} }}">
+                    </div>
+                  </div>
+                </div>
+
+
+
+
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">{{ __('admin/employee.salary') }}</h5>
                 </div>

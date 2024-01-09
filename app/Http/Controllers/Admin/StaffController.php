@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Bank;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Contact;
@@ -28,6 +29,7 @@ class StaffController extends Controller
       'extension' => Contact::where('user_id', $id)->where('type', '3')->first(),
       'office' => Contact::where('user_id', $id)->where('type', '4')->first(),
       'salary' => Salary::where('user_id', $id)->orderByDesc('effective')->get(),
+      'bank' => Bank::with('bank')->where('user_id', $id)->first(),
     ]);
   }
 }
