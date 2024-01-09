@@ -13,10 +13,10 @@
               <td valign="top" align="left" style="background:#fff;padding:18px">
                 <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> Iqama Renewal </h1>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">New Expiry Date: {{ $iqama->date_of_expiry }} </p>
-                <div style="background:#f6f7f8;border-radius:3px"> <br>
-                  {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
+                {{-- <div style="background:#f6f7f8;border-radius:3px"> <br>
+                  <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p>
                   <br><br>
-                </div>
+                </div> --}}
                 {{-- <p style="font:14px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333"> <strong>What's Trello?</strong> It's the easiest way to organize anything, like having virtual whiteboards with superpowers. <a href="http://trello.com" style="color:#306f9c;text-decoration:none;font-weight:bold" target="_blank">Learn more »</a> </p> --}}
               </td>
             </tr>
