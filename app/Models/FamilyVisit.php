@@ -14,4 +14,17 @@ class FamilyVisit extends Model
   protected $fillable = [
     'user_id', 'number', 'deduction'
   ];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function boolToIcon($value)
+  {
+    if($value){
+      return '<i class="bi bi-check-square-fill text-success"></i>';
+    }
+    return '<i class="bi bi-file-x-fill text-danger"></i>';
+  }
 }

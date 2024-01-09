@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExitReentryController;
+use App\Http\Controllers\Admin\FamilyVisitController;
 use App\Http\Controllers\Admin\IqamaController;
 use App\Http\Controllers\Admin\LetterController;
 
@@ -31,4 +32,6 @@ use App\Http\Controllers\Admin\LetterController;
     Route::get('/letters', [LetterController::class, 'index'])->name('admin.letters');
 
     Route::get('/visas', [ExitReentryController::class, 'index'])->name('admin.visas');
+
+    Route::get('/visits', [FamilyVisitController::class, 'index'])->name('admin.visits');
   });
