@@ -34,7 +34,7 @@ class LeaveApplication extends Mailable
     $userName = $this->leave->user->name();
     $head = User::find($this->leave->user->head)->email;
     return new Envelope(
-      from: new Address($user, $userName),
+      from: new Address('noreply@csmonline.net', 'IMC - HRMS'),
       to: $head,
       cc: $user,
       subject: 'Leave Application',
