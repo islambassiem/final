@@ -12,6 +12,11 @@
   @else
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   @endif
+  <style>
+    #table{
+      min-width: 1200px;
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -89,6 +94,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
+                <th scope="col">{{ __('head/vacations.empid') }}</th>
                 <th scope="col">{{ __('head/vacations.name') }}</th>
                 <th scope="col">{{ __('head/vacations.from') }}</th>
                 <th scope="col">{{ __('head/vacations.to') }}</th>
@@ -103,6 +109,7 @@
               @foreach ($vacations as $vacation)
                 <tr>
                   <td>{{ $c }}</td>
+                  <td>{{ $vacation->user->empid }}</td>
                   <td>{{ session('_lang') == '_ar' ? $vacation->user->getFullArabicNameAttribute : $vacation->user->getFullEnglishNameAttribute }}</td>
                   <td>{{ $vacation->start_date }}</td>
                   <td>{{ $vacation->end_date }}</td>

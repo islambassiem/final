@@ -25,5 +25,6 @@ return [
   'approve' => 'موافقة',
   'decline' => 'رفض',
   'takeAction' => 'إتخذ إجراء',
-  'allStaff' => 'جميع الموظفين'
+  'allStaff' => 'جميع الموظفين',
+  'empid' => 'الرقم الوظيفي'
 ];

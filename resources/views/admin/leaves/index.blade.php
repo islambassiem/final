@@ -12,6 +12,11 @@
   @else
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   @endif
+  <style>
+    #table{
+      min-width: 1200px;
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -90,6 +95,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
+                <th scope="col">{{ __('head/leaves.empid') }}</th>
                 <th scope="col">{{ __('head/leaves.name') }}</th>
                 <th scope="col">{{ __('head/leaves.date') }}</th>
                 <th scope="col">{{ __('head/leaves.from') }}</th>
@@ -104,6 +110,7 @@
               @foreach ($permissions as $permission)
                 <tr>
                   <td>{{ $c }}</td>
+                  <td>{{ $permission->user->empid }}</td>
                   <td>{{ session('_lang') == '_ar' ? $permission->user->getFullArabicNameAttribute : $permission->user->getFullEnglishNameAttribute }}</td>
                   <td>{{ $permission->date }}</td>
                   <td>{{ $permission->from }}</td>
