@@ -25,28 +25,31 @@ class HeadLeaveController extends Controller
   public function index(Request $request)
   {
     $sub = User::where('active', '1')->where('head', auth()->user()->id)->pluck('id')->toArray();
-    $q = Leave::with('user', 'detail')
-      ->when($request->start != null, function($q) use ($request) {
-        return $q->whereDate('date', '>=', Carbon::parse($request->start));
-      }, function($q){
-        return $q->whereDate('date', '>=', Carbon::now());
+    $leaves = Leave::with('user', 'detail')
+      ->join('leave_details', 'leave_details.leave_id', '=', 'leaves.id')
+      ->where(function($q) use($request){
+        $q->when($request->start != null, function($q) use ($request) {
+          return $q->whereDate('date', '>=', Carbon::parse($request->start));
+        }, function($q){
+          return $q->whereDate('date', '>=', Carbon::now());
+        })
+        ->when($request->end != null, function ($q) use ($request){
+          return $q->whereDate('date', '<=', Carbon::parse($request->end));
+        })
+        ->when($request->type != null, function($q) use ($request){
+          return $q->where('leave_type', $request->type);
+        })
+        ->when($request->status != null, function($q) use ($request){
+          $q->where('status_id', $request->status);
+        });
       })
-      ->when($request->end != null, function ($q) use ($request){
-        return $q->whereDate('date', '<=', Carbon::parse($request->end));
-      })
-      ->when($request->type != null, function($q) use ($request){
-        return $q->where('leave_type', $request->type);
-      })
-      ->when($request->status != null, function($q) use ($request){
-        $q->where('status_id', $request->status);
-      })
-      ->orWhere('status_id', '0')
-      ->orderByDesc('id')
+      ->orWhere('head_status', '0')
+      ->orderByDesc('leaves.id')
       ->get()
       ->whereIn('user_id', $sub);
 
     return view('head.leaves.index', [
-      'permissions' => $q,
+      'permissions' => $leaves,
       'types' => LeaveType::all(),
       'status' => WorkflowStatus::All()
     ]);

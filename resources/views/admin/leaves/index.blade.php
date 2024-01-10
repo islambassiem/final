@@ -117,7 +117,7 @@
                   <td>{{ $permission->to }}</td>
                   <td>{{ $permission->type->{'leave_type' . session('_lang')} }}</td>
                   <td>
-                    @switch($permission->detail->head_status)
+                    @switch($permission->detail?->head_status)
                       @case(1)
                         <i class="bi bi-check-square-fill text-success fs-5"></i>
                         @break
@@ -127,7 +127,7 @@
                       @default
                       <i class="bi bi-hourglass-top text-warning fs-5"></i>
                     @endswitch
-                    <span class="mx-2">{{ $permission->detail->headStatus->{'workflow_status' . session('_lang')} }}</span>
+                    <span class="mx-2">{{ $permission->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
                     <a
