@@ -148,6 +148,30 @@
       </div>
     </div>
   </section>
+
+
+      <!-- Delete Modal -->
+      <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="deleteForm">
+                @csrf
+                @method('delete')
+                {{ __('global.deleteConfirmation') }}
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+              <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
 
 @section('script')
