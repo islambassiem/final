@@ -35,11 +35,12 @@ class HeadLeaveController extends Controller
         return $q->whereDate('date', '<=', Carbon::parse($request->end));
       })
       ->when($request->type != null, function($q) use ($request){
-        $q->where('leave_type', $request->type);
+        return $q->where('leave_type', $request->type);
       })
       ->when($request->status != null, function($q) use ($request){
         $q->where('status_id', $request->status);
       })
+      ->orWhere('status_id', '0')
       ->orderByDesc('id')
       ->get()
       ->whereIn('user_id', $sub);

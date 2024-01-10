@@ -41,6 +41,7 @@ class HeadVacationController extends Controller
       ->when($request->status != null, function($q) use ($request){
         $q->where('status_id', $request->status);
       })
+      ->orWhere('status_id', '0')
       ->orderByDesc('id')
       ->get()
       ->whereIn('user_id', $sub);
