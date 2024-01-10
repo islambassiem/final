@@ -121,11 +121,16 @@
                           data-bs-target="#delteConfirmation">
                           <i class="bi bi-trash3"></i>
                         </button>
+                        @if ($leave->hasAttachment())
                         <a
                           href="{{ route('attachment.leave', $leave->id) }}"
+                          target="_blank"
                           class="btn btn-info btn-sm py-0">
                           <i class="bi bi-paperclip"></i>
                         </a>
+                        @else
+                          <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                        @endif
                       </td>
                     </tr>
                     @php $c++; @endphp

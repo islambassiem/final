@@ -140,6 +140,16 @@
                     data-id="{{ $vacation->id }}">
                     <i class="bi bi-activity"></i>
                   </button>
+                  @if ($vacation->hasAttachment())
+                  <a
+                    href="{{ route('attachment.vacation', $vacation->id) }}"
+                    target="_blank"
+                    class="btn btn-info btn-sm py-0">
+                    <i class="bi bi-paperclip"></i>
+                  </a>
+                  @else
+                    <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                  @endif
                   </td>
                 </tr>
                 @php $c++; @endphp
