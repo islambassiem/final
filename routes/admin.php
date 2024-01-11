@@ -24,7 +24,10 @@ use App\Http\Controllers\Admin\LetterController;
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');
 
     Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
+    Route::get('/staff/create', [StaffController::class, 'create'])->name('admin.employee.create');
+    Route::post('/staff/draft', [StaffController::class, 'draft'])->name('admin.employee.draft');
     Route::get('/staff/{id}', [StaffController::class, 'show'])->name('admin.employee');
+
 
     Route::get('/iqama', [IqamaController::class, 'index'])->name('admin.iqama');
     Route::post('iqama/renewal/{id}', [IqamaController::class, 'update']);

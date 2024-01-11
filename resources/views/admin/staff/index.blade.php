@@ -25,6 +25,14 @@
 
 @section('content')
   <section class="section">
+    <div class="row">
+      <div class="d-flex justify-content-end">
+        <a href="{{ route('admin.employee.create') }}" class="btn btn-success mb-3">
+          <i class="bi bi-plus-square-fill me-1"></i>
+          {{ __('global.add') }}
+        </a>
+      </div>
+    </div>
     <div class="card card-body">
       <div class="card-title">
         <h5 class="card-title">
