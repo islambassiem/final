@@ -25,26 +25,22 @@ class HeadVacationController extends Controller
   {
     $sub = User::where('active', '1')->where('head', auth()->user()->id)->pluck('id')->toArray();
     $vacations = Vacation::with('user', 'detail')
-      ->leftJoin('vacation_details', 'vacation_details.vacation_id', '=', 'vacations.id')
-      ->where(function($q) use($request){
-        $q->when($request->start != null, function($q) use($request){
-          $q->whereDate('end_date', '>=', Carbon::parse($request->start));
-        }, function($q){
-          $q->whereDate('start_date', '>=', Carbon::now());
-        })
-        ->when($request->end != null, function($q) use($request){
-          $q->whereDate('start_date', '<=', Carbon::parse($request->end));
-        }, function($q){
-          $q->whereDate('end_date', '>=', Carbon::now());
-        })
-        ->when($request->type != null, function($q) use ($request){
-          $q->where('vacation_type', $request->type);
-        })
-        ->when($request->status != null, function($q) use ($request){
-          $q->where('status_id', $request->status);
-        });
+      ->when($request->start != null, function($q) use($request){
+        $q->whereDate('end_date', '>=', Carbon::parse($request->start));
+      }, function($q){
+        $q->whereDate('start_date', '>=', Carbon::now());
       })
-      ->orWhere('head_status', '0')
+      ->when($request->end != null, function($q) use($request){
+        $q->whereDate('start_date', '<=', Carbon::parse($request->end));
+      }, function($q){
+        $q->whereDate('end_date', '>=', Carbon::now());
+      })
+      ->when($request->type != null, function($q) use ($request){
+        $q->where('vacation_type', $request->type);
+      })
+      ->when($request->status != null, function($q) use ($request){
+        $q->where('status_id', $request->status);
+      })
       ->orderByDesc('vacations.id')
       ->get()
       ->whereIn('user_id', $sub);

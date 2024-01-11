@@ -26,9 +26,7 @@ class HeadLeaveController extends Controller
   {
     $sub = User::where('active', '1')->where('head', auth()->user()->id)->pluck('id')->toArray();
     $leaves = Leave::with('user', 'detail')
-      ->join('leave_details', 'leave_details.leave_id', '=', 'leaves.id')
-      ->where(function($q) use($request){
-        $q->when($request->start != null, function($q) use ($request) {
+        ->when($request->start != null, function($q) use ($request) {
           return $q->whereDate('date', '>=', Carbon::parse($request->start));
         }, function($q){
           return $q->whereDate('date', '>=', Carbon::now());
@@ -41,9 +39,7 @@ class HeadLeaveController extends Controller
         })
         ->when($request->status != null, function($q) use ($request){
           $q->where('status_id', $request->status);
-        });
-      })
-      ->orWhere('head_status', '0')
+        })
       ->orderByDesc('leaves.id')
       ->get()
       ->whereIn('user_id', $sub);
