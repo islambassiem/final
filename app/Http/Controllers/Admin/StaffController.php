@@ -10,11 +10,16 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TempUser;
+use App\Models\Tables\Bank as TablesBank;
+use App\Models\Tables\Category;
 use App\Models\Tables\Country;
 use App\Models\Tables\Gender;
 use App\Models\Tables\MaritalStatus;
+use App\Models\Tables\Position;
 use App\Models\Tables\Religion;
+use App\Models\Tables\Section;
 use App\Models\Tables\SpecialNeed;
+use App\Models\Tables\Sponsorship;
 
 class StaffController extends Controller
 {
@@ -53,11 +58,21 @@ class StaffController extends Controller
       'religions' => Religion::all(),
       'mstatus' => MaritalStatus::all(),
       'disability' => SpecialNeed::all(),
+      'sections' => Section::all(),
+      'positions' => Position::all(),
+      'categories' => Category::all(),
+      'sponsorships' => Sponsorship::all(),
+      'banks' => TablesBank::all(),
     ]);
   }
 
   public function draft(Request $request)
   {
-    return $request->all();
+    return 'draft method';
+  }
+
+  public function store(Request $request)
+  {
+    return 'store method';
   }
 }
