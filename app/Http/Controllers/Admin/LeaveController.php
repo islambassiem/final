@@ -70,7 +70,7 @@ class LeaveController extends Controller
       'action_by' => auth()->user()->id
     ]);
     $user->notify(new LeaveAction($leave));
-    Mail::send(new MailLeaveAction($leave));
+    Mail::queue(new MailLeaveAction($leave));
     return redirect()->back()->with('success', __('You have taken an action successfully'));
   }
 }

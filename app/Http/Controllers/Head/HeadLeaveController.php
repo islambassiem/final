@@ -70,7 +70,7 @@ class HeadLeaveController extends Controller
         'head_time' => Carbon::now()
       ]);
       $user->notify(new LeaveAction($leave));
-      Mail::send(new MailLeaveAction($leave));
+      Mail::queue(new MailLeaveAction($leave));
       return redirect()->back()->with('success', __('You have taken an action successfully'));
     }
     return redirect()->route('sLeave.index')->with('error', __('You have taken an action already'));

@@ -63,7 +63,7 @@ class LeaveController extends Controller
     $this->leaveDetial($request, $latest_leave->id);
     $this->attach($request, $latest_leave);
     Notification::send($head, new ApplyLeave($latest_leave));
-    Mail::send(new LeaveApplication($latest_leave));
+    Mail::queue(new LeaveApplication($latest_leave));
     return redirect()->back()->with('success', 'You have applied for a permission successfully');
   }
 

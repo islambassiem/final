@@ -71,7 +71,7 @@ class HeadVacationController extends Controller
         'head_time' => Carbon::now()
       ]);
       $user->notify(new VacationAction($vacation));
-      Mail::send(new MailVacationAction($vacation));
+      Mail::queue(new MailVacationAction($vacation));
       return redirect()->back()->with('success', __('You have taken an action successfully'));
     }
     return redirect()->route('lLeave.index')->with('error', __('You have taken an action already'));
