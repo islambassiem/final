@@ -9,7 +9,7 @@
     'mobile' => 'رقم الجوال',
     'name' => 'إسم الموظف',
     'first_name_en' => 'الإسم الأول إنجليزي',
-    'second_name_en' => 'إسم الأب إنجليزي',
+    'middle_name_en' => 'إسم الأب إنجليزي',
     'third_name_en' => 'إسم الجد إنجليزي',
     'family_name_en' => 'إسم العائلة إنجليزي',
     'first_name_ar' => 'الإسم الأول عربي',
@@ -55,5 +55,27 @@
     'expiry_date' => 'تاريخ الانتهاء',
     'passport' => 'جواز السفر',
     'notes' => 'ملاحظات عامة',
-    'draftSaved' => 'تم حفظ الموظف في المسودة بنجاح'
+    'draftSaved' => 'تم حفظ الموظف في المسودة بنجاح',
+    'userSaved' => 'تم اضافة الموظف بنجاح',
+
+    // Validation
+    'first_name_en.required' => 'الاسم الاول انجليزي مطلوب',
+    'family_name_en.required' => 'اسم العائلة انجليزي مطلوب',
+    'first_name_ar.required' => 'الاسم الاول عربي مطلوب',
+    'family_name_ar.required' => 'اسم العائلة عربي مطلوب',
+    'email.required' => 'الإيميل الرسمي مطلوب',
+    'email.email' => 'البريد الالكتروني غير صالح',
+    'email.unique' => 'البريد الالكتروني موجود من قبل',
+    'mobile.required' => 'رقم الجوال مطلوب',
+    'gender.required' => 'الجنس مطلوب',
+    'nationality.required' => 'الجنسية مطلوبة',
+    'dob.required' => 'تاريخ الميلاد مطلوب',
+    'dob.date' => 'تاريخ الميلاد غير صالح',
+    'document_id1.required' => 'الهوية الوطنية مطلوبة',
+    'document_id1.invalid' => 'رقم الهوية غير صحيح',
+    'date_of_expiry1.required' => 'تاريخ انتهاء الهوية مطلوب',
+    'section.required' => 'القسم مطلوب',
+    'category.required' => 'التصنيف الوظيفي مطلوب',
+    'sponsorship.required' => 'الكفالة مطلوبة',
+    'doj.required' => 'تاريخ المباشرة مطلوب'
   ];

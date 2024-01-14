@@ -9,6 +9,11 @@
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}" />
+  <style>
+    .mt-15{
+      margin-top: -15px;
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -39,6 +44,11 @@
                 <input type="number" class="form-control" name="empid" id="empid" placeholder="" min="{{ $empid + 1 }}" value="{{ $user->empid }}">
                 <label for="empid">{{ __('admin/staff.empid') }}</label>
               </div>
+              @error('empid')
+              <p class="text-danger mt-15">
+                {{ $message }}
+              </p>
+              @enderror
             </div>
           </div>
           <hr>
@@ -51,15 +61,20 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" name="first_name_en" id="first_name_en" placeholder="" value="{{ old('first_name_en', $user->first_name_en) }}">
                 <label for="first_name_en">{{ __('admin/staff.first_name_en') }}</label>
               </div>
+              <span class="text-danger">
+                @error('first_name_en')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
             <div class="col-md-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="second_name_en" id="second_name_en" placeholder=""  value="{{ old('second_name_en', $user->middle_name_en) }}">
-                <label for="second_name_en">{{ __('admin/staff.second_name_en') }}</label>
+                <input type="text" class="form-control" name="middle_name_en" id="middle_name_en" placeholder=""  value="{{ old('middle_name_en', $user->middle_name_en) }}">
+                <label for="middle_name_en">{{ __('admin/staff.middle_name_en') }}</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -69,18 +84,28 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" name="family_name_en" id="family_name_en" placeholder="" value="{{ old('family_name_en', $user->family_name_en) }}">
                 <label for="family_name_en">{{ __('admin/staff.family_name_en') }}</label>
               </div>
+              <span class="text-danger">
+                @error('family_name_en')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
           </div>
           <div class="row mt-4">
             <div class="col-md-3">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" name="first_name_ar" id="first_name_ar" placeholder="" value="{{ old('first_name_ar', $user->first_name_ar) }}">
                 <label for="first_name_ar">{{ __('admin/staff.first_name_ar') }}</label>
               </div>
+              <span class="text-danger">
+                @error('first_name_ar')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
             <div class="col-md-3">
               <div class="form-floating mb-3">
@@ -95,10 +120,15 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" name="family_name_ar" id="family_name_ar" placeholder="" value="{{ old('family_name_ar', $user->family_name_ar) }}">
                 <label for="family_name_ar">{{ __('admin/staff.family_name_ar') }}</label>
               </div>
+              <span class="text-danger">
+                @error('family_name_ar')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
 
           </div>
@@ -117,16 +147,26 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ old('email', $user->email) }}">
-                <label for="email">{{ __('admin/staff.email') }}</label>
+                <label for="email">{{ __('admin/staff.email.unique') }}</label>
               </div>
+              <span class="text-danger">
+                @error('email')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
             <div class="col-md-4">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="text" class="form-control" name="mobile" id="mobile" placeholder="" value="{{ old('mobile', $user->mobile) }}">
                 <label for="mobile">{{ __('admin/staff.mobile') }}</label>
               </div>
+              <span class="text-danger">
+                @error('mobile')
+                  {{ $message }}
+                @enderror
+              </span>
             </div>
           </div>
           <hr>
@@ -138,7 +178,7 @@
           </div>
           <div class="row">
             <div class="col-md-2">
-              <div class="mb-3">
+              <div class="">
                 <label for="gender" class="form-label">{{ __('admin/staff.gender') }}</label>
                 <select id="gender" name="gender_id" class="form-select" style="width: 100%">
                   <option disabled selected>{{ __('global.select') }}</option>
@@ -147,9 +187,14 @@
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('gender_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-2">
-              <div class="mb-3">
+              <div class="">
                 <label for="nationality" class="form-label">{{ __('admin/staff.nationality') }}</label>
                 <select id="nationality" name="nationality_id" class="form-select" style="width: 100%">
                   <option disabled selected>{{ __('global.select') }}</option>
@@ -158,6 +203,11 @@
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('nationality_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-2">
               <div class="mb-3">
@@ -197,6 +247,11 @@
                 <label for="dob" class="form-label">{{ __('admin/staff.dob') }}</label>
                 <input type="date" name="date_of_birth" id="dob" class="form-control" value="{{ old('date_of_birth', $user->date_of_birth) }}">
               </div>
+              <p class="text-danger mt-15">
+                @error('date_of_birth')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
           </div>
           <hr>
@@ -212,6 +267,11 @@
                     <input type="text" class="form-control" name="document_id1" id="document_id1" placeholder="" value="{{ old('document_id1', $user->document_id) }}">
                     <label for="document_id1">{{ __('admin/staff.iqama') }}</label>
                   </div>
+                  <p class="text-danger mt-15">
+                    @error('document_id1')
+                      {{ $message }}
+                    @enderror
+                  </p>
                 </div>
                 <div class="col-md-12">
                   <div class="form-floating mb-3">
@@ -231,6 +291,11 @@
                       <label for="date_of_expiry1" class="form-label">{{ __('admin/staff.expiry_date') }}</label>
                       <input type="date" name="date_of_expiry1" id="date_of_expiry1" class="form-control" value="{{ old('date_of_expiry1', $user->date_of_expiry1) }}">
                     </div>
+                    <p class="text-danger mt-15">
+                      @error('date_of_expiry1')
+                        {{ $message }}
+                      @enderror
+                    </p>
                   </div>
                 </div>
               </div>
@@ -283,6 +348,11 @@
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('section_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
@@ -296,7 +366,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="mb-3">
+              <div class="">
                 <label for="category" class="form-label">{{ __('admin/staff.category') }}</label>
                 <select id="category" name="category_id" class="form-select" style="width: 100%">
                   <option disabled selected>{{ __('global.select') }}</option>
@@ -305,9 +375,14 @@
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('category_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-3">
-              <div class="mb-3">
+              <div class="">
                 <label for="sponsorship" class="form-label">{{ __('admin/staff.sponsorship') }}</label>
                 <select id="sponsorship" name="sponsorship_id" class="form-select" style="width: 100%">
                   <option disabled selected>{{ __('global.select') }}</option>
@@ -316,6 +391,11 @@
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('sponsorship_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
           </div>
           <div class="row">
@@ -324,6 +404,11 @@
                 <label for="doj" class="form-label">{{ __('admin/staff.doj') }}</label>
                 <input type="date" name="joining_date" id="doj" class="form-control" value="{{ old('doj', $user->joining_date) }}">
               </div>
+              <p class="text-danger mt-15">
+                @error('joining_date')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
@@ -335,7 +420,6 @@
               <div class="mb-3">
                 <label for="vacation_class" class="form-label">{{ __('admin/staff.vacation_class') }}</label>
                 <select id="vacation_class" name="vacation_class" class="form-select" style="width: 100%">
-                  <option disabled selected>{{ __('global.select') }}</option>
                   <option value="0" @selected("0" == $user->vacation_class)>{{ __('admin/staff.noVac') }}</option>
                   <option value="21" @selected("21" == $user->vacation_class)>{{ __('admin/staff.21') }}</option>
                   <option value="30" @selected("30" == $user->vacation_class)>{{ __('admin/staff.30') }}</option>

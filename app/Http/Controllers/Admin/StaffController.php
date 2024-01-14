@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Bank;
 use App\Models\User;
 use App\Models\Salary;
+use App\Models\Ticket;
 use App\Models\Contact;
 use App\Models\Document;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ use App\Models\Tables\Sponsorship;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Tables\MaritalStatus;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\AddEmployee;
 use App\Models\Tables\Bank as TablesBank;
 
 class StaffController extends Controller
@@ -122,11 +125,11 @@ class StaffController extends Controller
       , 'special_need_id' => $request->special_need_id
       , 'home_country_id' => null
       , 'document_id' => $request->document_id1
-      , 'basic' => $request->basic
-      , 'housing' => $request->housing
-      , 'transportation' => $request->trans
-      , 'food' => $request->food
-      , 'ticket' => $request->ticket
+      , 'basic' => $request->basic ?? 0
+      , 'housing' => $request->housing ?? 0
+      , 'transportation' => $request->trans ?? 0
+      , 'food' => $request->food ?? 0
+      , 'ticket' => $request->ticket ?? 0
       , 'bank_code' => $request->bank_code
       , 'iban' => $request->iban
       , 'mobile' => $request->mobile
@@ -142,7 +145,7 @@ class StaffController extends Controller
       , 'date_of_expiry2' => $request->date_of_expiry2
     ];
     $temp = TempUser::first();
-    if($temp){
+    if(!empty($temp)){
       $temp->update($data);
     }else{
       TempUser::create($data);
@@ -150,8 +153,100 @@ class StaffController extends Controller
     return redirect()->route('admin.staff')->with('success', __('admin/staff.draftSaved'));
   }
 
-  public function store(Request $request)
+  public function store(AddEmployee $request)
   {
-    return 'store method';
+    $validated = $request->validated();
+    User::create([
+      'empid' => $validated['empid'],
+      'email' => $validated['email'],
+      'password' => Hash::make($validated['document_id1']),
+      'first_name_en' => $validated['first_name_en'],
+      'middle_name_en' => $validated['middle_name_en'],
+      'third_name_en' => $validated['third_name_en'],
+      'family_name_en' => $validated['family_name_en'],
+      'first_name_ar' => $validated['first_name_ar'],
+      'middle_name_ar' => $validated['middle_name_ar'],
+      'third_name_ar' => $validated['third_name_ar'],
+      'family_name_ar' => $validated['family_name_ar'],
+      'gender_id' => $validated['gender_id'],
+      'nationality_id' => $validated['nationality_id'],
+      'date_of_birth' => $validated['date_of_birth'],
+      'section_id' => $validated['section_id'],
+      'category_id' => $validated['category_id'],
+      'sponsorship_id' => $validated['sponsorship_id'],
+      'joining_date' => $validated['joining_date'],
+      'vacation_class' => $validated['vacation_class'],
+      'cost_center' => $validated['cost_center'],
+      'salary' => isset($validated['cost_center']) && $validated['cost_center']== "on" ? '1' : '0',
+      'fingerprint' => isset($validated['fingerprint']) && $validated['fingerprint']== "on" ? '1' : '0',
+      'married_contract' => isset($validated['married_contract']) && $validated['married_contract']== "on" ? '1' : '0',
+      'notes' => $validated['notes'],
+      'created_by' => auth()->user()->id,
+      'updated_by' => auth()->user()->id
+    ]);
+
+    $latest_id = User::latest('id')->first()->id;
+
+    Document::create([
+      'user_id' => $latest_id,
+      'document_type_id' => 1,
+      'description' => 'National ID',
+      'document_id' => $validated['document_id1'],
+      'place_of_issue' => $validated['place_of_issue1'],
+      'date_of_issue' => $validated['date_of_issue1'],
+      'date_of_expiry' => $validated['date_of_expiry1'],
+      'notification' => '30'
+    ]);
+
+    if($validated['document_id2'] != null){
+      Document::create([
+        'user_id' => $latest_id,
+        'document_type_id' => 2,
+        'description' => 'Passport',
+        'document_id' => $validated['document_id2'],
+        'place_of_issue' => $validated['place_of_issue2'],
+        'date_of_issue' => $validated['date_of_issue2'],
+        'date_of_expiry' => $validated['date_of_expiry2'],
+        'notification' => '180'
+      ]);
+    }
+
+    Contact::create([
+      'user_id' => $latest_id,
+      'contact' => $validated['mobile'],
+      'type' => '1'
+    ]);
+
+    if($validated['personal_email'] != null){
+      Contact::create([
+        'user_id' => $latest_id,
+        'contact' => $validated['personal_email'],
+        'type' => '2'
+      ]);
+    }
+
+    Salary::create([
+      'user_id' => $latest_id,
+      'basic' => $validated['basic'],
+      'housing' => $validated['housing'],
+      'transportation' => $validated['trans'],
+      'food' => $validated['food'],
+      'effective' => $validated['joining_date'],
+    ]);
+
+    if($validated['ticket'] != null){
+      Ticket::create([
+        'user_id' => $latest_id,
+        'amount' => $validated['ticket'],
+        'effective' => $validated['joining_date']
+      ]);
+    }
+
+    if(TempUser::latest()->first() != null){
+      TempUser::latest()->first()->delete();
+    }
+
+    return redirect()->route('admin.staff')->with('success', __('admin/staff.userSaved'));
   }
 }
+
