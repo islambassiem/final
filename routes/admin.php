@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\LetterController;
     Route::get('/staff/create', [StaffController::class, 'create'])->name('admin.employee.create');
     Route::post('/staff/draft', [StaffController::class, 'draft'])->name('admin.employee.draft');
     Route::post('/staff/store', [StaffController::class, 'store'])->name('admin.employee.store');
+    Route::post('staff/email/{email}', [StaffController::class, 'email']);
     Route::get('/staff/{id}', [StaffController::class, 'show'])->name('admin.employee');
 
 

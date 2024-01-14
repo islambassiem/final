@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TempUser extends Model
 {
   use HasFactory;
-  
-  protected $table = 'temp_users'; 
+
+  protected $table = 'temp_users';
 
   protected $fillable = [
     'empid'
@@ -56,6 +56,14 @@ class TempUser extends Model
     , 'personal_email'
     , 'created_by'
     , 'updated_by'
+    , 'place_of_issue1'
+    , 'date_of_issue1'
+    , 'date_of_expiry1'
+    , 'document_id2'
+    , 'place_of_issue2'
+    , 'date_of_issue2'
+    , 'date_of_expiry2'
+    , 'ticket'
   ];
 
 }
