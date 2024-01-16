@@ -54,7 +54,7 @@ class LeaveController extends Controller
     $start = Carbon::parse($validated['from']);
     $end = Carbon::parse($validated['to']);
     $diff = $end->floatDiffInHours($start);
-    if($diff > 4){
+    if($diff > 4 && $validated['leave_type'] != 1){
       return redirect()->back()->with('error', 'The permission cannot be more than 4 hours');
     }
     Leave::create($validated);
