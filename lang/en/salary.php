@@ -8,5 +8,8 @@
     'food' => 'Food',
     'package' => 'Package',
     'effective' => 'Effective',
-    'history' => 'History'
+    'history' => 'History',
+    'payslip' => 'Payslip',
+    'month' => 'Month',
+    'year' => 'Year'
   ];

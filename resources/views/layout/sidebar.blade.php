@@ -167,7 +167,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('salary.*') ? '' : 'collapsed'  }}" href="{{ route('salary.index') }}">
+        <a class="nav-link {{ request()->segment(1) == 'salary' ? '' : 'collapsed'  }}" href="{{ route('salary.index') }}">
           <i class="bi bi-cash-coin"></i>
           <span>{{ __('sidebar.salary') }}</span>
         </a>

@@ -30,6 +30,8 @@ use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\PayslipController;
+use App\Models\Payslip;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,3 +170,6 @@ Route::get('readAll', function(){
   }
   return redirect()->back();
 })->name('read.all.notifications');
+
+
+Route::post('salary/payslip', [PayslipController::class, 'index'])->name('payslip');
