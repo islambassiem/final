@@ -21,6 +21,7 @@ return [
   'head' => 'Head',
   'staff' => 'Staff',
   'faq' => 'F.A.Q',
+  'directory' => 'Directory',
   'documents' => 'Documents',
   'salary' => 'Salary',
   'qualifications' => 'Qualifications',

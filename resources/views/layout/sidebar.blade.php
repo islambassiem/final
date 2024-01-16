@@ -150,12 +150,17 @@
         </ul>
       </li>
 
-
-
       <li class="nav-item">
         <a class="nav-link {{ request()->segment(1) == 'faq' ? '' : 'collapsed'  }}" href="{{ route('faq') }}">
           <i class="bi bi-question-circle"></i>
           <span>{{ __('sidebar.faq') }}</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ request()->segment(1) == 'directory' ? '' : 'collapsed'  }}" href="{{ route('directory') }}">
+          <i class="bi bi-telephone-fill"></i>
+          <span>{{ __('sidebar.directory') }}</span>
         </a>
       </li>
 

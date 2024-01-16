@@ -21,6 +21,7 @@ return [
   'staff' => 'الموظفين',
   'head' => 'رئيس القسم',
   'faq' => 'الأسئلة الشائعة',
+  'directory' => 'دليل الاتصال',
   'documents' => 'الوثائق',
   'salary' => 'الراتب',
   'qualifications' => 'المؤهلات',
