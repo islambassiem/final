@@ -1,6 +1,6 @@
 <?php
 
-  return [
-    'headStatus' => 'Dept Head',
-    'hrStatus' => 'HR'
-  ];
+return [
+  'headStatus' => 'Department Head',
+  'hrStatus' => 'HR Status',
+];
