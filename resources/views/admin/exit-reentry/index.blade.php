@@ -53,6 +53,7 @@
                   <th scope="col">#</th>
                   <th scope="col">{{ __('admin/exit-reentry.empid') }}</th>
                   <th scope="col">{{ __('admin/exit-reentry.name') }}</th>
+                  <th scope="col">{{ __('admin/exit-reentry.iqama') }}</th>
                   <th scope="col">{{ __('admin/exit-reentry.departure') }}</th>
                   <th scope="col">{{ __('admin/exit-reentry.arrival') }}</th>
                   <th scope="col">{{ __('admin/exit-reentry.days') }}</th>
@@ -67,6 +68,7 @@
                     <td>{{ $c }}</td>
                     <td>{{ $visa->user->empid }}</td>
                     <td>{{ session('_lang') == '_ar' ? $visa->user->getFullArabicNameAttribute : $visa->user->getFullEnglishNameAttribute }}</td>
+                    <td>{{ $visa->user->iqama($visa->user->id)->document_id }}</td>
                     <td>{{ $visa->from }}</td>
                     <td>{{ $visa->to }}</td>
                     <td>{{ $visa->days() }}</td>
