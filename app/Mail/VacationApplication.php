@@ -33,7 +33,7 @@ class VacationApplication extends Mailable
     $userName = $this->vacation->user->name();
     $head = User::find($this->vacation->user->head)->email;
     return new Envelope(
-      from: new Address('noreply@csmonline.net', 'IMC - HRMS'),
+      from: new Address('noreply@csmonline.net', $userName),
       to: $head,
       cc: $user,
       subject: 'Vacation Application',

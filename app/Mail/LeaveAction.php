@@ -34,7 +34,7 @@ class LeaveAction extends Mailable
     $head = User::find($this->leave->user->head)->email;
     $headName = User::find($this->leave->user->head)->name();
     return new Envelope(
-      from: new Address('noreply@csmonline.net', 'IMC - HRMS'),
+      from: new Address('noreply@csmonline.net', $head),
       to: $user,
       subject: 'Leave Action',
     );
