@@ -53,6 +53,8 @@
                   <th scope="col">#</th>
                   <th scope="col">{{ __('admin/visits.empid') }}</th>
                   <th scope="col">{{ __('admin/visits.name') }}</th>
+                  <th scope="col">{{ __('admin/visits.visa_id') }}</th>
+                  <th scope="col">{{ __('admin/visits.iqama') }}</th>
                   <th scope="col">{{ __('admin/visits.deduction') }}</th>
                   <th scope="col">{{ __('admin/visits.appliedAt') }}</th>
                 </tr>
@@ -64,6 +66,8 @@
                     <td>{{ $c }}</td>
                     <td>{{ $visa->user->empid }}</td>
                     <td>{{ session('_lang') == '_ar' ? $visa->user->getFullArabicNameAttribute : $visa->user->getFullEnglishNameAttribute }}</td>
+                    <td>{{ $visa->number }}</td>
+                    <td>{{ $visa->user->iqama($visa->user->id)->document_id }}</td>
                     <td>@php echo $visa->boolToIcon($visa->deduction) @endphp</td>
                     <td>{{  $visa->created_at  }}</td>
                   </tr>
