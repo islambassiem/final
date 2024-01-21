@@ -10,6 +10,7 @@ use App\Models\Contact;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Models\Tables\Gender;
+use App\Events\FacultyCreated;
 use App\Models\Admin\TempUser;
 use App\Models\Tables\Country;
 use App\Models\Tables\Section;
@@ -156,7 +157,7 @@ class StaffController extends Controller
   public function store(AddEmployee $request)
   {
     $validated = $request->validated();
-    User::create([
+    $user = User::create([
       'empid' => $validated['empid'],
       'email' => $validated['email'],
       'password' => Hash::make($validated['document_id1']),
@@ -177,7 +178,7 @@ class StaffController extends Controller
       'joining_date' => $validated['joining_date'],
       'vacation_class' => $validated['vacation_class'],
       'cost_center' => $validated['cost_center'],
-      'salary' => isset($validated['cost_center']) && $validated['cost_center']== "on" ? '1' : '0',
+      'salary' => isset($validated['salary']) && $validated['salary']== "on" ? '1' : '0',
       'fingerprint' => isset($validated['fingerprint']) && $validated['fingerprint']== "on" ? '1' : '0',
       'married_contract' => isset($validated['married_contract']) && $validated['married_contract']== "on" ? '1' : '0',
       'notes' => $validated['notes'],
@@ -244,6 +245,10 @@ class StaffController extends Controller
 
     if(TempUser::latest()->first() != null){
       TempUser::latest()->first()->delete();
+    }
+
+    if($validated['category_id'] == 1){
+      event(new FacultyCreated($user));
     }
 
     return redirect()->route('admin.staff')->with('success', __('admin/staff.userSaved'));
