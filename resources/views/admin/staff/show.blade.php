@@ -127,7 +127,7 @@
 
                     <div class="row d-flex align-items-center">
                       <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.position') }}</div>
-                      <div class="col-lg-9 col-md-8">{{ $user->position->position_ar }}</div>
+                      <div class="col-lg-9 col-md-8">{{ $user->position?->position_ar }}</div>
                     </div>
 
                     <div class="row d-flex align-items-center">
