@@ -23,6 +23,6 @@ class SendFacultyCreatedNotification
    */
   public function handle(FacultyCreated $event): void
   {
-    Mail::send(new AdminFacultyCreated($event->user));
+    Mail::queue(new AdminFacultyCreated($event->user));
   }
 }

@@ -228,10 +228,10 @@ class StaffController extends Controller
 
     Salary::create([
       'user_id' => $latest_id,
-      'basic' => $validated['basic'],
-      'housing' => $validated['housing'],
-      'transportation' => $validated['trans'],
-      'food' => $validated['food'],
+      'basic' => $validated['basic'] ?? 0,
+      'housing' => $validated['housing'] ?? 0,
+      'transportation' => $validated['trans'] ?? 0,
+      'food' => $validated['food'] ?? 0,
       'effective' => $validated['joining_date'],
     ]);
 

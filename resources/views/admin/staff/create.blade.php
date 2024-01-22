@@ -144,7 +144,7 @@
             <div class="col-md-4">
               <div class="form-floating">
                 <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ old('email') }}">
-                <label for="email">{{ __('admin/staff.email.unique') }}</label>
+                <label for="email">{{ __('admin/staff.email') }}</label>
               </div>
               <span class="text-danger">
                 @error('email')
