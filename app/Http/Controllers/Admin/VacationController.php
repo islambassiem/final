@@ -20,26 +20,29 @@ class VacationController extends Controller
   {
     $sub = User::where('active', '1')->pluck('id')->toArray();
     $vacations = Vacation::with('user', 'detail')
-      ->when($request->start != null, function($q) use($request){
-        $q->whereDate('end_date', '>=', Carbon::parse($request->start));
-      }, function($q){
-        $q->whereDate('start_date', '>=', Carbon::now());
+      ->where(function ($q) use($request){
+        $q->when($request->start != null, function($q) use($request){
+          $q->whereDate('end_date', '>=', Carbon::parse($request->start));
+        }, function($q){
+          $q->whereDate('start_date', '>=', Carbon::now());
+        })
+        ->when($request->end != null, function($q) use($request){
+          $q->whereDate('start_date', '<=', Carbon::parse($request->end));
+        }, function($q){
+          $q->whereDate('end_date', '>=', Carbon::now());
+        })
+        ->when($request->type != null, function($q) use ($request){
+          $q->where('vacation_type', $request->type);
+        })
+        ->when($request->status != null, function($q) use ($request){
+          $q->where('status_id', $request->status);
+        }, function($q){
+          $q->where('status_id', '0');
+        });
       })
-      ->when($request->end != null, function($q) use($request){
-        $q->whereDate('start_date', '<=', Carbon::parse($request->end));
-      }, function($q){
-        $q->whereDate('end_date', '>=', Carbon::now());
-      })
-      ->when($request->type != null, function($q) use ($request){
-        $q->where('vacation_type', $request->type);
-      })
-      ->when($request->status != null, function($q) use ($request){
-        $q->where('status_id', $request->status);
-      })
-      ->orWhere('status_id', '0')
       ->orderByDesc('id')
-      ->get()
-      ->whereIn('user_id', $sub);
+      ->whereIn('user_id', $sub)
+      ->get();
     return view('admin.vacations.index', [
       'vacations' => $vacations,
       'types' => VacationType::all(),

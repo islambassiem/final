@@ -19,26 +19,27 @@ class LeaveController extends Controller
   public function index(Request $request){
     $sub = User::where('active', '1')->pluck('id')->toArray();
     $q = Leave::with('user', 'detail')
-      ->when($request->start != null, function($q) use ($request) {
-        return $q->whereDate('date', '>=', Carbon::parse($request->start));
-      }, function($q){
-        return $q->whereDate('date', '>=', Carbon::now());
+      ->where(function ($q) use($request){
+        $q->when($request->start != null, function($q) use ($request) {
+          return $q->whereDate('date', '>=', Carbon::parse($request->start));
+        }, function($q){
+          return $q->whereDate('date', '>=', Carbon::now());
+        })
+        ->when($request->end != null, function ($q) use ($request){
+          return $q->whereDate('date', '<=', Carbon::parse($request->end));
+        })
+        ->when($request->type != null, function($q) use ($request){
+          $q->where('leave_type', $request->type);
+        })
+        ->when($request->status != null, function($q) use ($request){
+          $q->where('status_id', $request->status);
+        }, function($q){
+          $q->where('status_id', '0');
+        });
       })
-      ->when($request->end != null, function ($q) use ($request){
-        return $q->whereDate('date', '<=', Carbon::parse($request->end));
-      })
-      ->when($request->type != null, function($q) use ($request){
-        $q->where('leave_type', $request->type);
-      })
-      ->when($request->status != null, function($q) use ($request){
-        $q->where('status_id', $request->status);
-      })
-      ->orWhere('status_id', '0')
       ->orderByDesc('id')
-      ->get()
-      ->whereIn('user_id', $sub);
-
-
+      ->whereIn('user_id', $sub)
+      ->get();
     return view('admin.leaves.index', [
       'permissions' => $q,
       'types' => LeaveType::all(),
