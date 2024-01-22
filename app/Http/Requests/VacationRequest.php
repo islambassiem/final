@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use App\Rules\AnnualVacationEndRule;
 use App\Rules\AnnualVacationStartRule;
+use App\Rules\VacationConflictEnd;
+use App\Rules\VacationConflictStart;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VacationRequest extends FormRequest
@@ -24,8 +26,8 @@ class VacationRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule()],
-      'end_date' => ['required', 'date', 'after_or_equal:start_date', new AnnualVacationEndRule],
+      'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule, new VacationConflictStart],
+      'end_date' => ['required', 'date', 'after_or_equal:start_date', new AnnualVacationEndRule, new VacationConflictEnd],
       'vacation_type' => ['required'],
       'employee_notes' => ['nullable'],
       'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
