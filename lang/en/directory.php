@@ -3,8 +3,9 @@
   return [
     'directory' => 'Directory',
     'name' => 'Name',
-    'department' => 'department',
+    'department' => 'Department',
     'ext' => 'Extension',
     'email' => 'Email',
+    'mobile' => 'Mobile',
     'empid' => 'Emp ID',
   ];

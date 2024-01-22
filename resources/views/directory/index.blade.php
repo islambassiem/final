@@ -36,6 +36,9 @@
                     <th scope="col">{{ __('directory.name') }}</th>
                     <th scope="col">{{ __('directory.department') }}</th>
                     <th scope="col">{{ __('directory.ext') }}</th>
+                    @if (auth()->user()->id == 210)
+                      <th scope="col">{{ __('directory.mobile') }}</th>
+                    @endif
                     <th scope="col">{{ __('directory.email') }}</th>
                   </tr>
                 </thead>
@@ -48,6 +51,9 @@
                       <td>{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}</td>
                       <td>{{ $user->section?->{'section' . session('_lang')} }}</td>
                       <td>{{ $user->extension($user->id) }}</td>
+                      @if (auth()->user()->id == 210)
+                        <td>{{ $user->mobile($user->id) }}</td>
+                      @endif
                       <td>{{ $user->email }}</td>
                     </tr>
                     @php $c++; @endphp
