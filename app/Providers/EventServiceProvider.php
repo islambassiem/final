@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use App\Events\FacultyCreated;
+use App\Events\EmployeeCreated;
+use App\Listeners\SendEmployeeToIt;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\SendEmployeeToFinance;
 use App\Listeners\SendFacultyCreatedNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +26,11 @@ class EventServiceProvider extends ServiceProvider
 
     FacultyCreated::class => [
       SendFacultyCreatedNotification::class
+    ],
+
+    EmployeeCreated::class => [
+      SendEmployeeToFinance::class,
+      SendEmployeeToIt::class
     ]
   ];
 

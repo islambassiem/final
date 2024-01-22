@@ -11,14 +11,17 @@
             </tr>
             <tr width="100%">
               <td valign="top" align="left" style="background:#fff;padding:18px">
-                <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> New Faculty Staff Added </h1>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Kindly create an email for the newly added employee with the following details:</p>
+                <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> New Employee Added </h1>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Employee ID:  {{ $user->empid }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Name:  {{ $user->getFullEnglishNameAttribute }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Gender: {{ $user->gender->gender_en }} </p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Nationality:  {{ $user->nationality->country_en }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Department:  {{ $user->section->section_en }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Email:  {{ $user->email }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Mobile:  {{ $user->mobile($user_id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Basic:  {{ $user->basic($user->id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Housing:  {{ $user->housing($user->id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Transportation:  {{ $user->transportation($user->id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Food:  {{ $user->food($user->id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Package: {{ $user->latestSalary($user->id) }} </p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
                   {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
                   <br><br>
@@ -29,27 +32,6 @@
           </tbody>
         </table>
       </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <th>Name</th>
-      <td>{{ $user->getFullEnglishNameAttribute }}</td>
-    </tr>
-    <tr>
-      <th>National ID</th>
-      <td>{{ $user->iqama($user->id)->document_id }}</td>
-    </tr>
-    <tr>
-      <th>Email</th>
-      <td>{{ $user->email }}</td>
-    </tr>
-    <tr>
-      <th>Mobile</th>
-      <td>{{ $user->mobile($user->id) }}</td>
     </tr>
   </tbody>
 </table>

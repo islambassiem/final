@@ -81,7 +81,7 @@ class AddEmployee extends FormRequest
       'family_name_ar.required' => __('admin/staff.family_name_ar.required'),
       'email.required' => __('admin/staff.email.required'),
       'email.email' => __('admin/staff.email.email'),
-      'email.unique' => __('admin/staff.unique'),
+      'email.unique' => __('admin/staff.email.unique'),
       'mobile.required' => __('admin/staff.mobile.required'),
       'gender_id.required' => __('admin/staff.gender.required'),
       'nationality_id.required' => __('admin/staff.nationality.required'),

@@ -189,6 +189,22 @@ class User extends Authenticatable
     return $this->hasMany(Leave::class);
   }
 
+  public function basic(string $user_id){
+    return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->getBasicAttribute();
+  }
+
+  public function housing(string $user_id){
+    return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->getHousingAttribute();
+  }
+
+  public function transportation(string $user_id){
+    return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->getTransportationAttribute();
+  }
+
+  public function food(string $user_id){
+    return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->getFoodAttribute();
+  }
+
   public function latestSalary(string $user_id){
     return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->package();
   }

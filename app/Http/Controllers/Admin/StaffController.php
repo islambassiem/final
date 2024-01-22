@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\EmployeeCreated;
 use App\Models\Bank;
 use App\Models\User;
 use App\Models\Salary;
@@ -250,6 +251,8 @@ class StaffController extends Controller
     if($validated['category_id'] == 1){
       event(new FacultyCreated($user));
     }
+
+    event(new EmployeeCreated($user));
 
     return redirect()->route('admin.staff')->with('success', __('admin/staff.userSaved'));
   }
