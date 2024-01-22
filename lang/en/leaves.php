@@ -15,4 +15,7 @@
     'time' => 'Time',
     'deptHead' => 'Department Head',
     'hr' => 'Human Resources',
+
+    // validation
+    'conflict' => 'You have already applied for a leave in that day',
   ];

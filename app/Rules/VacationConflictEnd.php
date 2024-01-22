@@ -26,7 +26,7 @@ class VacationConflictEnd implements ValidationRule, DataAwareRule
 
     foreach($vacations as $vacation){
       if($vacation['start_date'] <= $end_date && $vacation['end_date'] >= $end_date){
-        $fail('The date you have entered conflicts with vacations you have already applied for before!');
+        $fail(__('vacations.conflict'));
       }
     }
   }

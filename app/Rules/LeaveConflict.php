@@ -3,12 +3,12 @@
 namespace App\Rules;
 
 use Closure;
-use Carbon\Carbon;
-use App\Models\Vacation;
+use App\Models\Leave;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Carbon\Carbon;
 
-class VacationConflictStart implements ValidationRule, DataAwareRule
+class LeaveConflict implements ValidationRule, DataAwareRule
 {
 
   protected $data = [];
@@ -20,13 +20,12 @@ class VacationConflictStart implements ValidationRule, DataAwareRule
    */
   public function validate(string $attribute, mixed $value, Closure $fail): void
   {
-    $start_date = Carbon::parse($value);
-    $vacations = Vacation::where('user_id', auth()->user()->id)
-      ->orderByDesc('start_date')->get();
+    $leaves = Leave::where('user_id', auth()->user()->id)
+      ->orderByDesc('date')->get();
 
-    foreach($vacations as $vacation){
-      if($vacation['start_date'] <= $start_date && $vacation['end_date'] >= $start_date){
-        $fail(__('vacations.conflict'));
+    foreach ($leaves as $leave) {
+      if(Carbon::parse($value)->equalTo($leave['date'])){
+        $fail(__('leaves.conflict'));
       }
     }
   }

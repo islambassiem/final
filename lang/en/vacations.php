@@ -25,5 +25,8 @@
     'hr' => 'Human Resources',
     'addAttach' => 'Attach an attachment',
     'noVac' => 'There are no vacations availed yet',
-    'history' => 'History'
+    'history' => 'History',
+
+    //validation
+    'conflict' => 'The date you have entered conflicts with vacations you have already applied for before!',
   ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\LeaveConflict;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LeaveRequest extends FormRequest
@@ -23,7 +24,7 @@ class LeaveRequest extends FormRequest
   {
     return [
       'leave_type' => 'required',
-      'date' => 'required|date',
+      'date' => ['required' ,'date', new LeaveConflict],
       'from' => 'required|date_format:H:i|before:to',
       'to' => 'required|date_format:H:i|after:from',
       'employee_notes' => 'nullable',
