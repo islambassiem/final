@@ -29,8 +29,8 @@ class FacultyCreated extends Mailable
   {
     return new Envelope(
       subject: 'Faculty Created',
-      to: 'msaif@inaya.edu.sa',
-      cc: 'hr@inaya.edu.sa'
+      to: ['msaif@inaya.edu.sa'],
+      cc: ['hr@inaya.edu.sa']
     );
   }
 
@@ -40,7 +40,7 @@ class FacultyCreated extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'emails.admin.UserRegisteration.facultyCreated',
+      view: 'emails.admin.UserRegistration.facultyCreated',
     );
   }
 

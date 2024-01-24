@@ -30,13 +30,11 @@ class VacationApplication extends Mailable
   public function envelope(): Envelope
   {
     $user = $this->vacation->user->email;
-    $userName = $this->vacation->user->name();
     $head = User::find($this->vacation->user->head)->email;
     return new Envelope(
-      from: new Address('noreply@csmonline.net', $userName),
-      to: $head,
-      cc: $user,
       subject: 'Vacation Application',
+      to: [$head],
+      cc: [$user],
     );
   }
 

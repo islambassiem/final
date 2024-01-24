@@ -30,9 +30,8 @@ class IqamaRenewal extends Mailable
   {
     $user = $this->iqama->user->email;
     return new Envelope(
-      from: new Address('noreply@csmonline.net', 'IMC - HRMS'),
       subject: 'Iqama Renewal',
-      to: $user
+      to: [$user]
     );
   }
 

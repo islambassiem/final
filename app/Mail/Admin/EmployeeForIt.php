@@ -28,9 +28,9 @@ class EmployeeForIt extends Mailable
   public function envelope(): Envelope
   {
     return new Envelope(
-      subject: 'New Emplpoyee Added',
-      to: 'ithelp@inaya.edu.sa',
-      cc: ['isyed@inaya.edu.sa', 'dfernandez@inaya.edu.sa']
+      subject: 'New Employee Added',
+      to: ['ithelp@inaya.edu.sa'],
+      cc: ['isyed@inaya.edu.sa', 'dfernandez@inaya.edu.sa', 'hr@inaya.edu.sa']
     );
   }
 
@@ -40,7 +40,7 @@ class EmployeeForIt extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'emails.admin.UserRegisteration.employeeForIt',
+      view: 'emails.admin.UserRegistration.employeeForIt',
     );
   }
 

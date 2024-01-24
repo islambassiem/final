@@ -31,13 +31,11 @@ class LeaveApplication extends Mailable
   public function envelope(): Envelope
   {
     $user = $this->leave->user->email;
-    $userName = $this->leave->user->name();
     $head = User::find($this->leave->user->head)->email;
     return new Envelope(
-      from: new Address('noreply@csmonline.net', $userName),
-      to: $head,
-      cc: $user,
       subject: 'Leave Application',
+      to: [$head],
+      cc: [$user],
     );
   }
 

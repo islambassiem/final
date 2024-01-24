@@ -18,7 +18,7 @@
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Gender: {{ $user->gender->gender_en }} </p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Department:  {{ $user->section->section_en }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Email:  {{ $user->email }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Mobile:  {{ $user->mobile($user_id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Mobile:  {{ $user->mobile($user->id) }}</p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
                   {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
                   <br><br>

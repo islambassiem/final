@@ -30,13 +30,9 @@ class LeaveAction extends Mailable
   public function envelope(): Envelope
   {
     $user = $this->leave->user->email;
-    $userName = $this->leave->user->name();
-    $head = User::find($this->leave->user->head)->email;
-    $headName = User::find($this->leave->user->head)->name();
     return new Envelope(
-      from: new Address('noreply@csmonline.net', $head),
-      to: $user,
       subject: 'Leave Action',
+      to: [$user],
     );
   }
 
