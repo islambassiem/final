@@ -25,7 +25,10 @@ class VacationConflictEnd implements ValidationRule, DataAwareRule
       ->orderByDesc('start_date')->get();
 
     foreach($vacations as $vacation){
-      if($vacation['start_date'] <= $end_date && $vacation['end_date'] >= $end_date){
+      if(
+          Carbon::parse($vacation['start_date']) <= $end_date
+          &&
+          Carbon::parse($vacation['end_date']) >= $end_date){
         $fail(__('vacations.conflict'));
       }
     }
