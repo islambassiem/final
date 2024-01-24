@@ -19,7 +19,8 @@ class LeaveController extends Controller
   public function index(Request $request){
     $sub = User::where('active', '1')->pluck('id')->toArray();
     $q = Leave::with('user', 'detail')
-      ->where(function ($q) use($request){
+      ->where('status_id', '0')
+      ->orWhere(function ($q) use($request){
         $q->when($request->start != null, function($q) use ($request) {
           return $q->whereDate('date', '>=', Carbon::parse($request->start));
         }, function($q){
@@ -33,8 +34,6 @@ class LeaveController extends Controller
         })
         ->when($request->status != null, function($q) use ($request){
           $q->where('status_id', $request->status);
-        }, function($q){
-          $q->where('status_id', '0');
         });
       })
       ->orderByDesc('id')
