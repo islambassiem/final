@@ -30,7 +30,7 @@ class EmployeeForFinance extends Mailable
     return new Envelope(
       subject: 'New Employee Added',
       to: ['syed@inaya.edu.sa'],
-      cc: ['hr@inaya.edi.sa']
+      cc: ['hr@inaya.edu.sa']
     );
   }
 
