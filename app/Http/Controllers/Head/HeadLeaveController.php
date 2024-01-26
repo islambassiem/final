@@ -26,23 +26,32 @@ class HeadLeaveController extends Controller
   {
     $sub = User::where('active', '1')->where('head', auth()->user()->id)->pluck('id')->toArray();
     $leaves = Leave::with('user', 'detail')
-        ->when($request->start != null, function($q) use ($request) {
-          return $q->whereDate('date', '>=', Carbon::parse($request->start));
-        }, function($q){
-          return $q->whereDate('date', '>=', Carbon::now());
-        })
-        ->when($request->end != null, function ($q) use ($request){
-          return $q->whereDate('date', '<=', Carbon::parse($request->end));
-        })
-        ->when($request->type != null, function($q) use ($request){
-          return $q->where('leave_type', $request->type);
-        })
-        ->when($request->status != null, function($q) use ($request){
-          $q->where('status_id', $request->status);
+        ->join('leave_details', 'leave_details.leave_id', '=', 'leaves.id')
+        ->where(function($q) use($request){
+          $q->where('head_status', '0')
+          ->orWhere(function($q) use($request){
+            $q->when($request->start != null, function($q) use ($request) {
+              return $q->whereDate('date', '>=', Carbon::parse($request->start));
+            }, function($q){
+              return $q->whereDate('date', '>=', Carbon::now());
+            })
+            ->when($request->end != null, function ($q) use ($request){
+              return $q->whereDate('date', '<=', Carbon::parse($request->end));
+            }, function($q){
+              $q->whereDate('date', '>=', Carbon::now());
+            })
+            ->when($request->type != null, function($q) use ($request){
+              return $q->where('leave_type', $request->type);
+            })
+            ->when($request->status != null, function($q) use ($request){
+              $q->where('head_status', $request->status);
+            });
+          });
         })
       ->orderByDesc('leaves.id')
-      ->get()
-      ->whereIn('user_id', $sub);
+      ->whereIn('user_id', $sub)
+      ->orderByDesc('leaves.id')
+      ->get(['leaves.id', 'user_id', 'leave_type', 'date', 'from', 'to', 'status_id', 'leaves.deleted_at', 'leaves.created_at', 'leaves.updated_at', 'head_status']);
 
     return view('head.leaves.index', [
       'permissions' => $leaves,

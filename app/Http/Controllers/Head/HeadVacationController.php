@@ -43,7 +43,7 @@ class HeadVacationController extends Controller
             $q->where('vacation_type', $request->type);
           })
           ->when($request->status != null, function($q) use ($request){
-            $q->where('status_id', $request->status);
+            $q->where('head_status', $request->status);
           });
         });
       })
