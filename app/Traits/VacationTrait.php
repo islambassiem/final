@@ -8,23 +8,25 @@ use Illuminate\Support\Facades\DB;
 
 trait VacationTrait{
 
-  private function balance($endDate = null)
+  private function balance($endDate = null, $joining_date = null, $vacation_class = null ,$user_id = null)
   {
-    return round($this->accrued($endDate) - $this->availed(), 0);
+    return round($this->accrued($endDate, $joining_date, $vacation_class) - $this->availed($user_id), 0);
   }
 
-  private function accrued($endDate = null)
+  private function accrued($endDate = null, $joining_date = null, $vacation_class = null)
   {
-    $endDate ?? date('Y-m-d');
-    $start = Carbon::parse(auth()->user()->joining_date);
+    $endDate = $endDate ?? date('Y-m-d');
+    $joining_date = $joining_date ?? auth()->user()->joining_date;
+    $vacation_class = $vacation_class ?? auth()->user()->vacation_class;
+    $start = Carbon::parse($joining_date);
     $end = Carbon::parse($endDate);
     $days = $this->days($start, $end);
     $accrued = 0;
-    if(auth()->user()->vacation_class == 30){
+    if($vacation_class == 30){
       $accrued =  $days * 30 / 365 ;
     }
-    if(auth()->user()->vacation_class == 21){
-      $joiningDate = Carbon::parse(auth()->user()->joining_date);
+    if($vacation_class == 21){
+      $joiningDate = Carbon::parse($joining_date);
       $tillDate = Carbon::parse((Carbon::parse($endDate))->addDay());
       $diff = ($tillDate->diffInDays($joiningDate)) / 365;
       if($diff >= 5){
@@ -37,14 +39,15 @@ trait VacationTrait{
     return $accrued;
   }
 
-  private function availed()
+  private function availed($user_id = null)
   {
+    $user_id = $user_id ?? auth()->user()->id;
     $availed =  DB::select("SELECT
       SUM(DATEDIFF(
         vacations.end_date,
         vacations.start_date
       ) +1) AS days
-    FROM vacations WHERE vacation_type = 1 AND `status_id` = 1 AND user_id = ? AND deleted_at IS NULL LIMIT 1;", [auth()->user()->id]);
+    FROM vacations WHERE vacation_type = 1 AND `status_id` = 1 AND user_id = ? AND deleted_at IS NULL LIMIT 1;", [$user_id]);
     return $availed[0]->days;
   }
 
@@ -62,9 +65,10 @@ trait VacationTrait{
     return $this->availedInDuration($start, $end, $vacation_type, $status_id);
   }
 
-  public function availedInDuration($start, $end, $vacation_type = 1, $status_id = 1)
+  public function availedInDuration($start, $end, $vacation_type = 1, $status_id = 1, $user_id = null)
   {
-    $vacations = Vacation::where('user_id', auth()->user()->id)
+    $user_id = $user_id ?? auth()->user()->id;
+    $vacations = Vacation::where('user_id', $user_id)
     ->where('status_id', $status_id)
     ->where('vacation_type', $vacation_type)
     ->where('start_date', '<=', $end)
