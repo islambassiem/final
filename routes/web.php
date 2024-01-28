@@ -176,3 +176,5 @@ Route::get('readAll', function(){
 
 
 Route::post('salary/payslip', [PayslipController::class, 'index'])->name('payslip');
+
+Route::get('/payslip', [PayslipController::class, 'test']);
