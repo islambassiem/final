@@ -33,12 +33,14 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">{{ __('directory.empid')}}</th>
+                    <th scope="col">{{ __('directory.ats')}}</th>
                     <th scope="col">{{ __('directory.name') }}</th>
+                    <th scope="col">{{ __('directory.gender') }}</th>
                     <th scope="col">{{ __('directory.department') }}</th>
                     <th scope="col">{{ __('directory.ext') }}</th>
-                    @if (auth()->user()->id == 210)
-                      <th scope="col">{{ __('directory.mobile') }}</th>
-                    @endif
+                      @if (auth()->user()->id == 210)
+                        <th scope="col">{{ __('directory.mobile') }}</th>
+                      @endif
                     <th scope="col">{{ __('directory.email') }}</th>
                   </tr>
                 </thead>
@@ -48,12 +50,14 @@
                     <tr>
                       <td>{{ $c }}</td>
                       <td>{{ $user->empid }}</td>
+                      <td>{{ $user->ats?->ats ?? $user->empid }}</td>
                       <td>{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}</td>
+                      <td>{{ $user->gender?->{'gender' . session('_lang')} }}</td>
                       <td>{{ $user->section?->{'section' . session('_lang')} }}</td>
                       <td>{{ $user->extension($user->id) }}</td>
-                      @if (auth()->user()->id == 210)
-                        <td>{{ $user->mobile($user->id) }}</td>
-                      @endif
+                        @if (auth()->user()->id == 210)
+                          <td>{{ $user->mobile($user->id) }}</td>
+                        @endif
                       <td>{{ $user->email }}</td>
                     </tr>
                     @php $c++; @endphp

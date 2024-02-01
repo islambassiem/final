@@ -216,4 +216,8 @@ class User extends Authenticatable
   public function passport(string $user_id){
     return Document::where('user_id', $user_id)->where('document_type_id', '2')->first();
   }
+
+  public function ats(){
+    return $this->hasOne(Ats::class);
+  }
 }

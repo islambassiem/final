@@ -8,4 +8,6 @@
     'email' => 'Email',
     'mobile' => 'Mobile',
     'empid' => 'Emp ID',
+    'gender' => 'Gender',
+    'ats' => 'Ats'
   ];
