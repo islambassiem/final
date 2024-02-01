@@ -33,7 +33,9 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">{{ __('directory.empid')}}</th>
-                    <th scope="col">{{ __('directory.ats')}}</th>
+                    @if (auth()->user()->id == 210)
+                      <th scope="col">{{ __('directory.ats')}}</th>
+                    @endif
                     <th scope="col">{{ __('directory.name') }}</th>
                     <th scope="col">{{ __('directory.gender') }}</th>
                     <th scope="col">{{ __('directory.department') }}</th>
@@ -50,7 +52,9 @@
                     <tr>
                       <td>{{ $c }}</td>
                       <td>{{ $user->empid }}</td>
-                      <td>{{ $user->ats?->ats ?? $user->empid }}</td>
+                      @if (auth()->user()->id == 210)
+                        <td>{{ $user->ats?->ats ?? $user->empid }}</td>
+                      @endif
                       <td>{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}</td>
                       <td>{{ $user->gender?->{'gender' . session('_lang')} }}</td>
                       <td>{{ $user->section?->{'section' . session('_lang')} }}</td>
