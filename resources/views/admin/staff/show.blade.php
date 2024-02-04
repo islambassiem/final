@@ -200,13 +200,13 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="title" class="fs-5">{{ __('salary.iban') }}</label>
-                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->iban }}">
+                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->iban ?? 'N/A' }}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="title" class="fs-5">{{ __('salary.bankName') }}</label>
-                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->bank->{'bank_name' . session('_lang')} }}">
+                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank?->bank->{'bank_name' . session('_lang')} }}">
                     </div>
                   </div>
                 </div>
