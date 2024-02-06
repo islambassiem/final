@@ -25,7 +25,9 @@ class IqamaRenewalList{
       ->orderBy('date_of_expiry')
       ->get();
     Mail::send(view: 'emails.admin.iqamaRenewalList', data: ['iqamas' => $iqamas] ,callback: function($message){
-      $message->to('hr@inaya.edu.sa', 'a.rashda@inaya.edu.sa', 'yalzeer@inaya.edu.sa');
+      $message->to('hr@inaya.edu.sa');
+      $message->to('a.rashda@inaya.edu.sa');
+      $message->to('yalzeer@inaya.edu.sa');
       $message->subject('الاقامات المنتهيه في خلال 30 يوم');
     });
   }
