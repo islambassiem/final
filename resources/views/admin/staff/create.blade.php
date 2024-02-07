@@ -545,7 +545,18 @@
       form.submit();
     });
 
-    lastName.addEventListener('blur', function(){
+    lastName.addEventListener('blur', inaya);
+    $('#category').on('change', shining);
+
+    function shining(){
+      if($('#category').val() == '4'){
+        shiningEmail();
+      }else{
+        inaya();
+      }
+    }
+
+    function inaya(){
       officail = firstName.value.toLowerCase().charAt(0)
         + lastName.value.toLowerCase()
         + '@inaya.edu.sa';
@@ -571,7 +582,38 @@
           }
         }
       });
-    });
+    }
+
+    function shiningEmail(){
+      officail = firstName.value.toLowerCase().charAt(0)
+        + lastName.value.toLowerCase()
+        + '.shdc'
+        + '@inaya.edu.sa';
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url: "{{ URL::to('admin/staff/email') }}/" + officail,
+        method: "POST",
+        dataType: "json",
+        success: function(data){
+          if(!data){
+            email.value = firstName.value.toLowerCase().charAt(0)
+              + '_'
+              + lastName.value.toLowerCase()
+              + '.shdc'
+              + '@inaya.edu.sa';
+          }else if(data == 1){
+            email.value = firstName.value.toLowerCase().charAt(0)
+              + lastName.value.toLowerCase()
+              + '.shdc'
+              + '@inaya.edu.sa';
+          }
+        }
+      });
+    }
   })
 </script>
 @endsection
