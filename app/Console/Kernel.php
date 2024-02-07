@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Cronjobs\DocumentExpiryReminder;
 use App\Cronjobs\IqamaRenewalList;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,7 +16,7 @@ class Kernel extends ConsoleKernel
   {
     // $schedule->command('inspire')->hourly();
     $schedule->call(new IqamaRenewalList)->weeklyOn(0, '8:00');
-
+    $schedule->call(new DocumentExpiryReminder)->dailyAt('05:00');
   }
 
   /**
