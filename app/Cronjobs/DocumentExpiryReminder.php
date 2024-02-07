@@ -14,7 +14,7 @@ class DocumentExpiryReminder{
     ->whereHas('user', function($query){
       $query->where('active', '1');
     })
-    ->whereNot('date_of_expiry', 'IS NOT NULL', NULL)
+    ->whereNotNull('date_of_expiry')
     ->orderBy('date_of_expiry')
     ->get();
     foreach ($documents as $document) {
