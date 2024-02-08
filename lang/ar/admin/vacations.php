@@ -2,5 +2,6 @@
 
 return [
   'headStatus' => 'رئيس القسم',
-  'hrStatus' => 'الموارد البشرية'
+  'hrStatus' => 'الموارد البشرية',
+  'vacationDeleted' => 'تم حذف الاجازة بنجاح'
 ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Vacation;
+use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Models\VacationDetail;
 use App\Models\Tables\VacationType;
@@ -77,5 +78,20 @@ class VacationController extends Controller
     $user->notify(new VacationAction($vacation));
     Mail::queue(new MailVacationAction($vacation));
     return redirect()->back()->with('success', __('You have taken an action successfully'));
+  }
+
+  public function destroy(string $id)
+  {
+    $vacation = Vacation::find($id);
+    $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
+    $attachment = Attachment::where('attachmentable_type', 'App\Models\Vacation')->where('attachmentable_id', $vacation->id)->first();
+    if($detail){
+      $detail->delete();
+    }
+    if($attachment){
+      $attachment->delete();
+    }
+    $vacation->delete();
+    return redirect()->back()->with('success', __('admin/vacations.vacationDeleted'));
   }
 }
