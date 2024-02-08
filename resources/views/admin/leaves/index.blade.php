@@ -81,6 +81,11 @@
         </form>
       </div>
     </div>
+    @if (session('success'))
+      <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+      </div>
+    @endif
     <div class="card">
       <div class="card-body">
         @if (count($permissions) == 0)
@@ -152,6 +157,15 @@
                       data-id="{{ $permission->id }}">
                       <i class="bi bi-activity"></i>
                     </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm py-0"
+                      id="deleteBtn"
+                      data-id = "{{ $permission->id }}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#delteConfirmation">
+                      <i class="bi bi-trash3"></i>
+                    </button>
                   </td>
                 </tr>
                 @php $c++; @endphp
@@ -197,7 +211,29 @@
     </div>
   </div>
 </div>
+  {{-- Delete a leave modal --}}
 
+  <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" id="deleteForm">
+            @csrf
+            @method('delete')
+            {{ __('global.deleteConfirmation') }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
 
@@ -236,6 +272,13 @@
         let form = document.getElementById('actionForm');
         form.action = "leaves/action/" + id;
       });
+
+      $('#delteConfirmation').on('show.bs.modal', function (event){
+      let button = $(event.relatedTarget);
+      let id = button.data('id');
+      let form = document.getElementById('deleteForm');
+      form.action = "delete/leaves/" + id;
+    });
     });
 </script>
 @endsection

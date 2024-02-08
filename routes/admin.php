@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\LetterController;
 
     Route::get('/leaves', [LeaveController::class, 'index'])->name('admin.leaves');
     Route::get('/leaves/{id}', [LeaveController::class, 'show'])->name('admin.leave');
+    Route::delete('/delete/leaves/{id}', [LeaveController::class, 'destroy'])->name('admin.leave.delete');
     Route::post('/leaves/action/{id}', [LeaveController::class, 'update'])->name('admin.leave.action');
 
     Route::get('/vacations', [VacationController::class, 'index'])->name('admin.vacations');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Leave;
+use App\Models\Attachment;
 use App\Models\LeaveDetail;
 use Illuminate\Http\Request;
 use App\Models\Tables\LeaveType;
@@ -72,5 +73,20 @@ class LeaveController extends Controller
     $user->notify(new LeaveAction($leave));
     Mail::queue(new MailLeaveAction($leave));
     return redirect()->back()->with('success', __('You have taken an action successfully'));
+  }
+
+  public function destroy(string $id)
+  {
+    $leave = Leave::find($id);
+    $detail = LeaveDetail::where('leave_id', $leave->id)->first();
+    $attachment = Attachment::where('attachmentable_type', 'App\Models\leave')->where('attachmentable_id', $leave->id)->first();
+    if($detail){
+      $detail->delete();
+    }
+    if($attachment){
+      $attachment->delete();
+    }
+    $leave->delete();
+    return redirect()->back()->with('success', __('admin/leave.leaveDeleted'));
   }
 }
