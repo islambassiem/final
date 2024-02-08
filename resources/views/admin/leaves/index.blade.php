@@ -106,7 +106,8 @@
                 <th scope="col">{{ __('head/leaves.from') }}</th>
                 <th scope="col">{{ __('head/leaves.to') }}</th>
                 <th scope="col">{{ __('head/leaves.type') }}</th>
-                <th scope="col">{{ __('head/leaves.status') }}</th>
+                <th scope="col">{{ __('admin/leave.headStatus') }}</th>
+                <th scope="col">{{ __('admin/leave.hrStatus') }}</th>
                 <th scope="col">{{ __('Actions') }}</th>
               </tr>
             </thead>
@@ -133,6 +134,19 @@
                       <i class="bi bi-hourglass-top text-warning fs-5"></i>
                     @endswitch
                     <span class="mx-2">{{ $permission->detail?->headStatus->{'workflow_status' . session('_lang')} }}</span>
+                  </td>
+                  <td>
+                    @switch($permission->detail?->hr_status)
+                      @case(1)
+                        <i class="bi bi-check-square-fill text-success fs-5"></i>
+                        @break
+                      @case(2)
+                        <i class="bi bi-x-square-fill text-danger fs-5"></i>
+                        @break
+                      @default
+                      <i class="bi bi-hourglass-top text-warning fs-5"></i>
+                    @endswitch
+                    <span class="mx-2">{{ $permission->detail?->hrStatus->{'workflow_status' . session('_lang')} }}</span>
                   </td>
                   <td>
                     <a
