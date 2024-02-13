@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salary;
-use Illuminate\Http\Request;
+use App\Models\Admin\Month;
 
 class SalaryController extends Controller
 {
@@ -16,7 +16,8 @@ class SalaryController extends Controller
   public function index()
   {
     return view('salary.index', [
-      'salary' => Salary::where('user_id', auth()->user()->id)->orderBy('effective', 'desc')->get()
+      'salary' => Salary::where('user_id', auth()->user()->id)->orderBy('effective', 'desc')->get(),
+      'years' => Month::select('year')->distinct()->get()
     ]);
   }
 }

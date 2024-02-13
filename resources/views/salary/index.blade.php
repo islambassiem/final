@@ -24,38 +24,45 @@
 
 @section('content')
   <section class="section">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">
           {{ __('salary.payslip') }}
         </h5>
-        <form action="{{ route('payslip') }}" method="post">
+        <form action="{{ route('payslip') }}" method="get">
           @csrf
           <div class="row d-flex">
             <div class="col-md-3">
               <div class="mb-3">
-                <label for="to">{{ __('salary.month') }}</label>
-                <select name="month" id="" class="form-control">
-                  <option value="" selected disabled>{{ __('global.select') }}</option>
-                  @for ($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                  @endfor
+                <label for="to">{{ __('salary.year') }}</label>
+                <select name="year" id="years" class="form-control">
+                  <option value="" selected  disabled>{{ __('global.select') }}</option>
+                  @foreach ($years as $year)
+                    <option value="{{ $year->year }}">{{ $year->year }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
             <div class="col-md-3">
               <div class="mb-3">
-                <label for="to">{{ __('salary.year') }}</label>
-                <select name="year" id="" class="form-control">
-                  <option value="" selected  disabled>{{ __('global.select') }}</option>
-                  @for ($i = 2024; $i <= 2036; $i++)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                  @endfor
-                </select>
+                <label for="to">{{ __('salary.month') }}</label>
+                <select name="month" id="month" class="form-control"></select>
               </div>
             </div>
-            <div class="d-flex justify-content-end align-items-center">
-              <button type="submit" class="btn btn-primary mx-2">{{ __('global.submit') }}</button>
+            <div class="col-md-3"></div>
+            <div class="col-md-3 d-flex justify-content-end align-items-center">
+              <div class="d-flex justify-content-end align-items-center">
+                <button type="submit" class="btn btn-primary mx-2">{{ __('global.submit') }}</button>
+              </div>
             </div>
           </div>
         </form>
@@ -110,6 +117,32 @@
   <script>
     $(document).ready(function(){
       $('select').select2();
+      $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
+      $('#years').on('change.select2', function(e){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        if(this.value){
+          $.ajax({
+            url: "{{ URL::to('payslip/month') }}/" + this.value,
+            method: "post",
+            dataType: "json",
+            success: function(data){
+              $('#month').empty();
+              $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
+              for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                let month = element.month;
+                $('#month').append("<option value="+element.month+">"+element.month+"</option>");
+              }
+            }
+          });
+        }
+      });
+
+
     });
   </script>
 @endsection

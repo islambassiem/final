@@ -32,6 +32,7 @@ use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
 use App\Http\Controllers\PayslipController;
+use App\Models\Admin\Month;
 use App\Models\Payslip;
 
 /*
@@ -175,6 +176,8 @@ Route::get('readAll', function(){
 })->name('read.all.notifications');
 
 
-Route::post('salary/payslip', [PayslipController::class, 'index'])->name('payslip');
+Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip');
 
 Route::get('/payslip', [PayslipController::class, 'test']);
+
+Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);

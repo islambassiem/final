@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Bank;
+use App\Models\Ticket;
 use App\Models\Tables\Gender;
 use App\Models\Tables\Country;
 use App\Models\Tables\Section;
@@ -205,6 +207,11 @@ class User extends Authenticatable
     return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->getFoodAttribute();
   }
 
+  public function ticket(string $user_id){
+    $ticket = Ticket::where('user_id', $user_id)?->orderByDesc('effective')->first();
+    return isset($ticket) ? $ticket->getTicketAttribute() : number_format(0, 2);
+  }
+
   public function latestSalary(string $user_id){
     return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->package();
   }
@@ -215,6 +222,10 @@ class User extends Authenticatable
 
   public function passport(string $user_id){
     return Document::where('user_id', $user_id)->where('document_type_id', '2')->first();
+  }
+
+  public function bank(string $user_id){
+    return Bank::where('user_id', $user_id)->first();
   }
 
   public function ats(){

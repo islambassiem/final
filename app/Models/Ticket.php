@@ -14,4 +14,9 @@ class Ticket extends Model
   protected $fillable = [
     'user_id', 'amount', 'effective'
   ];
+
+  public function getTicketAttribute()
+  {
+    return number_format($this->attributes['amount'], 2);
+  }
 }

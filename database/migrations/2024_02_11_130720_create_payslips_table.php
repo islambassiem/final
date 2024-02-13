@@ -11,13 +11,13 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('months', function (Blueprint $table) {
+    Schema::create('payslips', function (Blueprint $table) {
       $table->id();
-      $table->date('start_date');
-      $table->date('end_date');
-      $table->string('month', 2);
-      $table->string('year', 4);
       $table->foreignId('user_id');
+      $table->foreignId('month_id');
+      $table->float('transaction_amount');
+      $table->unsignedTinyInteger('transaction_type')->comment('1:Payment,0:Deduction');
+      $table->string('transaction_description');
       $table->timestamps();
     });
   }
@@ -27,6 +27,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('months');
+    Schema::dropIfExists('payslips');
   }
 };
