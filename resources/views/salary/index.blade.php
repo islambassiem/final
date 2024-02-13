@@ -33,7 +33,7 @@
         </ul>
       </div>
     @endif
-    <div class="card">
+    {{-- <div class="card">
       <div class="card-body">
         <h5 class="card-title">
           {{ __('salary.payslip') }}
@@ -67,7 +67,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> --}}
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
