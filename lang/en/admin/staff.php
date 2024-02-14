@@ -77,5 +77,22 @@
     'section.required' => 'The department is required',
     'category.required' => 'The employee category is required',
     'sponsorship.required' => 'The sponsorship is required',
-    'doj.required' => 'The joining date is required'
+    'doj.required' => 'The joining date is required',
+
+
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'status' => 'Status',
+    'active' => 'Active',
+    'resigned' => 'Resigned',
+    'selectAll' => 'Select All',
+    'section' => 'Department',
+    'category' => 'Category',
+    'gender' => 'Gender',
+    'saudization' => 'Saudization',
+    'saudi' => 'Saudi',
+    'expat' => 'Expateriate',
+    'sponsorship' => 'Sponsorship',
+    'from' => 'From',
+    'to' => 'To'
   ];

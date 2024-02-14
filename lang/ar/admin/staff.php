@@ -77,5 +77,21 @@
     'section.required' => 'القسم مطلوب',
     'category.required' => 'التصنيف الوظيفي مطلوب',
     'sponsorship.required' => 'الكفالة مطلوبة',
-    'doj.required' => 'تاريخ المباشرة مطلوب'
+    'doj.required' => 'تاريخ المباشرة مطلوب',
+
+    'filter' => 'تصفيه',
+    'clear' => 'مسح',
+    'status' => 'الحالة الوظيفية',
+    'active' => 'على رأس العمل',
+    'resigned' => 'ترك العمل',
+    'selectAll' => 'إختيار الكل',
+    'section' => 'القسم',
+    'category' => 'التصنيف الوظيفي',
+    'gender' => 'الجنس',
+    'saudization' => 'السعودة',
+    'saudi' => 'سعودي',
+    'expat' => 'مقيم',
+    'sponsorship' => 'الكفالة',
+    'from' => 'من تاريخ',
+    'to' => 'إلى تاريخ'
   ];
