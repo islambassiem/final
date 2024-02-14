@@ -38,6 +38,7 @@
       <div class="card-body">
         <h5 class="card-title">Filter</h5>
         <form action="{{ route('admin.staff') }}" method="get">
+          @csrf
           <div class="row">
             <div class="col-md-3">
               <div class="mb-3">
@@ -118,13 +119,13 @@
             <div class="col-md-2">
               <div class="mb-3">
                 <label>{{ __('admin/staff.from') }}</label>
-                <input type="date" name="from" class="form-control">
+                <input type="date" name="from" class="form-control" value="{{ request()->get('from') }}">
               </div>
             </div>
             <div class="col-md-2">
               <div class="mb-3">
                 <label>{{ __('admin/staff.to') }}</label>
-                <input type="date" name="to" class="form-control">
+                <input type="date" name="to" class="form-control" value="{{ request()->get('to') }}">
               </div>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
