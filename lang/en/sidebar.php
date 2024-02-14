@@ -29,4 +29,5 @@ return [
   'courses' => 'Courses',
   'research' => 'Research',
   'attachments' => 'Attachments',
+  'balance' => 'Vacation Balance',
 ];

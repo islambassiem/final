@@ -29,4 +29,5 @@ return [
   'courses' => 'الدوات التدريبية',
   'research' => 'الأبجاث',
   'attachments' => 'المرفقات',
+  'balance' => 'رصيد الاجازات',
 ];

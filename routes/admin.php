@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\LetterController;
     Route::post('/leaves/action/{id}', [LeaveController::class, 'update'])->name('admin.leave.action');
 
     Route::get('/vacations', [VacationController::class, 'index'])->name('admin.vacations');
+    Route::get('/balance', [VacationController::class, 'annualBalance'])->name('admin.balance');
     Route::get('/vacations/{id}', [VacationController::class, 'show'])->name('admin.vacation');
     Route::delete('/delete/vacations/{id}', [VacationController::class, 'destroy'])->name('admin.vacation.delete');
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');

@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Tables\WorkflowStatus;
 use App\Notifications\VacationAction;
 use App\Mail\VacationAction as MailVacationAction;
+use App\Traits\VacationTrait;
 
 class VacationController extends Controller
 {
+
+  use VacationTrait;
+
   public function index(Request $request)
   {
     $sub = User::where('active', '1')->pluck('id')->toArray();
@@ -93,5 +97,16 @@ class VacationController extends Controller
     }
     $vacation->delete();
     return redirect()->back()->with('success', __('admin/vacations.vacationDeleted'));
+  }
+
+  public function annualBalance()
+  {
+    $users = User::where('active', '1')->where('vacation_class', '>', '0')->get();
+    foreach ($users as $user) {
+      $user->balance = $this->balance(date('Y-m-d'), $user->joining_date, $user->vacation_class, $user->id);
+    }
+    return view('admin.vacations.balance', [
+      'users' => $users,
+    ]);
   }
 }
