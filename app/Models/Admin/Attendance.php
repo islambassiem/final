@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use App\Models\User;
 use App\Models\Admin\Month;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Payslip extends Model
+class Attendance extends Model
 {
   use HasFactory;
 
-  protected $table = 'payslips';
+  protected $table = 'attendance';
 
   protected $fillable = [
-    'user_id', 'month_id', 'transaction_amount', 'transaction_type', 'transaction_description'
+    'user_id', 'month_id', 'type', 'days'
   ];
 
   public function user()

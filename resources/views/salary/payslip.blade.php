@@ -92,45 +92,45 @@
             <tbody>
               <tr>
                 <td>Working Days </td>
-                <td>30</td>
+                <td>{{ $workingDays }}</td>
                 <td>Maternity</td>
-                <td>0</td>
+                <td>{{ $maternity }}</td>
               </tr>
               <tr>
                 <td>Annual Leave </td>
-                <td>0</td>
+                <td>{{ $annual }}</td>
                 <td>Study</td>
-                <td>0</td>
+                <td>{{ $study }}</td>
               </tr>
               <tr>
                 <td>Business Leave</td>
-                <td>0</td>
+                <td>{{ $business }}</td>
                 <td>Parernity</td>
-                <td>0</td>
+                <td>{{ $paternity }}</td>
               </tr>
               <tr>
                 <td>Sick Leave</td>
-                <td>0</td>
+                <td>{{ $sick }}</td>
                 <td>Pilgrimage</td>
-                <td>0</td>
+                <td>{{ $pilgrimage }}</td>
               </tr>
               <tr>
                 <td>Death Leave</td>
-                <td>0</td>
+                <td>{{ $death }}</td>
                 <td>Marriage</td>
-                <td>0</td>
+                <td>{{ $marriage }}</td>
               </tr>
               <tr>
                 <td>Other</td>
-                <td>0</td>
+                <td>{{ $other }}</td>
                 <td></td>
                 <td></td>
               </tr>
               <tr style="border-top: double 1px black">
                 <td  style="color: red">Absent</td>
-                <td  style="color: red">0</td>
+                <td  style="color: red">{{ $absent }}</td>
                 <td  style="color: red">Unpaid</td>
-                <td  style="color: red">0</td>
+                <td  style="color: red">{{ $unpaid }}</td>
               </tr>
             </tbody>
           </table>
@@ -149,11 +149,7 @@
                     <tbody>
                       <tr>
                         <td>Paid Days</td>
-                        <td>0</td>
-                      </tr>
-                      <tr>
-                        <td>description</td>
-                        <td>0</td>
+                        <td>{{ $paidDays }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -161,10 +157,6 @@
                 <td style="width:50%; vertical-align:baseline;">
                   <table class="other ded">
                     <tbody>
-                      <tr>
-                        <td>GOSI</td>
-                        <td>0</td>
-                      </tr>
                       <tr>
                         <td>Upaid Days</td>
                         <td>0</td>

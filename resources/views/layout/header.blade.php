@@ -65,17 +65,23 @@
       <li class="nav-item dropdown">
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-chat-left-text"></i>
-          <span class="badge bg-success badge-number">0</span>
+          <span class="badge bg-success badge-number">1</span>
         </a><!-- End Messages Icon -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
           <li class="dropdown-header">
-            <span>{{ __('header.noMemos') }}</span>
+            <li class="dropdown-header">
+              <h4>تعزية</h4>
+              <a href="https://csmonline.net/storage/announcements/Condolence.pdf" target="_blank"><span class="badge rounded-pill bg-primary p-2 ms-2">عرض</span></a>
+            </li>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
           </li>
           {{-- <li class="dropdown-header">
             You have 3 new messages
             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-          </li> --}}
-          {{-- <li class="dropdown-header">
+          </li>
+          <li class="dropdown-header">
             You have 3 new messages
             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
           </li>

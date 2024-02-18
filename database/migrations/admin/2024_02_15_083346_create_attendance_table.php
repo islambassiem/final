@@ -11,14 +11,16 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('payslips', function (Blueprint $table) {
+    Schema::create('attendance', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id');
       $table->foreignId('month_id');
-      $table->float('transaction_amount');
-      $table->unsignedTinyInteger('transaction_type')->comment('1:Payment,0:Deduction');
-      $table->string('transaction_description');
+      $table->unsignedTinyInteger('type');
+      $table->integer(column:'days', unsigned: true);
       $table->timestamps();
+
+
+      $table->foreign('type')->references('id')->on('_vacation_types');
     });
   }
 
@@ -27,6 +29,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('payslips');
+    Schema::dropIfExists('attendance');
   }
 };
