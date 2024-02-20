@@ -1,0 +1,185 @@
+
+table{
+  /* background-color: #eee; */
+  width: 100%;
+}
+
+
+table.basic-info,
+table.basic-info tr,
+table.basic-info tr td {
+  border-collapse: collapse;
+  border-bottom: 1px solid rgb(100, 100, 100) ;
+}
+
+table.basic-info{
+  border-bottom: 3px double black;
+}
+
+
+table.basic-info tr td:nth-child(1){
+  width: 18%;
+}
+
+table.basic-info tr td:nth-child(3) {
+  width: 30%;
+  padding: 5px;
+}
+
+table.basic-info tr td:nth-child(2) {
+  text-align: right;
+  font-weight: bold;
+}
+
+table.basic-info tr td:nth-child(3) {
+  border-right: 1px solid black;
+}
+
+table.basic-info tr td:nth-child(4) {
+  text-align: left;
+  font-weight: bold;
+}
+
+.total {
+  border-bottom: 3px double black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+
+.label{
+  color: #003463;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.center{
+  text-align: center;
+}
+
+.right{
+  text-align: left;
+}
+
+.logo{
+  max-width: 75px;
+}
+
+.line{
+  height: 3px;
+  background-color: #0972ce;
+}
+
+table.days{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+table.days thead hr th{
+  text-align: right;
+}
+
+table.days,
+table.days tr,
+table.days tr td{
+  border-collapse: collapse;
+  border-bottom: 1px solid black;
+}
+
+
+table.days tr td {
+  padding: 5px;
+}
+
+table.days tr td:nth-child(even) {
+  text-align: left;
+  font-weight: bold;
+
+}
+
+table.payable tbody tr td:nth-child(odd){
+  width: 40%;
+}
+
+table.payable tbody tr td:nth-child(even){
+  width: 10%;
+}
+
+
+table.payable tbody tr td{
+  color: blue;
+}
+
+table.deductable tbody tr td{
+  color: red;
+}
+
+
+
+table.other,
+table.other tr,
+table.other tr td {
+  border-collapse: collapse;
+  border-bottom: 1px solid black;
+}
+
+table.other tr td {
+  padding: 5px;
+}
+
+table.other tr td:nth-child(even) {
+  text-align: left;
+  font-weight: bold;
+
+}
+
+table.other.pay tr td{
+  color: blue;
+}
+
+
+table.other.ded tr td {
+  color: red;
+}
+
+
+.net{
+  width: 50%;
+  border-top: 3px double black;
+  margin-top: 20px;
+  margin-right: auto;
+  background-color: rgba(169, 169, 169, 0.2);
+  /* 
+  position: absolute; 
+  left: 57px;
+  bottom: 90px;
+  */
+}
+
+
+.payslip-logo{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+@media print {
+  body, #btn, #edit {
+    visibility: hidden;
+  }
+  #print {
+    visibility: visible;
+    position: absolute;
+    margin-top: 0;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    top: 0;
+  }
+
+  a.back-to-top.active{
+    visibility: hidden !important;
+  }
+}

@@ -11,16 +11,12 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('attendance', function (Blueprint $table) {
+    Schema::create('working_days', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id');
       $table->foreignId('month_id');
-      $table->unsignedTinyInteger('type');
-      $table->integer(column:'days', unsigned: true);
+      $table->unsignedSmallInteger('working_days');
       $table->timestamps();
-
-
-      $table->foreign('type')->references('id')->on('_vacation_types');
     });
   }
 
@@ -29,6 +25,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('attendance');
+    Schema::dropIfExists('working_days');
   }
 };
