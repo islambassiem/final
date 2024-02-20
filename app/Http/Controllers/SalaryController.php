@@ -17,7 +17,7 @@ class SalaryController extends Controller
   {
     return view('salary.index', [
       'salary' => Salary::where('user_id', auth()->user()->id)->orderBy('effective', 'desc')->get(),
-      // 'years' => Month::select('year')->distinct()->get()
+      'years' => Month::select('year')->distinct()->get()
     ]);
   }
 }
