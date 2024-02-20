@@ -7,11 +7,11 @@ use App\Models\Admin\Month;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Attendance extends Model
+class NonWorkingDays extends Model
 {
   use HasFactory;
 
-  protected $table = 'attendance';
+  protected $table = 'non_working_days';
 
   protected $fillable = [
     'user_id', 'month_id', 'type', 'days'

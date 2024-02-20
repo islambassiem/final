@@ -14,4 +14,9 @@ class PayDeduct extends Model
   protected $fillable = [
     'user_id', 'month_id', 'amount', 'description', 'type'
   ];
+
+  public function getAmountAttribute($value)
+  {
+    return number_format($value, 2);
+  }
 }

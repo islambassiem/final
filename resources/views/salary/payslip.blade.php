@@ -5,7 +5,11 @@
 @endsection
 
 @section('style')
+  @if (session('dir') == 'rtl')
+    <link rel="stylesheet" href="{{ asset('assets/css/payslip.rtl.css') }}">
+  @else
   <link rel="stylesheet" href="{{ asset('assets/css/payslip.css') }}">
+  @endif
 @endsection
 
 @section('h1')
@@ -37,52 +41,52 @@
             </div>
           </div>
           <div class="card-title py-0">
-            Basic Information
+            {{ __('payslip.information') }}
           </div>
           <table class="basic-info">
             <thead></thead>
             <tbody>
               <tr>
-                <td>Employee #</td>
+                <td>{{ __('payslip.empid') }}</td>
                 <td>{{ $user->empid }}</td>
-                <td>Basic Salary</td>
-                <td>{{ $user->basic($user->id) }}</td>
+                <td>{{ __('payslip.basic') }}</td>
+                <td>{{ $salary->basic }}</td>
               </tr>
               <tr>
-                <td>Employee Name</td>
+                <td>{{ __('payslip.name') }}</td>
                 <td>{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}</td>
-                <td>Housing Allowance</td>
-                <td>{{ $user->housing($user->id) }}</td>
+                <td>{{ __('payslip.housing') }}</td>
+                <td>{{ $salary->housing }}</td>
               </tr>
               <tr>
-                <td>Position</td>
+                <td>{{ __('payslip.position') }}</td>
                 <td>{{ $user->position->{'position' . session('_lang')} }}</td>
-                <td>Transportation Allowance</td>
-                <td>{{ $user->transportation($user->id) }}</td>
+                <td>{{ __('payslip.trans') }}</td>
+                <td>{{ $salary->transportation }}</td>
               </tr>
               <tr>
-                <td>Department</td>
+                <td>{{ __('payslip.department') }}</td>
                 <td>{{ $user->section->{'section' . session('_lang')} }}</td>
-                <td>Food Allowance</td>
-                <td>{{ $user->food($user->id) }}</td>
+                <td>{{ __('payslip.food') }}</td>
+                <td>{{ $salary->food }}</td>
               </tr>
               <tr>
-                <td>IBAN</td>
+                <td>{{ __('payslip.iban') }}</td>
                 <td>{{ $user->bank($user->id)->iban }}</td>
-                <td>Ticket Allowance</td>
+                <td>{{ __('payslip.ticket') }}</td>
                 <td>{{ $user->ticket($user->id) }}</td>
               </tr>
               <tr>
-                <td class="total">Total Package</td>
+                <td class="total">{{ __('payslip.package') }}</td>
                 <td></td>
                 <td></td>
-                <td>{{ $user->latestSalary($user->id) }}</td>
+                <td>{{ $package }}</td>
               </tr>
             </tbody>
             <tfoot></tfoot>
           </table>
-          <h4 class="label">Calculated Statement for the period from {{ $start_date }} to {{ $end_date }} </h4>
-          <div class="h4 text-bold underline">Attendance</div>
+          <h4 class="label">{{ __('payslip.calc') . ' ' . $start_date }} {{ __('payslip.to') }} {{ $end_date }} </h4>
+          <div class="h4 text-bold underline">{{ __('payslip.attendance') }}</div>
           <table class="payable days">
             {{-- <thead>
               <tr>
@@ -91,55 +95,55 @@
             </thead> --}}
             <tbody>
               <tr>
-                <td>Working Days </td>
+                <td>{{ __('payslip.workingDays') }}</td>
                 <td>{{ $workingDays }}</td>
-                <td>Maternity</td>
+                <td>{{ __('payslip.maternity') }}</td>
                 <td>{{ $maternity }}</td>
               </tr>
               <tr>
-                <td>Annual Leave </td>
+                <td>{{ __('payslip.annual') }}</td>
                 <td>{{ $annual }}</td>
-                <td>Study</td>
+                <td>{{ __('payslip.study') }}</td>
                 <td>{{ $study }}</td>
               </tr>
               <tr>
-                <td>Business Leave</td>
+                <td>{{ __('payslip.business') }}</td>
                 <td>{{ $business }}</td>
-                <td>Parernity</td>
+                <td>{{ __('payslip.paternity') }}</td>
                 <td>{{ $paternity }}</td>
               </tr>
               <tr>
-                <td>Sick Leave</td>
+                <td>{{ __('payslip.sick') }}</td>
                 <td>{{ $sick }}</td>
-                <td>Pilgrimage</td>
+                <td>{{ __('payslip.pilgrimage') }}</td>
                 <td>{{ $pilgrimage }}</td>
               </tr>
               <tr>
-                <td>Death Leave</td>
+                <td>{{ __('payslip.death') }}</td>
                 <td>{{ $death }}</td>
-                <td>Marriage</td>
+                <td>{{ __('payslip.marriage') }}</td>
                 <td>{{ $marriage }}</td>
               </tr>
               <tr>
-                <td>Other</td>
+                <td>{{ __('payslip.other') }}</td>
                 <td>{{ $other }}</td>
                 <td></td>
                 <td></td>
               </tr>
               <tr style="border-top: double 1px black">
-                <td  style="color: red">Absent</td>
+                <td  style="color: red">{{ __('payslip.absent') }}</td>
                 <td  style="color: red">{{ $absent }}</td>
-                <td  style="color: red">Unpaid</td>
+                <td  style="color: red">{{ __('payslip.unpaidDays') }}</td>
                 <td  style="color: red">{{ $unpaid }}</td>
               </tr>
             </tbody>
           </table>
-          <h4 class="label">Payables - Deductables</h4>
+          <h4 class="label">{{ __('payslip.payDeduct') }}</h4>
           <table>
             <thead>
               <tr>
-                <th class="text-center">Payables</th>
-                <th class="text-center">Deductables</th>
+                <th class="text-center">{{ __('payslip.payables') }}</th>
+                <th class="text-center">{{ __('payslip.deductables') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -148,19 +152,47 @@
                   <table class="other pay">
                     <tbody>
                       <tr>
-                        <td>Paid Days</td>
-                        <td>{{ $paidDays }}</td>
+                        <td>{{ __('payslip.workingDays') }}</td>
+                        <td>{{ $workingDaysAmount }}</td>
                       </tr>
+                      @if ($paidDays > 0)
+                        <tr>
+                          <td>{{ __('payslip.paidDays') }}</td>
+                          <td>{{ $paidDaysAmount }}</td>
+                        </tr>
+                      @endif
+                        @if (count($payables) > 0)
+                          @foreach ($payables as $payable)
+                            <tr>
+                              <td>{{ $payable->description }}</td>
+                              <td>{{ $payable->amount }}</td>
+                            </tr>
+                          @endforeach
+                        @endif
                     </tbody>
                   </table>
                 </td>
                 <td style="width:50%; vertical-align:baseline;">
                   <table class="other ded">
                     <tbody>
-                      <tr>
-                        <td>Upaid Days</td>
-                        <td>0</td>
-                      </tr>
+                      @if ($unpaidDaysAmount != 0)
+                        <tr>
+                          <td>{{ __('payslip.unpaidDays') }}</td>
+                          <td>{{ $unpaidDaysAmount }}</td>
+                        </tr>
+                      @endif
+                      @if (count($deductables) > 0 || $unpaidDaysAmount != 0)
+                        @foreach ($deductables as $deductable)
+                          <tr>
+                            <td>{{ $deductable->description }}</td>
+                            <td>{{ $deductable->amount }}</td>
+                          </tr>
+                        @endforeach
+                      @else
+                        <tr>
+                          <td colspan="2" style="text-align: center">{{ __('payslip.noDed') }}</td>
+                        </tr>
+                      @endif
                     </tbody>
                   </table>
                 </td>
@@ -171,8 +203,8 @@
             <table>
               <thead>
                 <tr>
-                  <td style="font-size:20px;">Net Salary</td>
-                  <td style="text-align:right; font-size:20px; font-weight:bold;">8500.00</td>
+                  <td style="font-size:20px;">{{ __('payslip.net') }}</td>
+                  <td style="text-align:right; font-size:20px; font-weight:bold;">{{ $net }}</td>
                 </tr>
               </thead>
             </table>
@@ -183,7 +215,7 @@
         <img src="{{ asset('assets/img/footer.png') }}" style="max-width: 100%"/>
       </div>
     </div>
-    <button class="btn btn-primary" id="btn">Print</button>
+    <button class="btn btn-primary" id="btn"><i class="bi bi-printer-fill"></i> {{ __('payslip.print') }}</button>
   </section>
 @endsection
 

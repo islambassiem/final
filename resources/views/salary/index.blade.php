@@ -24,13 +24,14 @@
 
 @section('content')
   <section class="section">
-    @if ($errors->any())
+    @if (session('error'))
       <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-          @endforeach
-        </ul>
+        {{ session('error') }}
+      </div>
+    @endif
+    @if (session('noSalary'))
+      <div class="alert alert-danger">
+        {{ session('noSalary') }}
       </div>
     @endif
     <div class="card">
