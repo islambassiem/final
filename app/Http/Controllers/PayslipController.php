@@ -28,8 +28,7 @@ class PayslipController extends Controller
 
   public function index(PayslipRequest $request, string $user_id = null)
   {
-    // $this->user = $user_id == null ? User::find(auth()->user()->id) : User::find($user_id);
-    $this->user = User::find(57);
+    $this->user = $user_id == null ? User::find(auth()->user()->id) : User::find($user_id);
     $this->month = $request->month;
     $this->year = $request->year;
     $this->date = Carbon::create($this->year, $this->month)->endofMonth();
@@ -93,7 +92,7 @@ class PayslipController extends Controller
     $payables = $this->floatval($this->workingDaysAmount())
       + $this->floatval($this->paidDaysAmount())
       + $this->floatval($this->payablesAmount());
-    $deductables = $this->floatval($this->unpaidDaysAmount()) 
+    $deductables = $this->floatval($this->unpaidDaysAmount())
       + $this->floatval($this->deductablesAmount());
     return number_format(round($payables - $deductables, 0), 2);
   }
@@ -113,7 +112,7 @@ class PayslipController extends Controller
   {
     return number_format($this->workingDays() * $this->package() / 30 , 2);
   }
-  
+
   private function paidDaysAmount()
   {
     return number_format($this->noOfDays($this->paidDaysIds()) * $this->package() / 30 , 2);
