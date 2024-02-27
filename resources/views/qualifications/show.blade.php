@@ -1,18 +1,18 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('style')
 @endsection
 
 @section('h1')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('qualifications.qualificaitons') . ' / ' . __('global.show') }}
+  {{ __('qualifications.qualifications') . ' / ' . __('global.show') }}
 @endsection
 
 @section('content')
@@ -161,7 +161,7 @@
             </div>
           @else
             <div class="alert alert-danger text-center">
-              {{ __('qualification.noAtt') }}
+              {{ __('qualifications.noAtt') }}
             </div>
           @endif
         </div>

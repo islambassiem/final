@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
   @section('style')
@@ -13,11 +13,11 @@
 @endsection
 
 @section('h1')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('qualifications.qualificaitons') . ' / ' . __('global.all') }}
+  {{ __('qualifications.qualifications') . ' / ' . __('global.all') }}
 @endsection
 
 @section('content')
@@ -40,7 +40,7 @@
                 {{ __('qualifications.noQual') }}
               </div>
             @else
-              <h5 class="card-title">{{ __('qualifications.qualificaitons') }}</h5>
+              <h5 class="card-title">{{ __('qualifications.qualifications') }}</h5>
               @if (session('success'))
                 <div class="alert alert-success" role="alert">
                   {{ session('success') }}

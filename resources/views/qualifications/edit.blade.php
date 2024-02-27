@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('style')
@@ -13,11 +13,11 @@
 @endsection
 
 @section('h1')
-  {{ __('qualifications.qualificaitons') }}
+  {{ __('qualifications.qualifications') }}
 @endsection
 
 @section('breadcrumb')
-  {{ __('qualifications.qualificaitons') . ' / ' . __('global.edit') }}
+  {{ __('qualifications.qualifications') . ' / ' . __('global.edit') }}
 @endsection
 
 @section('content')
@@ -170,7 +170,7 @@
 
                 <div class="d-flex justify-content-between my-3">
                   <button type="button" class="btn btn-danger" id="back1">{{ __('global.back') }}</button>
-                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.back') }}</button>
+                  <button type="button" class="btn btn-primary" id="next2">{{ __('global.next') }}</button>
                 </div>
               </div>
 
