@@ -66,7 +66,7 @@
                     <select id="qualification" class="form-select" name="qualification">
                       <option disabled>{{ __('global.select') }}</option>
                       @foreach ($qualifications as $qualification)
-                        <option value="{{ $qualification->code }}" @selected($qualification->code == old('qualification', $q->qualification))>{{  $qualification->{'qualification' . session('_lang') ?? 'en' } }}</option>
+                        <option value="{{ $qualification->id }}" @selected($qualification->id == old('qualification', $q->qualification))>{{  $qualification->{'qualification' . session('_lang') ?? 'en' } }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -78,7 +78,7 @@
                   <select id="qualification_type" class="form-select" name="study_type">
                     <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($study_types as $type)
-                      <option value="{{ $type->code }}" @selected($type->code == old('study_type', $q->study_type))>{{  $type->{'study_type' . session('_lang')} }}</option>
+                      <option value="{{ $type->id }}" @selected($type->id == old('study_type', $q->study_type))>{{  $type->{'study_type' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -88,7 +88,7 @@
                   <select id="study_natures" class="form-select" name="study_nature">
                     <option disabled>{{ __('global.select') }}</option>
                     @foreach ($study_natures as $type)
-                      <option value="{{ $type->code }}" @selected($type->code == old('study_nature', $q->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
+                      <option value="{{ $type->id }}" @selected($type->id == old('study_nature', $q->study_nature))>{{  $type->{'study_nature' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -117,7 +117,7 @@
                   <select id="country" class="form-select" name="graduation_country">
                     <option disabled>{{ __('global.select') }}</option>
                     @foreach ($countries as $country)
-                      <option value="{{ $country->code }}" @selected($country->code ==  old('graduation_country',$q->graduation_country) )>{{  $country->{'country' . session('_lang')} }}</option>
+                      <option value="{{ $country->id }}" @selected($country->id ==  old('graduation_country',$q->graduation_country) )>{{  $country->{'country' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -187,7 +187,7 @@
                   <select id="gpa_type" class="form-select" name="gpa_type">
                     <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($gpa_types as $type)
-                      <option value="{{ $type->code }}" @selected($type->code == old('gpa_type',$q->gpa_type))>{{  $type->{'gpa_type' . session('_lang')} }}</option>
+                      <option value="{{ $type->id }}" @selected($type->id == old('gpa_type',$q->gpa_type))>{{  $type->{'gpa_type' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -197,7 +197,7 @@
                   <select id="rating" class="form-select" name="rating">
                     <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($ratings as $rating)
-                      <option value="{{ $rating->code }}" @selected($rating->code == old('rating', $q->rating))>{{  $rating->{'rating' . session('_lang')} }}</option>
+                      <option value="{{ $rating->id }}" @selected($rating->id == old('rating', $q->rating))>{{  $rating->{'rating' . session('_lang')} }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -261,14 +261,14 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   major = element.specialty_ar
                 }
-                $('#major').append("<option value="+element.code+">"+major+"</option>");
+                $('#major').append("<option value="+element.id+">"+major+"</option>");
               }
             }
           });
         }
       });
       $('#major').on('change.select2', function(e){
-        let code = (this.value).substring(0,2)
+        let code = (this.value) // .substring(0,2)
         if(code){
           $.ajax({
             url: "{{ URL::to('minor') }}/" + code,
@@ -283,7 +283,7 @@
                 if("{{ session('_lang') }}" == "_ar"){
                   minor = element.specialty_ar
                 }
-                $('#minor').append("<option value="+element.code+">"+minor+"</option>")
+                $('#minor').append("<option value="+element.id+">"+minor+"</option>")
               }
             }
           });
