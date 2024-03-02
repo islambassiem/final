@@ -20,10 +20,6 @@
       text-align: right;
       padding: 10px;
     }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
   </style>
 </head>
 <body>
@@ -42,7 +38,7 @@
     <tbody>
       @php $c = 1; @endphp
       @foreach ($iqamas as $iqama)
-      <tr>
+      <tr {!! $c%2 == 0 ? 'style="background-color: #dddddd"' : 'odd' !!}>
         <td>{{ $c }}</td>
         <td>{{ $iqama->user->empid }}</td>
         <td>{{ $iqama->user->getFullArabicNameAttribute }}</td>
