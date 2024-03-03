@@ -2,14 +2,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Holiday;
+use App\Http\Controllers\Admin\IqamaController;
 use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
-use App\Http\Controllers\Admin\IqamaController;
-use App\Http\Controllers\Admin\LetterController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -42,4 +44,7 @@ use App\Http\Controllers\Admin\LetterController;
     Route::get('/visas', [ExitReentryController::class, 'index'])->name('admin.visas');
 
     Route::get('/visits', [FamilyVisitController::class, 'index'])->name('admin.visits');
+
+		Route::get('/holiday', [HolidayController::class, 'index'])->name('admin.holiday');
+		Route::post('/holiday', [HolidayController::class, 'store'])->name('admin.holiday.create');
   });

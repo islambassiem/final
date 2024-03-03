@@ -68,6 +68,13 @@
           </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'holiday' ? '' : 'collapsed'  }}" href="{{ route('admin.holiday') }}">
+            <i class="bi bi-airplane-engines-fill"></i>
+            <span>{{ __('admin/holiday.holidays') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
         {{--
 
         <li class="nav-item">
