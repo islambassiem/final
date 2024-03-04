@@ -142,7 +142,7 @@
 
                     <div class="row d-flex align-items-center">
                       <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.expiry') }}</div>
-                      <div class="col-lg-9 col-md-8">{{ $user->iqama($user->id)->date_of_expiry }}</div>
+                      <div class="col-lg-9 col-md-8">{{ $user->resignation_date }}</div>
                     </div>
 
                   </div>
