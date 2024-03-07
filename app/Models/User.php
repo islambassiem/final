@@ -231,4 +231,9 @@ class User extends Authenticatable
   public function ats(){
     return $this->hasOne(Ats::class);
   }
+
+  public function dependents()
+  {
+    return $this->hasMany(Dependent::class);
+  }
 }

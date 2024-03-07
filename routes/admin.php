@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
+use App\Http\Controllers\Admin\SalariesController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -47,4 +48,8 @@ use App\Http\Controllers\Admin\FamilyVisitController;
 
 		Route::get('/holiday', [HolidayController::class, 'index'])->name('admin.holiday');
 		Route::post('/holiday', [HolidayController::class, 'store'])->name('admin.holiday.create');
+
+		Route::get('/salaries', [SalariesController::class, 'index'])->name('admin.salaries');
+		Route::post('/salaries', [SalariesController::class, 'store'])->name('admin.salaries.create');
+    Route::post('/salaries/process/{month}', [SalariesController::class, 'process']);
   });
