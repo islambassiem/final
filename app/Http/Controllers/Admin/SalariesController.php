@@ -64,32 +64,23 @@ class SalariesController extends Controller
 
   public function process($month)
   {
-    $month_status = Month::find($month)->status;
-    if($month_status){
+    $month    = Month::find($month);
+    $month_id = $month->id;
+    $start    = $month->start_date;
+    $end      = $month->end_date;
+    $status   = $month->status;
+
+    if($status){
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
-    return $month;
-    // {
-    // "id": 4,
-    // "start_date": "2024-03-21",
-    // "end_date": "2024-04-20",
-    // "month": "4",
-    // "year": "2024",
-    // "status": 0,
-    // "user_id": 71,
-    // "created_at": "2024-03-06T08:07:07.000000Z",
-    // "updated_at": "2024-03-06T08:07:07.000000Z"
-    // }
-    // $month    = Month::find($month);
-    // $month_id = $month->id;
-    // $start    = $month->start_date;
-    // $end      = $month->end_date;
 
-    // $this->approved($month_id, $start, $end);
-    // $this->notApproved($month_id, $start, $end);
-    // $month->update([
-    //   'status' => '1'
-    // ]);
+    $this->gosi($end, $month_id);
+    $this->approved($month_id, $start, $end);
+    $this->notApproved($month_id, $start, $end);
+    $month->update([
+      'status' => '1'
+    ]);
+    return redirect()->back()->with('salarySuccess', __('admin/salaries.salarySuccess'));
   }
 
   private function approved($month_id, $start, $end)

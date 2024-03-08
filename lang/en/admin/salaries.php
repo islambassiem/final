@@ -24,6 +24,7 @@
     'prConf' => 'Processing Salary Confirmation',
     'msgBody' => 'Are you sure you want to process the salary for the selected month?',
     'monthProcessed' => 'This month has been processed already',
-    'payables' => 'Payables',
-    'deductables' => 'Deductables',
+    'payables' => 'Payable',
+    'deductables' => 'Deductibles',
+    'salarySuccess' => 'The salary has been processed successfully'
   ];
