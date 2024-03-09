@@ -94,5 +94,6 @@
     'expat' => 'Expateriate',
     'sponsorship' => 'Sponsorship',
     'from' => 'From',
-    'to' => 'To'
+    'to' => 'To',
+    'download' => 'Download all'
   ];

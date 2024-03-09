@@ -31,52 +31,8 @@ class StaffController extends Controller
 {
   public function index(Request $request)
   {
-    if($request->query->count() == 0){
-      $staff = [];
-    }else{
-      $staff = User::when($request->status != '' ,function($q) use($request){
-          $q->where('active', $request->status);
-        })
-        ->when($request->gender != '', function($q) use($request){
-          $q->where('gender_id', $request->gender);
-        })
-        ->when($request->nationality != '', function($q) use($request){
-          $q->where('nationality_id', $request->nationality);
-        })
-        ->when($request->saudization != '', function($q) use($request){
-          if($request->saudization == '1'){
-            $q->where('nationality_id', '=' ,'1');
-          }else{
-            $q->where('nationality_id', '!=' ,'1');
-          }
-        })
-        ->when($request->section != [], function($q) use($request){
-          $q->whereIn('section_id', $request->section);
-        })
-        ->when($request->category != [], function($q) use($request){
-          $q->whereIn('category_id', $request->category);
-        })
-        ->when($request->sponsorship != [], function($q) use($request){
-          $q->whereIn('sponsorship_id', $request->sponsorship);
-        })
-        ->when($request->from != '' && $request->to != '', function($q) use($request){
-          $q->where('active', '1')
-            ->orWhere(function($q) use($request){
-              $q->whereDate('joining_date', '<=', $request->from);
-              $q->whereDate('resignation_date', '>=', $request->to);
-            });
-        })
-        // ->when($request->from != '', function($q) use($request){
-        //   $q->whereDate('joining_date', '<=', $request->from);
-        // })
-        // ->when($request->to != '', function($q) use($request){
-        //   $q->whereDate('resignation_date', '>=', $request->to);
-        // })
-        ->get();
-    }
-    // return $staff;
     return view('admin.staff.index',[
-      'staff' => $staff,
+      'staff' => $this->staff($request),
       'sections' => Section::all(),
       'categories' => Category::all(),
       'genders' => Gender::all(),
@@ -303,6 +259,53 @@ class StaffController extends Controller
     event(new EmployeeCreated($user));
 
     return redirect()->route('admin.staff')->with('success', __('admin/staff.userSaved'));
+  }
+
+  private function staff(Request $request)
+  {
+    if($request->query->count() == 0){
+      $staff = [];
+    }else{
+      $staff = User::when($request->status != '' ,function($q) use($request){
+          $q->where('active', $request->status);
+        })
+        ->when($request->gender != '', function($q) use($request){
+          $q->where('gender_id', $request->gender);
+        })
+        ->when($request->nationality != '', function($q) use($request){
+          $q->where('nationality_id', $request->nationality);
+        })
+        ->when($request->saudization != '', function($q) use($request){
+          if($request->saudization == '1'){
+            $q->where('nationality_id', '=' ,'1');
+          }else{
+            $q->where('nationality_id', '!=' ,'1');
+          }
+        })
+        ->when($request->section != [], function($q) use($request){
+          $q->whereIn('section_id', $request->section);
+        })
+        ->when($request->category != [], function($q) use($request){
+          $q->whereIn('category_id', $request->category);
+        })
+        ->when($request->sponsorship != [], function($q) use($request){
+          $q->whereIn('sponsorship_id', $request->sponsorship);
+        })
+        ->when($request->from != '' && $request->to != '', function($q) use($request){
+          $q->where('active', '1')
+            ->orWhere(function($q) use($request){
+              $q->whereDate('joining_date', '<=', $request->from);
+              $q->whereDate('resignation_date', '>=', $request->to);
+            });
+        })
+        ->get();
+    }
+    return $staff;
+  }
+
+  public function download()
+  {
+    return 'download';
   }
 }
 

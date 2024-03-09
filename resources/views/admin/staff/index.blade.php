@@ -116,21 +116,28 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="mb-3">
                 <label>{{ __('admin/staff.from') }}</label>
                 <input type="date" name="from" class="form-control" value="{{ request()->get('from') }}">
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="mb-3">
                 <label>{{ __('admin/staff.to') }}</label>
                 <input type="date" name="to" class="form-control" value="{{ request()->get('to') }}">
               </div>
             </div>
-            <div class="col-md-2 d-flex justify-content-end align-items-center">
-              <a href="{{ route('admin.staff') }}" class="btn btn-danger"><i class="bi bi-x-lg"></i> {{ __('admin/staff.clear') }}</a>
-              <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-funnel"></i> {{ __('admin/staff.filter') }}</button>
+          </div>
+          <div class="row">
+            <div class="d-flex justify-content-between">
+              <div>
+                <a href="{{ route('admin.staff.download') }}" class="btn btn-success d-flex"><i class="bi bi-file-earmark-arrow-down-fill me-1"></i>{{ __('admin/staff.download') }}</a>
+              </div>
+              <div  class="d-flex justify-content-end">
+                <a href="{{ route('admin.staff') }}" class="btn btn-danger d-flex"><i class="bi bi-x-lg me-1"></i> {{ __('admin/staff.clear') }}</a>
+                <button type="submit" class="btn btn-primary mx-2 d-flex"><i class="bi bi-funnel me-1"></i> {{ __('admin/staff.filter') }}</button>
+              </div>
             </div>
           </div>
         </form>

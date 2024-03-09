@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\SalariesController;
     Route::post('/staff/store', [StaffController::class, 'store'])->name('admin.employee.store');
     Route::post('staff/email/{email}', [StaffController::class, 'email']);
     Route::get('/staff/{id}', [StaffController::class, 'show'])->name('admin.employee');
+    Route::get('/download', [StaffController::class, 'download'])->name('admin.staff.download');
 
 
     Route::get('/iqama', [IqamaController::class, 'index'])->name('admin.iqama');
