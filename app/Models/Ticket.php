@@ -19,4 +19,9 @@ class Ticket extends Model
   {
     return number_format($this->attributes['amount'], 2);
   }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 }

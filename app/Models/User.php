@@ -212,6 +212,11 @@ class User extends Authenticatable
     return isset($ticket) ? $ticket->getTicketAttribute() : number_format(0, 2);
   }
 
+  public function tickets()
+  {
+    return $this->hasMany(Ticket::class);
+  }
+
   public function latestSalary(string $user_id){
     return Salary::where('user_id', $user_id)->orderByDesc('effective')->first()->package();
   }

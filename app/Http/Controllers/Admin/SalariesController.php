@@ -75,6 +75,7 @@ class SalariesController extends Controller
     }
 
     $this->gosi($end, $month_id);
+    $this->tickets($end, $month_id);
     $this->approved($month_id, $start, $end);
     $this->notApproved($month_id, $start, $end);
     $month->update([
