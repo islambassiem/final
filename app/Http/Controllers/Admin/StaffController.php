@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\EmployeeCreated;
 use App\Models\Bank;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Ticket;
 use App\Models\Contact;
 use App\Models\Document;
+use App\Exports\StaffExport;
 use Illuminate\Http\Request;
 use App\Models\Tables\Gender;
 use App\Events\FacultyCreated;
 use App\Models\Admin\TempUser;
 use App\Models\Tables\Country;
 use App\Models\Tables\Section;
+use App\Events\EmployeeCreated;
 use App\Models\Tables\Category;
 use App\Models\Tables\Position;
 use App\Models\Tables\Religion;
@@ -305,7 +306,7 @@ class StaffController extends Controller
 
   public function download()
   {
-    return 'download';
+    return (new StaffExport())->download('employees.xlsx');
   }
 }
 
