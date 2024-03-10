@@ -101,7 +101,7 @@
                     @endif
                   </td>
                   <td class="text-center">
-                    <a href="#" class="btn btn-secondary btn-sm">
+                    <a href="{{ route('admin.salaries.working', $month->id) }}" class="btn btn-secondary btn-sm">
                       <span>
                         <i class="bi bi-eye-fill fs-6"></i>
                         <span class="fs-6">{{ __('admin/salaries.show') }}</span>

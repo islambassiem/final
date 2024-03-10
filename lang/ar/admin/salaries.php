@@ -27,5 +27,22 @@
     'monthProcessed' => 'تم معالجة هذا الشهر بالفعل',
     'payables' => 'المدفوعات',
     'deductables' => 'الخصومات',
-    'salarySuccess' => 'تم معالجة هذا الشهر بنجاح'
+    'salarySuccess' => 'تم معالجة هذا الشهر بنجاح',
+    'empid' => 'الرقم الوظيفي',
+    'name' => 'اسم الموظف',
+    'workingDays' => 'آيام الدوام',
+    'noSalaries' => 'لم يتم معالجة أي رواتب لهذا الشهر',
+    'cost_center' => 'مركز التكلفة',
+    'nonWorkingDays' => 'ايام غير الدوام',
+    'type' => 'النوع',
+    'amount' => 'المبلغ',
+    'description' => 'الوصف',
+    'addPay' => 'اضافة مدفوعات',
+    'addDeduct' => 'اضافة خصومات',
+    'employee' => 'الموظف',
+    'hour' => 'ساعات',
+    'day' => 'ايام',
+    'riyal' => 'ريال',
+    'payableSuccess' => 'تم اضافة الدفع بنجاح',
+    'deductableSuccess' => 'تم اضافة الخصم بنجاح'
   ];

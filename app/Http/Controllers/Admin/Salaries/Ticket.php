@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Admin\PayDeduct;
 
 
-trait TicketController
+trait Ticket
 {
   public function tickets($date, $month_id)
   {

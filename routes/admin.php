@@ -8,11 +8,12 @@ use App\Http\Controllers\Admin\LeaveController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\LetterController;
 use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\Admin\VacationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
-use App\Http\Controllers\Admin\SalariesController;
+use App\Http\Controllers\Admin\Salaries\PayDeductController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -52,4 +53,10 @@ use App\Http\Controllers\Admin\SalariesController;
 		Route::get('/salaries', [SalariesController::class, 'index'])->name('admin.salaries');
 		Route::post('/salaries', [SalariesController::class, 'store'])->name('admin.salaries.create');
     Route::post('/salaries/process/{month}', [SalariesController::class, 'process']);
+    Route::get('/salaries/working/{month_id}', [SalariesController::class, 'working'])->name('admin.salaries.working');
+    Route::get('/salaries/non/working/{month_id}', [SalariesController::class, 'nonWorking'])->name('admin.salaries.non.working');
+    Route::get('/salaries/payables/{month_id}', [PayDeductController::class, 'payables'])->name('admin.salaries.payables');
+    Route::post('/salaries/payables', [PayDeductController::class, 'storePayables'])->name('admin.salaries.payables.store');
+    Route::get('/salaries/deductables/{month_id}', [PayDeductController::class, 'deductables'])->name('admin.salaries.deductables');
+    Route::post('/salaries/deductables', [PayDeductController::class, 'storedeductables'])->name('admin.salaries.deductables.store');
   });
