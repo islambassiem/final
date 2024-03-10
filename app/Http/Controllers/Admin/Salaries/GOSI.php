@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Salaries;
 use App\Models\Admin\PayDeduct;
 use App\Models\User;
 
-trait GOSIController
+trait GOSI
 {
 
   public function gosi($date, $month_id)

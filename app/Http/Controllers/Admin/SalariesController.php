@@ -8,17 +8,17 @@ use App\Models\Admin\Month;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
-use App\Http\Controllers\Admin\Salaries\GOSIController;
-use App\Http\Controllers\Admin\Salaries\TicketController;
-use App\Http\Controllers\Admin\Salaries\TransportationController;
-
+use App\Http\Controllers\Admin\Salaries\GOSI;
+use App\Http\Controllers\Admin\Salaries\Ticket;
+use App\Http\Controllers\Admin\Salaries\Transportation;
+use App\Models\Admin\WorkingDays;
 
 class SalariesController extends Controller
 {
 
-  use GOSIController;
-  use TicketController;
-  use TransportationController;
+  use GOSI;
+  use Ticket;
+  use Transportation;
 
 
   private $end_date;
@@ -146,4 +146,26 @@ class SalariesController extends Controller
     }
   }
 
+
+  public function working($month_id)
+  {
+    $working = WorkingDays::with('user')
+      ->where('month_id', $month_id)
+      ->get();
+    return view('admin.salaries.workingDays', [
+      'month_id' => $month_id,
+      'days' => $working
+    ]);
+  }
+
+  public function nonWorking($month_id)
+  {
+    $nonworking = NonWorkingDays::with(['user', 'vacationType'])
+    ->where('month_id', $month_id)
+    ->get();
+  return view('admin.salaries.nonWorkingDays', [
+    'month_id' => $month_id,
+    'days' => $nonworking
+  ]);
+  }
 }
