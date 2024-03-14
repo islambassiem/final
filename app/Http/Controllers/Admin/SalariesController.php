@@ -73,7 +73,7 @@ class SalariesController extends Controller
     if($status){
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
-
+    $this->deduct($month_id);
     $this->gosi($end, $month_id);
     $this->tickets($end, $month_id);
     $this->approved($month_id, $start, $end);

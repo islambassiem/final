@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
 use App\Http\Controllers\Admin\Salaries\PayDeductController;
+use App\Http\Controllers\Admin\TransportationDeductionController;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -60,4 +61,14 @@ use App\Http\Controllers\Admin\Salaries\PayDeductController;
     Route::post('/salaries/payables', [PayDeductController::class, 'storePayables'])->name('admin.salaries.payables.store');
     Route::get('/salaries/deductables/{month_id}', [PayDeductController::class, 'deductables'])->name('admin.salaries.deductables');
     Route::post('/salaries/deductables', [PayDeductController::class, 'storedeductables'])->name('admin.salaries.deductables.store');
+    Route::get('/trasportation/deductions', [TransportationDeductionController::class, 'index'])->name('trasportation.deduction.list');
+    Route::post('/trasportation/deductions', [TransportationDeductionController::class, 'store'])->name('trasportation.deduction.create');
+    Route::post('/trasportation/deductions/{deduction}', [TransportationDeductionController::class, 'update']);
+
+    Route::get('/test', function(){
+      $deductions =  App\Models\Admin\TransportationDeduction::whereNull('to')->get();
+      foreach ($deductions as $deduction) {
+        echo $deduction->user->transportation($deduction->user->id) . "<br>";
+      }
+    });
   });
