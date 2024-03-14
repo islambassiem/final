@@ -44,5 +44,15 @@
     'day' => 'ايام',
     'riyal' => 'ريال',
     'payableSuccess' => 'تم اضافة الدفع بنجاح',
-    'deductableSuccess' => 'تم اضافة الخصم بنجاح'
+    'deductableSuccess' => 'تم اضافة الخصم بنجاح',
+    'trasDeduct' => 'خصم المواصلات',
+    'addDeduction' => 'اضافة خصم',
+    'nameReq' => 'اسم الموظف مطلوب',
+    'fromReq' => 'تاريخ البداية مطلوب',
+    'addDeductionSuccess' => 'تم اضافة الخصم بنجاح',
+    'noTransportationDeductions' => 'لا يوجد اي موظفين يخصم منهم بدل المواصلات',
+    'action' => 'اجراء',
+    'edit' => 'تعديل',
+    'toReq' => 'تاريخ النهاية مطلوب',
+    'delSuccess' => 'تم حذف الموظف من قائمة الخصم'
   ];

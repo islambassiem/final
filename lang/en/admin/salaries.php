@@ -43,5 +43,15 @@
     'day' => 'Days',
     'riyal' => 'Riyals',
     'payableSuccess' => 'You have added the payable successfully',
-    'deductableSuccess' => 'You have added the deductable successfully'
+    'deductableSuccess' => 'You have added the deductable successfully',
+    'trasDeduct' => 'Transportation Deduction',
+    'addDeduction' => 'Add a deduction',
+    'nameReq' => 'Employee name is required',
+    'fromReq' => 'Start date is required',
+    'addDeductionSuccess' => 'Employee has been added to deduction list',
+    'noTransportationDeductions' => 'There are no employees availing transportation',
+    'action' => 'Action',
+    'edit' => 'Edit',
+    'toReq' => 'End date is requried',
+    'delSuccess' => 'The employee has been deleted from the deduction list',
   ];
