@@ -30,7 +30,6 @@ trait Ticket
     $data = $this->dependentTicketAmount();
     $result = [];
     foreach ($ticket as $key => $value) {
-      // $tot = 0;
       if(in_array($key, array_keys($data))){
         $result[$key] = round($value * $data[$key], 0) ;
       }else{
