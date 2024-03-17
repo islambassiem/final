@@ -40,6 +40,19 @@ class SalariesController extends Controller
     ]);
   }
 
+  public function dashboard($month_id)
+  {
+    $month    = Month::find($month_id);
+    $month_id = $month->id;
+    $start    = $month->start_date;
+    $end      = Carbon::parse($month->end_date)->lastOfMonth();
+    $status   = $month->status;
+    return view('admin.salaries.dashboard', [
+      'month_id' => $month_id,
+      'month' => $month->month,
+    ]);
+  }
+
   public function store(Request $request)
   {
     $validated = $request->validate([
@@ -164,9 +177,9 @@ class SalariesController extends Controller
     $nonworking = NonWorkingDays::with(['user', 'vacationType'])
     ->where('month_id', $month_id)
     ->get();
-  return view('admin.salaries.nonWorkingDays', [
-    'month_id' => $month_id,
-    'days' => $nonworking
-  ]);
+    return view('admin.salaries.nonWorkingDays', [
+      'month_id' => $month_id,
+      'days' => $nonworking
+    ]);
   }
 }

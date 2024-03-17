@@ -56,6 +56,7 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
 		Route::post('/salaries', [SalariesController::class, 'store'])->name('admin.salaries.create');
     Route::post('/salaries/process/{month}', [SalariesController::class, 'process']);
     Route::get('/salaries/working/{month_id}', [SalariesController::class, 'working'])->name('admin.salaries.working');
+    Route::get('/salaries/dashboard/{month_id}', [SalariesController::class, 'dashboard'])->name('admin.salaries.dashboard');
     Route::get('/salaries/non/working/{month_id}', [SalariesController::class, 'nonWorking'])->name('admin.salaries.non.working');
     Route::get('/salaries/payables/{month_id}', [PayDeductController::class, 'payables'])->name('admin.salaries.payables');
     Route::post('/salaries/payables', [PayDeductController::class, 'storePayables'])->name('admin.salaries.payables.store');
@@ -65,10 +66,5 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
     Route::post('/trasportation/deductions', [TransportationDeductionController::class, 'store'])->name('trasportation.deduction.create');
     Route::post('/trasportation/deductions/{deduction}', [TransportationDeductionController::class, 'update']);
 
-    Route::get('/test', function(){
-      $deductions =  App\Models\Admin\TransportationDeduction::whereNull('to')->get();
-      foreach ($deductions as $deduction) {
-        echo $deduction->user->transportation($deduction->user->id) . "<br>";
-      }
-    });
+    Route::get('/test', [SalariesController::class, 'test']);
   });

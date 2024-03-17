@@ -63,9 +63,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col d-flex justify-content-between">
-      <a href="{{ route('admin.salaries') }}" class="btn btn-danger">{{ __('global.back') }}</a>
-      <a href="{{ route('admin.salaries.non.working', $month_id) }}" class="btn btn-primary">{{ __('global.next') }}</a>
+    <div class="col d-flex justify-content-end">
+      <a href="{{ route('admin.salaries.dashboard', $month_id) }}" class="btn btn-danger mx-2"><i class="bi bi-caret-{{ session('_lang') == '_ar' ? 'right' : 'left'  }}-square-fill me-2"></i>{{ __('global.back') }}</a>
+      <a href="{{ route('admin.salaries.dashboard', $month_id) }}" class="btn btn-secondary mx-2"><i class="bi bi-house-gear-fill mx-2"></i>{{ __('global.home') }}</a>
+      <a href="{{ route('admin.salaries.non.working', $month_id) }}" class="btn btn-primary mx-2">{{ __('global.next') }}<i class="bi bi-caret-{{ session('_lang') == '_ar' ? 'left' : 'right'  }}-square-fill ms-2"></i></a>
     </div>
   </div>
 @endsection
