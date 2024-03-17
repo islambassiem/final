@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('title')
-    {{ __('admin/salaries.trasDeduct') }}
+  {{ __('admin/salaries.trasDeduct') }}
 @endsection
 
 
@@ -16,6 +16,11 @@
 
 @section('h1')
   {{ __('admin/salaries.trasDeduct') }}
+@endsection
+
+
+@section('breadcrumb')
+{{ __('admin/salaries.trasDeduct')}}
 @endsection
 
 @section('content')
