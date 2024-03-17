@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use DateTime;
+use Carbon\Carbon;
 use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
+use App\Models\Admin\WorkingDays;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
 use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
-use App\Models\Admin\WorkingDays;
 
 class SalariesController extends Controller
 {
@@ -67,13 +68,13 @@ class SalariesController extends Controller
     $month    = Month::find($month);
     $month_id = $month->id;
     $start    = $month->start_date;
-    $end      = $month->end_date;
+    $end      = Carbon::parse($month->end_date)->lastOfMonth();
     $status   = $month->status;
 
     if($status){
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
-    $this->deduct($month_id);
+    $this->deduct($end, $month_id);
     $this->gosi($end, $month_id);
     $this->tickets($end, $month_id);
     $this->approved($month_id, $start, $end);
