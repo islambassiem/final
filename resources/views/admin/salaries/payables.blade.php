@@ -25,16 +25,18 @@
 
 @section('content')
 <div class="row">
-  <div class="col d-flex justify-content-end mb-3">
-    <button
-      type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#addPay"
-      class="btn btn-success">
-      <i class="bi bi-plus-square-fill me-1"></i>
-      {{ __('global.add') }}
-    </button>
-  </div>
+  @if (! $status)
+    <div class="col d-flex justify-content-end mb-3">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addPay"
+        class="btn btn-success">
+        <i class="bi bi-plus-square-fill me-1"></i>
+        {{ __('global.add') }}
+      </button>
+    </div>
+  @endif
   @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

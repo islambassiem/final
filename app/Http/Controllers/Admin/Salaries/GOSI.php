@@ -29,10 +29,14 @@ trait GOSI
     $users = $this->saudi();
     $salary = [];
     foreach ($users as $user) {
-      $salary[] = $user->salaries->sortByDesc('effective')
+      $userSalary = $user->salaries->sortByDesc('effective')
       ->where('effective', '<=', $date)
       ->values()
       ->first();
+      if($userSalary == NULL){
+        continue;
+      }
+      $salary[] = $userSalary;
     }
     return $salary;
   }

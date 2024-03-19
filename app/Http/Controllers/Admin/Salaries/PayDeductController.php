@@ -24,8 +24,10 @@ class PayDeductController extends Controller
     $users = User::where('active', '1')
       ->where('salary', '1')
       ->get();
+    $status = Month::find($month_id)->status;
     return view('admin.salaries.payables', [
       'month_id' => $month_id,
+      'status' => $status,
       'payables' => $payables,
       'users' => $users,
     ]);
@@ -55,8 +57,10 @@ class PayDeductController extends Controller
     $users = User::where('active', '1')
       ->where('salary', '1')
       ->get();
+    $status = Month::find($month_id)->status;
     return view('admin.salaries.deductables', [
       'month_id' => $month_id,
+      'status' => $status,
       'deductables' => $deductables,
       'users' => $users,
     ]);
