@@ -53,7 +53,7 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
 
 		Route::get('/salaries', [SalariesController::class, 'index'])->name('admin.salaries');
 		Route::post('/salaries', [SalariesController::class, 'store'])->name('admin.salaries.create');
-    Route::post('/salaries/process/{month}', [SalariesController::class, 'process']);
+    Route::post('/salaries/process', [SalariesController::class, 'process'])->name('salary.process');
     Route::get('/salaries/working/{month_id}', [SalariesController::class, 'working'])->name('admin.salaries.working');
     Route::get('/salaries/dashboard/{month_id}', [SalariesController::class, 'dashboard'])->name('admin.salaries.dashboard');
     Route::get('/salaries/non/working/{month_id}', [SalariesController::class, 'nonWorking'])->name('admin.salaries.non.working');
@@ -64,6 +64,4 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
     Route::get('/trasportation/deductions', [TransportationDeductionController::class, 'index'])->name('trasportation.deduction.list');
     Route::post('/trasportation/deductions', [TransportationDeductionController::class, 'store'])->name('trasportation.deduction.create');
     Route::post('/trasportation/deductions/{deduction}', [TransportationDeductionController::class, 'update']);
-
-    Route::get('/test', [SalariesController::class, 'test']);
   });

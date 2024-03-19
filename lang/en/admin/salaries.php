@@ -66,5 +66,11 @@
     '10' => 'October',
     '11' => 'November',
     '12' => 'December',
-    'salaryOf' => 'Salary of'
+    'salaryOf' => 'Salary of',
+    'fingerprint' => 'Are you sure you uploaded the fingerprint?',
+    'payablesConf' => 'Are you sure you added all the payables?',
+    'deductablesConf' => 'Are you sure you added all the deductables?',
+    'fpReq' => 'Kindly upload fingerprint report',
+    'payReq' => 'Kindly upload the payables',
+    'dedReq' => 'Kindly upload the deductables',
   ];

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use DateTime;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
 use App\Models\Admin\WorkingDays;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
 use App\Http\Controllers\Admin\Salaries\GOSI;
@@ -43,13 +45,10 @@ class SalariesController extends Controller
   public function dashboard($month_id)
   {
     $month    = Month::find($month_id);
-    $month_id = $month->id;
-    $start    = $month->start_date;
-    $end      = Carbon::parse($month->end_date)->lastOfMonth();
-    $status   = $month->status;
     return view('admin.salaries.dashboard', [
       'month_id' => $month_id,
       'month' => $month->month,
+      'status' => $month->status
     ]);
   }
 
@@ -76,26 +75,57 @@ class SalariesController extends Controller
     return redirect()->back()->with('success', __('admin/salaries.success'));
   }
 
-  public function process($month)
+  public function process(Request $request)
   {
-    $month    = Month::find($month);
-    $month_id = $month->id;
-    $start    = $month->start_date;
+    $request->validate([
+      'fingerprint'     => 'required',
+      'payablesConf'    => 'required',
+      'deductablesConf' => 'required'
+    ], [
+      'fingerprint'     => __('admin/salaries.fpReq'),
+      'payablesConf'    => __('admin/salaries.payReq'),
+      'deductablesConf' => __('admin/salaries.dedReq'),
+    ]);
+    $month    = Month::find($request->month);
     $end      = Carbon::parse($month->end_date)->lastOfMonth();
-    $status   = $month->status;
 
-    if($status){
+    if($month->status){
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
-    $this->deduct($end, $month_id);
-    $this->gosi($end, $month_id);
-    $this->tickets($end, $month_id);
-    $this->approved($month_id, $start, $end);
-    $this->notApproved($month_id, $start, $end);
-    $month->update([
-      'status' => '1'
-    ]);
+    $this->pending($month->start_date, $month->end_date);
+    $this->deduct($end, $month->id);
+    $this->gosi($end, $month->id);
+    $this->tickets($end, $month->id);
+    $this->approved($month->id, $month->start_date, $month->end_date);
+    $this->notApproved($month->id, $month->start_date, $month->end_date);
+    $this->workingDays($month->id);
+    $month->status = 1;
+    $month->save();
+
     return redirect()->back()->with('salarySuccess', __('admin/salaries.salarySuccess'));
+  }
+
+
+  public function working($month_id)
+  {
+    $working = WorkingDays::with('user')
+      ->where('month_id', $month_id)
+      ->get();
+    return view('admin.salaries.workingDays', [
+      'month_id' => $month_id,
+      'days' => $working
+    ]);
+  }
+
+  public function nonWorking($month_id)
+  {
+    $nonworking = NonWorkingDays::with(['user', 'vacationType'])
+    ->where('month_id', $month_id)
+    ->get();
+    return view('admin.salaries.nonWorkingDays', [
+      'month_id' => $month_id,
+      'days' => $nonworking
+    ]);
   }
 
   private function approved($month_id, $start, $end)
@@ -161,25 +191,50 @@ class SalariesController extends Controller
   }
 
 
-  public function working($month_id)
+  private function pending($start, $end)
   {
-    $working = WorkingDays::with('user')
-      ->where('month_id', $month_id)
+    $vacations = Vacation::where('start_date' , '<=', $end)
+      ->where('end_date', '>=', $start)
+      ->where('status_id', '=' ,'0')
+      ->orderBy('user_id')
       ->get();
-    return view('admin.salaries.workingDays', [
-      'month_id' => $month_id,
-      'days' => $working
-    ]);
+    foreach ($vacations as $vacation) {
+      $vacation->update(['status_id' => '2']);
+    }
   }
 
-  public function nonWorking($month_id)
+  private function workingDays($month_id)
   {
-    $nonworking = NonWorkingDays::with(['user', 'vacationType'])
-    ->where('month_id', $month_id)
-    ->get();
-    return view('admin.salaries.nonWorkingDays', [
-      'month_id' => $month_id,
-      'days' => $nonworking
-    ]);
+    $nonWorkingDays = DB::table('non_working_days')
+      ->where('month_id', $month_id)
+      ->selectRaw('user_id, 30 - sum(days) as days')
+      ->groupBy('user_id')
+      ->get()
+      ->toArray();
+
+    foreach ($nonWorkingDays as $nonWorkingDay) {
+      WorkingDays::create([
+        'user_id' => $nonWorkingDay->user_id,
+        'month_id' => $month_id,
+        'working_days' => $nonWorkingDay->days <= 0 ? 0 : $nonWorkingDay->days
+      ]);
+    }
+
+    foreach ($nonWorkingDays as $nonWorkingDay) {
+      $nonWorking[] = $nonWorkingDay->user_id;
+    }
+
+    $users = User::where('active', '1')
+      ->where('salary', '1')
+      ->get('id')
+      ->except($nonWorking);
+
+    foreach ($users as $user) {
+      WorkingDays::create([
+        'user_id' => $user->id,
+        'month_id' => $month_id,
+        'working_days' => '30'
+      ]);
+    }
   }
 }

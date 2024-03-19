@@ -175,9 +175,7 @@
                 <label for="month" class="form-label">{{ __('admin/salaries.month') }}</label>
                 <select class="form-select" id="month" name="month" style="width:100%">
                   <option selected disabled>{{ __('global.select') }}</option>
-                  @for ($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}" @selected( $i == old('month'))>{{  str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
-                  @endfor
+                  <option value="{{ date('n') }}" selected>{{  str_pad(date('m'), 2, '0', STR_PAD_LEFT) }}</option>
                 </select>
               </div>
               <div class="col-6 mb-3">
