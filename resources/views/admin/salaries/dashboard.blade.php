@@ -174,21 +174,21 @@
               <a href="{{ route('paydeduct', $month_id) }}" class="btn btn-info mx-2"><i class="bi bi-receipt-cutoff me-2"></i>{{ __('admin/salaries.payDeduct') }}</a>
               <a href="{{ route('timesheet', $month_id) }}" class="btn btn-warning mx-2"><i class="bi bi-clock-history me-2"></i>{{ __('admin/salaries.timesheet') }}</a>
               <a href="{{ route('send', $month_id) }}" class="btn btn-dark mx-2"><i class="bi bi-send-arrow-up-fill me-2"></i>{{ __('admin/salaries.send') }}</a>
-              {{-- <button
+              <button
                   class="btn btn-dark ms-auto"
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#payslip">
                   <i class="bi bi-receipt-cutoff mx-2"></i>
                   {{ __('admin/salaries.payslip') }}
-                </button> --}}
+                </button>
             </div>
           </div>
           @endif
         </div>
       </div>
     </div>
-  {{-- <div class="modal fade" id="payslip" tabindex="-1" aria-labelledby="payslipLabel" aria-hidden="true">
+  <div class="modal fade" id="payslip" tabindex="-1" aria-labelledby="payslipLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -196,8 +196,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('payslip') }}" method="get" id="payslipForm">
+          <form action="{{ route('admin.payslip') }}" method="get" id="payslipForm">
             @csrf
+            <input type="hidden" name="view" value="admin.salaries.payslip">
             <div class="row">
               <div class="col-12 mb-3">
                 <label for="user" class="form-label">{{ __('admin/salaries.employee') }}</label>
@@ -237,7 +238,7 @@
 
       </div>
     </div>
-  </div> --}}
+  </div>
   </section>
 @endsection
 

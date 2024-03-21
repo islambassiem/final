@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Salary;
@@ -15,34 +14,41 @@ use App\Http\Requests\PayslipRequest;
 
 class PayslipController extends Controller
 {
-  private string $month;
-  private string $year;
-  private Carbon $date;
-  private User $user;
-  private string $month_id;
 
   public function __construct()
   {
     return  $this->middleware('auth');
   }
 
-  public function index(PayslipRequest $request, string $user_id = null)
+  private string $month;
+  private string $year;
+  private Carbon $date;
+  private User $user;
+  private string $month_id;
+
+  public function index(PayslipRequest $request)
   {
-    $this->user = $user_id == null ? User::find(auth()->user()->id) : User::find($user_id);
+    $data = $this->data($request);
+
+    if($this->date->lessThan(Carbon::parse($this->user->joining_date)))
+      return redirect()->back()->with('error', __('payslip.error'));
+
+    if($this->workingDays() == 0)
+      return redirect()->back()->with('error', __('payslip.noPayslip'));
+
+    if ($request->view == null)
+      return view('salary.payslip', $data);
+    else
+      return view($request->view, $data);
+  }
+
+  private function data(PayslipRequest $request)
+  {
+    $this->user = $request->user_id == null ? User::find(auth()->user()->id) : User::find($request->user_id);
     $this->month = $request->month;
     $this->year = $request->year;
     $this->date = Carbon::create($this->year, $this->month)->endofMonth();
     $this->month_id = Month::where('month', $this->month)->where('year', $this->year)->first('id')->id;
-
-    if($this->date->lessThan(Carbon::parse($this->user->joining_date)))
-    {
-      return redirect()->back()->with('error', __('payslip.error'));
-    }
-
-    if($this->workingDays() == 0)
-    {
-      return redirect()->back()->with('error', __('payslip.noPayslip'));
-    }
 
     $data = [
       'user' => $this->user,
@@ -74,7 +80,7 @@ class PayslipController extends Controller
       'deductables' => $this->deductables(),
       'net' => $this->net(),
     ];
-    return view('salary.payslip', $data);
+    return $data;
   }
 
   private function startDate()

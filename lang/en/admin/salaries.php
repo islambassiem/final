@@ -76,5 +76,6 @@
     'timesheet' => 'TimeSheet',
     'payDeduct' => 'Payables and Deductables',
     'send' => 'Send',
-    'emailSent' => 'The email is being sent'
+    'emailSent' => 'The email is being sent',
+    'payslip' => 'Payslip'
   ];
