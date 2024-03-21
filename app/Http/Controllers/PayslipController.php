@@ -203,7 +203,7 @@ class PayslipController extends Controller
 
   public function getMonth($year)
   {
-    $months = Month::where('year',  $year)->get('month');
+    $months = Month::where('year',  $year)->orderByDesc('month')->get('month');
     return json_encode($months);
   }
 }

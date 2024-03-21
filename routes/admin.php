@@ -1,6 +1,8 @@
 
 <?php
 
+use App\Models\User;
+use App\Models\Admin\Month;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Holiday;
 use App\Http\Controllers\Admin\IqamaController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
 use App\Http\Controllers\Admin\Salaries\PayDeductController;
 use App\Http\Controllers\Admin\TransportationDeductionController;
+use Illuminate\Support\Facades\Mail;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -65,4 +68,8 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
     Route::get('/trasportation/deductions', [TransportationDeductionController::class, 'index'])->name('trasportation.deduction.list');
     Route::post('/trasportation/deductions', [TransportationDeductionController::class, 'store'])->name('trasportation.deduction.create');
     Route::post('/trasportation/deductions/{deduction}', [TransportationDeductionController::class, 'update']);
+    Route::get('/salaries/timesheet/{month_id}', [SalariesController::class, 'timesheet'])->name('timesheet');
+    Route::get('/salaries/paydeduct/{month_id}', [SalariesController::class, 'paydeduct'])->name('paydeduct');
+    Route::get('/salaries/send/{month_id}', [SalariesController::class, 'send'])->name('send');
+    
   });

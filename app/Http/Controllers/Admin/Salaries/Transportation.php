@@ -18,6 +18,7 @@ trait Transportation
         'amount' => $deduction->transportation,
         'description' => 'Transportation',
         'type' => '0',
+        'code' => '1531',
         'created_at' => now(),
         'updated_at' => now()
       ]);

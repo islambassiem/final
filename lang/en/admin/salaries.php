@@ -73,4 +73,8 @@
     'fpReq' => 'Kindly upload fingerprint report',
     'payReq' => 'Kindly upload the payables',
     'dedReq' => 'Kindly upload the deductables',
+    'timesheet' => 'TimeSheet',
+    'payDeduct' => 'Payables and Deductables',
+    'send' => 'Send',
+    'emailSent' => 'The email is being sent'
   ];

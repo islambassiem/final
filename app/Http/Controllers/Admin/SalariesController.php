@@ -8,10 +8,14 @@ use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
+use App\Mail\Admin\SendSalary;
+use App\Exports\TimeSheetExport;
 use App\Models\Admin\WorkingDays;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
+use Illuminate\Support\Facades\Mail;
+use App\Exports\PayablesDeductExport;
 use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
@@ -48,7 +52,9 @@ class SalariesController extends Controller
     return view('admin.salaries.dashboard', [
       'month_id' => $month_id,
       'month' => $month->month,
-      'status' => $month->status
+      'status' => $month->status,
+      'years' => Month::select('year')->distinct()->orderBy('year')->get(),
+      'users' => WorkingDays::with('user')->where('month_id', $month_id)->get()
     ]);
   }
 
@@ -93,9 +99,9 @@ class SalariesController extends Controller
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
     $this->pending($month->start_date, $month->end_date);
+    $this->tickets($end, $month->id);
     $this->deduct($end, $month->id);
     $this->gosi($end, $month->id);
-    $this->tickets($end, $month->id);
     $this->approved($month->id, $month->start_date, $month->end_date);
     $this->notApproved($month->id, $month->start_date, $month->end_date);
     $this->workingDays($month->id);
@@ -126,6 +132,23 @@ class SalariesController extends Controller
       'month_id' => $month_id,
       'days' => $nonworking
     ]);
+  }
+
+  public function timesheet($month_id)
+  {
+    return (new TimeSheetExport($month_id))->download('timesheet.xlsx');
+  }
+
+  public function paydeduct($month_id)
+  {
+    return (new PayablesDeductExport($month_id))->download('paydeduct.xlsx');
+  }
+
+  public function send(string $month_id)
+  {
+    $month = Month::find($month_id);
+    Mail::queue(new SendSalary($month));
+    return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
   }
 
   private function approved($month_id, $start, $end)
@@ -207,7 +230,7 @@ class SalariesController extends Controller
   {
     $nonWorkingDays = DB::table('non_working_days')
       ->where('month_id', $month_id)
-      ->selectRaw('user_id, 30 - sum(days) as days')
+      ->selectRaw("user_id, 30 - sum(days) as days")
       ->groupBy('user_id')
       ->get()
       ->toArray();
@@ -224,8 +247,10 @@ class SalariesController extends Controller
       $nonWorking[] = $nonWorkingDay->user_id;
     }
 
+    $end_date = Month::find($month_id)->first()->end_date;
     $users = User::where('active', '1')
       ->where('salary', '1')
+      ->where('joining_date', '<=', $end_date)
       ->get('id')
       ->except($nonWorking);
 
@@ -233,8 +258,21 @@ class SalariesController extends Controller
       WorkingDays::create([
         'user_id' => $user->id,
         'month_id' => $month_id,
-        'working_days' => '30'
+        'working_days' => $this->actualWorkingDays($user->id, $month_id)
       ]);
     }
+  }
+
+  private function actualWorkingDays($user_id, $month_id)
+  {
+    $joining_date = User::find($user_id)->joining_date;
+    $month = Month::find($month_id)->month;
+    $year = Month::find($month_id)->year;
+
+    if($month == date('n', strtotime($joining_date)) && $year == date('Y', strtotime($joining_date)) )
+    {
+      return \Carbon\Carbon::parse($joining_date)->lastOfMonth()->format('d') - date('d', strtotime($joining_date)) + 1;
+    }
+    return 30;
   }
 }

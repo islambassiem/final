@@ -18,6 +18,7 @@ trait Ticket
         'amount' => $amount,
         'description' => 'Ticket Allowance',
         'type' => '1',
+        'code' => '1236',
         'created_at' => now(),
         'updated_at' => now()
       ]);

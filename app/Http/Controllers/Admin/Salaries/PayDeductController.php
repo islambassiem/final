@@ -42,7 +42,8 @@ class PayDeductController extends Controller
       'month_id'    => $request->month_id,
       'amount'      => $amount,
       'description' => $request->description,
-      'type'        => '1'
+      'type'        => '1',
+      'code'        => '1237',
     ];
     PayDeduct::create($data);
     return redirect()->back()->with('success', __('admin/salaries.payableSuccess'));
@@ -75,7 +76,8 @@ class PayDeductController extends Controller
       'month_id'    => $request->month_id,
       'amount'      => $amount,
       'description' => $request->description,
-      'type'        => '0'
+      'type'        => '0',
+      'code'        => '1531'
     ];
     PayDeduct::create($data);
     return redirect()->back()->with('success', __('admin/salaries.deductableSuccess'));
