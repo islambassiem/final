@@ -26,5 +26,8 @@ return [
   'decline' => 'Decline',
   'notes' => 'Notes',
   'takeAction' => 'Take an action',
-  'allStaff' => 'All Staff'
+  'allStaff' => 'All Staff',
+  'perDate' => 'Permission Date',
+  'subDate' => 'Submission Date',
+  'actionDate' => 'Action Date'
 ];

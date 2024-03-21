@@ -38,6 +38,17 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card py-2">
+          <div class="card-body pb-0">
+            <div class="card-title mb-0 py-2">
+              {{ __('head/leaves.perDate') }} : {{ $permission->date }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row text-center">
       <div class="col-md-3">
         <div class="card">
@@ -116,7 +127,7 @@
             <div>{{ $permission->hours }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('head/leaves.date') }}</div>
+            <div>{{ __('head/leaves.subDate') }}</div>
             <div>
               @if (!blank($permission->detail?->employee_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->employee_time)) }}
@@ -161,7 +172,7 @@
             <div>{{ $permission->detail?->headStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('head/leaves.date') }}</div>
+            <div>{{ __('head/leaves.actionDate') }}</div>
             <div>
               @if (!blank($permission->detail?->head_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->head_time)) }}
@@ -206,7 +217,7 @@
             <div>{{ $permission->detail?->hrStatus->{ 'workflow_status' . session('_lang') } }}</div>
           </div>
           <div class="d-flex justify-content-between px-3 py-2">
-            <div>{{ __('head/leaves.date') }}</div>
+            <div>{{ __('head/leaves.actionDate') }}</div>
             <div>
               @if (!blank($permission->detail?->hr_time))
                 {{ date('m/d/Y', strtotime($permission->detail?->hr_time)) }}
