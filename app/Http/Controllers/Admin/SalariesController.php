@@ -3,22 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use DateTime;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
+use App\Mail\Admin\SendSalary;
+use App\Exports\TimeSheetExport;
+use App\Models\Admin\WorkingDays;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
-use App\Http\Controllers\Admin\Salaries\GOSIController;
-use App\Http\Controllers\Admin\Salaries\TicketController;
-use App\Http\Controllers\Admin\Salaries\TransportationController;
-
+use Illuminate\Support\Facades\Mail;
+use App\Exports\PayablesDeductExport;
+use App\Http\Controllers\Admin\Salaries\GOSI;
+use App\Http\Controllers\Admin\Salaries\Ticket;
+use App\Http\Controllers\Admin\Salaries\Transportation;
 
 class SalariesController extends Controller
 {
 
-  use GOSIController;
-  use TicketController;
-  use TransportationController;
+  use GOSI;
+  use Ticket;
+  use Transportation;
 
 
   private $end_date;
@@ -36,6 +43,18 @@ class SalariesController extends Controller
     return view('admin.salaries.months',[
       'months' => Month::orderBy('created_at', 'desc')->get(),
       'start_date' => $this->end_date->format('Y-m-d'),
+    ]);
+  }
+
+  public function dashboard($month_id)
+  {
+    $month    = Month::find($month_id);
+    return view('admin.salaries.dashboard', [
+      'month_id' => $month_id,
+      'month' => $month->month,
+      'status' => $month->status,
+      'years' => Month::select('year')->distinct()->orderBy('year')->get(),
+      'users' => WorkingDays::with('user')->where('month_id', $month_id)->get()
     ]);
   }
 
@@ -62,26 +81,74 @@ class SalariesController extends Controller
     return redirect()->back()->with('success', __('admin/salaries.success'));
   }
 
-  public function process($month)
+  public function process(Request $request)
   {
-    $month    = Month::find($month);
-    $month_id = $month->id;
-    $start    = $month->start_date;
-    $end      = $month->end_date;
-    $status   = $month->status;
+    $request->validate([
+      'fingerprint'     => 'required',
+      'payablesConf'    => 'required',
+      'deductablesConf' => 'required'
+    ], [
+      'fingerprint'     => __('admin/salaries.fpReq'),
+      'payablesConf'    => __('admin/salaries.payReq'),
+      'deductablesConf' => __('admin/salaries.dedReq'),
+    ]);
+    $month    = Month::find($request->month);
+    $end      = Carbon::parse($month->end_date)->lastOfMonth();
 
-    if($status){
+    if($month->status){
       return redirect()->back()->with('error', __('admin/salaries.monthProcessed'));
     }
+    $this->pending($month->start_date, $month->end_date);
+    $this->tickets($end, $month->id);
+    $this->deduct($end, $month->id);
+    $this->gosi($end, $month->id);
+    $this->approved($month->id, $month->start_date, $month->end_date);
+    $this->notApproved($month->id, $month->start_date, $month->end_date);
+    $this->workingDays($month->id);
+    $month->status = 1;
+    $month->save();
 
-    $this->gosi($end, $month_id);
-    $this->tickets($end, $month_id);
-    $this->approved($month_id, $start, $end);
-    $this->notApproved($month_id, $start, $end);
-    $month->update([
-      'status' => '1'
-    ]);
     return redirect()->back()->with('salarySuccess', __('admin/salaries.salarySuccess'));
+  }
+
+
+  public function working($month_id)
+  {
+    $working = WorkingDays::with('user')
+      ->where('month_id', $month_id)
+      ->get();
+    return view('admin.salaries.workingDays', [
+      'month_id' => $month_id,
+      'days' => $working
+    ]);
+  }
+
+  public function nonWorking($month_id)
+  {
+    $nonworking = NonWorkingDays::with(['user', 'vacationType'])
+    ->where('month_id', $month_id)
+    ->get();
+    return view('admin.salaries.nonWorkingDays', [
+      'month_id' => $month_id,
+      'days' => $nonworking
+    ]);
+  }
+
+  public function timesheet($month_id)
+  {
+    return (new TimeSheetExport($month_id))->download('timesheet.xlsx');
+  }
+
+  public function paydeduct($month_id)
+  {
+    return (new PayablesDeductExport($month_id))->download('paydeduct.xlsx');
+  }
+
+  public function send(string $month_id)
+  {
+    $month = Month::find($month_id);
+    Mail::queue(new SendSalary($month));
+    return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
   }
 
   private function approved($month_id, $start, $end)
@@ -146,4 +213,66 @@ class SalariesController extends Controller
     }
   }
 
+
+  private function pending($start, $end)
+  {
+    $vacations = Vacation::where('start_date' , '<=', $end)
+      ->where('end_date', '>=', $start)
+      ->where('status_id', '=' ,'0')
+      ->orderBy('user_id')
+      ->get();
+    foreach ($vacations as $vacation) {
+      $vacation->update(['status_id' => '2']);
+    }
+  }
+
+  private function workingDays($month_id)
+  {
+    $nonWorkingDays = DB::table('non_working_days')
+      ->where('month_id', $month_id)
+      ->selectRaw("user_id, 30 - sum(days) as days")
+      ->groupBy('user_id')
+      ->get()
+      ->toArray();
+
+    foreach ($nonWorkingDays as $nonWorkingDay) {
+      WorkingDays::create([
+        'user_id' => $nonWorkingDay->user_id,
+        'month_id' => $month_id,
+        'working_days' => $nonWorkingDay->days <= 0 ? 0 : $nonWorkingDay->days
+      ]);
+    }
+
+    foreach ($nonWorkingDays as $nonWorkingDay) {
+      $nonWorking[] = $nonWorkingDay->user_id;
+    }
+
+    $end_date = Month::find($month_id)->first()->end_date;
+    $users = User::where('active', '1')
+      ->where('salary', '1')
+      ->where('joining_date', '<=', $end_date)
+      ->get('id')
+      ->except($nonWorking);
+
+    foreach ($users as $user) {
+      WorkingDays::create([
+        'user_id' => $user->id,
+        'month_id' => $month_id,
+        'working_days' => $this->actualWorkingDays($user->id, $month_id)
+      ]);
+    }
+  }
+
+  private function actualWorkingDays($user_id, $month_id)
+  {
+    $joining_date = User::find($user_id)->joining_date;
+    $month = Month::find($month_id)->month;
+    $year = Month::find($month_id)->year;
+
+    if($month == date('n', strtotime($joining_date)) && $year == date('Y', strtotime($joining_date)) )
+    {
+      return \Carbon\Carbon::parse($joining_date)->lastOfMonth()->format('d') - date('d', strtotime($joining_date)) + 1;
+    }
+    return 30;
+  }
 }

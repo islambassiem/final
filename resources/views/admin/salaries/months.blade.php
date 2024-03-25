@@ -101,13 +101,13 @@
                     @endif
                   </td>
                   <td class="text-center">
-                    <a href="#" class="btn btn-secondary btn-sm">
+                    <a href="{{ route('admin.salaries.dashboard', $month->id) }}" class="btn btn-secondary btn-sm">
                       <span>
                         <i class="bi bi-eye-fill fs-6"></i>
                         <span class="fs-6">{{ __('admin/salaries.show') }}</span>
                       </span>
                     </a>
-                    <a href="#" class="btn btn-success btn-sm" data-status="{{ $month->status }}" data-id="{{ $month->id }}">
+                    {{-- <a href="#" class="btn btn-success btn-sm" data-status="{{ $month->status }}" data-id="{{ $month->id }}">
                       <span>
                         <i class="bi bi-cash-stack fs-6"></i>
                         <span class="fs-6">{{ __('admin/salaries.payables') }}</span>
@@ -130,7 +130,7 @@
                         <i class="bi bi-gear-fill fs-6"></i>
                         <span class="fs-6">{{ __('admin/salaries.process') }}</span>
                       </span>
-                    </button>
+                    </button> --}}
                   </td>
                 </tr>
                 @php $c++; @endphp
@@ -175,9 +175,7 @@
                 <label for="month" class="form-label">{{ __('admin/salaries.month') }}</label>
                 <select class="form-select" id="month" name="month" style="width:100%">
                   <option selected disabled>{{ __('global.select') }}</option>
-                  @for ($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}" @selected( $i == old('month'))>{{  str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
-                  @endfor
+                  <option value="{{ date('n') }}" selected>{{  str_pad(date('m'), 2, '0', STR_PAD_LEFT) }}</option>
                 </select>
               </div>
               <div class="col-6 mb-3">
@@ -258,20 +256,20 @@
           url: file
         }
       });
-      $('#confirmation').on('show.bs.modal', function (event){
-        let button = $(event.relatedTarget);
-        let id = button.data('id');
-        let form = document.getElementById('processForm');
-        form.action = "salaries/process/" + id;
-      });
-      var elements = document.querySelectorAll('[data-id]');
-      console.log(elements);
-      elements.forEach(element => {
-        if(element.getAttribute('data-status') == 1){
-          element.style.opacity = '0.5';
-          element.style.pointerEvents = 'none';
-        }
-      });
+      // $('#confirmation').on('show.bs.modal', function (event){
+      //   let button = $(event.relatedTarget);
+      //   let id = button.data('id');
+      //   let form = document.getElementById('processForm');
+      //   form.action = "salaries/process/" + id;
+      // });
+      // var elements = document.querySelectorAll('[data-id]');
+      // console.log(elements);
+      // elements.forEach(element => {
+      //   if(element.getAttribute('data-status') == 1){
+      //     element.style.opacity = '0.5';
+      //     element.style.pointerEvents = 'none';
+      //   }
+      // });
     });
   </script>
 @endsection

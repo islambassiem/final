@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Admin\PayDeduct;
 
 
-trait TicketController
+trait Ticket
 {
   public function tickets($date, $month_id)
   {
@@ -18,6 +18,7 @@ trait TicketController
         'amount' => $amount,
         'description' => 'Ticket Allowance',
         'type' => '1',
+        'code' => '1236',
         'created_at' => now(),
         'updated_at' => now()
       ]);
@@ -30,7 +31,6 @@ trait TicketController
     $data = $this->dependentTicketAmount();
     $result = [];
     foreach ($ticket as $key => $value) {
-      // $tot = 0;
       if(in_array($key, array_keys($data))){
         $result[$key] = round($value * $data[$key], 0) ;
       }else{

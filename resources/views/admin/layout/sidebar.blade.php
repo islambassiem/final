@@ -76,6 +76,13 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'trasportation' ? '' : 'collapsed'  }}" href="{{ route('trasportation.deduction.list') }}">
+            <i class="bi bi-bus-front"></i>
+            <span>{{ __('admin/salaries.trasDeduct') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
           <a class="nav-link {{ request()->segment(2) == 'salaries' ? '' : 'collapsed'  }}" href="{{ route('admin.salaries') }}">
             <i class="bi bi-cash-coin"></i>
             <span>{{ __('admin/salaries.salaries') }}</span>

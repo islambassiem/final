@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Admin\TransportationDeduction;
 use App\Models\Bank;
 use App\Models\Ticket;
 use App\Models\Tables\Gender;
@@ -245,5 +246,10 @@ class User extends Authenticatable
   public function salaries()
   {
     return $this->hasMany(Salary::class);
+  }
+
+  public function transportationDeduction()
+  {
+    return $this->hasMany(TransportationDeduction::class);
   }
 }

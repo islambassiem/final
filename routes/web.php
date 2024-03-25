@@ -1,17 +1,12 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQController;
-use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ResearchController;
@@ -24,16 +19,12 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
-
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
-use App\Http\Controllers\PayslipController;
-use App\Models\Admin\Month;
-use App\Models\Payslip;
 
 /*
 |--------------------------------------------------------------------------

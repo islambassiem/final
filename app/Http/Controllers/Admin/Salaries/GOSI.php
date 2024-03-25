@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Salaries;
 use App\Models\Admin\PayDeduct;
 use App\Models\User;
 
-trait GOSIController
+trait GOSI
 {
 
   public function gosi($date, $month_id)
@@ -29,10 +29,14 @@ trait GOSIController
     $users = $this->saudi();
     $salary = [];
     foreach ($users as $user) {
-      $salary[] = $user->salaries->sortByDesc('effective')
+      $userSalary = $user->salaries->sortByDesc('effective')
       ->where('effective', '<=', $date)
       ->values()
       ->first();
+      if($userSalary == NULL){
+        continue;
+      }
+      $salary[] = $userSalary;
     }
     return $salary;
   }

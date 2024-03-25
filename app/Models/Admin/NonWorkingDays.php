@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 use App\Models\User;
 use App\Models\Admin\Month;
+use App\Models\Tables\VacationType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,5 +26,10 @@ class NonWorkingDays extends Model
   public function month()
   {
     return $this->belongsTo(Month::class);
+  }
+
+  public function vacationType()
+  {
+    return $this->belongsTo(VacationType::class, 'type', 'id');
   }
 }
