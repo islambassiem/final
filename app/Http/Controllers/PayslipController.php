@@ -98,8 +98,7 @@ class PayslipController extends Controller
     $payables = $this->floatval($this->workingDaysAmount())
       + $this->floatval($this->paidDaysAmount())
       + $this->floatval($this->payablesAmount());
-    $deductables = $this->floatval($this->unpaidDaysAmount())
-      + $this->floatval($this->deductablesAmount());
+    $deductables = $this->floatval($this->deductablesAmount());
     return number_format(round($payables - $deductables, 0), 2);
   }
 
