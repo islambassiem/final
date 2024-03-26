@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
 use App\Http\Controllers\Admin\Salaries\PayDeductController;
 use App\Http\Controllers\Admin\TransportationDeductionController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Authenticate;
 
   Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -69,8 +71,8 @@ use App\Http\Controllers\Admin\TransportationDeductionController;
     Route::get('/trasportation/deductions', [TransportationDeductionController::class, 'index'])->name('trasportation.deduction.list');
     Route::post('/trasportation/deductions', [TransportationDeductionController::class, 'store'])->name('trasportation.deduction.create');
     Route::post('/trasportation/deductions/{deduction}', [TransportationDeductionController::class, 'update']);
-    Route::get('/salaries/timesheet/{month_id}', [SalariesController::class, 'timesheet'])->name('timesheet');
-    Route::get('/salaries/paydeduct/{month_id}', [SalariesController::class, 'paydeduct'])->name('paydeduct');
+    Route::get('/salaries/timesheet/{month_id}', [SalariesController::class, 'timesheet'])->withoutMiddleware([Admin::class, Authenticate::class])->name('timesheet');
+    Route::get('/salaries/paydeduct/{month_id}', [SalariesController::class, 'paydeduct'])->withoutMiddleware([Admin::class, Authenticate::class])->name('paydeduct');
     Route::get('/salaries/send/{month_id}', [SalariesController::class, 'send'])->name('send');
     Route::get('salaries/payslip', [PayslipController::class, 'index'])->name('admin.payslip');
   });
