@@ -199,6 +199,8 @@
           <form action="{{ route('admin.payslip') }}" method="get" id="payslipForm">
             @csrf
             <input type="hidden" name="view" value="admin.salaries.payslip">
+            <input type="hidden" name="month" value="{{ $month }}">
+            <input type="hidden" name="year" value="{{ $year }}">
             <div class="row">
               <div class="col-12 mb-3">
                 <label for="user" class="form-label">{{ __('admin/salaries.employee') }}</label>
@@ -210,7 +212,7 @@
                 </select>
               </div>
             </div>
-            <div class="row d-flex">
+            {{-- <div class="row d-flex">
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="years">{{ __('salary.year') }}</label>
@@ -228,7 +230,7 @@
                   <select name="month" id="month" class="form-control"></select>
                 </div>
               </div>
-            </div>
+            </div> --}}
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
               <button type="submit" form="payslipForm" class="btn btn-primary">{{ __('global.submit') }}</button>
@@ -248,47 +250,48 @@
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script>
     $(document).ready(function(){
-      var elements = document.querySelectorAll('[data-id]');
-      elements.forEach(element => {
-        if(element.getAttribute('data-status') == 1){
-          element.style.opacity = '0.5';
-          element.style.pointerEvents = 'none';
-        }
-      });
-
-      $('#years').select2({
-        dropdownParent: $('#payslip')
-      });
-      $('#month').select2({
-        dropdownParent: $('#payslip')
-      });
       $('#user').select2({
         dropdownParent: $('#payslip')
       });
-      $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
-      $('#years').on('change.select2', function(e){
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        if(this.value){
-          $.ajax({
-            url: "{{ URL::to('payslip/month') }}/" + this.value,
-            method: "post",
-            dataType: "json",
-            success: function(data){
-              $('#month').empty();
-              $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
-              for (let i = 0; i < data.length; i++) {
-                const element = data[i];
-                let month = element.month;
-                $('#month').append("<option value="+element.month+">"+element.month+"</option>");
-              }
-            }
-          });
-        }
-      });
+
+      // var elements = document.querySelectorAll('[data-id]');
+      // elements.forEach(element => {
+      //   if(element.getAttribute('data-status') == 1){
+      //     element.style.opacity = '0.5';
+      //     element.style.pointerEvents = 'none';
+      //   }
+      // });
+
+      // $('#years').select2({
+      //   dropdownParent: $('#payslip')
+      // });
+      // $('#month').select2({
+      //   dropdownParent: $('#payslip')
+      // });
+      // $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
+      // $('#years').on('change.select2', function(e){
+      //   $.ajaxSetup({
+      //     headers: {
+      //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //     }
+      //   });
+      //   if(this.value){
+      //     $.ajax({
+      //       url: "{{ URL::to('payslip/month') }}/" + this.value,
+      //       method: "post",
+      //       dataType: "json",
+      //       success: function(data){
+      //         $('#month').empty();
+      //         $('#month').append("<option selected disabled>{{ __('global.select') }}</option>");
+      //         for (let i = 0; i < data.length; i++) {
+      //           const element = data[i];
+      //           let month = element.month;
+      //           $('#month').append("<option value="+element.month+">"+element.month+"</option>");
+      //         }
+      //       }
+      //     });
+      //   }
+      // });
     });
   </script>
 @endsection

@@ -215,6 +215,7 @@
         <img src="{{ asset('assets/img/footer.png') }}" style="max-width: 100%"/>
       </div>
     </div>
+    <a href="{{ route('admin.salaries.dashboard', $month_id) }}" class="btn btn-danger mx-2"><i class="bi bi-caret-{{ session('_lang') == '_ar' ? 'right' : 'left'  }}-square-fill me-2"></i>{{ __('global.back') }}</a>
     <button class="btn btn-primary" id="btn"><i class="bi bi-printer-fill"></i> {{ __('payslip.print') }}</button>
   </section>
 @endsection

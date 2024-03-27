@@ -52,9 +52,10 @@ class SalariesController extends Controller
     return view('admin.salaries.dashboard', [
       'month_id' => $month_id,
       'month' => $month->month,
+      'year' => $month->year,
       'status' => $month->status,
       'years' => Month::select('year')->distinct()->orderBy('year')->get(),
-      'users' => WorkingDays::with('user')->where('month_id', $month_id)->get()
+      'users' => WorkingDays::with('user')->where('month_id', $month_id)->orderBy('user_id')->get()
     ]);
   }
 
@@ -226,12 +227,22 @@ class SalariesController extends Controller
     }
   }
 
-  private function workingDays($month_id)
+  public function workingDays($month_id)
   {
     $nonWorkingDays = DB::table('non_working_days')
       ->where('month_id', $month_id)
       ->selectRaw("user_id, 30 - sum(days) as days")
       ->groupBy('user_id')
+      ->orderBy('user_id')
+      ->get()
+      ->toArray();
+
+    $paidWorkingDays = DB::table('non_working_days')
+      ->where('month_id', $month_id)
+      ->selectRaw("user_id, sum(days) as days")
+      ->whereNotIn('type', ['1', '3', '4'])
+      ->groupBy('user_id')
+      ->orderBy('user_id')
       ->get()
       ->toArray();
 
@@ -239,8 +250,16 @@ class SalariesController extends Controller
       WorkingDays::create([
         'user_id' => $nonWorkingDay->user_id,
         'month_id' => $month_id,
-        'working_days' => $nonWorkingDay->days <= 0 ? 0 : $nonWorkingDay->days
+        'working_days' => $nonWorkingDay->days <= 0 ? 0 : $nonWorkingDay->days,
+        'paid_days' => 0
       ]);
+    }
+
+    foreach ($paidWorkingDays as $paidWorkingDay) {
+      WorkingDays::where('user_id', $paidWorkingDay->user_id)
+        ->update([
+          'paid_days' => $paidWorkingDay->days
+        ]);
     }
 
     foreach ($nonWorkingDays as $nonWorkingDay) {

@@ -44,7 +44,7 @@ class TimeSheetExport implements FromCollection, WithHeadings
         'name'  => $item->user->getFullEnglishNameAttribute,
         'pay'   => '1',
         'Empty' => '',
-        'Hours' => $item->working_days * 8
+        'Hours' => ($item->working_days + $item->paid_days) * 8
       ]);
     }
 

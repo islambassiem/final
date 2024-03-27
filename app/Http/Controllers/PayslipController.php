@@ -72,6 +72,7 @@ class PayslipController extends Controller
       'workingDaysAmount' => $this->workingDaysAmount(),
       'date' => Carbon::create($this->year, $this->month)->endofMonth()->format('Y-m-d'),
       'month' => $this->date,
+      'month_id' => $this->month_id,
       'salary' => $this->salary(),
       'package' => number_format($this->package(), 2),
       'start_date' => $this->startDate(),
