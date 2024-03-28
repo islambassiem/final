@@ -33,13 +33,13 @@ class Dependent extends Model
   public function ticketRate()
   {
     $now = Carbon::now();
-    $age = $now->diffInYears($this->date_of_birth);
+    $age = $now->diffInDays($this->date_of_birth) / 365;
     if($this->ticket == 0){
       return 0;
     }
-    if($age <= 2){
+    if($age < 2){
       return 0.2;
-    }else if ($age <= 11){
+    }else if ($age < 11){
       return 0.8;
     }
     return 1;
