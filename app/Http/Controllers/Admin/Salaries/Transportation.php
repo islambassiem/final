@@ -16,7 +16,7 @@ trait Transportation
         'user_id' => $deduction->user_id,
         'month_id' => $month_id,
         'amount' => $deduction->transportation,
-        'description' => 'Transportation',
+        'description' => 'Transportation for ' . $date->format('m/Y'),
         'type' => '0',
         'code' => '1531',
         'created_at' => now(),

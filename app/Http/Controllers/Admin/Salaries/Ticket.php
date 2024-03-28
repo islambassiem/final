@@ -16,7 +16,7 @@ trait Ticket
         'user_id' => $user,
         'month_id' => $month_id,
         'amount' => $amount,
-        'description' => 'Ticket Allowance',
+        'description' => 'Ticket Allowance ' . $date->format('m/Y'),
         'type' => '1',
         'code' => '1236',
         'created_at' => now(),

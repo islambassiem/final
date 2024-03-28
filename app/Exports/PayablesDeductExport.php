@@ -39,9 +39,15 @@ class PayablesDeductExport implements FromCollection, WithHeadings
     $payDeductArray = [];
     foreach ($payaDeduct as $item) {
       if($item->description == 'GOSI') continue;
+      if($item->code == null){
+        if($item->type == 0) $code = '1532';
+        if($item->type == 1) $code = '1237';
+      }else{
+        $code = $item->code;
+      }
       array_push($payDeductArray, [
         'empid'       => $item->user->empid,
-        'code'        => $item->code,
+        'code'        => $code,
         'amount'      => $item->amount,
         'Description' => $item->description
       ]);

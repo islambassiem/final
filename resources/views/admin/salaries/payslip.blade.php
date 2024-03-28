@@ -60,7 +60,7 @@
               </tr>
               <tr>
                 <td>{{ __('payslip.position') }}</td>
-                <td>{{ $user->position->{'position' . session('_lang')} }}</td>
+                <td>{{ $user->position?->{'position' . session('_lang')} }}</td>
                 <td>{{ __('payslip.trans') }}</td>
                 <td>{{ $salary->transportation }}</td>
               </tr>
