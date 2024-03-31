@@ -158,6 +158,20 @@ class VacationController extends Controller
       $head = User::find(auth()->user()->head);
       $days = $this->days($request->start_date, $request->end_date);
       $balance = $this->balance($request->end_date);
+
+
+      if($balance <= 0)
+      {
+        $this->createVacation($request->start_date, $request->end_date, '4');
+        $latest = Vacation::latest('id')->first();
+        $this->detail($validated, $latest->id);
+        $this->attach($request, $latest);
+        $head->notify(new ApplyVacation($latest));
+        Mail::queue(new VacationApplication($latest));
+        return 0;
+      }
+
+
       if($days > $balance){
 
         // divide the vacation into paid and unpaid
