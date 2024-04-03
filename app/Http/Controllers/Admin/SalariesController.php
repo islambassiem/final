@@ -19,6 +19,7 @@ use App\Exports\PayablesDeductExport;
 use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
+use App\Http\Controllers\Admin\Salaries\VacationReturn;
 
 class SalariesController extends Controller
 {
@@ -26,6 +27,7 @@ class SalariesController extends Controller
   use GOSI;
   use Ticket;
   use Transportation;
+  use VacationReturn;
 
 
   private $end_date;
