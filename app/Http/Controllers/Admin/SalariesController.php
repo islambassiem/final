@@ -108,6 +108,7 @@ class SalariesController extends Controller
     $this->approved($month->id, $month->start_date, $month->end_date);
     $this->notApproved($month->id, $month->start_date, $month->end_date);
     $this->workingDays($month->id);
+    $this->vacationReturners($month->id);
     $month->status = 1;
     $month->save();
 

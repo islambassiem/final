@@ -5,15 +5,14 @@ namespace App\Http\Controllers\Admin\Salaries;
 use Carbon\Carbon;
 use App\Models\Vacation;
 use App\Models\Admin\Month;
+use App\Models\Admin\PayDeduct;
 use App\Models\Admin\NonWorkingDays;
+use App\Models\Salary;
 
 trait VacationReturn
 {
-
-
-  public function myfunc()
+  public function vacationReturners($month_id)
   {
-    $month_id = 3;
     $eligibleUsers = $this->eligibleUsers($month_id);
     $month = Month::find($month_id);
     foreach ($eligibleUsers as $key => $value) {
@@ -33,14 +32,22 @@ trait VacationReturn
     $unpaid =  NonWorkingDays::where('month_id', $month_id)
       ->where('user_id', $user_id)
       ->first();
-    return $user_id . " => " . $newDeduction;
     $unpaid->update(["days" => $newDeduction]);
   }
 
   private function previousMonth($user_id, $month_id)
   {
     $latestDay = Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date);
-    return  $user_id . " => " . 30 - $latestDay->format('d');
+    $date = Carbon::parse(Month::find($month_id)->start_date)->lastOfMonth();
+    $amount = $this->amount($date, $user_id, 30 - $latestDay->format('d'));
+    $description =  30 - $latestDay->format('d') . " working days after vacation " . $date->format('M Y');
+    PayDeduct::create([
+      'user_id' => $user_id,
+      'month_id' => $month_id,
+      'amount' => $amount,
+      'description' => $description,
+      'type' => '1'
+    ]);
   }
 
   private function eligibleUsers($month_id)
@@ -114,5 +121,16 @@ trait VacationReturn
       ->whereIn('vacation_type', ['3', '4'])
       ->orderByDesc('start_date')
       ->first();
+  }
+
+  private function amount($date, $user_id, $days)
+  {
+    $package =  Salary::where('user_id' ,$user_id)
+      ->where('effective', '<=', $date)
+      ->orderByDesc('effective')
+      ->first()
+      ->package();
+
+    return round(floatval(str_replace(',', '', $package)) * $days / 30, 2);
   }
 }
