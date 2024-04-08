@@ -7,8 +7,12 @@
 @section('style')
   @if (session('dir') == 'rtl')
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables-rtl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/hijri-date-picker/css/bootstrap-rtl.min.css') }}" />
+    <link href="{{ asset('assets/vendor/hijri-date-picker/css/bootstrap-datetimepicker-rtl.min.css') }}" rel="stylesheet" />
   @else
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/hijri-date-picker/css/bootstrap.min.css') }}" />
+    <link href="{{ asset('assets/vendor/hijri-date-picker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
   @endif
 @endsection
 
@@ -87,7 +91,7 @@
           @csrf
           <div class="mb-3">
             <label for="expiry">{{ __('admin/iqama.expiry') }}</label>
-            <input type="date" name="expiry" id="expiry" class="form-control">
+            <input type="text" name="expiry" id="hijri-date-input" class="form-control">
           </div>
         </form>
       </div>
@@ -103,6 +107,8 @@
 
 @section('script')
 <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/hijri-date-picker/js/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/hijri-date-picker/js/bootstrap-hijri-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
   $(document).ready(function (){
@@ -137,6 +143,28 @@
       form.action = "iqama/renewal/" + id;
     });
 
+  });
+</script>
+<script type="text/javascript">
+  $(function () {
+    $("#hijri-date-input").hijriDatePicker({
+      hijri:true,
+      viewMode:'days',
+      format:'YYYY-MM-DD',
+      locale: "{{ session('_lang') == '_en' ? 'en-us' : 'ar-SA' }}",
+      showClear: true,
+      showClose: true,
+      showTodayButton: true,
+      hijriText: "{{ __('hijri.hijri') }}",
+      gregorianText: "{{ __('hijri.gregorian') }}",
+      icons: {
+        previous: "<",
+        next: ">",
+        today: "{{ __('hijri.today') }}",
+        clear: "{{ __('hijri.clear') }}",
+        close: "{{ __('hijri.close') }}"
+      },
+    });
   });
 </script>
 @endsection
