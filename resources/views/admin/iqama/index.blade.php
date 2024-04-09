@@ -43,8 +43,9 @@
               <th>{{ __('admin/iqama.empid') }}</th>
               <th>{{ __('admin/iqama.name') }}</th>
               <th>{{ __('admin/iqama.num') }}</th>
-              <th>{{ __('admin/iqama.expiry') }}</th>
-              <th>{{ __('admin/iqama.expiry') }}</th>
+              <th>{{ __('admin/iqama.gregorian') }}</th>
+              <th>{{ __('admin/iqama.hijri') }}</th>
+              <th>{{ __('admin/iqama.duration') }}</th>
               <th>{{ __('admin/iqama.action') }}</th>
             </tr>
           </thead>
@@ -57,6 +58,7 @@
                 <th>{{ session('_lang') == '_ar' ? $iqama->user->getFullArabicNameAttribute : $iqama->user->getFullEnglishNameAttribute }}</th>
                 <th>{{ $iqama->document_id }}</th>
                 <th>{{ $iqama->date_of_expiry; }}</th>
+                <th>{{ $iqama->hijri; }}</th>
                 <th>{{ $iqama->expiry; }}</th>
                 <th>
                   <button
@@ -157,6 +159,8 @@
       showTodayButton: true,
       hijriText: "{{ __('hijri.hijri') }}",
       gregorianText: "{{ __('hijri.gregorian') }}",
+      minDate: "{{ date('Y-m-d') }}",
+      maxDate: '2038-02-04',
       icons: {
         previous: "<",
         next: ">",
