@@ -18,7 +18,7 @@ class DocumentExpiryReminder{
     ->orderBy('date_of_expiry')
     ->get();
     foreach ($documents as $document) {
-      $diff =  Carbon::parse($document->date_of_expiry)->diffInDays(Carbon::now());
+      $diff =  Carbon::now()->diffInDays(Carbon::parse($document->date_of_expiry));
       if($diff == $document->notification){
         Mail::send('emails.notification.documentExpiry', ['description' => $document->description ,'expiry' => date('d/m/Y', strtotime($document->date_of_expiry))], function($message) use($document){
           $message->to($document->user->email);
