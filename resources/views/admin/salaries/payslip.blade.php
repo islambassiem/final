@@ -72,7 +72,7 @@
               </tr>
               <tr>
                 <td>{{ __('payslip.iban') }}</td>
-                <td>{{ $user->bank($user->id)->iban }}</td>
+                <td>{{ $user->bank($user->id)?->iban }}</td>
                 <td>{{ __('payslip.ticket') }}</td>
                 <td>{{ $user->ticket($user->id) }}</td>
               </tr>
