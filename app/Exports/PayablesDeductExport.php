@@ -55,7 +55,9 @@ class PayablesDeductExport implements FromCollection, WithHeadings
 
     $payDeductCollection = collect($payDeductArray);
 
-    $annualVacation = NonWorkingDays::with('user:id,empid,first_name_en,middle_name_en,third_name_en,family_name_en')
+    $annualVacation = NonWorkingDays::with(['user' => function ($query) {
+      $query->where('salary', 1);
+    }])
       ->where('month_id', $this->month_id)
       ->where('type', '1')
       ->get();
@@ -63,6 +65,7 @@ class PayablesDeductExport implements FromCollection, WithHeadings
     $vacationsArray = [];
 
     foreach ($annualVacation as $item) {
+      if(($item->user?->empid) == null) continue;
       array_push($vacationsArray, [
         'Empid'       => $item->user->empid,
         'code'        => '1235',
