@@ -37,13 +37,10 @@ use App\Http\Controllers\OtherExperienceController;
 |
 */
 
-// Route::get('/', function () {
-//   return view('auth.login');
-// })->middleware('guest');
-
 Route::get('/', function () {
-  return redirect('https://party.csmonline.net/questions');
-});
+  return view('auth.login');
+})->middleware('guest');
+
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/head.php';
