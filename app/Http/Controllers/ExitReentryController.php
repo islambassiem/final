@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\ExitReentry;
 use Illuminate\Http\Request;
+use App\Models\Admin\PayDeduct;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Admin\Salaries\OpenMonth;
 
 class ExitReentryController extends Controller
 {
+
+  use OpenMonth;
+
   public function __construct()
   {
     return $this->middleware('auth');
@@ -41,6 +46,21 @@ class ExitReentryController extends Controller
         }
       }
     ExitReentry::create($validated);
+    if($this->noOfDays($request->from, $request->to) > 60)
+    {
+      $month  = $this->openMonth();
+      $amount = (ceil($this->noOfDays($request->from, $request->to) / 30) - 2 ) * 100 ;
+      PayDeduct::insert([
+        'user_id' => auth()->user()->id,
+        'month_id' => $month->id,
+        'amount' => $amount,
+        'description' => 'Exit Re-entry Extra amount',
+        'type' => '0',
+        'code' => '1533',
+        'created_at' => now(),
+        'updated_at' => now()
+      ]);
+    }
     return redirect()->route('reentry.index')->with('success', __('You have applied for an exit re-entry visa successfully'));
   }
 
@@ -50,5 +70,12 @@ class ExitReentryController extends Controller
     $end = Carbon::parse($to);
     $diff = $end->diffInDays($start) + 1;
     return $diff > 60 ? true : false;
+  }
+
+  private function noOfDays($from, $to)
+  {
+    $start = Carbon::parse($from);
+    $end = Carbon::parse($to);
+    return  $end->diffInDays($start) + 1;
   }
 }

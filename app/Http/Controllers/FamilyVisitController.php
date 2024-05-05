@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\FamilyVisit;
 use Illuminate\Http\Request;
+use App\Models\Admin\PayDeduct;
+use App\Http\Controllers\Admin\Salaries\OpenMonth;
 
 class FamilyVisitController extends Controller
 {
-
+  use OpenMonth;
   public function __construct()
   {
     return $this->middleware('auth');
   }
-  
+
   public function index()
   {
     return view('visits.index', [
@@ -34,6 +36,17 @@ class FamilyVisitController extends Controller
     $validated['user_id'] = auth()->user()->id;
     $validated['deduction'] = $validated['deduction'] == "on" ? '1' : '0';
     FamilyVisit::create($validated);
+    $month = $this->openMonth();
+    PayDeduct::insert([
+      'user_id' => auth()->user()->id,
+      'month_id' => $month->id,
+      'amount' => '35',
+      'description' => 'Family Visit Attestation',
+      'type' => '0',
+      'code' => '1534',
+      'created_at' => now(),
+      'updated_at' => now()
+    ]);
     return redirect()->route('visits.index')->with('success', __('You have applied for a family visit successfully'));
   }
 }

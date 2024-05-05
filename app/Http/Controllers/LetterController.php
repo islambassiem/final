@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\Salaries\OpenMonth;
 use App\Models\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Admin\PayDeduct;
 
 class LetterController extends Controller
 {
+  use OpenMonth;
   public function __construct()
   {
     return $this->middleware('auth');
@@ -44,6 +47,20 @@ class LetterController extends Controller
     $validated['deduction'] = isset($validated['deduction']) ? '1' : '0';
 
     Letter::create($validated);
+    if($validated['attested'] == 1)
+    {
+      $month = $this->openMonth();
+      PayDeduct::insert([
+        'user_id' => auth()->user()->id,
+        'month_id' => $month->id,
+        'amount' => '35',
+        'description' => 'Chammber of Commerece attesation',
+        'type' => '0',
+        'code' => '1532',
+        'created_at' => now(),
+        'updated_at' => now()
+      ]);
+    }
     return redirect()->route('letters.index')->with('success', __('You have applied for a letter successfully'));
   }
 

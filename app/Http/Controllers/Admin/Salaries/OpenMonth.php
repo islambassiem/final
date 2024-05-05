@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Salaries;
 use App\Models\Admin\Month;
 use Carbon\Carbon;
 
-trait openMonth
+trait OpenMonth
 {
   public function openMonth()
   {
