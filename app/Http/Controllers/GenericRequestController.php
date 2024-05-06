@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GenericRequest;
+use App\Mail\GenericRequestMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class GenericRequestController extends Controller
@@ -44,6 +46,7 @@ class GenericRequestController extends Controller
     $latest->update([
       'link' => auth()->user()->id . '/text/' . $latest->id . '_request.txt'
     ]);
+    Mail::queue(new GenericRequestMail($latest));
     return redirect()->route('generics.index')->with('success', 'You request has been receive successfully');
   }
 
