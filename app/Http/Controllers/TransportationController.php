@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Transportation;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransportationRequestMail;
 
 class TransportationController extends Controller
 {
@@ -44,6 +46,8 @@ class TransportationController extends Controller
     ]);
     $validated['user_id'] = auth()->user()->id;
     Transportation::create($validated);
+    $latest = Transportation::orderByDesc('created_at')->first();
+    Mail::queue(new TransportationRequestMail($latest));
     return redirect()->route('transportation.index')->with('success', 'Your request has been sent!');
   }
 }
