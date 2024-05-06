@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\ExitReentry;
 use Illuminate\Http\Request;
+use App\Mail\ExitReentryMail;
 use App\Models\Admin\PayDeduct;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\Salaries\OpenMonth;
 
 class ExitReentryController extends Controller
@@ -61,6 +63,8 @@ class ExitReentryController extends Controller
         'updated_at' => now()
       ]);
     }
+    $latest = ExitReentry::orderByDesc('created_at')->first();
+    Mail::queue(new ExitReentryMail($latest));
     return redirect()->route('reentry.index')->with('success', __('You have applied for an exit re-entry visa successfully'));
   }
 
