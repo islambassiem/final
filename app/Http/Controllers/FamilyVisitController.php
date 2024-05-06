@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\FamilyVisit;
 use Illuminate\Http\Request;
+use App\Mail\FamilyVisitMail;
 use App\Models\Admin\PayDeduct;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\Salaries\OpenMonth;
 
 class FamilyVisitController extends Controller
@@ -47,6 +49,8 @@ class FamilyVisitController extends Controller
       'created_at' => now(),
       'updated_at' => now()
     ]);
+    $latest = FamilyVisit::orderByDesc('created_at')->first();
+    Mail::queue(new FamilyVisitMail($latest));
     return redirect()->route('visits.index')->with('success', __('You have applied for a family visit successfully'));
   }
 }

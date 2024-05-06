@@ -172,7 +172,3 @@ Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip
 Route::get('/payslip', [PayslipController::class, 'test']);
 
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
-
-Route::get('/test', function (){
-  return view('emails.requests.letter');
-});
