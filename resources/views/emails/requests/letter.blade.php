@@ -17,16 +17,19 @@
             <tr width="100%">
               <td valign="top" align="left" style="background:#fff;padding:18px">
                 <p style="color:#333;">Employee Name</p>
+                <p style="color:#333;">إسم الموظف</p>
               </td>
               <td valign="top" align="left" style="background:#fff;padding:18px">
                 <p style="color:#333;">{{ $letter->user->getFullEnglishNameAttribute }}</p>
+                <p style="color:#333;">{{ $letter->user->getFullArabicNameAttribute }}</p>
               </td>
             </tr>
             <tr width="100%">
               <td valign="top" align="left" style="background:#fff;padding:18px">
                 <p style="color:#333;">Addressee</p>
+                <p style="color:#333;">موجهه إلى</p>
               </td>
-              <td valign="top" align="left" style="background:#fff;padding:18px">
+              <td valign="middle" align="left" style="background:#fff;padding:18px">
                 <p style="color:#333;">{{ $letter->addressee }}</p>
               </td>
             </tr>
@@ -34,9 +37,11 @@
               <tr width="100%">
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">English</p>
+                  <p style="color:#333;">باللغة الانجليزية</p>
                 </td>
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">Yes</p>
+                  <p style="color:#333;">نعم</p>
                 </td>
               </tr>
             @endif
@@ -44,9 +49,11 @@
               <tr width="100%">
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">With Salary</p>
+                  <p style="color:#333;">يتضمن الراتب</p>
                 </td>
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">Yes</p>
+                  <p style="color:#333;">نعم</p>
                 </td>
               </tr>
             @endif
@@ -54,9 +61,11 @@
               <tr width="100%">
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">For Loan</p>
+                  <p style="color:#333;">لغرض السلفة</p>
                 </td>
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">Yes</p>
+                  <p style="color:#333;">نعم</p>
                 </td>
               </tr>
             @endif
@@ -64,9 +73,11 @@
               <tr width="100%">
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">Attested</p>
+                  <p style="color:#333;">موثق</p>
                 </td>
                 <td valign="top" align="left" style="background:#fff;padding:18px">
                   <p style="color:#333;">Yes</p>
+                  <p style="color:#333;">نعم</p>
                 </td>
               </tr>
             @endif
