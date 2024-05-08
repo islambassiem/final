@@ -32,6 +32,7 @@ class StaffExport implements FromQuery, WithMapping, WithHeadings
       'التصنيف الوظيفي',
       'القسم',
       'الكفالة',
+      'الايميل'
     ];
   }
 
@@ -48,7 +49,8 @@ class StaffExport implements FromQuery, WithMapping, WithHeadings
       $user->active == 1 ? 'علي رأس العمل' : 'ترك العمل',
       $user->category->category_ar,
       $user->section->section_ar,
-      $user->sponsorship->sponsorship_ar
+      $user->sponsorship->sponsorship_ar,
+      $user->email
     ];
   }
 }
