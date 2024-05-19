@@ -29,7 +29,7 @@ class VacationRequest extends FormRequest
       'start_date' => ['required','date', 'before_or_equal:end_date', new AnnualVacationStartRule, new VacationConflictStart],
       'end_date' => ['required', 'date', 'after_or_equal:start_date', new AnnualVacationEndRule, new VacationConflictEnd],
       'vacation_type' => ['required'],
-      'employee_notes' => ['nullable'],
+      'employee_notes' => ['nullable', 'max:255'],
       'attachment' => 'nullable|mimes:png,jpg,jpeg,png,pdf|max:2048'
     ];
   }
@@ -44,6 +44,7 @@ class VacationRequest extends FormRequest
       'end_date.date' => __('The vacation end date is invalid'),
       'end_date.after_or_equal' => __('The vacation end date must be after its start date'),
       'vacation_type.required' => __('The vacation type is required'),
+      'employee_notes' => __('Your notes must not exceed 255 characters'),
       'attachment.mimetypes' => __('The file is invalid'),
       'attachment.max' => __('The maximum file upload is 2MBs'),
     ];

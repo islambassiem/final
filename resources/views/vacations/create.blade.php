@@ -75,7 +75,8 @@
               <div class="row">
                 <div class="col">
                   <label for="notes">{{ __('vacations.notes') }}</label>
-                  <textarea class="form-control" name="employee_notes" cols="30" rows="5" id="notes"></textarea>
+                  <textarea class="form-control" name="employee_notes" cols="30" rows="5" id="notes" maxlength="255"></textarea>
+                  <span class="text-secondary"><small id="letters_count"></small></span>
                 </div>
               </div>
               <div class="row" id="addAttachment">
@@ -121,6 +122,15 @@
           'error': "{{ __('global.error') }}"
         }
       });
+
+      let max = "{{ __('global.max') }}";
+      let count = document.getElementById('letters_count');
+      let notes = document.getElementById('notes');
+      notes.addEventListener('keyup', function(){
+        let char = this.value.length;
+        count.innerHTML = `${max} ${char} / 255`;
+      });
+      count.innerHTML = `${max} ${notes.value.length} / 255`;
     });
   </script>
 @endsection
