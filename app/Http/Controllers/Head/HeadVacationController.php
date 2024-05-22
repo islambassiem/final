@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Head;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Vacation;
+use App\Models\Admin\Month;
 use Illuminate\Http\Request;
 use App\Models\VacationDetail;
 use App\Models\Tables\VacationType;
@@ -68,6 +69,9 @@ class HeadVacationController extends Controller
   public function update(string $id, Request $request)
   {
     $vacation = Vacation::find($id);
+    if($this->checkIfSalaryProcessed($vacation)){
+      return redirect()->back()->with('processed', __('head/vacations.processed'));
+    }
     $user = User::find($vacation->user_id);
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
     if($detail->head_time == null){
@@ -82,4 +86,10 @@ class HeadVacationController extends Controller
     }
     return redirect()->route('lLeave.index')->with('error', __('You have taken an action already'));
   }
+
+  private function checkIfSalaryProcessed(Vacation $vacation)
+  {
+    return Month::where('start_date', '<=', $vacation->start_date)->orderByDesc('start_date')->first()->status;
+  }
+
 }

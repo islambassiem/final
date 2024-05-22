@@ -26,5 +26,6 @@ return [
   'decline' => 'Decline',
   'notes' => 'Notes',
   'takeAction' => 'Take an action',
-  'allStaff' => 'All Staff'
+  'allStaff' => 'All Staff',
+  'processed' => 'The salary has been processed already'
 ];

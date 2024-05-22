@@ -77,6 +77,11 @@
         {{ session('error') }}
       </div>
     @endif
+    @if (session('processed'))
+      <div class="alert alert-danger">
+        {{ session('processed') }}
+      </div>
+    @endif
     @if (session('success'))
     <div class="alert alert-success">
       {{ session('success') }}
