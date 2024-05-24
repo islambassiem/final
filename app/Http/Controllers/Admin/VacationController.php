@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Vacation;
 use App\Models\Attachment;
+use App\Models\Admin\Month;
 use Illuminate\Http\Request;
+use App\Traits\VacationTrait;
 use App\Models\VacationDetail;
 use App\Models\Tables\VacationType;
 use App\Http\Controllers\Controller;
@@ -14,7 +16,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Tables\WorkflowStatus;
 use App\Notifications\VacationAction;
 use App\Mail\VacationAction as MailVacationAction;
-use App\Traits\VacationTrait;
 
 class VacationController extends Controller
 {
@@ -65,6 +66,9 @@ class VacationController extends Controller
   public function update(string $id, Request $request)
   {
     $vacation = Vacation::find($id);
+    if($this->checkIfSalaryProcessed($vacation)){
+      return redirect()->back()->with('processed', __('head/vacations.processed'));
+    }
     $user = User::find($vacation->user_id);
     $detail = VacationDetail::where('vacation_id', $vacation->id)->first();
 
@@ -108,5 +112,10 @@ class VacationController extends Controller
     return view('admin.vacations.balance', [
       'users' => $users,
     ]);
+  }
+
+  private function checkIfSalaryProcessed(Vacation $vacation)
+  {
+    return Month::where('start_date', '<=', $vacation->start_date)->orderByDesc('start_date')->first()->status;
   }
 }

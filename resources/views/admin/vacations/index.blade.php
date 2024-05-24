@@ -85,6 +85,11 @@
         {{ session('success') }}
       </div>
     @endif
+    @if (session('processed'))
+      <div class="alert alert-danger">
+        {{ session('processed') }}
+      </div>
+    @endif
     <div class="card">
       <div class="card-body">
         @if (count($vacations) == 0)

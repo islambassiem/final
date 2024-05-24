@@ -43,6 +43,11 @@
         {{ session('message') }}
       </div>
     @endif
+    @if (session('processed'))
+      <div class="alert alert-danger">
+        {{ session('processed') }}
+      </div>
+    @endif
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
