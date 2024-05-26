@@ -15,6 +15,7 @@
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333; display:flex; justify-content: space-around; margin-top: 2rem">
                   <a href="{{ route('timesheet', $month) }}" style="display:block; background-color: #0d6efd; color: #fff; padding: 0.5rem; cursor: pointer; text-decoration: none;">Timesheet</a>
                   <a href="{{ route('paydeduct', $month) }}" style="display:block; background-color: #198754; color: #fff; padding: 0.5rem; cursor: pointer; text-decoration: none;">Payables and Deductables</a>
+                  <a href="https://staff.csmonline.net/test/salary/syed" target="_blank" style="display:block; background-color: #dba213; color: #fff; padding: 0.5rem; cursor: pointer; text-decoration: none;">GOSI Calculation</a>
                 </p>
                 {{-- <div style="background:#f6f7f8;border-radius:3px"> <br>
                   <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p>
