@@ -68,17 +68,17 @@
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.nature') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->studyType->{'study_type' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->studyType?->{'study_type' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.type') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->studyNature->{'study_nature' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->studyNature?->{'study_nature' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">{{ __('qualifications.major') }}</div>
-                <div class="col-lg-9 col-md-8">{{ $qualification->major->{'specialty' . session('_lang')} }}</div>
+                <div class="col-lg-9 col-md-8">{{ $qualification->major?->{'specialty' . session('_lang')} }}</div>
               </div>
 
               <div class="row">
