@@ -33,8 +33,8 @@ class PayslipController extends Controller
     if($this->date->lessThan(Carbon::parse($this->user->joining_date)))
       return redirect()->back()->with('error', __('payslip.error'));
 
-    // if($this->workingDays() == 0)
-    //   return redirect()->back()->with('error', __('payslip.noPayslip'));
+    if($this->workingDays() == 0)
+      return redirect()->back()->with('error', __('payslip.noPayslip'));
 
     if ($request->view == null)
       return view('salary.payslip', $data);
