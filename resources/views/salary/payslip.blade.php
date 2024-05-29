@@ -10,6 +10,16 @@
   @else
   <link rel="stylesheet" href="{{ asset('assets/css/payslip.css') }}">
   @endif
+  <style>
+    @media print{
+      body{
+        font-size: 14px;
+      }
+      .csm{
+        font-size: 16px;
+      }
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -30,7 +40,7 @@
               <img src="{{ asset('assets/img/logo.png') }}" alt="" class="payslip-logo">
             </div>
             <div class="col-6 d-flex justify-content-center aling-items-center">
-              <div class="card-title text-center">
+              <div class="card-title text-center csm">
                 <div>{{ __('payslip.csm') }}</div>
                 <div>{{ __('payslip.payslip') }}</div>
                 <div>{{ date('F Y',strtotime($month)) }}</div>
