@@ -163,7 +163,7 @@ class QualificationController extends Controller
 
   public function major($code)
   {
-    $major = DB::select('SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?,?);', [$code,"%01"]);
+    $major = DB::select('SELECT * FROM `_specialties` WHERE `code` LIKE CONCAT(?,?) OR `code` LIKE CONCAT(?,?);', [$code,"%01", $code, 'Z99']);
     return json_encode($major);
   }
 

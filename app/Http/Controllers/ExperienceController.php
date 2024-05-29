@@ -170,7 +170,7 @@ class ExperienceController extends Controller
   }
 
   public function department_major($id){
-    $department_major = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;", [$id, '%01', '1']);
+    $department_major = DB::select("SELECT * FROM _academic_sections WHERE `code` LIKE CONCAT(?, ?) OR `code` LIKE CONCAT(?, ?) AND LENGTH(`code`) > ?;", [$id, '%01', $id, 'Z99','1']);
     return json_encode($department_major);
   }
 
