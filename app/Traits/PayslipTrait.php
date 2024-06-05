@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Http\Requests\PayslipRequest;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Salary;
@@ -19,8 +20,17 @@ trait PayslipTrait{
   private User $user;
   private string $month_id;
 
+  public function index($user_id, $month, $year){
+    $this->user = User::find($user_id);
+    $this->month = $month;
+    $this->year = $year;
+    $this->date = Carbon::create($this->year, $this->month)->endofMonth();
+    $this->month_id = Month::where('month', $this->month)->where('year', $this->year)->first('id')->id;
+    return $this->net();
+  }
 
-  private function data($request)
+
+  private function data(PayslipRequest $request)
   {
     $this->user = $request->user_id == null ? User::find(auth()->user()->id) : User::find($request->user_id);
     $this->month = $request->month;
