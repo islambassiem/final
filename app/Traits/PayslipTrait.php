@@ -26,7 +26,7 @@ trait PayslipTrait{
     $this->year = $year;
     $this->date = Carbon::create($this->year, $this->month)->endofMonth();
     $this->month_id = Month::where('month', $this->month)->where('year', $this->year)->first('id')->id;
-    return $this->net();
+    return floatval(str_replace(",", "", $this->net()));
   }
 
 
@@ -200,13 +200,4 @@ trait PayslipTrait{
     $months = Month::where('year',  $year)->where('status', '1')->orderByDesc('month')->get('month');
     return json_encode($months);
   }
-
-
-
-
-
-
-
-
-
 }

@@ -21,6 +21,7 @@ use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;

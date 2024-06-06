@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\SalaryNetAmount;
 use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
 use App\Http\Controllers\Admin\Salaries\VacationReturn;
+use App\Jobs\SalaryDiff as JobsSalaryDiff;
 
 class SalariesController extends Controller
 {
@@ -151,6 +153,9 @@ class SalariesController extends Controller
   public function send(string $month_id)
   {
     $month = Month::find($month_id);
+    $month->sent = 1;
+    $month->save();
+    JobsSalaryDiff::dispatch($month);
     Mail::queue(new SendSalary($month));
     return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
   }
