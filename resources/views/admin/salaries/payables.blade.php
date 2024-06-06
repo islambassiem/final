@@ -25,7 +25,7 @@
 
 @section('content')
 <div class="row">
-  @if (! $status)
+  @if (! $sent)
     <div class="col d-flex justify-content-end mb-3">
       <button
         type="button"
