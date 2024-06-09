@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Classes\SalaryNetAmount;
 use DateTime;
 use Carbon\Carbon;
 use App\Models\User;
@@ -10,6 +9,8 @@ use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
 use App\Mail\Admin\SendSalary;
+use App\Models\Admin\PayDeduct;
+use App\Classes\SalaryNetAmount;
 use App\Exports\TimeSheetExport;
 use App\Models\Admin\WorkingDays;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +18,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\PayablesDeductExport;
+use App\Jobs\SalaryDiff as JobsSalaryDiff;
 use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
 use App\Http\Controllers\Admin\Salaries\VacationReturn;
-use App\Jobs\SalaryDiff as JobsSalaryDiff;
 
 class SalariesController extends Controller
 {
@@ -53,13 +54,22 @@ class SalariesController extends Controller
   public function dashboard($month_id)
   {
     $month    = Month::find($month_id);
+    $wd = WorkingDays::where('month_id', '=', $month_id)->select(['user_id']);
+    $nwd = NonWorkingDays::where('month_id', '=', $month_id)->select(['user_id']);
+    $pd = PayDeduct::with('user')
+      ->select(['user_id'])
+      ->where('month_id', '=', $month_id)
+      ->union($wd)
+      ->union($nwd)
+      ->orderBy('user_id')
+      ->get();
     return view('admin.salaries.dashboard', [
       'month_id' => $month_id,
       'month' => $month->month,
       'year' => $month->year,
       'status' => $month->status,
       'years' => Month::select('year')->distinct()->orderBy('year')->get(),
-      'users' => WorkingDays::with('user')->where('month_id', $month_id)->orderBy('user_id')->get()
+      'users' => $pd
     ]);
   }
 
