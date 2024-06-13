@@ -9,6 +9,8 @@ use App\Models\Vacation;
 use App\Models\Admin\Month;
 use Illuminate\Http\Request;
 use App\Mail\Admin\SendSalary;
+use App\Models\Admin\PayDeduct;
+use App\Classes\SalaryNetAmount;
 use App\Exports\TimeSheetExport;
 use App\Models\Admin\WorkingDays;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\NonWorkingDays;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\PayablesDeductExport;
+use App\Jobs\SalaryDiff as JobsSalaryDiff;
 use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
@@ -51,13 +54,22 @@ class SalariesController extends Controller
   public function dashboard($month_id)
   {
     $month    = Month::find($month_id);
+    $wd = WorkingDays::where('month_id', '=', $month_id)->select(['user_id']);
+    $nwd = NonWorkingDays::where('month_id', '=', $month_id)->select(['user_id']);
+    $pd = PayDeduct::with('user')
+      ->select(['user_id'])
+      ->where('month_id', '=', $month_id)
+      ->union($wd)
+      ->union($nwd)
+      ->orderBy('user_id')
+      ->get();
     return view('admin.salaries.dashboard', [
       'month_id' => $month_id,
       'month' => $month->month,
       'year' => $month->year,
       'status' => $month->status,
       'years' => Month::select('year')->distinct()->orderBy('year')->get(),
-      'users' => WorkingDays::with('user')->where('month_id', $month_id)->orderBy('user_id')->get()
+      'users' => $pd
     ]);
   }
 
@@ -151,8 +163,14 @@ class SalariesController extends Controller
   public function send(string $month_id)
   {
     $month = Month::find($month_id);
-    Mail::queue(new SendSalary($month));
-    return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
+    if ($month->sent == 0) {
+      $month->sent = 1;
+      $month->save();
+      JobsSalaryDiff::dispatch($month);
+      Mail::queue(new SendSalary($month));
+      return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
+    }
+    return redirect()->back()->with('emailSent', __('admin/salaries.emailSentAlready'));
   }
 
   private function approved($month_id, $start, $end)
@@ -288,12 +306,17 @@ class SalariesController extends Controller
   private function actualWorkingDays($user_id, $month_id)
   {
     $joining_date = User::find($user_id)->joining_date;
+    $resignation_date = User::find($user_id)->resignation_date;
     $month = Month::find($month_id)->month;
     $year = Month::find($month_id)->year;
 
     if($month == date('n', strtotime($joining_date)) && $year == date('Y', strtotime($joining_date)) )
     {
       return \Carbon\Carbon::parse($joining_date)->lastOfMonth()->format('d') - date('d', strtotime($joining_date)) + 1;
+    }
+    if($month == date('n', strtotime($resignation_date)) && $year == date('Y', strtotime($resignation_date)) )
+    {
+      return date('d', strtotime($resignation_date));
     }
     return 30;
   }

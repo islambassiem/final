@@ -77,5 +77,6 @@
     'payDeduct' => 'Payables and Deductables',
     'send' => 'Send',
     'emailSent' => 'The email is being sent',
+    'emailSentAlready' => 'The email has been sent before',
     'payslip' => 'Payslip'
   ];
