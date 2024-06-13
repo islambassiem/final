@@ -22,6 +22,7 @@
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Transportation:  {{ $user->transportation($user->id) }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Food:  {{ $user->food($user->id) }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Package: {{ $user->latestSalary($user->id) }} </p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Joining Date: {{ $user->joining_date }} </p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
                   {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
                   <br><br>

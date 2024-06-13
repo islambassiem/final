@@ -179,6 +179,11 @@ class User extends Authenticatable
     return Contact::where('user_id', $user)->where('type', '1')->first()?->contact;
   }
 
+  public function email($user)
+  {
+    return Contact::where('user_id', $user)->where('type', '2')->first()?->contact;
+  }
+
   public function extension(string $user_id)
   {
     return Contact::where('user_id', $user_id)->where('type', '3')->first()?->contact;
