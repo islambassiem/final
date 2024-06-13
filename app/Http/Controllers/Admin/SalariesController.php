@@ -303,12 +303,17 @@ class SalariesController extends Controller
   private function actualWorkingDays($user_id, $month_id)
   {
     $joining_date = User::find($user_id)->joining_date;
+    $resignation_date = User::find($user_id)->resignation_date;
     $month = Month::find($month_id)->month;
     $year = Month::find($month_id)->year;
 
     if($month == date('n', strtotime($joining_date)) && $year == date('Y', strtotime($joining_date)) )
     {
       return \Carbon\Carbon::parse($joining_date)->lastOfMonth()->format('d') - date('d', strtotime($joining_date)) + 1;
+    }
+    if($month == date('n', strtotime($resignation_date)) && $year == date('Y', strtotime($resignation_date)) )
+    {
+      return date('d', strtotime($resignation_date));
     }
     return 30;
   }

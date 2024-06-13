@@ -21,12 +21,11 @@ use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AcquaintanceController;
-use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
-use App\Models\GenericRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,9 +173,3 @@ Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip
 Route::get('/payslip', [PayslipController::class, 'test']);
 
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
-
-Route::get('/test', function(){
-  return view('emails.requests.generic', [
-    'request' => GenericRequest::orderByDesc('created_at')->first()
-  ]);
-});

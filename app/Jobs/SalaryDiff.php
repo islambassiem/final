@@ -42,13 +42,13 @@ class SalaryDiff implements ShouldQueue
       ->union($nwd)
       ->orderBy('user_id')
       ->get();
-    $netAmount = new SalaryNetAmount;
-    foreach ($users as $user) {
+    $netAmount = new SalaryNetAmount($this->month);
+    foreach ($users as $key => $value) {
       SalaryDiffModel::create([
-        'empid' => $user->empid,
+        'empid' => $value->user->empid,
         'month' => $this->month->month,
         'year'  => $this->month->year,
-        'hr'    => $netAmount->index($user->id, $this->month->month, $this->month->year)
+        'hr'    => $netAmount->index($value->user->id, $this->month->month, $this->month->year)
       ]);
     }
   }
