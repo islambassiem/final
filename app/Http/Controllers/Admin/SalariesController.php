@@ -163,11 +163,14 @@ class SalariesController extends Controller
   public function send(string $month_id)
   {
     $month = Month::find($month_id);
-    $month->sent = 1;
-    $month->save();
-    JobsSalaryDiff::dispatch($month);
-    Mail::queue(new SendSalary($month));
-    return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
+    if ($month->sent == 0) {
+      $month->sent = 1;
+      $month->save();
+      JobsSalaryDiff::dispatch($month);
+      Mail::queue(new SendSalary($month));
+      return redirect()->back()->with('emailSent', __('admin/salaries.emailSent'));
+    }
+    return redirect()->back()->with('emailSent', __('admin/salaries.emailSentAlready'));
   }
 
   private function approved($month_id, $start, $end)
