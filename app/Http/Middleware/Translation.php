@@ -15,6 +15,7 @@ class Translation
    */
   public function handle(Request $request, Closure $next): Response
   {
+		session()->put('_lang', '_en');
     app()->setLocale(session('lang'));
     return $next($request);
   }
