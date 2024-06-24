@@ -24,35 +24,69 @@ class VacationController extends Controller
 
   public function index(Request $request)
   {
-    $sub = User::where('active', '1')->pluck('id')->toArray();
+
+    $vacations = Vacation::where('start_date', '<=', Carbon::now()->format('Y-m-d'))
+      ->where('end_date', '>=', Carbon::now()->format('Y-m-d'))
+      ->count();
+    
+    return view('admin.vacations.index', [
+      'pending' => Vacation::where('status_id', '0')->count(),
+      'vacations' => $vacations,
+      'balance' => User::where('active', '1')->where('vacation_class', '>', '0')->count()
+    ]);
+  }
+
+  public function pending()
+  {
     $vacations = Vacation::with('user', 'detail')
       ->where('status_id', '0')
-      ->orWhere(function ($q) use($request){
-        $q->when($request->start != null, function($q) use($request){
-          $q->whereDate('end_date', '>=', Carbon::parse($request->start));
-        }, function($q){
-          $q->whereDate('start_date', '>=', Carbon::now());
-        })
-        ->when($request->end != null, function($q) use($request){
-          $q->whereDate('start_date', '<=', Carbon::parse($request->end));
-        }, function($q){
-          $q->whereDate('end_date', '>=', Carbon::now());
-        })
-        ->when($request->type != null, function($q) use ($request){
-          $q->where('vacation_type', $request->type);
-        })
-        ->when($request->status != null, function($q) use ($request){
-          $q->where('status_id', $request->status);
-        });
-      })
       ->orderByDesc('id')
-      ->whereIn('user_id', $sub)
       ->get();
-    return view('admin.vacations.index', [
+    // return count($vacations);
+    return view('admin.vacations.pending', [
       'vacations' => $vacations,
       'types' => VacationType::all(),
       'status' => WorkflowStatus::All()
     ]);
+  }
+
+  public function search(Request $request)
+  {
+    return view('admin.vacations.search', [
+      'vacations' => $this->vacations($request),
+      'users' => User::where('active', '1')->get(),
+      'types' => VacationType::all(),
+      'status' => WorkflowStatus::All()
+    ]);
+  }
+
+  private function vacations(Request $request)
+  {
+    $vacations = Vacation::with('user', 'detail')
+      ->where(function ($q) use($request){
+        $q->when($request->user_id != null, function($q) use ($request){
+            $q->where('user_id', $request->user_id);
+          })
+        ->when($request->type != null, function($q) use ($request){
+            $q->where('vacation_type', $request->type);
+          })
+        ->when($request->start != null, function($q) use($request){
+            $q->whereDate('end_date', '>=', Carbon::parse($request->start));
+          },function ($q){
+            $q->whereDate('end_date', '>=', Carbon::now()->format('Y-m-d'));
+          })
+        ->when($request->end != null, function($q) use($request){
+            $q->whereDate('start_date', '<=', Carbon::parse($request->end));
+          },function ($q){
+            $q->whereDate('start_date', '<=', Carbon::now()->format('Y-m-d'));
+          })
+        ->when($request->status != null, function($q) use ($request){
+            $q->where('status_id', $request->status);
+          });
+        })
+      ->orderByDesc('start_date')
+      ->get();
+    return $vacations;
   }
 
   public function show(string $id)

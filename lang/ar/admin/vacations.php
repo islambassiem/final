@@ -8,4 +8,8 @@ return [
   'name' => 'الإسم',
   'joining_date' => 'تاريخ المباشرة',
   'balance' => 'رصيد الاجازات السنوية',
+  'pendingVacations' => 'الإجازات المعلقة',
+  'employee' => 'موظف',
+  'employeesVacation' => 'الموظفون المجازون اليوم',
+  'novacations' => 'لا يوجد اجازات حسب متطلبات البحث'
 ];

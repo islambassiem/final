@@ -8,4 +8,8 @@ return [
   'name' => 'Name',
   'joining_date' => 'Joining Date',
   'balance' => 'Annual Vacation Balance',
+  'pendingVacations' => 'Pending Vacations',
+  'employee' => 'Employee',
+  'employeesVacation' => 'Vacationed Employees Today',
+  'novacations' => 'There are no vacations according to search criteria'
 ];

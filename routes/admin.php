@@ -32,7 +32,9 @@ use App\Http\Middleware\Authenticate;
     Route::post('/leaves/action/{id}', [LeaveController::class, 'update'])->name('admin.leave.action');
 
     Route::get('/vacations', [VacationController::class, 'index'])->name('admin.vacations');
-    Route::get('/balance', [VacationController::class, 'annualBalance'])->name('admin.balance');
+    Route::get('/vacations/pending', [VacationController::class, 'pending'])->name('admin.pending.vacations');
+    Route::get('/vacations/search', [VacationController::class, 'search'])->name('admin.search.vacations');
+    Route::get('/vacations/balance', [VacationController::class, 'annualBalance'])->name('admin.balance');
     Route::get('/vacations/{id}', [VacationController::class, 'show'])->name('admin.vacation');
     Route::delete('/delete/vacations/{id}', [VacationController::class, 'destroy'])->name('admin.vacation.delete');
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');
