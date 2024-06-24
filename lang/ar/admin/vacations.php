@@ -9,7 +9,7 @@ return [
   'joining_date' => 'تاريخ المباشرة',
   'balance' => 'رصيد الاجازات السنوية',
   'pendingVacations' => 'الإجازات المعلقة',
-  'employee' => 'موظف',
+  'employees' => 'موظف',
   'employeesVacation' => 'الموظفون المجازون اليوم',
   'novacations' => 'لا يوجد اجازات حسب متطلبات البحث'
 ];
