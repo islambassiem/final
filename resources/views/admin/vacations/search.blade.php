@@ -42,7 +42,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="user" class="form-label">{{ __('admin/vacations.employee')}}</label>
+                <label for="user" class="form-label">{{ __('admin/vacations.employees')}}</label>
                 <select class="form-select" id="user" name="user_id" style="width:100%">
                   <option selected disabled>{{ __('global.select') }}</option>
                     @foreach ($users as $user)
@@ -121,7 +121,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">{{ __('head/vacations.empid') }}</th>
+                <th scope="col">{{ __('admin/vacations.empid') }}</th>
                 <th scope="col">{{ __('head/vacations.name') }}</th>
                 <th scope="col">{{ __('head/vacations.from') }}</th>
                 <th scope="col">{{ __('head/vacations.to') }}</th>

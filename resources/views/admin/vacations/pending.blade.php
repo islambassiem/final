@@ -104,7 +104,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">{{ __('head/vacations.empid') }}</th>
+                <th scope="col">{{ __('admin/vacations.empid') }}</th>
                 <th scope="col">{{ __('head/vacations.name') }}</th>
                 <th scope="col">{{ __('head/vacations.from') }}</th>
                 <th scope="col">{{ __('head/vacations.to') }}</th>

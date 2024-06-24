@@ -1,6 +1,7 @@
 <?php
 
 return [
+  'empid' => 'الرقم الوظيفي', 
   'headStatus' => 'رئيس القسم',
   'hrStatus' => 'الموارد البشرية',
   'vacationDeleted' => 'تم حذف الاجازة بنجاح',
