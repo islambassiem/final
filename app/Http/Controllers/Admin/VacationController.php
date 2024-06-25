@@ -109,7 +109,7 @@ class VacationController extends Controller
 
   public function update(string $id, Request $request)
   {
-    $vacation = Vacation::find($id);
+		$vacation = Vacation::find($id);
     if($this->checkIfSalaryProcessed($vacation)){
       return redirect()->back()->with('processed', __('head/vacations.processed'));
     }
@@ -160,7 +160,10 @@ class VacationController extends Controller
 
   private function checkIfSalaryProcessed(Vacation $vacation)
   {
-		$latestMonthStartDate = Month::orderByDesc('start_date')->first()->start_date;
-		return $vacation->start_date <= $latestMonthStartDate;
+		$month = Month::where('start_date', '<=', $vacation->start_date)
+			->where('end_date', '>=', $vacation->start_date)
+			->first()
+			?->status;
+		return (bool) $month ?? false;
   }
 }

@@ -89,8 +89,11 @@ class HeadVacationController extends Controller
 
   private function checkIfSalaryProcessed(Vacation $vacation)
   {
-		$latestMonthStartDate = Month::orderByDesc('start_date')->first()->start_date;
-		return $vacation->start_date <= $latestMonthStartDate;
+		$month = Month::where('start_date', '<=', $vacation->start_date)
+			->where('end_date', '>=', $vacation->start_date)
+			->first()
+			?->status;
+		return (bool) $month ?? false;
   }
 
 }
