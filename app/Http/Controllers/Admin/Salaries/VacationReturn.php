@@ -7,6 +7,7 @@ use App\Models\Vacation;
 use App\Models\Admin\Month;
 use App\Models\Admin\PayDeduct;
 use App\Models\Admin\NonWorkingDays;
+use App\Models\Admin\WorkingDays;
 use App\Models\Salary;
 
 trait VacationReturn
@@ -29,10 +30,22 @@ trait VacationReturn
   {
     $latestDay = Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date);
     $newDeduction = (int) $latestDay->format('d');
-    $unpaid =  NonWorkingDays::where('month_id', $month_id)
-      ->where('user_id', $user_id)
-      ->first();
+
+    $unpaid =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
+    $date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
+
+    $amount = $this->amount($date, $user_id, $newDeduction);
+    $description = "{$newDeduction} working days after unpaid vacation";
+
     $unpaid->update(["days" => $newDeduction]);
+
+    PayDeduct::create([
+      'user_id' => $user_id,
+      'month_id' => $month_id,
+      'amount' => $amount,
+      'description' => $description,
+      'type' => '1'
+    ]);
   }
 
   private function previousMonth($user_id, $month_id)
@@ -41,6 +54,14 @@ trait VacationReturn
     $date = Carbon::parse(Month::find($month_id)->start_date)->lastOfMonth();
     $amount = $this->amount($date, $user_id, 30 - $latestDay->format('d'));
     $description =  30 - $latestDay->format('d') . " working days after vacation " . $date->format('M Y');
+
+    $nonWorkingDays =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
+    $workingDays = WorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
+
+    $workingDays->update(['working_days' => $workingDays->working_days + $nonWorkingDays->days]);
+
+    $nonWorkingDays->update(["days" => '0']);
+
     PayDeduct::create([
       'user_id' => $user_id,
       'month_id' => $month_id,
@@ -58,7 +79,7 @@ trait VacationReturn
     foreach ($users as $user) {
       $latestAbscent = Carbon::parse($this->latestAbsence($user, $month_id)->end_date);
       if($latestAbscent->lessThanOrEqualTo($month->end_date) && $latestAbscent->greaterThanOrEqualTo($month->start_date))
-        array_push($eligibleUsers, [$user => $latestAbscent]);
+        array_push($eligibleUsers, [$user => $latestAbscent->format('Y-m-d')]);
     }
     return $eligibleUsers;
   }

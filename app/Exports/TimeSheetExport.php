@@ -32,7 +32,9 @@ class TimeSheetExport implements FromCollection, WithHeadings
   {
     $result = [];
 
-    $data = WorkingDays::with('user')
+    $data = WorkingDays::withWhereHas('user', function ($query){
+      $query->where('salary', '1');
+    })
       ->where('month_id', $this->month_id)
       ->orderBy('user_id')
       ->get();

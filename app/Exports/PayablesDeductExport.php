@@ -34,7 +34,12 @@ class PayablesDeductExport implements FromCollection, WithHeadings
   }
   public function collection()
   {
-    $payaDeduct = PayDeduct::with('user')->where('month_id', $this->month_id)->orderBy('user_id')->get();
+    $payaDeduct = PayDeduct::withWhereHas('user', function ($query){
+      $query->where('salary', '1');
+    })
+    ->where('month_id', $this->month_id)
+    ->orderBy('user_id')
+    ->get();
 
     $payDeductArray = [];
     foreach ($payaDeduct as $item) {
