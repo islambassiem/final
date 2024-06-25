@@ -32,71 +32,6 @@
 
 @section('content')
   <section class="section">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">
-          {{ __('head/vacations.filter') }}
-        </h5>
-        <form action="{{ route('admin.search.vacations') }}" method="get">
-          @csrf
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="user" class="form-label">{{ __('admin/vacations.employees')}}</label>
-                <select class="form-select" id="user" name="user_id" style="width:100%">
-                  <option selected disabled>{{ __('global.select') }}</option>
-                    @foreach ($users as $user)
-                      <option value="{{ $user->id }}" @selected(request('user_id') == $user->id)>{{ $user->empid }} | {{ session('_lang') == '_en' ? $user->getFullEnglishNameAttribute : $user->getFullArabicNameAttribute }}</option>
-                    @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6 d-flex justify-content-end">
-              <div class="col-md-4 mx-auto">
-                <div class="mb-3">
-                  <label for="from" class="form-label">{{ __('head/vacations.from') }}</label>
-                  <input type="date" id="from" class="form-control" name="start" value="{{ request()->has('start') ? request()->get('start') : \Carbon\Carbon::now()->format('Y-m-d') }}">
-                </div>
-              </div>
-              <div class="col-md-4 mx-auto">
-                <div class="mb-3">
-                  <label for="to" class="form-label">{{ __('head/vacations.to') }}</label>
-                  <input type="date" id="to" class="form-control" name="end" value="{{ request()->has('end') ? request()->get('end') : \Carbon\Carbon::now()->format('Y-m-d') }}">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="to" class="form-label">{{ __('head/vacations.type') }}</label>
-                <select name="type" id="type" class="form-control">
-                  <option value="" selected>{{ __('head/vacations.selectAll') }}</option>
-                  @foreach ($types as $type)
-                    <option value="{{ $type->id }}" {{ request()->get('type') == $type->id ? 'selected' : ''}}>{{ $type->{'vacation_type' . session('_lang')} }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="mb-3">
-                <label for="to" class="form-label">{{ __('head/vacations.status') }}</label>
-                <select name="status" id="status" class="form-control">
-                  <option value="" selected >{{ __('head/vacations.selectAll') }}</option>
-                  @foreach ($status as $item)
-                    <option value="{{ $item->code }}" {{ request()->get('status') == $item->code ? 'selected' : ''}}>{{ $item->{'workflow_status' . session('_lang')} }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2 d-flex justify-content-end align-items-center ms-auto">
-              <a href="{{ route('admin.search.vacations') }}" class="btn btn-danger">{{ __('head/vacations.clear') }}</a>
-              <button type="submit" class="btn btn-primary mx-2">{{ __('head/vacations.filter') }}</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
     @if (session('success'))
       <div class="alert alert-success" role="alert">
         {{ session('success') }}
@@ -111,7 +46,7 @@
       <div class="card-body">
         @if (count($vacations) == 0)
           <div class="alert alert-danger my-5" role="alert">
-            {{ __('admin/vacations.novacations') }}
+            {{ __('head/vacations.novacations') }}
           </div>
         @else
           <h5 class="card-title">
@@ -219,7 +154,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="select" method="post" id="actionForm">
+        <form action="" method="post" id="actionForm">
           @csrf
           <div class="mb-3">
             <label for="action">{{ __('global.action') }}</label>
@@ -276,9 +211,6 @@
 <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
 <script>
     $(document).ready(function (){
-      $('#user').select2();
-      $('#type').select2();
-      $('#status').select2();
       $('#select').select2({
         dropdownParent: $('#actionModal')
       });
@@ -310,7 +242,7 @@
         let button = $(event.relatedTarget);
         let id = button.data('id');
         let form = document.getElementById('actionForm');
-        form.action = "vacations/action/" + id;
+        form.action = "action/" + id;
       });
       $('#delteConfirmation').on('show.bs.modal', function (event){
         let button = $(event.relatedTarget);

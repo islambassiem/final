@@ -6,6 +6,7 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/vendor/dropfiy/css/dropify.min.css') }}">
 @endsection
 
@@ -271,7 +272,7 @@
           @csrf
           <div class="mb-3">
             <label for="action">{{ __('global.action') }}</label>
-            <select name="action" id="" class="form-select">
+            <select name="action" id="select" class="form-select">
               <option value="0" selected disabled>{{ __('global.select') }}</option>
               <option value="1">{{ __('head/vacations.approve') }}</option>
               <option value="2">{{ __('head/vacations.decline') }}</option>
@@ -297,9 +298,12 @@
 @section('script')
 <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script>
     $(document).ready(function (){
-
+      $('#select').select2({
+        dropdownParent: $('#actionModal')
+      });
       $('.dropify').dropify({
         messages: {
           'default': "",

@@ -12,5 +12,6 @@ return [
   'pendingVacations' => 'Pending Vacations',
   'employees' => 'Employee',
   'employeesVacation' => 'Vacationed Employees Today',
-  'novacations' => 'There are no vacations according to search criteria'
+  'novacations' => 'There are no vacations according to search criteria',
+  'upComingVacations' => 'Upcoming Vacations'
 ];

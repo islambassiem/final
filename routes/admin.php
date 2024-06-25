@@ -33,6 +33,7 @@ use App\Http\Middleware\Authenticate;
 
     Route::get('/vacations', [VacationController::class, 'index'])->name('admin.vacations');
     Route::get('/vacations/pending', [VacationController::class, 'pending'])->name('admin.pending.vacations');
+    Route::get('/vacations/upcoming', [VacationController::class, 'upcoming'])->name('admin.upcoming.vacations');
     Route::get('/vacations/search', [VacationController::class, 'search'])->name('admin.search.vacations');
     Route::get('/vacations/balance', [VacationController::class, 'annualBalance'])->name('admin.balance');
     Route::get('/vacations/{id}', [VacationController::class, 'show'])->name('admin.vacation');

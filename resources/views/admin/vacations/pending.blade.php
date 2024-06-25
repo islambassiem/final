@@ -12,6 +12,8 @@
   @else
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
   @endif
+  <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
   <style>
     #table{
       min-width: 1200px;
@@ -202,11 +204,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" id="actionForm">
+        <form action="select" method="post" id="actionForm">
           @csrf
           <div class="mb-3">
             <label for="action">{{ __('global.action') }}</label>
-            <select name="action" id="" class="form-select">
+            <select name="action" id="select" class="form-select">
               <option value="0" selected disabled>{{ __('global.select') }}</option>
               <option value="1">{{ __('head/vacations.approve') }}</option>
               <option value="2">{{ __('head/vacations.decline') }}</option>
@@ -256,8 +258,12 @@
 @section('script')
 <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
 <script>
     $(document).ready(function (){
+      $('#select').select2({
+        dropdownParent: $('#actionModal')
+      });
       var lang = "{{ session('lang') }}";
       var file;
       switch (lang) {

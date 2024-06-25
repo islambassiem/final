@@ -28,11 +28,21 @@ class VacationController extends Controller
     $vacations = Vacation::where('start_date', '<=', Carbon::now()->format('Y-m-d'))
       ->where('end_date', '>=', Carbon::now()->format('Y-m-d'))
       ->count();
-    
+
     return view('admin.vacations.index', [
       'pending' => Vacation::where('status_id', '0')->count(),
       'vacations' => $vacations,
-      'balance' => User::where('active', '1')->where('vacation_class', '>', '0')->count()
+      'balance' => User::where('active', '1')->where('vacation_class', '>', '0')->count(),
+      'upComingVacations' => Vacation::where('start_date', '>=', Carbon::now()->format('Y-m-d'))->count()
+    ]);
+  }
+
+  public function upcoming()
+  {
+    return view('admin.vacations.upcoming', [
+      'vacations' => Vacation::where('start_date', '>=', Carbon::now()->format('Y-m-d'))->get(),
+      'types' => VacationType::all(),
+      'status' => WorkflowStatus::All()
     ]);
   }
 

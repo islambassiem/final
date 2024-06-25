@@ -67,6 +67,22 @@
         </a>
       </div>
       <div class="col-md-3">
+        <a href="{{ route('admin.upcoming.vacations') }}">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center">
+                {{ __('admin/vacations.upComingVacations') }}
+              </h5>
+              <div class="text-center text-info icon">
+                <i class="bi bi-caret-right _icon"></i>
+              </div>
+              <div class="card-title text-center">{{ $upComingVacations }}</div>
+              <div class="card-title text-center">{{ __('admin/vacations.employees') }}</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
         <a href="{{ route('admin.balance') }}">
           <div class="card">
             <div class="card-body">
