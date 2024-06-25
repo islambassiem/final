@@ -40,7 +40,6 @@ class TimeSheetExport implements FromCollection, WithHeadings
       ->get();
 
     foreach ($data as $item) {
-      if($item->working_days == 0) continue;
       array_push($result, [
         'empid' => $item->user->empid,
         'name'  => $item->user->getFullEnglishNameAttribute,
@@ -49,7 +48,10 @@ class TimeSheetExport implements FromCollection, WithHeadings
         'Hours' => ($item->working_days + $item->paid_days) * 8
       ]);
     }
+    $timesheet = array_filter($result, function($item){
+      return $item['Hours'] > 0;
+    });
 
-    return collect($result);
+    return collect($timesheet);
   }
 }

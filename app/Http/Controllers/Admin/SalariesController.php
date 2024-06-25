@@ -287,7 +287,7 @@ class SalariesController extends Controller
       $nonWorking[] = $nonWorkingDay->user_id;
     }
 
-    $end_date = Month::find($month_id)->first()->end_date;
+    $end_date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
     $users = User::where('active', '1')
       ->where('salary', '1')
       ->where('joining_date', '<=', $end_date)
