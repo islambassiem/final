@@ -310,13 +310,13 @@
         let button = $(event.relatedTarget);
         let id = button.data('id');
         let form = document.getElementById('actionForm');
-        form.action = "vacations/action/" + id;
+        form.action = "action/" + id;
       });
       $('#delteConfirmation').on('show.bs.modal', function (event){
         let button = $(event.relatedTarget);
         let id = button.data('id');
         let form = document.getElementById('deleteForm');
-        form.action = "delete/vacations/" + id;
+        form.action = "delete/" + id;
       });
     });
 </script>

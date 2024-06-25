@@ -298,7 +298,7 @@
         let button = $(event.relatedTarget);
         let id = button.data('id');
         let form = document.getElementById('deleteForm');
-        form.action = "delete/vacations/" + id;
+        form.action = "delete/" + id;
       });
     });
 </script>
