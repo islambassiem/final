@@ -30,4 +30,5 @@ return [
   'research' => 'Research',
   'attachments' => 'Attachments',
   'balance' => 'Vacation Balance',
+  'allVacations' => 'All Vacations'
 ];

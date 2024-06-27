@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
+use App\Models\Vacation;
 
 /*
 |--------------------------------------------------------------------------

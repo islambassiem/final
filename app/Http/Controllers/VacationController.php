@@ -10,15 +10,19 @@ use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Traits\VacationTrait;
 use App\Models\VacationDetail;
+use App\Mail\VacationApplication;
 use App\Models\Tables\VacationType;
 use App\Notifications\ApplyVacation;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Tables\WorkflowStatus;
 use App\Http\Requests\VacationRequest;
-use App\Mail\VacationApplication;
 
 class VacationController extends Controller
 {
   use VacationTrait;
+
+
+  private $teachingStaffCategoryIds = ['1', '2'];
 
   public function __construct()
   {
@@ -266,5 +270,52 @@ class VacationController extends Controller
       return redirect(asset('storage/' . $link->link));
     }
     return redirect()->back()->with('message', __('There is no attachment'));
+  }
+
+  public function teachingStaffVacations(Request $request)
+  {
+    $vacations = Vacation::withWhereHas('user', function($query){
+      $query->whereIn('category_id', $this->teachingStaffCategoryIds);
+    })
+    ->where('start_date', '>=', date('Y-m-d'))
+    ->get();
+
+    return view('management.allvacations', [
+      'vacations' => $this->vacations($request),
+      'users' => User::where('active', '1')->whereIn('category_id', $this->teachingStaffCategoryIds)->get(),
+    ]);
+  }
+
+  private function vacations(Request $request)
+  {
+    $vacations = Vacation::withWhereHas('user', function ($query){
+      $query->whereIn('category_id', $this->teachingStaffCategoryIds);
+    })
+      ->where(function ($q) use($request){
+        $q->when($request->user_id != null, function($q) use ($request){
+            $q->where('user_id', $request->user_id);
+          })
+        ->when($request->start != null, function($q) use($request){
+            $q->whereDate('end_date', '>=', Carbon::parse($request->start));
+          },function ($q){
+            $q->whereDate('end_date', '>=', Carbon::now()->format('Y-m-d'));
+          })
+        ->when($request->end != null, function($q) use($request){
+            $q->whereDate('start_date', '<=', Carbon::parse($request->end));
+          },function ($q){
+            $q->whereDate('start_date', '<=', Carbon::now()->format('Y-m-d'));
+          });
+        })
+      ->orderByDesc('start_date')
+      ->get();
+    return $vacations;
+  }
+
+  public function search(Request $request)
+  {
+    return view('management.allvacations', [
+      'vacations' => $this->vacations($request),
+      'users' => User::where('active', '1')->whereIn('category_id', $this->teachingStaffCategoryIds)->get(),
+    ]);
   }
 }
