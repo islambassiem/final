@@ -67,7 +67,7 @@
           </div>
           <div class="row">
             <div class="col-md-2 d-flex justify-content-end align-items-center ms-auto">
-              <a href="{{ route('admin.search.vacations') }}" class="btn btn-danger">{{ __('head/vacations.clear') }}</a>
+              <a href="{{ route('teachingstaff.vacations.search') }}" class="btn btn-danger">{{ __('head/vacations.clear') }}</a>
               <button type="submit" class="btn btn-primary mx-2">{{ __('head/vacations.filter') }}</button>
             </div>
           </div>
