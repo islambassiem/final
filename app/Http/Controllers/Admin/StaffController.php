@@ -27,13 +27,29 @@ use App\Models\Tables\MaritalStatus;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\AddEmployee;
 use App\Models\Tables\Bank as TablesBank;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class StaffController extends Controller
 {
+
   public function index(Request $request)
   {
+
+    $params = [
+      'status' => request()->status ?? '',
+      'gender' => request()->gender ?? '',
+      'nationality' => request()->nationality ?? '',
+      'saudization' => request()->saudization ?? '' ,
+      'section' => implode(',', request()->section ?? []) ?? '' ,
+      'category' => implode(',', request()->category ?? []) ?? '',
+      'sponsorship' => implode(',', request()->sponsorship ?? []) ?? '' ,
+      'from' => request()->from ?? '' ,
+      'to' => request()->to ?? ''
+    ];
+
     return view('admin.staff.index',[
       'staff' => $this->staff($request),
+      'params' => $params,
       'sections' => Section::all(),
       'categories' => Category::all(),
       'genders' => Gender::all(),
@@ -264,46 +280,47 @@ class StaffController extends Controller
 
   private function staff(Request $request)
   {
-    if($request->query->count() == 0){
-      $staff = [];
-    }else{
-      $staff = User::when($request->status != '' ,function($q) use($request){
-          $q->where('active', $request->status);
-        })
-        ->when($request->gender != '', function($q) use($request){
-          $q->where('gender_id', $request->gender);
-        })
-        ->when($request->nationality != '', function($q) use($request){
-          $q->where('nationality_id', $request->nationality);
-        })
-        ->when($request->saudization != '', function($q) use($request){
-          if($request->saudization == '1'){
-            $q->where('nationality_id', '=' ,'1');
-          }else{
-            $q->where('nationality_id', '!=' ,'1');
-          }
-        })
-        ->when($request->section != [], function($q) use($request){
-          $q->whereIn('section_id', $request->section);
-        })
-        ->when($request->category != [], function($q) use($request){
-          $q->whereIn('category_id', $request->category);
-        })
-        ->when($request->sponsorship != [], function($q) use($request){
-          $q->whereIn('sponsorship_id', $request->sponsorship);
-        })
-        ->when($request->from != '' && $request->to != '', function($q) use($request){
-          $q->where('active', '1')
-            ->orWhere(function($q) use($request){
-              $q->whereDate('joining_date', '<=', $request->from);
-              $q->whereDate('resignation_date', '>=', $request->to);
-            });
-        })
-        ->get();
-    }
-    return $staff;
+    return $this->requestFilter($request)
+      ->paginate(10)
+      ->withQueryString();
   }
 
+  private function requestFilter(Request $request)
+  {
+    return User::when($request->status != '' ,function($q) use($request){
+        $q->where('active', $request->status);
+      })
+      ->when($request->gender != '', function($q) use($request){
+        $q->where('gender_id', $request->gender);
+      })
+      ->when($request->nationality != '', function($q) use($request){
+        $q->where('nationality_id', $request->nationality);
+      })
+      ->when($request->saudization != '', function($q) use($request){
+        if($request->saudization == '1'){
+          $q->where('nationality_id', '=' ,'1');
+        }else{
+          $q->where('nationality_id', '!=' ,'1');
+        }
+      })
+      ->when($request->section != [], function($q) use($request){
+        $q->whereIn('section_id', $request->section);
+      })
+      ->when($request->category != [], function($q) use($request){
+        $q->whereIn('category_id', $request->category);
+      })
+      ->when($request->sponsorship != [], function($q) use($request){
+        $q->whereIn('sponsorship_id', $request->sponsorship);
+      })
+      ->when($request->from != '' && $request->to != '', function($q) use($request){
+        $q->whereDate('joining_date', '<=', $request->to)
+        ->where(function($q) use($request){
+            $q->whereDate('resignation_date', '>=', $request->from)
+            ->orWhere('active', '1');
+          });
+      });
+  }
+  // status/{status?}/gender/{gender?}/nationality/{nationality?}/saudization/{saudization?}/section/{section?}/category/{category?}/sponsorship/{sponsorship?}/form/{form?}/to/{to?}
   public function download()
   {
     return (new StaffExport())->download('employees.xlsx');
