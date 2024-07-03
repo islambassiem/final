@@ -7,11 +7,7 @@
 
 
 @section('style')
-  {{--  @if (session('dir') == 'rtl')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables-rtl.min.css') }}">
-    @else
-    <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/jquery.dataTables.min.css') }}">
-  @endif  --}}
+  </style>
   <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
 @endsection
 
@@ -106,7 +102,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="mb-3">
                 <label>{{ __('admin/staff.sponsorship') }}</label>
                 <select name="sponsorship[]" class="form-control" multiple="multiple">
@@ -116,17 +112,21 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="mb-3">
                 <label>{{ __('admin/staff.from') }}</label>
                 <input type="date" name="from" class="form-control" value="{{ request()->get('from') }}">
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="mb-3">
                 <label>{{ __('admin/staff.to') }}</label>
                 <input type="date" name="to" class="form-control" value="{{ request()->get('to') }}">
               </div>
+            </div>
+            <div class="col-md-5">
+              <label>{{ __('admin/staff.search') }}</label>
+              <input type="text" name="search" value="{{ request()->search }}" id="search" placeholder="{{ __('admin/staff.search') }}" class="form-control">
             </div>
           </div>
           <div class="row">
@@ -151,7 +151,7 @@
         <table class="table table-striped" id="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">
               <th scope="col">{{ __('admin/staff.empid') }}</th>
               <th scope="col">{{ __('head/staff.name') }}</th>
               <th scope="col">{{ __('admin/staff.iqama') }}</th>
@@ -160,7 +160,6 @@
               <th scope="col">{{ __('head/staff.mobile') }}</th>
               <th scope="col">{{ __('admin/staff.email') }}</th>
               <th scope="col">{{ __('global.action') }}</th>
-              {{-- <th scope="col">{{ __('global.action') }}</th> --}}
             </tr>
           </thead>
           <tbody>
@@ -176,11 +175,6 @@
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->mobile($member->id) }}</td>
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->email }}</td>
                 <td @if (! $member->active) class="text-danger" @endif><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
-                {{-- <td>
-                  <a href="" class="btn btn-primary btn-sm py-0"><i class="bi bi-stopwatch-fill"></i></a>
-                  <a href=""class="btn btn-danger btn-sm py-0"><i class="bi bi-person-walking"></i></a>
-                  <a href=""class="btn btn-secondary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a>
-                </td> --}}
               </tr>
               @php $c++; @endphp
             @endforeach
@@ -197,43 +191,32 @@
 
 @section('script')
 <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
-{{--  <script src="{{ asset('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>  --}}
 <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
 <script>
     $(document).ready(function (){
       $('select').select2();
-      /*
-      var lang = "{{ session('lang') }}";
-      var file;
-      switch (lang) {
-        case "ar":
-          file = "{{ asset('assets/vendor/datatables/ar.json') }}"
-          break;
-        case "pk":
-          file = "{{ asset('assets/vendor/datatables/pk.json') }}"
-          break;
-        case "in":
-          file = "{{ asset('assets/vendor/datatables/in.json') }}"
-          break;
-        case "ph":
-          file = "{{ asset('assets/vendor/datatables/ph.json') }}"
-          break;
-        default:
-          file = "{{ asset('assets/vendor/datatables/en.json') }}"
-          break;
-      }
-      $('#table').dataTable({
-        language: {
-          url: file
+      document.getElementById('search').addEventListener('keyup', function(){
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        if(this.value.length > 0){
+          $.ajax({
+            url: "{{ URL::to('admin/staff/search') }}/" + this.value,
+            method: "post",
+            dataType: "html",
+            success: function(data){
+              $('#results').empty();
+              $('#results').html(data);
+            }
+          });
         }
       });
-      $('#actionModal').on('show.bs.modal', function (event){
-      let button = $(event.relatedTarget);
-      let id = button.data('id');
-      let form = document.getElementById('actionForm');
-      form.action = "vacations/action/" + id;
-    });
-    */
+      document.getElementById('search-icon').addEventListener('click', function(){
+        console.log('clicked');
+        document.getElementById('search-params').style.display = 'flex';
+      });
     });
 </script>
 @endsection

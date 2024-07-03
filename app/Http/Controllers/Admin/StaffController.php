@@ -27,14 +27,12 @@ use App\Models\Tables\MaritalStatus;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\AddEmployee;
 use App\Models\Tables\Bank as TablesBank;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class StaffController extends Controller
 {
 
   public function index(Request $request)
   {
-
     $params = [
       'status' => request()->status ?? '',
       'gender' => request()->gender ?? '',
@@ -281,7 +279,7 @@ class StaffController extends Controller
   private function staff(Request $request)
   {
     return $this->requestFilter($request)
-      ->paginate(10)
+      ->paginate()
       ->withQueryString();
   }
 
@@ -312,6 +310,19 @@ class StaffController extends Controller
       ->when($request->sponsorship != [], function($q) use($request){
         $q->whereIn('sponsorship_id', $request->sponsorship);
       })
+      ->when($request->search != '', function($q) use ($request){
+        $q->where(function($q)use ($request){
+          $q->orWhere('first_name_en', 'like', "%{$request->search}%")
+          ->orWhere('middle_name_en', 'like', "%{$request->search}%")
+          ->orWhere('third_name_en', 'like', "%{$request->search}%")
+          ->orWhere('family_name_en', 'like', "%{$request->search}%")
+          ->orWhere('first_name_ar', 'like', "%{$request->search}%")
+          ->orWhere('middle_name_ar', 'like', "%{$request->search}%")
+          ->orWhere('third_name_ar', 'like', "%{$request->search}%")
+          ->orWhere('family_name_ar', 'like', "%{$request->search}%")
+          ->orWhere('empid', 'like', "%{$request->search}%");
+        });
+      })
       ->when($request->from != '' && $request->to != '', function($q) use($request){
         $q->whereDate('joining_date', '<=', $request->to)
         ->where(function($q) use($request){
@@ -320,7 +331,6 @@ class StaffController extends Controller
           });
       });
   }
-  // status/{status?}/gender/{gender?}/nationality/{nationality?}/saudization/{saudization?}/section/{section?}/category/{category?}/sponsorship/{sponsorship?}/form/{form?}/to/{to?}
   public function download()
   {
     return (new StaffExport())->download('employees.xlsx');
