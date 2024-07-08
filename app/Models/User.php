@@ -90,7 +90,7 @@ class User extends Authenticatable
   public function getFullEnglishNameAttribute(): Attribute
   {
     return new Attribute(
-      get: fn () => ucwords($this->first_name_en . ' ' . $this->middle_name_en . ' ' . $this->third_name_en . ' ' . $this->family_name_en),
+      get: fn () => $this->first_name_en . ' ' . $this->middle_name_en . ' ' . $this->third_name_en . ' ' . $this->family_name_en,
     );
   }
 
@@ -101,37 +101,37 @@ class User extends Authenticatable
     );
   }
 
-  // public function first_name_en(): Attribute
-  // {
-  //   return new Attribute(
-  //     set: fn (string $value) => strtolower($value),
-  //     get: fn(string $value)  => ucfirst($value)
-  //   );
-  // }
+  public function firstNameEn(): Attribute
+  {
+    return Attribute::make(
+      set: fn (string $value) => ucfirst(strtolower($value)),
+      get: fn(string $value)  => ucfirst(strtolower($value))
+    );
+  }
 
-  // public function middle_name_en(): Attribute
-  // {
-  //   return new Attribute(
-  //     set: fn (string $value) => strtolower($value),
-  //     get: fn(string $value)  => ucfirst($value)
-  //   );
-  // }
+  public function middleNameEn(): Attribute
+  {
+    return Attribute::make(
+      set: fn (?string $value = null) => ucfirst(strtolower($value)),
+      get: fn(?string $value = null)  => ucfirst(strtolower($value))
+    );
+  }
 
-  // public function third_name_en(): Attribute
-  // {
-  //   return new Attribute(
-  //     set: fn (string $value) => strtolower($value),
-  //     get: fn(string $value)  => ucfirst($value)
-  //   );
-  // }
+  public function thirdNameEn(): Attribute
+  {
+    return Attribute::make(
+      set: fn (?string $value = null) => ucfirst(strtolower($value)),
+      get: fn(?string $value = null)  => ucfirst(strtolower($value))
+    );
+  }
 
-  // public function family_name_en(): Attribute
-  // {
-  //   return new Attribute(
-  //     set: fn (string $value) => strtolower($value),
-  //     get: fn(string $value)  => ucfirst($value)
-  //   );
-  // }
+  public function familyNameEn(): Attribute
+  {
+    return Attribute::make(
+      set: fn (string $value) => ucfirst(strtolower($value)),
+      get: fn(string $value)  => ucfirst(strtolower($value))
+    );
+  }
 
   public function gender()
   {
