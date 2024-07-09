@@ -53,7 +53,7 @@
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
             <img src="{{ auth()->user()->picture() }}" alt="Profile" class="rounded-circle">
             <h2 class="mt-2">{{ $user->{'first_name' . session('_lang')} . ' ' . $user->{'family_name' . session('_lang')} }}</h2>
-            <h3 class="mt-3">{{ $user->position->{'position'. session('_lang')} }}</h3>
+            <h3 class="mt-3">{{ $user->position?->{'position'. session('_lang')} }}</h3>
           </div>
         </div>
 
