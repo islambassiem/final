@@ -7,6 +7,8 @@
 
 
 @section('style')
+<link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/select2.custom.css') }}">
   <style>
     .profile-pic{
       max-height: 350px;
@@ -49,6 +51,22 @@
         </div>
       </div>
     </div>
+
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+    @endif
 
     <div class="row">
       <div class="col">
@@ -196,18 +214,23 @@
 
               <div class="tab-pane fade" id="salary">
 
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="title" class="fs-5">{{ __('salary.iban') }}</label>
-                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->iban ?? 'N/A' }}">
+                <div class="row d-flex align-items-center justifiy-content-between">
+                  <div class="d-flex col-md-10 gap-3">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="title" class="fs-5">{{ __('salary.iban') }}</label>
+                        <input type="text" name="" id="" class="form-control" readonly value="{{ $bank->iban ?? 'N/A' }}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="title" class="fs-5">{{ __('salary.bankName') }}</label>
+                        <input type="text" name="" id="" class="form-control" readonly value="{{ $bank?->bank->{'bank_name' . session('_lang')} }}">
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="title" class="fs-5">{{ __('salary.bankName') }}</label>
-                      <input type="text" name="" id="" class="form-control" readonly value="{{ $bank?->bank->{'bank_name' . session('_lang')} }}">
-                    </div>
+                  <div class="col-md-2 mt-3 d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editIBAN">{{ __('global.edit') }}</button>
                   </div>
                 </div>
 
@@ -216,6 +239,11 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">{{ __('admin/employee.salary') }}</h5>
+                </div>
+                <div class="row">
+                  <div class="col d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSalary">+ {{ __('global.add') }}</button>
+                  </div>
                 </div>
                 <table class="table table-striped">
                   <thead>
@@ -260,8 +288,96 @@
       </div>
     </div>
   </section>
+
+
+{{--  Add Salary Modal  --}}
+<div class="modal fade" id="addSalary" tabindex="-1" aria-labelledby="addSalaryLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addSalaryLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('admin.addSalary') }}" method="post" id="addSalaryForm">
+          @csrf
+          <input type="hidden" name="user_id" value="{{ $user->id }}">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="basic" name="basic" placeholder="basic" value="{{ old('basic') }}">
+            <label for="basic">{{ __('salary.basic') }}</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="housing" name="housing" placeholder="housing" value="{{ old('housing') }}">
+            <label for="housing">{{ __('salary.housing') }}</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="transportation" placeholder="transportation" name="transportation" value="{{ old('transportation') }}">
+            <label for="transportation">{{ __('salary.transportation') }}</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="food" name="food" placeholder="food" value="{{ old('food') }}">
+            <label for="food">{{ __('salary.food') }}</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="effective" name="effective" placeholder="effective" value="{{ old('effective') }}">
+            <label for="effective">{{ __('salary.effective') }}</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" form="addSalaryForm" class="btn btn-primary">{{ __('global.submit') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{--  Edit IBAN Modal  --}}
+<div class="modal fade" id="editIBAN" tabindex="-1" aria-labelledby="editIBANLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editIBANLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('admin.editIBAN') }}" method="post" id="editIBANForm">
+          @csrf
+          <input type="hidden" name="user_id" value="{{ $user->id }}">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="IBAN" name="iban" placeholder="IBAN" value="{{ old('IBAN', $bank->iban ?? '') }}">
+            <label for="IBAN">{{ __('salary.iban') }}</label>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="bank" class="form-label">{{ __('salary.bankName') }}</label>
+            <select class="form-select" id="bank" name="bank_id" style="width:100%">
+              <option selected disabled>{{ __('global.select') }}</option>
+                @foreach ($banks as $user_bank)
+                  <option value="{{ $user_bank->id }}" @selected($user_bank->id == $bank?->bank_code)>{{ session('_lang') == '_en' ? $user_bank->bank_name_en : $user_bank->bank_name_ar }}</option>
+                @endforeach
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" form="editIBANForm" class="btn btn-primary">{{ __('global.submit') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 
 @section('script')
+<script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
+<script>
+  $(document).ready(function(){
+    $('#bank').select2({
+      dropdownParent: $('#editIBAN')
+    });
+  });
+</script>
 @endsection

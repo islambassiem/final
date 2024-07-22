@@ -9,7 +9,12 @@
     'package' => 'Package',
     'effective' => 'Effective',
     'history' => 'History',
+    'iban' => 'IBAN',
+    'ibanInvaild' => 'IBAN is invalid',
+    'bankName' => 'Bank Name',
     'payslip' => 'Payslip',
     'month' => 'Month',
-    'year' => 'Year'
+    'year' => 'Year',
+    'success' => 'You added the salary successfully',
+    'successIBAN' => 'IBAN has been modified successfully'
   ];

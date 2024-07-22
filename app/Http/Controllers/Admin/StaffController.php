@@ -27,6 +27,7 @@ use App\Models\Tables\MaritalStatus;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\AddEmployee;
 use App\Models\Tables\Bank as TablesBank;
+use Illuminate\Support\Facades\Validator;
 
 class StaffController extends Controller
 {
@@ -60,6 +61,7 @@ class StaffController extends Controller
   {
     return view('admin.staff.show', [
       'user' => User::find($id),
+      'banks' => TablesBank::all(),
       'mobile' => Contact::where('user_id', $id)->where('type', '1')->first(),
       'email' => Contact::where('user_id', $id)->where('type', '2')->first(),
       'extension' => Contact::where('user_id', $id)->where('type', '3')->first(),
@@ -334,6 +336,68 @@ class StaffController extends Controller
   public function download()
   {
     return (new StaffExport())->download('employees.xlsx');
+  }
+
+  public function addSalary(Request $request)
+  {
+
+    Validator::make($request->all(), [
+      'user_id' => 'required',
+      'basic' => 'required',
+      'housing' => 'required',
+      'transportation' => 'required',
+      'food' => 'required',
+      'effective' => 'required|date'
+    ], attributes: [
+      'basic' => __('salary.basic'),
+      'housing' => __('salary.housing'),
+      'transportation' => __('salary.transportation'),
+      'food' => __('salary.food'),
+      'effective' => __('salary.effective'),
+    ])->validate();
+
+    Salary::create([
+      'user_id' => $request['user_id'],
+      'basic' => $request['basic'],
+      'housing' => $request['housing'],
+      'transportation' => $request['transportation'],
+      'food' => $request['food'],
+      'effective' => $request['effective'],
+    ]);
+
+    return redirect()->back()->with('success', __('salary.success'));
+
+  }
+
+  public function editIBAN(Request $request)
+  {
+    Validator::make($request->only('user_id', 'iban', 'bank_id'), [
+      'user_id' => 'required|exists:users,id',
+      'iban' => 'required|min:24|max:24|starts_with:SA',
+      'bank_id' => 'required|exists:_banks,id'
+    ], messages: [
+      'iban.min' => __('salary.ibanInvaild'),
+      'iban.max' => __('salary.ibanInvaild'),
+      'iban.starts_with' => __('salary.ibanInvaild'),
+    ], attributes: [
+      'iban' => __('salary.iban'),
+      'bank_id' => __('salary.bankName'),
+    ])->validate();
+
+    $bank = Bank::where('user_id', $request->user_id)->first();
+    if ($bank !== null) {
+      $bank->update([
+        'iban' => $request->iban,
+        'bank_code' => $request->bank_id,
+      ]);
+    }else{
+      Bank::create([
+        'user_id' => $request->user_id,
+        'iban' => $request->iban,
+        'bank_code' => $request->bank_id,
+      ]);
+    }
+    return redirect()->back()->with('success', __('salary.successIBAN'));
   }
 }
 
