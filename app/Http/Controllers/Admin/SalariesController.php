@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\Salaries\GOSI;
 use App\Http\Controllers\Admin\Salaries\Ticket;
 use App\Http\Controllers\Admin\Salaries\Transportation;
 use App\Http\Controllers\Admin\Salaries\VacationReturn;
+use App\Http\Controllers\Admin\Salaries\Weekends;
 
 class SalariesController extends Controller
 {
@@ -31,6 +32,7 @@ class SalariesController extends Controller
   use Ticket;
   use Transportation;
   use VacationReturn;
+  use Weekends;
 
 
   private $end_date;
@@ -121,6 +123,7 @@ class SalariesController extends Controller
     $this->notApproved($month->id, $month->start_date, $month->end_date);
     $this->workingDays($month->id);
     $this->vacationReturners($month->id);
+    $this->weekends($month->start_date, $month->end_date);
     $month->status = 1;
     $month->save();
 
