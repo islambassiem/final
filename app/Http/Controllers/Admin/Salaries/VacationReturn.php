@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Salaries;
 
-use Carbon\Carbon;
-use App\Models\Vacation;
 use App\Models\Admin\Month;
-use App\Models\Admin\PayDeduct;
 use App\Models\Admin\NonWorkingDays;
+use App\Models\Admin\PayDeduct;
 use App\Models\Admin\WorkingDays;
 use App\Models\Salary;
+use App\Models\Vacation;
+use Carbon\Carbon;
 
 trait VacationReturn
 {
@@ -19,21 +19,40 @@ trait VacationReturn
     foreach ($eligibleUsers as $key => $value) {
       foreach ($value as $user_id => $latest_date) {
         if(Carbon::parse($month->start_date)->format('m') == Carbon::parse($latest_date)->format('m'))
-          echo $this->previousMonth($user_id, $month_id);
+          $this->previousMonth($user_id, $month_id);
         if(Carbon::parse($month->end_date)->format('m') == Carbon::parse($latest_date)->format('m'))
-          echo $this->thisMonth($user_id, $month_id);
+          $this->thisMonth($user_id, $month_id);
       }
     }
   }
 
   private function thisMonth($user_id, $month_id)
   {
-    $latestDay = Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date);
-    $newDeduction = (int) $latestDay->format('d');
+    $start  = Month::find($month_id)->start_date;
+    $end    = Month::find($month_id)->end_date;
+    $daysToBePaid = 30 - (int) Carbon::parse($end)->format('d') ;
+
+    $absent = Vacation::query()
+      ->where('user_id', $user_id)
+      ->where('start_date', '<=', $end)
+      ->where('end_date', '>', $start)
+      ->whereIn('vacation_type', ['3', '4'])
+      ->get()
+      ->map(function($vacation) use($start, $end) {
+        $vacation->start_date = $vacation->start_date <= $start ? $vacation->start_date = $start : $vacation->start_date;
+        $vacation->end_date = $vacation->end_date >= $end ? $vacation->end_date = $end : $vacation->end_date;
+        return $vacation;
+      })->map(function ($vacation){
+        $start_date = Carbon::parse($vacation->start_date);
+        $end_date   = Carbon::parse($vacation->end_date);
+        $days = $end_date->diffInDays($start_date) + 1;
+        return $days;
+      })->sum();
 
     $unpaid =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
-    $date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
+    $newDeduction = $daysToBePaid - ($absent - (int) $unpaid->days);
 
+    $date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
     $amount = $this->amount($date, $user_id, $newDeduction);
     $description = "{$newDeduction} working days after unpaid vacation";
 
@@ -50,17 +69,24 @@ trait VacationReturn
 
   private function previousMonth($user_id, $month_id)
   {
-    $latestDay = Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date);
+    $latestDay  = (int) Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date)->format('d');
+
+    if($latestDay >= 30){
+      return 0;
+    }
+
+    $start_date = (int) Carbon::parse(Month::find($month_id)->start_date)->format('d');
+    $noOfDays = $latestDay - $start_date + 1;
+
     $date = Carbon::parse(Month::find($month_id)->start_date)->lastOfMonth();
-    $amount = $this->amount($date, $user_id, 30 - $latestDay->format('d'));
-    $description =  30 - $latestDay->format('d') . " working days after vacation " . $date->format('M Y');
+    $amount = $this->amount($date, $user_id, $noOfDays);
+    $description =  $noOfDays . " working days after vacation " . $date->format('M Y');
 
     $nonWorkingDays =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
     $workingDays = WorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
 
-    $workingDays->update(['working_days' => $workingDays->working_days + $nonWorkingDays->days]);
-
-    $nonWorkingDays->update(["days" => '0']);
+    $workingDays->update(['working_days' => $workingDays->working_days +   $noOfDays ]);
+    $nonWorkingDays->update(["days" => (int) $nonWorkingDays->days -  $noOfDays ]);
 
     PayDeduct::create([
       'user_id' => $user_id,
