@@ -17,7 +17,7 @@ class Vacation extends Model
   protected $table = 'vacations';
 
   protected $fillable = [
-    'user_id', 'vacation_type', 'start_date', 'end_date', 'status_id'
+    'user_id', 'vacation_type', 'returner', 'start_date', 'end_date', 'status_id'
   ];
 
   protected $appends = ['days'];

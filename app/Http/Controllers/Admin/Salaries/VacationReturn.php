@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Salaries;
 
+use App\Http\Requests\VacationRequest;
 use App\Models\Admin\Month;
 use App\Models\Admin\NonWorkingDays;
 use App\Models\Admin\PayDeduct;
@@ -14,82 +15,41 @@ trait VacationReturn
 {
   public function vacationReturners($month_id)
   {
-    $eligibleUsers = $this->eligibleUsers($month_id);
     $month = Month::find($month_id);
-    foreach ($eligibleUsers as $key => $value) {
-      foreach ($value as $user_id => $latest_date) {
-        if(Carbon::parse($month->start_date)->format('m') == Carbon::parse($latest_date)->format('m'))
-          $this->previousMonth($user_id, $month_id);
-        if(Carbon::parse($month->end_date)->format('m') == Carbon::parse($latest_date)->format('m'))
-          $this->thisMonth($user_id, $month_id);
+    $vacations = $this->vacations($month_id);
+
+    foreach ($vacations as $vacation) {
+      $end_date = Carbon::parse($vacation->end_date);
+      if($end_date->lessThanOrEqualTo(Carbon::parse($month->end_date)) && $end_date->greaterThanOrEqualTo(Carbon::parse($month->end_date)->startOfMonth())){
+        $this->thisMonth($vacation, $month_id);
+      }elseif($end_date->greaterThanOrEqualTo(Carbon::parse($month->start_date)) && $end_date->lessThanOrEqualTo(Carbon::parse($month->start_date)->endOfMonth())){
+        $this->previousMonth($vacation, $month_id);
       }
+      $vacation->update(['returner' => 0]);
     }
   }
 
-  private function thisMonth($user_id, $month_id)
+  private function previousMonth($vacation, $month_id)
   {
-    $start  = Month::find($month_id)->start_date;
-    $end    = Month::find($month_id)->end_date;
-    $daysToBePaid = 30 - (int) Carbon::parse($end)->format('d') ;
+    $unpaidDays = NonWorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->where('type', '4')->first();
 
-    $absent = Vacation::query()
-      ->where('user_id', $user_id)
-      ->where('start_date', '<=', $end)
-      ->where('end_date', '>', $start)
-      ->whereIn('vacation_type', ['3', '4'])
-      ->get()
-      ->map(function($vacation) use($start, $end) {
-        $vacation->start_date = $vacation->start_date <= $start ? $vacation->start_date = $start : $vacation->start_date;
-        $vacation->end_date = $vacation->end_date >= $end ? $vacation->end_date = $end : $vacation->end_date;
-        return $vacation;
-      })->map(function ($vacation){
-        $start_date = Carbon::parse($vacation->start_date);
-        $end_date   = Carbon::parse($vacation->end_date);
-        $days = $end_date->diffInDays($start_date) + 1;
-        return $days;
-      })->sum();
+    $workingDays = WorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->first();
 
-    $unpaid =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
-    $newDeduction = $daysToBePaid - ($absent - (int) $unpaid->days);
-
-    $date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
-    $amount = $this->amount($date, $user_id, $newDeduction);
-    $description = "{$newDeduction} working days after unpaid vacation";
-
-    $unpaid->update(["days" => $newDeduction]);
-
-    PayDeduct::create([
-      'user_id' => $user_id,
-      'month_id' => $month_id,
-      'amount' => $amount,
-      'description' => $description,
-      'type' => '1'
+    $workingDays->update([
+      'working_days' => (int) $workingDays->working_days + (int) $unpaidDays->days
     ]);
-  }
 
-  private function previousMonth($user_id, $month_id)
-  {
-    $latestDay  = (int) Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date)->format('d');
+    $unpaidDays->update([
+      'days' => 0
+    ]);
 
-    if($latestDay >= 30){
-      return 0;
-    }
-
-    $start_date = (int) Carbon::parse(Month::find($month_id)->start_date)->format('d');
-    $noOfDays = $latestDay - $start_date + 1;
-
+    $daysToBePaid = 30 - (int) Carbon::parse($vacation->end_date)->format('d');
     $date = Carbon::parse(Month::find($month_id)->start_date)->lastOfMonth();
-    $amount = $this->amount($date, $user_id, $noOfDays);
-    $description =  $noOfDays . " working days after vacation " . $date->format('M Y');
-
-    $nonWorkingDays =  NonWorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
-    $workingDays = WorkingDays::where('month_id', $month_id)->where('user_id', $user_id)->first();
-
-    $workingDays->update(['working_days' => $workingDays->working_days +   $noOfDays ]);
-    $nonWorkingDays->update(["days" => (int) $nonWorkingDays->days -  $noOfDays ]);
+    $amount = $this->amount($date, $vacation->user_id, $daysToBePaid);
+    $description =  $daysToBePaid . " working days after vacation " . $date->format('M Y');
 
     PayDeduct::create([
-      'user_id' => $user_id,
+      'user_id' => $vacation->user_id,
       'month_id' => $month_id,
       'amount' => $amount,
       'description' => $description,
@@ -97,77 +57,59 @@ trait VacationReturn
     ]);
   }
 
-  private function eligibleUsers($month_id)
+  private function thisMonth($vacation, $month_id)
   {
-    $users = $this->usersInVacation($month_id);
-    $month = Month::find($month_id);
-    $eligibleUsers = [];
-    foreach ($users as $user) {
-      $latestAbscent = Carbon::parse($this->latestAbsence($user, $month_id)->end_date);
-      if($latestAbscent->lessThanOrEqualTo($month->end_date) && $latestAbscent->greaterThanOrEqualTo($month->start_date))
-        array_push($eligibleUsers, [$user => $latestAbscent->format('Y-m-d')]);
-    }
-    return $eligibleUsers;
-  }
+    $month             = Month::find($month_id);
+    $vacationStartDate = Carbon::parse($vacation->start_date);
+    $monthStartDate    = Carbon::parse($month->start_date);
+    $monthEndDate      = Carbon::parse($month->end_date);
+    $annual            = NonWorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->where('type', '1')->first();
+    $unpaid            = NonWorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->where('type', '4')->first();
 
-  private function usersInVacation($month_id)
-  {
-    $users = $this->usersWithAbsence($month_id);
-    $usersToBeProcessed = [];
-    foreach ($users as $user) {
-      if($this->isVacation($month_id, $user)){
-        $usersToBeProcessed[] = $user;
+    if ($annual != null) {
+      if ($vacationStartDate->lessThanOrEqualTo($monthStartDate->endOfMonth())) {
+        $workingDays  = WorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->first();
+        $diff = $vacationStartDate->diffInDays($monthStartDate->endOfMonth()) + 1;
+
+        $unpaid->days = (int) $unpaid->days - $diff;
+        $unpaid->save();
+
+        $workingDays->working_days = (int) $workingDays->working_days + $diff;
+        $workingDays->save();
       }
+    } else {
+      $daysToBePaid = 30 - (int)$monthEndDate->format('d');
+
+      $date = Carbon::parse(Month::find($month_id)->end_date)->lastOfMonth()->format('Y-m-d');
+      $amount = $this->amount($date, $vacation->user_id, $daysToBePaid);
+      $description = "{$daysToBePaid} working days after unpaid vacation";
+
+      PayDeduct::create([
+        'user_id' => $vacation->user_id,
+        'month_id' => $month_id,
+        'amount' => $amount,
+        'description' => $description,
+        'type' => '1'
+      ]);
+
+      $unpaid->update([
+        'days' => (int) $unpaid->days - $daysToBePaid
+      ]);
     }
-    return $usersToBeProcessed;
   }
 
-  private function usersWithAbsence($month_id)
+  private function vacations($month_id)
   {
     $month = Month::find($month_id);
-    return  Vacation::where('start_date', '<=', $month->end_date)
-      ->where('end_date', '>=', $month->start_date)
-      ->whereIn('vacation_type', ['3', '4'])
-      ->selectRaw("user_id, datediff(`end_date`, `start_date`) + 1 as days")
-      ->orderBy('user_id')
-      ->distinct()
-      ->pluck('user_id');
-  }
-
-  private function isVacation($month_id, $user_id)
-  {
-    $month = Month::find($month_id);
-    $from = Carbon::parse($month->start_date);
-    $latestDay = Carbon::parse($this->latestAbsence($user_id, $month_id)->end_date);
-    $absenceCount = $latestDay->diffInDays($from) + 1 ;
-    $day = $latestDay->copy();
-    $totalActualAbsence = 1;
-    for ($i = 1; $i < $absenceCount; $i++)
-      if($this->checkIfDayExists($day->subDay(), $user_id))
-        $totalActualAbsence++;
-    if($totalActualAbsence == $absenceCount)
-      return true;
-    return false;
-  }
-
-  private function checkIfDayExists($day, $user_id)
-  {
-    return Vacation::where('user_id',$user_id)
-      ->where('start_date', '<=', $day)
-      ->where('end_date', '>=', $day)
-      ->whereIn('vacation_type', ['3', '4'])
-      ->count();
-  }
-
-  private function latestAbsence($user_id, $month_id)
-  {
-    $month = Month::find($month_id);
-    return Vacation::where('user_id', $user_id)
+    $vacations = Vacation::query()
       ->where('start_date', '<=', $month->end_date)
       ->where('end_date', '>=', $month->start_date)
-      ->whereIn('vacation_type', ['3', '4'])
-      ->orderByDesc('start_date')
-      ->first();
+      ->where('returner', 1)
+      ->get(['id', 'user_id', 'returner', 'start_date','end_date'])
+      ->filter(function ($vacation) use ($month){
+        return Carbon::parse($vacation->end_date)->lessThanOrEqualTo(Carbon::parse($month->end_date));
+      });
+    return $vacations;
   }
 
   private function amount($date, $user_id, $days)

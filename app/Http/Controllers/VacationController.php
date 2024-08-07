@@ -194,7 +194,7 @@ class VacationController extends Controller
         Mail::queue(new VacationApplication($latest));
 
         //process the unpaid portion
-        $this->createVacation($unpaidStartDate, $unpaidEndDate, '4');
+        $this->createVacation($unpaidStartDate, $unpaidEndDate, '4', 1);
         $latest = Vacation::latest('id')->first();
         $this->detail($validated, $latest->id);
         $this->attach($request, $latest);
@@ -225,11 +225,12 @@ class VacationController extends Controller
     }
   }
 
-  private function createVacation($start_date, $end_date, $vacation_type)
+  private function createVacation($start_date, $end_date, $vacation_type, $returner = 0)
   {
     Vacation::create([
       'user_id' => auth()->user()->id,
       'vacation_type' => $vacation_type,
+      'returner' => $returner,
       'start_date' => $start_date,
       'end_date' => $end_date,
       'status_id' => '0'
