@@ -19,7 +19,7 @@
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Department:  {{ $user->section->section_en }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Email:  {{ $user->email }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Mobile:  {{ $user->mobile($user->id) }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Iqama:  {{ $user->iqama($user->id) }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Iqama:  {{ $user->iqama($user->id)->document_id }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">DOB:  {{ $user->date_of_birth }}</p>
                 <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Nationality:  {{ $user->nationality->country_en }}</p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
@@ -32,27 +32,6 @@
           </tbody>
         </table>
       </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <th>Name</th>
-      <td>{{ $user->getFullEnglishNameAttribute }}</td>
-    </tr>
-    <tr>
-      <th>National ID</th>
-      <td>{{ $user->iqama($user->id)->document_id }}</td>
-    </tr>
-    <tr>
-      <th>Email</th>
-      <td>{{ $user->email }}</td>
-    </tr>
-    <tr>
-      <th>Mobile</th>
-      <td>{{ $user->mobile($user->id) }}</td>
     </tr>
   </tbody>
 </table>
