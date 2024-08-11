@@ -11,18 +11,14 @@
             </tr>
             <tr width="100%">
               <td valign="top" align="left" style="background:#fff;padding:18px">
-                <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> New Faculty Staff Added </h1>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Kindly create an email for the newly added employee with the following details:</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Employee ID:  {{ $user->empid }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Name:  {{ $user->getFullEnglishNameAttribute }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Gender: {{ $user->gender->gender_en }} </p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Department:  {{ $user->section->section_en }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Position:  {{ $user->position?->position_en }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Email:  {{ $user->email }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Mobile:  {{ $user->mobile($user->id) }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Iqama:  {{ $user->iqama($user->id)->document_id }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">DOB:  {{ $user->date_of_birth }}</p>
-                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Nationality:  {{ $user->nationality->country_en }}</p>
+                <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> New Employee Added </h1>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;">Kindly create an ID for the employee with the following details:</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Employee ID:</strong>  {{ $user->empid }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Name English:</strong>  {{ $user->getFullEnglishNameAttribute }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Name Arabic:</strong>  {{ $user->getFullArabicNameAttribute }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Position:</strong>  {{ $user->position?->position_en }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Position Arabic:</strong>  {{ $user->position?->position_ar }}</p>
+                <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;"><strong>Department:</strong>  {{ $user->section->section_en }}</p>
                 <div style="background:#f6f7f8;border-radius:3px"> <br>
                   {{-- <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Maodou.io</a> </p> --}}
                   <br><br>
