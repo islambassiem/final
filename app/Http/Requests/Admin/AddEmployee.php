@@ -50,7 +50,7 @@ class AddEmployee extends FormRequest
       'date_of_issue2' => 'nullable',
       'date_of_expiry2' => 'nullable',
       'section_id' => 'required',
-      'position_id' => 'nullable',
+      'position_id' => 'required',
       'category_id' => 'required',
       'sponsorship_id' => 'required',
       'joining_date' => 'required|date',
@@ -94,7 +94,8 @@ class AddEmployee extends FormRequest
       'section_id.required' => __('admin/staff.section.required'),
       'category_id.required' => __('admin/staff.category.required'),
       'sponsorship_id.required' => __('admin/staff.sponsorship.required'),
-      'joining_date.required' => __('admin/staff.doj.required')
+      'joining_date.required' => __('admin/staff.doj.required'),
+      'position_id' => __('admin/staff.mobile.required')
     ];
   }
 }

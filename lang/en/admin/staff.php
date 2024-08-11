@@ -57,6 +57,7 @@
     'notes' => 'Notes',
     'draftSaved' => 'You have saved the employee in the draft successfully',
     'userSaved' => 'The employee has been saved successfully',
+    'position_id' => 'The position is required',
 
     // Validation
     'first_name_en.required' => 'First Name English is required',

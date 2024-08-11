@@ -57,6 +57,7 @@
     'notes' => 'ملاحظات عامة',
     'draftSaved' => 'تم حفظ الموظف في المسودة بنجاح',
     'userSaved' => 'تم اضافة الموظف بنجاح',
+    'position_id' => 'الوظيفة مطلوبة',
 
     // Validation
     'first_name_en.required' => 'الاسم الاول انجليزي مطلوب',

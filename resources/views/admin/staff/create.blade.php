@@ -350,10 +350,15 @@
                 <select id="position" name="position_id" class="form-select" style="width: 100%">
                   <option disabled selected>{{ __('global.select') }}</option>
                   @foreach ($positions as $position)
-                    <option value="{{ $position->id }}">{{ $position->{'position' . session('_lang')}  }}</option>
+                    <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>{{ $position->{'position' . session('_lang')}  }}</option>
                   @endforeach
                 </select>
               </div>
+              <p class="text-danger mt-15">
+                @error('position_id')
+                  {{ $message }}
+                @enderror
+              </p>
             </div>
             <div class="col-md-3">
               <div class="">
