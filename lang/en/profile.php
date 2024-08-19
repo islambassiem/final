@@ -9,6 +9,7 @@
     'fullName' => 'Full Name',
     'position' => 'Position',
     'country' => 'Country',
+    'dob' => 'Date of Birth',
     'mobile' => 'Mobile',
     'personalEmail' => 'Personal Email',
     'officialEmail' => 'Official Email',

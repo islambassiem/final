@@ -9,6 +9,7 @@
     'fullName' => 'الإسم الكامل',
     'position' => 'المنصب',
     'country' => 'الجنسية',
+    'dob' => 'تاريخ الميلاد',
     'mobile' => 'الجوال',
     'personalEmail' => 'الإيميل الشخصي',
     'officialEmail' => 'الإيميل الرسمي',

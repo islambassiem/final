@@ -106,6 +106,11 @@
                     </div>
 
                     <div class="row d-flex align-items-center">
+                      <div class="col-lg-3 col-md-4 label">{{ __('profile.dob') }}</div>
+                      <div class="col-lg-9 col-md-8">{{ date('d/m/Y', strtotime($user->date_of_birth)) }}</div>
+                    </div>
+
+                    <div class="row d-flex align-items-center">
                       <div class="col-lg-3 col-md-4 label">{{ __('profile.mobile') }}</div>
                       <div class="col-lg-9 col-md-8">{{ blank($mobile?->contact) ? __('N/A') : $mobile->contact }}</div>
                     </div>
