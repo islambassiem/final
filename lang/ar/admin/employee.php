@@ -13,5 +13,9 @@
     'joiningDate' => 'تاريخ المباشرة',
     'department' => 'القسم',
     'head' => 'رئيس القسم',
-    'salary' => 'الراتب'
+    'salary' => 'الراتب',
+    'resingnation_date' => 'تاريخ الاستقالة',
+    'resDateReq' => 'تاريخ الاستقالة مطلوب',
+    'resDateInvalid' => 'تاريخ الاستقالة غير صالح',
+    'employeeResigned' => 'تم ازالة الموظف بنجاح'
   ];

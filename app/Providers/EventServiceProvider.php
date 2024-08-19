@@ -2,16 +2,20 @@
 
 namespace App\Providers;
 
-use App\Events\EmployeeCreated;
 use App\Events\FacultyCreated;
+use App\Events\EmployeeCreated;
+use App\Events\FacultyResigned;
+use App\Events\EmployeeResigned;
 use App\Listeners\SendEmployeeCard;
-use App\Listeners\SendEmployeeToFinance;
 use App\Listeners\SendEmployeeToIt;
-use App\Listeners\SendFacultyCreatedNotification;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\SendEmployeeToFinance;
+use App\Listeners\SendFacultyCreatedNotification;
+use App\Listeners\SendFacultyResignedNotification;
+use App\Listeners\SendEmployeeResignedNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -33,7 +37,15 @@ class EventServiceProvider extends ServiceProvider
       SendEmployeeToFinance::class,
       SendEmployeeToIt::class,
       SendEmployeeCard::class,
-    ]
+    ],
+
+    FacultyResigned::class => [
+      SendFacultyResignedNotification::class
+    ],
+
+    EmployeeResigned::class => [
+      SendEmployeeResignedNotification::class
+    ],
   ];
 
   /**

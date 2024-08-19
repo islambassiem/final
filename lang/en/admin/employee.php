@@ -13,5 +13,9 @@
     'joiningDate' => 'Joining Date',
     'department' => 'Department',
     'head' => 'Head',
-    'salary' => 'Salary'
+    'salary' => 'Salary',
+    'resingnation_date' => 'Resignation Date',
+    'resDateReq' => 'Resignation Date is required',
+    'resDateInvalid' => 'Resignation Date is invalid',
+    'employeeResigned' => 'Employee has been removed successfully',
   ];

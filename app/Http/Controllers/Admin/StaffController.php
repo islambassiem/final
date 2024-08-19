@@ -16,9 +16,11 @@ use App\Models\Admin\TempUser;
 use App\Models\Tables\Country;
 use App\Models\Tables\Section;
 use App\Events\EmployeeCreated;
+use App\Events\FacultyResigned;
 use App\Models\Tables\Category;
 use App\Models\Tables\Position;
 use App\Models\Tables\Religion;
+use App\Events\EmployeeResigned;
 use App\Models\Tables\SpecialNeed;
 use App\Models\Tables\Sponsorship;
 use Illuminate\Support\Facades\DB;
@@ -399,6 +401,35 @@ class StaffController extends Controller
       ]);
     }
     return redirect()->back()->with('success', __('salary.successIBAN'));
+  }
+
+  public function resign(string $id, Request $request)
+  {
+
+    Validator::make($request->only('resignation_date'), [
+      'resignation_date' => 'required|date'
+    ], messages: [
+      'resignation_date.required' => __('admin/employee.resDateReq'),
+      'resignation_date.date' => __('admin/employee.resDateInvalid')
+    ] ,attributes: [
+      'resignation_date' => __('admin/employee.resingnation_date')
+    ])->validate();
+
+    $user = User::find($id);
+    $isFacultyStaff = in_array($user->category_id, ['1', '2']);
+
+    $user->update([
+      'active' => 0,
+      'salary' => 0,
+      'resignation_date' => $request->resignation_date
+    ]);
+
+    if ($isFacultyStaff) {
+      event(new FacultyResigned($user));
+    }
+    event(new EmployeeResigned($user));
+
+    return redirect()->back()->with('success', __('admin/employee.employeeResigned'));
   }
 }
 

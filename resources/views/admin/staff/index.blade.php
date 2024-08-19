@@ -30,6 +30,24 @@
         </a>
       </div>
     </div>
+    @if (session('success'))
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+          </div>
+        </div>
+      </div>
+    @endif
+    @if ($errors->any())
+      <div class="alert alert-danger mt-5">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Filter</h5>
@@ -174,7 +192,19 @@
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->extension($member->id) }}</td>
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->mobile($member->id) }}</td>
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->email }}</td>
-                <td @if (! $member->active) class="text-danger" @endif><a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a></td>
+                <td @if (! $member->active) class="text-danger" @endif>
+                  <a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a>
+                  @if($member->active)
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm py-0"
+                      data-bs-toggle="modal"
+                      data-bs-target="#leaverModal"
+                      data-id="{{ $member->id }}">
+                      <i class="bi bi-person-walking"></i>
+                    </button>
+                  @endif
+                </td>
               </tr>
               @php $c++; @endphp
             @endforeach
@@ -186,6 +216,29 @@
       </div>
     </div>
   </section>
+  <div class="modal fade" id="leaverModal" tabindex="-1" aria-labelledby="leaverModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="leaverModalLabel">{{ __('head/vacations.takeAction') }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" id="leaverForm">
+            @csrf
+            <div class="mb-3">
+              <label for="action">{{ __('global.action') }}</label>
+              <input type="date" name="resignation_date" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="leaverForm" class="btn btn-primary">{{ __('global.submit') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 
@@ -213,9 +266,12 @@
           });
         }
       });
-      document.getElementById('search-icon').addEventListener('click', function(){
-        console.log('clicked');
-        document.getElementById('search-params').style.display = 'flex';
+
+      $('#leaverModal').on('show.bs.modal', function (event){
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let form = document.getElementById('leaverForm');
+        form.action = "leaver/" + id;
       });
     });
 </script>
