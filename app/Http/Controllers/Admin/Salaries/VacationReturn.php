@@ -59,6 +59,13 @@ trait VacationReturn
 
   private function thisMonth($vacation, $month_id)
   {
+    $vacationEndDate   = Carbon::parse($vacation->end_date);
+    $oneDayAfterVacationEnd = Vacation::where('user_id', $vacation->user_id)->where('end_date', $vacationEndDate->addDay())->first();
+
+    if ($oneDayAfterVacationEnd) {
+      return;
+    }
+
     $month             = Month::find($month_id);
     $vacationStartDate = Carbon::parse($vacation->start_date);
     $monthStartDate    = Carbon::parse($month->start_date);
