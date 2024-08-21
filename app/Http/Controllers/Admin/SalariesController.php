@@ -119,10 +119,10 @@ class SalariesController extends Controller
     $this->tickets($end, $month->id);
     $this->deduct($end, $month->id);
     $this->gosi($end, $month->id);
+    $this->weekends($month->start_date, $month->end_date);
     $this->approved($month->id, $month->start_date, $month->end_date);
     $this->notApproved($month->id, $month->start_date, $month->end_date);
     $this->workingDays($month->id);
-    $this->weekends($month->start_date, $month->end_date);
     $this->vacationReturners($month->id);
     $month->status = 1;
     $month->save();
