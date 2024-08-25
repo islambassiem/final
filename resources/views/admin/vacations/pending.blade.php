@@ -110,6 +110,7 @@
                 <th scope="col">{{ __('head/vacations.name') }}</th>
                 <th scope="col">{{ __('head/vacations.from') }}</th>
                 <th scope="col">{{ __('head/vacations.to') }}</th>
+                <th scope="col">{{ __('admin/vacations.duration') }}</th>
                 <th scope="col">{{ __('head/vacations.type') }}</th>
                 <th scope="col">{{ __('admin/vacations.headStatus') }}</th>
                 <th scope="col">{{ __('admin/vacations.hrStatus') }}</th>
@@ -125,6 +126,7 @@
                   <td>{{ session('_lang') == '_ar' ? $vacation->user->getFullArabicNameAttribute : $vacation->user->getFullEnglishNameAttribute }}</td>
                   <td>{{ $vacation->start_date }}</td>
                   <td>{{ $vacation->end_date }}</td>
+                  <td>{{ $vacation->days }}</td>
                   <td>{{ $vacation->type->{'vacation_type' . session('_lang')} }}</td>
                   <td>
                     @switch($vacation->detail?->head_status)

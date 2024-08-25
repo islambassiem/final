@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'empid' => 'الرقم الوظيفي', 
+  'empid' => 'الرقم الوظيفي',
   'headStatus' => 'رئيس القسم',
   'hrStatus' => 'الموارد البشرية',
   'vacationDeleted' => 'تم حذف الاجازة بنجاح',
@@ -13,5 +13,6 @@ return [
   'employees' => 'موظف',
   'employeesVacation' => 'الموظفون المجازون اليوم',
   'novacations' => 'لا يوجد اجازات حسب متطلبات البحث',
-  'upComingVacations' => 'الإجازات القادمة'
+  'upComingVacations' => 'الإجازات القادمة',
+  'duration' => 'المدة'
 ];
