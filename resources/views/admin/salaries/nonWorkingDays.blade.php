@@ -30,6 +30,11 @@
       <h5 class="card-title">
         {{ __('admin/salaries.nonWorkingDays') }}
       </h5>
+      @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+      @endif
       @if (count($days) == 0)
         <div class="alert alert-danger text-center">
           {{ __('admin/salaries.noSalaries') }}
@@ -44,6 +49,9 @@
               <th>{{ __('admin/salaries.cost_center') }}</th>
               <th>{{ __('admin/salaries.nonWorkingDays') }}</th>
               <th>{{ __('admin/salaries.type') }}</th>
+              @if (!$sent)
+                <th>{{ __('global.action') }}</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -56,6 +64,21 @@
                 <td>{{ $day->user->cost_center }}</td>
                 <td>{{ $day->days }}</td>
                 <td>{{ $day->vacationType->{'vacation_type'. session('_lang')} }}</td>
+                @if (!$sent && $day->type == 4)
+                  <th>
+                      <button
+                      type="button"
+                      class="btn btn-primary btn-sm py-0"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editModal"
+                      data-id="{{ $day->id }}">
+                      {{ __('global.edit') }}
+                      <i class="bi bi-stack"></i>
+                    </button>
+                  </th>
+                @else
+                  <th></th>
+                @endif
               </tr>
               @php $c++; @endphp
             @endforeach
@@ -69,6 +92,32 @@
       <a href="{{ route('admin.salaries.working', $month_id) }}" class="btn btn-danger mx-2"><i class="bi bi-caret-{{ session('_lang') == '_ar' ? 'right' : 'left'  }}-square-fill me-2"></i>{{ __('global.back') }}</a>
       <a href="{{ route('admin.salaries.dashboard', $month_id) }}" class="btn btn-secondary mx-2"><i class="bi bi-house-gear-fill mx-2"></i>{{ __('global.home') }}</a>
       <a href="{{ route('admin.salaries.payables', $month_id) }}" class="btn btn-primary mx-2">{{ __('global.next') }}<i class="bi bi-caret-{{ session('_lang') == '_ar' ? 'left' : 'right'  }}-square-fill ms-2"></i></a>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">{{ __('admin/salaries.editNonWorkingDays') }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" id="editForm">
+            @csrf
+            <input type="hidden" name="month_id" value={{ $month_id }}>
+            <div class="mb-3">
+              <label for="expiry">{{ __('admin/salaries.editNonWorkingDays') }}</label>
+              <input type="text" name="nonWorkingDays" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" form="editForm" class="btn btn-primary">{{ __('global.submit') }}</button>
+        </div>
+      </div>
     </div>
   </div>
 @endsection
@@ -104,6 +153,13 @@
         language: {
           url: file
         }
+      });
+      $('#editModal').on('show.bs.modal', function (event){
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let form = document.getElementById('editForm');
+        form.action = "edit/" + id;
+        console.log(form.action);
       });
     });
   </script>

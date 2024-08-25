@@ -81,4 +81,6 @@ use App\Http\Middleware\Authenticate;
     Route::get('/salaries/paydeduct/{month_id}', [SalariesController::class, 'paydeduct'])->withoutMiddleware([Admin::class, Authenticate::class])->name('paydeduct');
     Route::get('/salaries/send/{month_id}', [SalariesController::class, 'send'])->name('send');
     Route::get('salaries/payslip', [PayslipController::class, 'index'])->name('admin.payslip');
+    Route::post('salaries/working/edit/{id}', [SalariesController::class, 'editWorkingDays']);
+    Route::post('salaries/non/working/edit/{id}', [SalariesController::class, 'editNonWorkingDays']);
   });
