@@ -87,9 +87,14 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#salary">{{ __('admin/employee.salary') }}</button>
               </li>
 
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#documents">{{ __('admin/employee.documents') }}</button>
+              </li>
+
             </ul>
             <div class="tab-content pt-2">
 
+              {{--  Profile Overview  --}}
               <div class="tab-pane fade show active profile-overview" id="profile-overview">
                 <h5 class="card-title">{{ __('profile.details') }}</h5>
 
@@ -142,6 +147,7 @@
 
               </div>
 
+              {{--  Official Information  --}}
               <div class="tab-pane fade profile-edit pt-3" id="official">
 
                 <div class="row">
@@ -217,6 +223,7 @@
                 </div>
               </div>
 
+              {{--  Salary  --}}
               <div class="tab-pane fade" id="salary">
 
                 <div class="row d-flex align-items-center justifiy-content-between">
@@ -275,6 +282,36 @@
                         <td>{{ $item->effective }}</td>
                       </tr>
                       @php $c++; @endphp
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+
+              {{--  Documents  --}}
+              <div class="tab-pane fade" id="documents">
+
+                <div class="tab-pane fade show active profile-overview">
+                  <h5 class="card-title">{{ __('admin/employee.documents') }}</h5>
+                </div>
+                <table class="table table-striped text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fw-bold">{{ __('documents.document') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('documents.docNum') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('documents.place') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('documents.issue') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('documents.expiry') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($documents as $document)
+                      <tr>
+                        <td>{{ $document->document_type_id >= 6 ? $document->description : $document->document->{'attachment_type' . session('_lang')} }}</td>
+                        <td>{{ $document->document_id }}</td>
+                        <td>{{ blank($document->place_of_issue) ? __("N/A") : $document->place_of_issue }}</td>
+                        <td>{{ blank($document->date_of_issue) ? __("N/A") : $document->date_of_issue }}</td>
+                        <td>{{ $document->date_of_expiry }}</td>
+                      </tr>
                     @endforeach
                   </tbody>
                 </table>

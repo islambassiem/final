@@ -70,6 +70,7 @@ class StaffController extends Controller
       'office' => Contact::where('user_id', $id)->where('type', '4')->first(),
       'salary' => Salary::where('user_id', $id)->orderByDesc('effective')->get(),
       'bank' => Bank::with('bank')->where('user_id', $id)->first(),
+      'documents' => Document::where('user_id', $id)->get()
     ]);
   }
 
