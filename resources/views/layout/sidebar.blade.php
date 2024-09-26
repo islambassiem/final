@@ -220,7 +220,19 @@
             <i class="bi bi-paperclip"></i>
             <span>{{ __('sidebar.attachments') }}</span>
           </a>
-        </li><!-- End Profile Page Nav -->
+        </li>
+
+        @can('impersonate')
+          <li class="nav-item">
+            <a class="nav-link {{ request()->segment(1) == 'employees-impersonate' ? '' : 'collapsed'  }}" href="{{ route('employees-impersonate') }}">
+              <i class="bi bi-people-fill"></i>
+              <span>{{ __('sidebar.employees-impersonate') }}</span>
+            </a>
+          </li>
+        @endcan
+
+
+        <!-- End Profile Page Nav -->
       </ul>
 
     </aside><!-- End Sidebar-->

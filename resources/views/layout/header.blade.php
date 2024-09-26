@@ -232,6 +232,17 @@
               <span>{{ __('header.help') }}</span>
             </a>
           </li>
+          @impersonating($guard = null)
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('impersonate.leave') }}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>{{ __('header.leaveImpersonation') }}</span>
+              </a>
+            </li>
+          @endImpersonating
           <li>
             <hr class="dropdown-divider">
           </li>

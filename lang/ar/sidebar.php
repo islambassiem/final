@@ -30,5 +30,6 @@ return [
   'research' => 'الأبجاث',
   'attachments' => 'المرفقات',
   'balance' => 'رصيد الاجازات',
-  'allVacations' => 'جميع الاجازات'
+  'allVacations' => 'جميع الاجازات',
+  'employees-impersonate' => 'الموظفين'
 ];

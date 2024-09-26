@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\LeaveController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\OtherExperienceController;
-use App\Models\Vacation;
+use App\Http\Controllers\EmployeesImpersonateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,3 +175,8 @@ Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip
 Route::get('/payslip', [PayslipController::class, 'test']);
 
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
+
+// Impersonate functionality 
+Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'index'])->name('employees-impersonate');
+
+Route::impersonate();
