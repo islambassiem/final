@@ -25,7 +25,8 @@ class DependentRequest extends FormRequest
       'name' => 'required|string|max:255',
       'identification' => 'required|string|max:10|min:10',
       'date_of_birth' => 'required|date',
-      'relationship_id'  => 'required'
+      'relationship_id'  => 'required',
+      'gender_id' => 'required'
     ];
   }
 
@@ -40,7 +41,8 @@ class DependentRequest extends FormRequest
       'identification.string' => __('The ID is invalid'),
       'date_of_birth.required' => __('The date of birth is required'),
       'date_of_birth.date'  => __('Date of Birth is required'),
-      'relationship_id.required' => __('Relation with the employee is required')
+      'relationship_id.required' => __('Relation with the employee is required'),
+      'gender_id.required' => __('Gender is required')
     ];
   }
 }

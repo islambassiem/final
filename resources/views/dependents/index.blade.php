@@ -144,6 +144,19 @@
             </div>
           </div>
           <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="identification" class="form-label required">{{ __('dependants.gender') }}</label>
+                <select class="form-select" id="gender_id_edit" name="gender_id" style="width:100%">
+                  <option selected disabled>{{ __('global.select') }}</option>
+                  @foreach ($genders as $gender)
+                    <option value="{{ $gender->id }}" @selected( $gender->id == old('gender_id->id'))>{{  $gender->{'gender' . session('_lang')} }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-6">
               <div class="mb-3">
                 <label for="identification" class="form-label required">{{ __('dependants.deptId') }}</label>
@@ -199,6 +212,19 @@
             </div>
           </div>
           <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="gender" class="form-label required">{{ __('dependants.gender') }}</label>
+                <select class="form-select" id="genders" name="gender_id" style="width:100%">
+                  <option selected disabled>{{ __('global.select') }}</option>
+                  @foreach ($genders as $gender)
+                    <option value="{{ $gender->id }}" @selected( $gender->id == old('gender_id'))>{{  $gender->{'gender' . session('_lang')} }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-6">
               <div class="mb-3">
                 <label for="identification" class="form-label required">{{ __('dependants.deptId') }}</label>
@@ -218,7 +244,7 @@
               <select class="form-select" id="relationship" name="relationship_id" style="width:100%">
                 <option selected disabled>{{ __('global.select') }}</option>
                 @foreach ($relationships as $relationship)
-                  <option value="{{ $relationship->id }}" @selected( $relationship->id == old('relationship->id'))>{{  $relationship->{'relationship' . session('_lang')} }}</option>
+                  <option value="{{ $relationship->id }}" @selected( $relationship->id == old('relationship_id'))>{{  $relationship->{'relationship' . session('_lang')} }}</option>
                 @endforeach
               </select>
             </div>
@@ -293,6 +319,10 @@
         });
 
       $("#relationship").select2({
+        dropdownParent: $('#addDependent')
+      });
+
+      $("#genders").select2({
         dropdownParent: $('#addDependent')
       });
 

@@ -6,7 +6,7 @@ use App\Models\Dependent;
 use Illuminate\Http\Request;
 use App\Models\Tables\FamilyRelationship;
 use App\Http\Requests\DependentRequest;
-
+use App\Models\Tables\Gender;
 
 class DependentController extends Controller
 {
@@ -24,7 +24,8 @@ class DependentController extends Controller
   {
     return view('dependents.index', [
       'dependents' => Dependent::where('user_id', auth()->user()->id)->get(),
-      'relationships' => FamilyRelationship::all()
+      'relationships' => FamilyRelationship::all(),
+      'genders' => Gender::all()
     ]);
   }
 
@@ -43,6 +44,7 @@ class DependentController extends Controller
   {
     $validated = $request->validated();
     $validated['user_id'] = auth()->user()->id;
+    dd($validated);
     Dependent::create($validated);
     return redirect()->route('dependents.index')->with('success', __('You have added a dependent successfully'));
   }

@@ -11,5 +11,7 @@
     'deptId' => 'Dependent ID',
     'noDepen' => 'There are no dependents Registered',
     'editDepen' => 'Edit a dependent',
-    'delDepen' => 'Delete a Dependent'
+    'delDepen' => 'Delete a Dependent',
+    'gender'=> 'Gender',
+    'Gender is required' => 'Gender is required',
   ];
