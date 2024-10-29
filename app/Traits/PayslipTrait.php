@@ -197,7 +197,7 @@ trait PayslipTrait{
 
   public function getMonth($year)
   {
-    $months = Month::where('year',  $year)->where('status', '1')->orderByDesc('month')->get('month');
+    $months = Month::where('year',  $year)->where('status', '1')->orderByDesc('start_date')->get('month');
     return json_encode($months);
   }
 }
