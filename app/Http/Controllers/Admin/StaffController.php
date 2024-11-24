@@ -269,6 +269,14 @@ class StaffController extends Controller
       ]);
     }
 
+    if ($validated['iban'] != null && $validated['bank_code']!= null) {
+      Bank::create([
+        'user_id' =>  $latest_id,
+        'bank_code' => $validated['bank_code'],
+        'iban' => preg_replace('/\s+/', '', $validated['iban'])
+      ]);
+    }
+
     if(TempUser::latest()->first() != null){
       TempUser::latest()->first()->delete();
     }
