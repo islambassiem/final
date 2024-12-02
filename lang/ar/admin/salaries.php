@@ -86,9 +86,12 @@
     'editWorkingDays' => 'تعديل أيام الدوام',
     'editNonWorkingDays' => 'تعديل أيام الاجازات الغير مدفوعة',
     'deductableDelete' => 'تم حذف الخصم بنجاح',
+    'payableDelete' => 'تم حذف الدفع بنجاح',
     'number' => 'قيمة الخصم مطلوبة',
     'unit' => 'وحدة الخصم مطلوبة',
     'descriptionEdit' => 'التفاصيل مطلوبة',
     'editDeductableSuccess' => 'تم تعديل الخصم بنجاح',
-    'editDeductable' => 'تعديل خصميه'
+    'editDeductable' => 'تعديل خصميه',
+    'editPayable' => 'تعديل الدفع',
+    'editPayableSuccess' => 'تم تعديل الدفع بنجاح'
   ];

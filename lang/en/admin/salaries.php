@@ -84,10 +84,13 @@ return [
   'nonWorkingDaysChanged' => 'Non working days have been changed successfully',
   'editWorkingDays' => 'Edit working days',
   'editNonWorkingDays' => 'Edit non-working days',
-  'deductableDelete' => 'Deduction has been deleted Succeffully',
+  'deductableDelete' => 'Deduction has been deleted succeffully',
+  'payableDelete' => 'Payable has been deleted succefully',
   'number' => 'The Amount of deduction is required',
   'unit' => 'The deduction unit is required',
   'descriptionEdit' => 'The description is required',
   'editDeductableSuccess' => 'Your change has been saved successfully',
-  'editDeductable' => 'Edit Deductable'
+  'editDeductable' => 'Edit Deductable',
+  'editPayable' => 'Edit Payable',
+  'editPayableSuccess' => 'Your change has been saved successfully',
 ];

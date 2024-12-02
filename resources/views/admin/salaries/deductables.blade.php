@@ -311,7 +311,7 @@
 
         $('#id').val(id);
 				$('#descriptionEditTextArea').val(description);
-        $('#numberEdit').val(amount);
+        $('#numberEdit').val(parseFloat(amount.replace(',', '')));
         form.action = "edit/" + id;
       });
     });

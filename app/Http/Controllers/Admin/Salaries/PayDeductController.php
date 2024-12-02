@@ -9,6 +9,7 @@ use App\Traits\SalaryTrait;
 use Illuminate\Http\Request;
 use App\Models\Admin\PayDeduct;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditPayableRequest;
 use App\Http\Requests\EditDeductableRequest;
 use App\Http\Requests\Admin\Salaries\PayDeductRequest;
 
@@ -49,6 +50,18 @@ class PayDeductController extends Controller
     ];
     PayDeduct::create($data);
     return redirect()->back()->with('success', __('admin/salaries.payableSuccess'));
+  }
+
+
+  public function editpayables(EditPayableRequest $request)
+  {
+    $payable = PayDeduct::find($request->id);
+    $package = $this->package($payable->user_id, $this->end_date($payable->month_id));
+    $amount =  $this->amount($package, $request->numberEdit, $request->unitEdit);
+    $payable->amount = $amount;
+    $payable->description = $request->descriptionEdit;
+    $payable->save();
+    return redirect()->back()->with('success', __('admin/salaries.editPayableSuccess'));
   }
 
   public function deductables($month_id)
@@ -116,9 +129,15 @@ class PayDeductController extends Controller
     return $number;
   }
 
-  public function destroy(PayDeduct $deductable)
+  public function destroydeductable(PayDeduct $deductable)
   {
     $deductable->delete();
     return redirect()->back()->with('success', __('admin/salaries.deductableDelete'));
+  }
+
+  public function destroypayable(PayDeduct $payable)
+  {
+    $payable->delete();
+    return redirect()->back()->with('success', __('admin/salaries.payableDelete'));
   }
 }
