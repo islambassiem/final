@@ -85,4 +85,10 @@
     'nonWorkingDaysChanged' => 'تم تعديل الاجازة الغير مدفوعة بنجاح',
     'editWorkingDays' => 'تعديل أيام الدوام',
     'editNonWorkingDays' => 'تعديل أيام الاجازات الغير مدفوعة',
+    'deductableDelete' => 'تم حذف الخصم بنجاح',
+    'number' => 'قيمة الخصم مطلوبة',
+    'unit' => 'وحدة الخصم مطلوبة',
+    'descriptionEdit' => 'التفاصيل مطلوبة',
+    'editDeductableSuccess' => 'تم تعديل الخصم بنجاح',
+    'editDeductable' => 'تعديل خصميه'
   ];

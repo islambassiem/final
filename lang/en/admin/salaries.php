@@ -84,4 +84,10 @@ return [
   'nonWorkingDaysChanged' => 'Non working days have been changed successfully',
   'editWorkingDays' => 'Edit working days',
   'editNonWorkingDays' => 'Edit non-working days',
+  'deductableDelete' => 'Deduction has been deleted Succeffully',
+  'number' => 'The Amount of deduction is required',
+  'unit' => 'The deduction unit is required',
+  'descriptionEdit' => 'The description is required',
+  'editDeductableSuccess' => 'Your change has been saved successfully',
+  'editDeductable' => 'Edit Deductable'
 ];

@@ -70,6 +70,9 @@
               <th>{{ __('admin/salaries.name') }}</th>
               <th>{{ __('admin/salaries.amount') }}</th>
               <th>{{ __('admin/salaries.description') }}</th>
+              @if (! $sent)
+              <th>{{ __('admin/salaries.action') }}</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -81,6 +84,29 @@
                 <td>{{ session('_lang') == '_en' ? $payable->user->getFullEnglishNameAttribute : $payable->user->getFullArabicNameAttribute }}</td>
                 <td>{{ $payable->amount }}</td>
                 <td>{{ $payable->description }}</td>
+                @if (! $sent)
+                  <td>
+                    <button
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editDeductable"
+                    data-id          = "{{ $payable->id }}"
+                    data-amount      = "{{ $payable->amount }}"
+                    data-description = "{{ $payable->description }}"
+                    class="btn btn-warning btn-sm py-0">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm py-0"
+                    id="btn"
+                    data-id = "{{ $payable->id }}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#delteConfirmation">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                  </td>
+                @endif
               </tr>
               @php $c++; @endphp
             @endforeach
@@ -97,6 +123,57 @@
     </div>
   </div>
 
+  {{--  Edit Deductable  --}}
+  <div class="modal fade" id="editDeductable" tabindex="-1" aria-labelledby="editDeductableModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editDeductableLabel">{{ __('admin/salaries.editDeductable') }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" id="editForm">
+            @csrf
+            <input type="hidden" id="id" name="id">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label for="numberEdit" class="form-label">{{ __('admin/salaries.amount') }}</label>
+                <input type="number" name="numberEdit" id="numberEdit" class="form-control" min="0">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3 d-flex justify-content-between">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="unitEdit" id="inlineRadio4" value="day">
+                  <label class="form-check-label" for="inlineRadio4">{{ __('admin/salaries.day') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="unitEdit" id="inlineRadio5" value="hour">
+                  <label class="form-check-label" for="inlineRadio5">{{ __('admin/salaries.hour') }}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="unitEdit" id="inlineRadio6" value="riyal">
+                  <label class="form-check-label" for="inlineRadio6">{{ __('admin/salaries.riyal') }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3">
+                <label for="descriptionEditTextArea" class="form-label">{{ __('admin/salaries.description') }}</label>
+                <textarea class="form-control" id="descriptionEditTextArea" rows="3" name="descriptionEdit">{{ old('descriptionEdit') }}</textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-primary" form="editForm">{{ __('global.save') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{--  Add Deductable  --}}
   <div class="modal fade" id="addDeduct" tabindex="-1" aria-labelledby="addHolidayModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -128,7 +205,7 @@
             <div class="row">
               <div class="col mb-3 d-flex justify-content-between">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="unit" id="inlineRadio1" value="day" checked>
+                  <input class="form-check-input" type="radio" name="unit" id="inlineRadio1" value="day">
                   <label class="form-check-label" for="inlineRadio1">{{ __('admin/salaries.day') }}</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -152,6 +229,29 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
           <button type="submit" class="btn btn-primary" form="addForm">{{ __('global.add') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="delteConfirmation" tabindex="-1" aria-labelledby="delteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="delteConfirmationLabel">{{ __('global.delConf') }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" id="deleteForm">
+            @csrf
+            @method('delete')
+            {{ __('global.deleteConfirmation') }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+          <button type="submit" class="btn btn-danger" form="deleteForm">{{ __('global.delete') }}</button>
         </div>
       </div>
     </div>
@@ -192,6 +292,27 @@
         language: {
           url: file
         }
+      });
+
+      $('#delteConfirmation').on('show.bs.modal', function (event){
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let form = document.getElementById('deleteForm');
+        form.action = "delete/" + id;
+      });
+
+      $('#editDeductable').on('show.bs.modal', function (event){
+
+        let button = $(event.relatedTarget);
+        let id = button.data('id');
+        let amount = button.data('amount');
+        let description = button.data('description');
+        let form = document.getElementById('editForm');
+
+        $('#id').val(id);
+				$('#descriptionEditTextArea').val(description);
+        $('#numberEdit').val(amount);
+        form.action = "edit/" + id;
       });
     });
   </script>

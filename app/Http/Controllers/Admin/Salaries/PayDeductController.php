@@ -9,6 +9,7 @@ use App\Traits\SalaryTrait;
 use Illuminate\Http\Request;
 use App\Models\Admin\PayDeduct;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditDeductableRequest;
 use App\Http\Requests\Admin\Salaries\PayDeductRequest;
 
 class PayDeductController extends Controller
@@ -85,6 +86,18 @@ class PayDeductController extends Controller
     return redirect()->back()->with('success', __('admin/salaries.deductableSuccess'));
   }
 
+  public function editdeductables(EditDeductableRequest $request)
+  {
+    $deductable = PayDeduct::find($request->id);
+    $package = $this->package($deductable->user_id, $this->end_date($deductable->month_id));
+    $amount =  $this->amount($package, $request->numberEdit, $request->unitEdit);
+    $deductable->amount = $amount;
+    $deductable->description = $request->descriptionEdit;
+    $deductable->save();
+    return redirect()->back()->with('success', __('admin/salaries.editDeductableSuccess'));
+  }
+
+
   private function end_date($month_id)
   {
     return (Month::find($month_id))->end_date;
@@ -101,5 +114,11 @@ class PayDeductController extends Controller
       return round($package * $number  / 240, 0);
     }
     return $number;
+  }
+
+  public function destroy(PayDeduct $deductable)
+  {
+    $deductable->delete();
+    return redirect()->back()->with('success', __('admin/salaries.deductableDelete'));
   }
 }
