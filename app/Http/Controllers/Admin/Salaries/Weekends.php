@@ -22,7 +22,7 @@ trait Weekends
     $thursdays =  $this->getDays($start_date, $end_date, 'Thursday');
 
     $abscent = Vacation::query()
-      ->whereNot('vacation_type', 12)
+      ->whereIn('vacation_type', [1, 3, 4])
       ->whereIn('end_date', $thursdays)
       ->get();
 
@@ -50,6 +50,7 @@ trait Weekends
     return Vacation::query()
       ->where('user_id', $user_id)
       ->where('start_date', $date)
+      ->whereIn('vacation_type', [1, 3, 4])
       ->count();
   }
 
