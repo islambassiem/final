@@ -343,7 +343,8 @@ class StaffController extends Controller
             $q->whereDate('resignation_date', '>=', $request->from)
             ->orWhere('active', '1');
           });
-      });
+      })
+      ->orderBy('empid');
   }
   public function download()
   {
