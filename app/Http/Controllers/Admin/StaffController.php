@@ -61,8 +61,10 @@ class StaffController extends Controller
 
   public function show(string $id)
   {
+    $user = User::find($id);
     return view('admin.staff.show', [
-      'user' => User::find($id),
+      'user' => $user,
+      'head' => User::find($user->head),
       'banks' => TablesBank::all(),
       'mobile' => Contact::where('user_id', $id)->where('type', '1')->first(),
       'email' => Contact::where('user_id', $id)->where('type', '2')->first(),

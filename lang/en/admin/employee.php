@@ -18,5 +18,12 @@
     'resDateReq' => 'Resignation Date is required',
     'resDateInvalid' => 'Resignation Date is invalid',
     'employeeResigned' => 'Employee has been removed successfully',
-    'documents' => 'Documents'
+    'documents' => 'Documents',
+    'dependents' => 'Dependents',
+    'name' => 'Name',
+    'gender' => 'Gender',
+    'ID' => 'National ID',
+    'dob' => 'Date of Birth ',
+    'relationship' => 'Relationship',
+    'other' => 'Other Information'
   ];

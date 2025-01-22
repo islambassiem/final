@@ -91,6 +91,14 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#documents">{{ __('admin/employee.documents') }}</button>
               </li>
 
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#dependents">{{ __('admin/employee.dependents') }}</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#other-information">{{ __('admin/employee.other') }}</button>
+              </li>
+
             </ul>
             <div class="tab-content pt-2">
 
@@ -317,7 +325,57 @@
                 </table>
               </div>
 
-              <div class="tab-pane fade" id="national-address">
+
+              {{--  Dependents  --}}
+              <div class="tab-pane fade" id="dependents">
+
+                <div class="tab-pane fade show active profile-overview">
+                  <h5 class="card-title">{{ __('admin/employee.dependents') }}</h5>
+                </div>
+                <table class="table table-striped text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fw-bold">{{ '#' }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.name') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.gender') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.ID') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.dob') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.relationship') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @php
+                      $c = 1;
+                    @endphp
+                    @foreach ($user->dependents as $dependent)
+                      <tr>
+                        <td>{{ $c }}</td>
+                        <td>{{ $dependent->name }}</td>
+                        <td>{{ app()->getLocale() == 'ar' ? $dependent->gender->gender_ar : $dependent->gender->gender_en }}</td>
+                        <td>{{ $dependent->identification }}</td>
+                        <td>{{ $dependent->date_of_birth }}</td>
+                        <td>{{ app()->getLocale() == 'ar' ? $dependent->relationship->relationship_ar : $dependent->relationship->relationship_en }}</td>
+                      </tr>
+                      @php
+                      $c++;
+                    @endphp
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="tab-pane fade" id="other-information">
+                <div class="row">
+                  <div class="col-md-4">
+                    <h5 class="card-title">{{ __('admin/employee.other') }}</h5>
+
+                    <div class="row d-flex align-items-center">
+                      <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.head') }}</div>
+                      <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $head->getFullArabicNameAttribute : $head->getFullEnglishNameAttribute }}</div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
 
               <div class="tab-pane fade pt-3" id="profile-change-password">

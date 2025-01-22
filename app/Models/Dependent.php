@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use App\Models\Tables\Gender;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tables\FamilyRelationship;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dependent extends Model
@@ -43,5 +44,10 @@ class Dependent extends Model
       return 0.8;
     }
     return 1;
+  }
+
+  public function gender()
+  {
+    return $this->belongsTo(Gender::class);
   }
 }
