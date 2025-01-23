@@ -351,7 +351,7 @@
                       <tr>
                         <td>{{ $c }}</td>
                         <td>{{ $dependent->name }}</td>
-                        <td>{{ app()->getLocale() == 'ar' ? $dependent->gender->gender_ar : $dependent->gender->gender_en }}</td>
+                        <td>{{ app()->getLocale() == 'ar' ? $dependent->gender?->gender_ar : $dependent->gender?->gender_en }}</td>
                         <td>{{ $dependent->identification }}</td>
                         <td>{{ $dependent->date_of_birth }}</td>
                         <td>{{ app()->getLocale() == 'ar' ? $dependent->relationship->relationship_ar : $dependent->relationship->relationship_en }}</td>
@@ -371,7 +371,7 @@
 
                     <div class="row d-flex align-items-center">
                       <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.head') }}</div>
-                      <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $head->getFullArabicNameAttribute : $head->getFullEnglishNameAttribute }}</div>
+                      <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $head?->getFullArabicNameAttribute : $head?->getFullEnglishNameAttribute }}</div>
                     </div>
 
                   </div>
