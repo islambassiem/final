@@ -181,7 +181,7 @@ trait PayslipTrait{
 
 	private function workingDays()
 	{
-    $month_id = Month::where('month', $this->month)->where('year', $this->year)->first()->id
+    $month_id = Month::where('month', $this->month)->where('year', $this->year)->first()->id;
     $workingDays =  WorkingDays::where('user_id',  $this->user->id)
       ->where('month_id', $month_id)
       ->first('working_days');
