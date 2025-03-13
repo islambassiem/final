@@ -56,6 +56,7 @@ use App\Http\Middleware\Authenticate;
     Route::post('iqama/renewal/{id}', [IqamaController::class, 'update']);
 
     Route::get('/letters', [LetterController::class, 'index'])->name('admin.letters');
+    Route::post('/letters/issue', [LetterController::class, 'letter'])->name('admin.letters.issue');
 
     Route::get('/visas', [ExitReentryController::class, 'index'])->name('admin.visas');
 

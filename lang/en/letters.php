@@ -17,4 +17,14 @@
     'Deduction' => 'Deduction',
     'appliedAt' => 'Applied At',
     'agree' => 'I agree to be deducted 35 SAR for attestation',
+    'issue' => 'Issue a letter',
+    'type' => 'Type',
+    'letter' => 'Letter',
+    'Loan' => 'Loan',
+    'contract' => 'Contract',
+    'employee' => 'Employee Name',
+    'emplooyee_required' => 'Employee is mandatory',
+    'not_sponsered' => 'The employee is not under sponosposersip',
+    'experience' => 'Experience Certificate',
+    'poea' => 'POEA'
   ];
