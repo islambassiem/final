@@ -58,6 +58,7 @@ class LetterController extends Controller
       'housing'     => $user->housing($user_id),
       'trans'       => $user->transportation($user_id),
       'package'     => $user->latestSalary($user_id),
+      'package_l'   => $this->NoToTxt($this->float($user->latestSalary($user_id))),
       'addressee'   => $addressee
     ];
 
@@ -79,6 +80,7 @@ class LetterController extends Controller
         $values['bank'] = Bank::find($user->bank($user_id)->bank_code)->bank_name_ar;
         $values['iban'] = $user->bank($user_id)->iban;
         $values['benefits'] = number_format($this->benefits($user_id), 0);
+        $values['benefits_l'] = $this->NoToTxt($this->float($this->benefits($user_id)));
         break;
       case 'contract':
         $template =  storage_path($root . 'contract.docx');
@@ -124,18 +126,92 @@ class LetterController extends Controller
 
   private function lessThanFiveYears($salary)
   {
-    return $salary * 5 / 2;
+    return round($salary * 5 / 2, 0);
   }
 
   private function moreThanFiveYears($salary, $years)
   {
-    return $salary * ($years - 5);
+    return round($salary * ($years - 5), 0);
   }
 
   private function years($user_id)
   {
     $joining_date = Carbon::parse(User::find($user_id)->joining_date);
     return Carbon::today()->floatDiffInRealDays($joining_date) / 365;
+  }
+
+  private function NoToTxt($TheNo, $MyCur = "ريال", $MySubCur = "هللة") {
+    $MyArry1 = ["", "مائة", "مائتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
+    $MyArry2 = ["", " عشر", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
+    $MyArry3 = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
+    
+    if ($TheNo > 999999999999.99) return "";
+    
+    $TheNo = abs($TheNo);
+    
+    if ($TheNo == 0) return "صفر";
+    
+    $MyAnd = " و";
+    $GetNo = str_pad(number_format($TheNo, 2, '.', ''), 15, '0', STR_PAD_LEFT);
+    
+    $Mybillion = $MyMillion = $MyThou = $MyHun = $MyFraction = "";
+    
+    for ($I = 0; $I < 15; $I += 3) {
+        $Myno = ($I < 12) ? substr($GetNo, $I, 3) : "0" . substr($GetNo, $I + 1, 2);
+        
+        if (intval($Myno) > 0) {
+            $My100 = $MyArry1[intval($Myno[0])];
+            $My1 = $MyArry3[intval($Myno[2])];
+            $My10 = $MyArry2[intval($Myno[1])];
+            
+            if (substr($Myno, 1, 2) == "11") $My10 = "إحدى عشر";
+            if (substr($Myno, 1, 2) == "12") $My10 = "إثنى عشر";
+            if (substr($Myno, 1, 2) == "10") $My10 = "عشرة";
+            
+            if ($Myno[0] > 0 && substr($Myno, 1, 2) > 0) $My100 .= $MyAnd;
+            if ($Myno[2] > 0 && $Myno[1] > 1) $My1 .= $MyAnd;
+            
+            $GetTxt = $My100 . $My1 . $My10;
+            
+            if ($I == 0) {
+                $Mybillion = ($Myno > 10) ? "$GetTxt مليار" : "$GetTxt مليارات";
+                if ($Myno == 1) $Mybillion = "مليار";
+                if ($Myno == 2) $Mybillion = "ملياران";
+            }
+            if ($I == 3) {
+                $MyMillion = ($Myno > 10) ? "$GetTxt مليون" : "$GetTxt ملايين";
+                if ($Myno == 1) $MyMillion = "مليون";
+                if ($Myno == 2) $MyMillion = "مليونان";
+            }
+            if ($I == 6) {
+                $MyThou = ($Myno > 10) ? "$GetTxt ألف" : "$GetTxt آلاف";
+                if ($Myno == 1) $MyThou = "ألف";
+                if ($Myno == 2) $MyThou = "ألفان";
+            }
+            if ($I == 9) $MyHun = $GetTxt;
+            if ($I == 12) $MyFraction = $GetTxt;
+        }
+    }
+    
+    if ($Mybillion && ($MyMillion || $MyThou || $MyHun)) $Mybillion .= $MyAnd;
+    if ($MyMillion && ($MyThou || $MyHun)) $MyMillion .= $MyAnd;
+    if ($MyThou && $MyHun) $MyThou .= $MyAnd;
+    
+    if ($MyFraction) {
+        if ($Mybillion || $MyMillion || $MyThou || $MyHun) {
+            return "$Mybillion$MyMillion$MyThou$MyHun $MyCur$MyAnd$MyFraction $MySubCur";
+        } else {
+            return "$MyFraction $MySubCur";
+        }
+    }
+    
+    return "$Mybillion$MyMillion$MyThou$MyHun $MyCur";
+  }
+
+  private function float($numberText)
+  {
+    $float =  floatval(str_replace(",", "", $numberText));
+    return round($float, 0);
   }
 
 }
