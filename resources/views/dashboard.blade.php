@@ -18,6 +18,12 @@
       /* display: block; */
     }
   </style>
+  <style>
+    @font-face {
+        font-family: 'Rakkas';
+        src: url("{{ asset('assets/fonts/Rakkas/Rakkas-Regular.ttf') }}") format('truetype');; /* Ensure the font file exists */
+    }
+  </style>
 @endsection
 
 @section('h1')
@@ -31,6 +37,7 @@
 @section('content')
 
   <div class="row">
+    <canvas id="imageCanvas" style="display: none;"></canvas>
     <div class="col-md-8">
       <div class="row">
         <div class="col-xxl-4 col-md-6">
@@ -147,4 +154,50 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let name = "{{ auth()->user()->getFullArabicNameAttribute }}"; 
+    let baseImage = new Image();
+    baseImage.src = "{{ asset('assets/img/eid.webp') }}"; 
+
+    baseImage.onload = function () {
+      let canvas = document.getElementById("imageCanvas");
+      let ctx = canvas.getContext("2d");
+
+      canvas.width = baseImage.width;
+      canvas.height = baseImage.height;
+
+      ctx.drawImage(baseImage, 0, 0);
+
+      ctx.font = `200px Rakkas`;
+      ctx.fillStyle = "#F8DA58";
+      ctx.textAlign = "center";
+      ctx.fillText(name, canvas.width / 2, canvas.height - 2250);
+
+      // Convert Canvas to Image URL
+      let imageUrl = canvas.toDataURL("image/jpeg");
+
+      // Show SweetAlert with Image
+      Swal.fire({
+          title: "",
+          imageUrl: imageUrl,
+          imageWidth: 400,
+          imageAlt: "Generated Image",
+          showCancelButton: true,
+          confirmButtonText: "Download",
+          cancelButtonText: "close",
+      }).then((result) => {
+          if (result.isConfirmed) {
+              let link = document.createElement("a");
+              link.download = "image.jpg";
+              link.href = imageUrl;
+              link.click();
+          }
+      });
+    };
+  });
+</script>
+</script>
+
 @endsection
