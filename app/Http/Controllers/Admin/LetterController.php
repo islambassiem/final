@@ -124,9 +124,9 @@ class LetterController extends Controller
     }
   }
 
-  private function lessThanFiveYears($salary)
+  private function lessThanFiveYears($salary, $years)
   {
-    return round($salary * 5 / 2, 0);
+    return round($salary * $years / 2, 0);
   }
 
   private function moreThanFiveYears($salary, $years)
