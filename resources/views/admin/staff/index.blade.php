@@ -193,13 +193,17 @@
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->mobile($member->id) }}</td>
                 <td @if (! $member->active) class="text-danger" @endif>{{ $member->email }}</td>
                 <td @if (! $member->active) class="text-danger" @endif>
-                  <a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"><i class="bi bi-person-fill-gear"></i></a>
+                  <a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"
+                  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}">
+                  <i class="bi bi-person-fill-gear"></i></a>
                   @if($member->active)
                     <button
                       type="button"
                       class="btn btn-danger btn-sm py-0"
                       data-bs-toggle="modal"
                       data-bs-target="#leaverModal"
+                      data-bs-placement="top"
+                      title="{{ __('global.resingnation') }}"
                       data-id="{{ $member->id }}">
                       <i class="bi bi-person-walking"></i>
                     </button>
@@ -273,6 +277,12 @@
         let form = document.getElementById('leaverForm');
         form.action = "leaver/" + id;
       });
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
     });
 </script>
 @endsection

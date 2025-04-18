@@ -24,4 +24,9 @@
     'error' => 'Ooops, something wrong happened.',
     'max' => 'Max characters',
     'home' => 'Home',
+    'view' => 'View',
+    "link" => 'Link',
+    'delete?' => 'Delete',
+    'nolink' => 'No link',
+    'resingnation' => 'Deactive',
   ];
