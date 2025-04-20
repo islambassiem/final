@@ -96,16 +96,20 @@
                         data-name = "{{ $dependent->name }}"
                         data-dob  = "{{ $dependent->date_of_birth }}"
                         data-rel  = "{{ $dependent->relationship_id }}"
-                        class="btn btn-warning btn-sm py-0">
+                        class="btn btn-warning btn-sm py-0"
+                        data-bs-placement="top"
+                        title="{{ __('global.edit') }}">
                         <i class="bi bi-pencil-square"></i>
-                      </button>
+                    </button>
                       <button
                         type="button"
                         class="btn btn-danger btn-sm py-0"
                         id="btn"
                         data-id = "{{ $dependent->id }}"
                         data-bs-toggle="modal"
-                        data-bs-target="#delteConfirmation">
+                        data-bs-target="#delteConfirmation"
+                        data-bs-placement="top"
+                        title="{{ __('global.delete?') }}">
                         <i class="bi bi-trash3"></i>
                       </button>
                     </td>
@@ -348,6 +352,11 @@
         $('#relationship_id_edit').val(rel);
         form.action = "dependents/" + id;
       });
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
   </script>
 @endsection

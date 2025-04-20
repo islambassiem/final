@@ -114,7 +114,8 @@
                         <a
                         href="{{ route('vacations.show', $vacation->id) }}"
                         class="btn btn-secondary btn-sm py-0">
-                        <i class="bi bi-eye-fill"></i>
+                        <i class="bi bi-eye-fill"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}"></i>
                         </a>
                         <button
                           type="button"
@@ -122,18 +123,23 @@
                           id="deleteBtn"
                           data-id = "{{ $vacation->id }}"
                           data-bs-toggle="modal"
-                          data-bs-target="#delteConfirmation">
+                          data-bs-target="#delteConfirmation"
+                          data-bs-placement="top"
+                          title="{{ __('global.delete?') }}">
                           <i class="bi bi-trash3"></i>
                         </button>
                         @if ($vacation->hasAttachment())
                           <a
                             href="{{ route('attachment.vacation', $vacation->id) }}"
                             target="_blank"
-                            class="btn btn-info btn-sm py-0">
+                            class="btn btn-info btn-sm py-0"
+                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.link') }}">
                             <i class="bi bi-paperclip"></i>
                           </a>
                         @else
-                          <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                          <span class="btn btn-dark btn-sm py-0"
+                          data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.nolink') }}"
+                          ><i class="bi bi-ban-fill"></i></span>
                         @endif
                       </td>
                     </tr>
@@ -225,6 +231,11 @@
         let form = document.getElementById('deleteForm');
         form.action = "vacations/" + id;
       });
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
   </script>
 @endsection

@@ -96,6 +96,8 @@
                         data-mobile = "{{ $acquaintance->mobile }}"
                         data-email  = "{{ $acquaintance->email }}"
                         data-position  = "{{ $acquaintance->position }}"
+                        data-bs-placement="top"
+                        title="{{ __('global.edit') }}"
                         class="btn btn-warning btn-sm py-0">
                         <i class="bi bi-pencil-square"></i>
                       </button>
@@ -105,7 +107,9 @@
                         id="btn"
                         data-id = "{{ $acquaintance->id }}"
                         data-bs-toggle="modal"
-                        data-bs-target="#delteConfirmation">
+                        data-bs-target="#delteConfirmation"
+                        data-bs-placement="top"
+                        title="{{ __('global.delete?') }}">
                         <i class="bi bi-trash3"></i>
                       </button>
                     </td>
@@ -306,6 +310,11 @@
         $('#position').val(position);
         form.action = "acquaintances/" + id;
       });
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
   </script>
 @endsection

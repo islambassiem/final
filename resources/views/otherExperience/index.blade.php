@@ -75,12 +75,15 @@
                     <td>
                       <a
                         href="{{ route('other_experience.show', $experience->id) }}"
-                        class="btn btn-secondary btn-sm py-0">
+                        class="btn btn-secondary btn-sm py-0"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}">
                         <i class="bi bi-eye-fill"></i>
                       </a>
                       <a
                         href="{{ route('other_experience.edit', $experience->id) }}"
-                        class="btn btn-warning btn-sm py-0">
+                        class="btn btn-warning btn-sm py-0"
+                        data-bs-placement="top"
+                        title="{{ __('global.edit') }}">
                         <i class="bi bi-pencil-square"></i>
                       </a>
                       <button
@@ -89,12 +92,15 @@
                         id="btn"
                         data-id = "{{ $experience->id }}"
                         data-bs-toggle="modal"
-                        data-bs-target="#delteConfirmation">
+                        data-bs-target="#delteConfirmation"
+                        data-bs-placement="top"
+                        title="{{ __('global.delete?') }}">
                         <i class="bi bi-trash3"></i>
                       </button>
                       <a
                         href="{{ route('other.experience.attachment', $experience->id) }}"
-                        class="btn btn-info btn-sm py-0">
+                        class="btn btn-info btn-sm py-0"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.link') }}">
                         <i class="bi bi-paperclip"></i>
                       </a>
                     </td>
@@ -170,6 +176,11 @@
         let form = document.getElementById('deleteForm');
         form.action = "other_experience/" + id;
       });
+
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
   </script>
 @endsection

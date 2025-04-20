@@ -131,7 +131,8 @@
                   <td>
                     <a
                       href="{{ route('sLeave.show', $permission->id) }}"
-                      class="btn btn-secondary btn-sm py-0">
+                      class="btn btn-secondary btn-sm py-0"
+                      data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}">
                       <i class="bi bi-eye-fill"></i>
                     </a>
                     <button
@@ -139,18 +140,23 @@
                       class="btn btn-primary btn-sm py-0"
                       data-bs-toggle="modal"
                       data-bs-target="#actionModal"
-                      data-id="{{ $permission->id }}">
+                      data-id="{{ $permission->id }}"
+                      data-bs-placement="top"
+                      title="{{ __('global.action') }}">
                       <i class="bi bi-activity"></i>
                     </button>
                     @if ($permission->hasAttachment())
                     <a
                       href="{{ route('attachment.leave', $permission->id) }}"
                       target="_blank"
-                      class="btn btn-info btn-sm py-0">
+                      class="btn btn-info btn-sm py-0"
+                      data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.link') }}">
                       <i class="bi bi-paperclip"></i>
                     </a>
                     @else
-                      <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                      <span class="btn btn-dark btn-sm py-0"
+                      data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.nolink') }}">
+                      <i class="bi bi-ban-fill"></i></span>
                     @endif
                   </td>
                 </tr>
@@ -234,6 +240,12 @@
       let form = document.getElementById('actionForm');
       form.action = "sLeave/update/" + id;
     });
+
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
     });
 </script>
 @endsection

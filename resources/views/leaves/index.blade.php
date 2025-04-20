@@ -109,7 +109,8 @@
                       <td>
                         <a
                         href="{{ route('leaves.show', $leave->id) }}"
-                        class="btn btn-secondary btn-sm py-0">
+                        class="btn btn-secondary btn-sm py-0"
+                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}">
                         <i class="bi bi-eye-fill"></i>
                       </a>
                         <button
@@ -118,18 +119,23 @@
                           id="deleteBtn"
                           data-id = "{{ $leave->id }}"
                           data-bs-toggle="modal"
-                          data-bs-target="#delteConfirmation">
+                          data-bs-target="#delteConfirmation"
+                          data-bs-placement="top"
+                          title="{{ __('global.delete?') }}">
                           <i class="bi bi-trash3"></i>
                         </button>
                         @if ($leave->hasAttachment())
                         <a
                           href="{{ route('attachment.leave', $leave->id) }}"
                           target="_blank"
-                          class="btn btn-info btn-sm py-0">
+                          class="btn btn-info btn-sm py-0"
+                          data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.link') }}">
                           <i class="bi bi-paperclip"></i>
                         </a>
                         @else
-                          <span class="btn btn-dark btn-sm py-0"><i class="bi bi-ban-fill"></i></span>
+                          <span class="btn btn-dark btn-sm py-0"
+                          data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.nolink') }}">
+                          <i class="bi bi-ban-fill"></i></span>
                         @endif
                       </td>
                     </tr>
@@ -294,6 +300,12 @@
       let form = document.getElementById('deleteForm');
       form.action = "leaves/" + id;
     });
+
+
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl);
+        });
   });
 </script>
 @endsection
