@@ -157,9 +157,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    let name = "{{ auth()->user()->getFullArabicNameAttribute }}"; 
+    let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
     let baseImage = new Image();
-    baseImage.src = "{{ asset('assets/img/eid.webp') }}"; 
+    baseImage.src = "{{ asset('assets/img/haj1446.webp') }}";
 
     baseImage.onload = function () {
       let canvas = document.getElementById("imageCanvas");
@@ -171,9 +171,9 @@
       ctx.drawImage(baseImage, 0, 0);
 
       ctx.font = `200px Rakkas`;
-      ctx.fillStyle = "#F8DA58";
+      ctx.fillStyle = "#FFFFFF";
       ctx.textAlign = "center";
-      ctx.fillText(name, canvas.width / 2, canvas.height - 2250);
+      ctx.fillText(name, canvas.width / 2, canvas.height - 1250);
 
       // Convert Canvas to Image URL
       let imageUrl = canvas.toDataURL("image/jpeg");
