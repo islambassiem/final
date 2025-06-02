@@ -126,7 +126,10 @@ class LetterController extends Controller
 
   private function lessThanFiveYears($salary, $years)
   {
-    return round($salary * $years / 2, 0);
+    if ($years <= 5) {
+      return round($salary * $years / 2, 0);
+    }
+    return  round($salary * 5 / 2, 0);
   }
 
   private function moreThanFiveYears($salary, $years)
@@ -144,35 +147,35 @@ class LetterController extends Controller
     $MyArry1 = ["", "مائة", "مائتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"];
     $MyArry2 = ["", " عشر", "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"];
     $MyArry3 = ["", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة"];
-    
+
     if ($TheNo > 999999999999.99) return "";
-    
+
     $TheNo = abs($TheNo);
-    
+
     if ($TheNo == 0) return "صفر";
-    
+
     $MyAnd = " و";
     $GetNo = str_pad(number_format($TheNo, 2, '.', ''), 15, '0', STR_PAD_LEFT);
-    
+
     $Mybillion = $MyMillion = $MyThou = $MyHun = $MyFraction = "";
-    
+
     for ($I = 0; $I < 15; $I += 3) {
         $Myno = ($I < 12) ? substr($GetNo, $I, 3) : "0" . substr($GetNo, $I + 1, 2);
-        
+
         if (intval($Myno) > 0) {
             $My100 = $MyArry1[intval($Myno[0])];
             $My1 = $MyArry3[intval($Myno[2])];
             $My10 = $MyArry2[intval($Myno[1])];
-            
+
             if (substr($Myno, 1, 2) == "11") $My10 = "إحدى عشر";
             if (substr($Myno, 1, 2) == "12") $My10 = "إثنى عشر";
             if (substr($Myno, 1, 2) == "10") $My10 = "عشرة";
-            
+
             if ($Myno[0] > 0 && substr($Myno, 1, 2) > 0) $My100 .= $MyAnd;
             if ($Myno[2] > 0 && $Myno[1] > 1) $My1 .= $MyAnd;
-            
+
             $GetTxt = $My100 . $My1 . $My10;
-            
+
             if ($I == 0) {
                 $Mybillion = ($Myno > 10) ? "$GetTxt مليار" : "$GetTxt مليارات";
                 if ($Myno == 1) $Mybillion = "مليار";
@@ -192,11 +195,11 @@ class LetterController extends Controller
             if ($I == 12) $MyFraction = $GetTxt;
         }
     }
-    
+
     if ($Mybillion && ($MyMillion || $MyThou || $MyHun)) $Mybillion .= $MyAnd;
     if ($MyMillion && ($MyThou || $MyHun)) $MyMillion .= $MyAnd;
     if ($MyThou && $MyHun) $MyThou .= $MyAnd;
-    
+
     if ($MyFraction) {
         if ($Mybillion || $MyMillion || $MyThou || $MyHun) {
             return "$Mybillion$MyMillion$MyThou$MyHun $MyCur$MyAnd$MyFraction $MySubCur";
@@ -204,7 +207,7 @@ class LetterController extends Controller
             return "$MyFraction $MySubCur";
         }
     }
-    
+
     return "$Mybillion$MyMillion$MyThou$MyHun $MyCur";
   }
 
