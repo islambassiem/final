@@ -86,7 +86,7 @@ class LetterController extends Controller
         $template =  storage_path($root . 'contract.docx');
         $values['name_en'] = $user->getFullEnglishNameAttribute;
         $values['nationality_en'] = $user->nationality->country_en;
-        $values['passport'] = $user->passport($user_id)->document_id;
+        $values['passport'] = $user?->passport($user_id)?->document_id;
         $values['mobile'] = $user->mobile($user_id);
         $values['position_en'] = $user->position->position_en;
         $values['food'] = $user->food($user_id);
