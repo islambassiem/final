@@ -51,7 +51,7 @@ require_once __DIR__ . '/admin.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+Route::view('gallary', 'gallary')->name('gallary');
 
 // Qualification
   Route::resource('qualifications', QualificationController::class);
@@ -176,7 +176,7 @@ Route::get('/payslip', [PayslipController::class, 'test']);
 
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
 
-// Impersonate functionality 
+// Impersonate functionality
 Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'index'])->name('employees-impersonate');
 
 Route::impersonate();

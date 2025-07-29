@@ -10,5 +10,6 @@
     'availedPermissions' => 'Availed Permissions',
     'expiry' => 'Document Expiry',
     'avVacations' => 'Availed Vacations',
-    'balance' => 'Vacation Balance'
+    'balance' => 'Vacation Balance',
+    'gallary' => 'Gallary'
   ];
