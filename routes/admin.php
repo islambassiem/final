@@ -66,6 +66,7 @@ use App\Http\Middleware\Authenticate;
 		Route::post('/holiday', [HolidayController::class, 'store'])->name('admin.holiday.create');
 
 		Route::get('/salaries', [SalariesController::class, 'index'])->name('admin.salaries');
+		Route::get('/weekends-process/{month_id}', [SalariesController::class, 'weekends_process'])->name('admin.salaries.weekends');
 		Route::post('/salaries', [SalariesController::class, 'store'])->name('admin.salaries.create');
     Route::post('/salaries/process', [SalariesController::class, 'process'])->name('salary.process');
     Route::get('/salaries/working/{month_id}', [SalariesController::class, 'working'])->name('admin.salaries.working');

@@ -93,4 +93,6 @@ return [
   'editDeductable' => 'Edit Deductable',
   'editPayable' => 'Edit Payable',
   'editPayableSuccess' => 'Your change has been saved successfully',
+  "weekends" => "Weekends",
+  "weekendsSuccess" => "Weekends have been changed successfully"
 ];

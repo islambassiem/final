@@ -93,5 +93,7 @@
     'editDeductableSuccess' => 'تم تعديل الخصم بنجاح',
     'editDeductable' => 'تعديل خصميه',
     'editPayable' => 'تعديل الدفع',
-    'editPayableSuccess' => 'تم تعديل الدفع بنجاح'
+    'editPayableSuccess' => 'تم تعديل الدفع بنجاح',
+    "weekends" => "اجازات الاسبوع",
+    "weekendsSuccess" => "تم تعديل اجازات  نهاية الاسبوع بنجاح",
   ];

@@ -108,6 +108,10 @@
           @if (! $status)
             <div class="row mt-5">
               <div class="col-md-12 d-flex justify-content-end">
+                <a href="{{ route('admin.salaries.weekends', $month_id) }}"
+                  class="btn btn-secondary btn-sm mx-2">
+                  {{ __('admin/salaries.weekends') }}
+                </a>
                 <button
                   type="button"
                   class="btn btn-primary btn-sm mx-2"
