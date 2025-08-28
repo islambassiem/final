@@ -29,7 +29,7 @@ class FacultyCreated extends Mailable
   {
     return new Envelope(
       subject: 'Faculty Created',
-      to: ['msaif@inaya.edu.sa'],
+      to: ['msaif@inaya.edu.sa', 'malzamil@inaya.edu.sa'],
       cc: ['hr@inaya.edu.sa']
     );
   }
