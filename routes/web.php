@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OpenData;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQController;
@@ -175,6 +176,8 @@ Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip
 Route::get('/payslip', [PayslipController::class, 'test']);
 
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
+
+Route::get('open-data', [OpenData::class, 'index'])->name('open-data');
 
 // Impersonate functionality
 Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'index'])->name('employees-impersonate');
