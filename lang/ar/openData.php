@@ -10,5 +10,6 @@
     'empid' => 'الرقم الوظيفي',
     'gender' => 'الجنس',
     'ats' => 'ATS',
-    'facultyStaff' => 'أعضاء هيئة التدريس'
+    'facultyStaff' => 'أعضاء هيئة التدريس',
+    'Download' => 'تحميل'
   ];

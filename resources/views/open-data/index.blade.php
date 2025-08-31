@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-    {{ __('openData.faculty') }}
+    {{ __('openData.facultyStaff') }}
 @endsection
 
 @section('style')
@@ -13,20 +13,28 @@
 @endsection
 
 @section('h1')
-    {{ __('openData.faculty') }}
+    {{ __('openData.facultyStaff') }}
 @endsection
 
 @section('breadcrumb')
-    {{ __('openData.faculty') }}
+    {{ __('openData.facultyStaff') }}
 @endsection
 
 @section('content')
     <section class="section">
         <div class="row">
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('open-data.download') }}" class="btn btn-success mb-3">
+                    <i class="bi bi-plus-square-fill me-1"></i>
+                    {{ __('openData.Download') }}
+                </a>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ __('openData.faculty') }}</h5>
+                        <h5 class="card-title">{{ __('openData.facultyStaff') }}</h5>
                         <!-- Table with stripped rows -->
                         <table class="table table-striped" id="table">
                             <thead>
@@ -50,7 +58,7 @@
                                     <tr>
                                         <td>{{ $c }}</td>
                                         <td>{{ $user->empid }}</td>
-                                          <td>{{ $user->ats?->ats ?? $user->empid }}</td>
+                                        <td>{{ $user->ats?->ats ?? $user->empid }}</td>
                                         <td>{{ session('_lang') == '_ar' ? $user->getFullArabicNameAttribute : $user->getFullEnglishNameAttribute }}
                                         </td>
                                         <td>{{ $user->gender?->{'gender' . session('_lang')} }}</td>

@@ -10,5 +10,6 @@ return [
   'empid' => 'Emp ID',
   'gender' => 'Gender',
   'ats' => 'ATS',
-  'facultyStaff' => 'Faculty Staff'
+  'facultyStaff' => 'Faculty Staff',
+  'Download' => 'Download'
 ];

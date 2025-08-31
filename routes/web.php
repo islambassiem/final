@@ -55,8 +55,8 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 Route::view('gallary', 'gallary')->name('gallary');
 
 // Qualification
-  Route::resource('qualifications', QualificationController::class);
-  Route::get('/attachment/qualification/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
+Route::resource('qualifications', QualificationController::class);
+Route::get('/attachment/qualification/{id}', [QualificationController::class, 'getAttachment'])->name('qualification.attachment');
 // Qualification
 
 Route::post('/major/{code}', [QualificationController::class, 'major']);
@@ -128,7 +128,7 @@ Route::get('attachment/leave/{id}', [LeaveController::class, 'getAttachment'])->
 
 Route::get('attachments', [AttachmentController::class, 'index'])->name('attachments.index');
 Route::post('attachment/store', [AttachmentController::class, 'store'])->name('attachment.store');
-Route::get('attachments/{folder}',[AttachmentController::class, 'folderContent'])->name('folder.contents');
+Route::get('attachments/{folder}', [AttachmentController::class, 'folderContent'])->name('folder.contents');
 Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
 
 
@@ -155,15 +155,15 @@ Route::get('faq', [FAQController::class, 'index'])->name('faq');
 
 Route::get('directory', [DirectoryController::class, 'index'])->name('directory');
 
-Route::get('forbidden', function(){
+Route::get('forbidden', function () {
   return view('not-allowed');
 })->name('not-allowed');
-Route::get('notification/{id}', function($id){
+Route::get('notification/{id}', function ($id) {
   auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
   return redirect()->back();
 })->name('read.notification');
 
-Route::get('readAll', function(){
+Route::get('readAll', function () {
   foreach (auth()->user()->unreadNotifications as $notification) {
     $notification->markAsRead();
   }
@@ -178,6 +178,7 @@ Route::get('/payslip', [PayslipController::class, 'test']);
 Route::post('payslip/month/{year}', [PayslipController::class, 'getMonth']);
 
 Route::get('open-data', [OpenData::class, 'index'])->name('open-data');
+Route::get('download', [OpenData::class, 'export'])->name('open-data.download');
 
 // Impersonate functionality
 Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'index'])->name('employees-impersonate');
