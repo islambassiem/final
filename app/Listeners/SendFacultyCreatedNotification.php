@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\FacultyCreated;
 use App\Mail\Admin\FacultyCreated as AdminFacultyCreated;
+use App\Mail\Admin\FacultyCreatedForAcademicAdvisory;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,5 +25,6 @@ class SendFacultyCreatedNotification
   public function handle(FacultyCreated $event): void
   {
     Mail::queue(new AdminFacultyCreated($event->user));
+    Mail::queue(new FacultyCreatedForAcademicAdvisory($event->user));
   }
 }

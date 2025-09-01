@@ -4,13 +4,13 @@ namespace App\Mail\Admin;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
-class FacultyCreated extends Mailable
+class FacultyCreatedForAcademicAdvisory extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class FacultyCreated extends Mailable
   {
     return new Envelope(
       subject: 'Faculty Created',
-      to: ['msaif@inaya.edu.sa'],
+      to: ['malzamil@inaya.edu.sa'],
       cc: ['hr@inaya.edu.sa']
     );
   }
@@ -40,7 +40,7 @@ class FacultyCreated extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'emails.admin.UserRegistration.facultyCreated',
+      view: 'emails.admin.UserRegistration.facultyCreatedForAcademicAdvisory',
     );
   }
 
