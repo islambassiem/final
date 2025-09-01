@@ -17,7 +17,7 @@ class TeachingStaffExport implements FromQuery, WithMapping, WithHeadings
 
   public function headings(): array
   {
-    return [
+    return app()->getLocale() == 'en' ? [
       'Emp ID',
       'ATS',
       'Name',
@@ -25,6 +25,14 @@ class TeachingStaffExport implements FromQuery, WithMapping, WithHeadings
       'Department',
       'Extention',
       'Email'
+    ]: [
+      'Emp ID',
+      'ATS',
+      'الاسم',
+      'النوع',
+      'القسم',
+      'الهاتف',
+      'البريد الإلكتروني'
     ];
   }
 
@@ -34,9 +42,9 @@ class TeachingStaffExport implements FromQuery, WithMapping, WithHeadings
     return [
       $row->empid,
       $row->ats->ats ?? $row->empid,
-      $row->getFullEnglishNameAttribute,
-      $row->gender->gender_en,
-      $row->section->section_en,
+      app()->getLocale() == 'en' ? $row->getFullEnglishNameAttribute : $row->getFullArabicNameAttribute,
+      app()->getLocale() == 'en' ? $row->gender->gender_en : $row->gender->gender_ar,
+      app()->getLocale() == 'en' ? $row->section->section_en : $row->section->section_ar,
       $extension,
       $row->email
     ];
