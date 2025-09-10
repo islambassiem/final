@@ -51,7 +51,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Filter</h5>
-                <form action="{{ route('admin.staff') }}" method="get" id="form">
+                <form id="form">
                     @csrf
                     <div class="row">
                         <div class="col-md-3">
