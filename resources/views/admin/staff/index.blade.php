@@ -175,7 +175,7 @@
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('admin.staff') }}" class="btn btn-danger d-flex"><i
                                         class="bi bi-x-lg me-1"></i> {{ __('admin/staff.clear') }}</a>
-                                <button type="submit" class="btn btn-primary mx-2 d-flex"><i class="bi bi-funnel me-1"></i>
+                                <button type="submit" class="btn btn-primary mx-2 d-flex" id="filter"><i class="bi bi-funnel me-1"></i>
                                     {{ __('admin/staff.filter') }}</button>
                                 <button type="submit" class="btn btn-secondary mx-2 d-flex" id="download"><i
                                         class="bi bi-file-earmark-arrow-down-fill me-1"></i>
@@ -316,12 +316,19 @@
     </script>
 
     <script>
-        const btn = document.getElementById('download');
+        const download = document.getElementById('download');
+        const filter = document.getElementById('filter');
         const form = document.getElementById('form');
-        btn.addEventListener('click', function(e) {
+        download.addEventListener('click', function(e) {
             e.preventDefault();
             form.action = "{{ route('admin.staff.download') }}";
             form.submit();
         });
+
+        filter.addEventListener('click', function(e) {
+            e.preventDefault();
+            form.action = "{{ route('admin.staff') }}";
+            form.submit();
+        })
     </script>
 @endsection
