@@ -348,9 +348,10 @@ class StaffController extends Controller
       })
       ->orderBy('empid');
   }
-  public function download()
+  public function download(Request $request)
   {
-    return (new StaffExport())->download('employees.xlsx');
+    $users = $this->requestFilter($request)->get();
+    return (new StaffExport($users))->download('employees.xlsx');
   }
 
   public function addSalary(Request $request)

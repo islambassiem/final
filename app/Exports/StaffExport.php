@@ -2,20 +2,22 @@
 
 namespace App\Exports;
 
-use App\Models\User;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Illuminate\Database\Eloquent\Collection;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class StaffExport implements FromQuery, WithMapping, WithHeadings
+class StaffExport implements FromCollection, WithMapping, WithHeadings
 {
 
   use Exportable;
 
-  public function query()
+  public function __construct(public Collection $employees) {}
+
+  public function collection()
   {
-    return User::query();
+    return $this->employees;
   }
 
   public function headings(): array

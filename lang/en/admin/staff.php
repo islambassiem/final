@@ -96,6 +96,8 @@
     'sponsorship' => 'Sponsorship',
     'from' => 'From',
     'to' => 'To',
-    'download' => 'Download all',
-    'search' => 'Search'
+    'downloadAll' => 'Download all',
+    'download' => 'Download',
+    'search' => 'Search',
+    'total' => 'Total',
   ];
