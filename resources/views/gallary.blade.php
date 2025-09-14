@@ -4,12 +4,31 @@
     {{ __('dashboard.gallary') }}
 @endsection
 
+@section('style')
+    <style>
+        img {
+            display: block;
+            max-width: 500px;
+            max-height: 750px;
+            width: auto;
+            /* height: auto; */
+        }
+
+        #container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+    </style>
+@endsection
+
 @section('breadcrumb')
     {{ __('dashboard.gallary') }}
 @endsection
 
 @section('content')
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    {{-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="{{ asset('storage/gallary/0.webp') }}" class="d-block w-100" alt="0">
@@ -40,5 +59,9 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
+    </div> --}}
+    <div id="container">
+        <img src="{{ asset('storage/gallary/national_day_male.webp') }}" class="d-block w-100" alt="4">
+        <img src="{{ asset('storage/gallary/national_day_female.webp') }}" class="d-block w-100" alt="4">
     </div>
 @endsection
