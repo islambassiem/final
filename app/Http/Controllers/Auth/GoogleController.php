@@ -28,6 +28,6 @@ class GoogleController extends Controller
     }
     Auth::login($finduser);
     session()->put('_lang', '_en');
-    return redirect()->route('dashboard');
+    return redirect()->route('gallary');
   }
 }
