@@ -7,15 +7,18 @@
 @section('style')
     <style>
         img {
+            /*
             display: block;
             max-width: 500px;
             max-height: 750px;
             width: auto;
-            /* height: auto; */
+            height: auto;
+             */
         }
 
         #container {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
