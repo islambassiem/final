@@ -52,7 +52,7 @@ class LetterController extends Controller
       'joining'     => $user->joining_date,
       'id'          => $user->iqama($user_id)->document_id,
       'nationality' => $user->nationality->country_ar,
-      'position'    => $user->position->position_ar,
+      'position'    => $user->position?->position_ar,
       'empid'       => $user->empid,
       'basic'       => $user->basic($user_id),
       'housing'     => $user->housing($user_id),
