@@ -73,7 +73,7 @@ class LetterController extends Controller
         $values['resignation'] = $user->resignation_date ?? date('Y-m-d');
         $values['name_en'] = $user->getFullEnglishNameAttribute;
         $values['nationality_en'] = $user->nationality->country_en;
-        $values['position_en'] = $user->position->position_en;
+        $values['position_en'] = $user->position?->position_en;
         break;
       case 'loan':
         $template =  storage_path($root . 'loan.docx');
