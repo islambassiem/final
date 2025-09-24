@@ -25,5 +25,6 @@
     'ID' => 'National ID',
     'dob' => 'Date of Birth ',
     'relationship' => 'Relationship',
-    'other' => 'Other Information'
+    'other' => 'Other Information',
+    'sponsorship' => 'Sponsorship'
   ];

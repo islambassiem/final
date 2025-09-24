@@ -374,6 +374,11 @@
                       <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $head?->getFullArabicNameAttribute : $head?->getFullEnglishNameAttribute }}</div>
                     </div>
 
+                    <div class="row d-flex align-items-center">
+                      <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.sponsorship') }}</div>
+                      <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $sponsorship?->sponsorship_ar : $sponsorship?->sponsorship_en }}</div>
+                    </div>
+
                   </div>
                 </div>
               </div>
