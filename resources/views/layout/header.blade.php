@@ -145,11 +145,16 @@
         <!-- End Messages Dropdown Items -->
       </li>  --}}
       <!-- End Messages Nav -->
+        <a class="nav-link nav-icon d-none" href={{ route('gallary') }} >
+          <i class="bi bi-bell"></i>
+          <span class="badge bg-primary badge-number">1</span>
+        </a>
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
           <img src="{{ asset('assets/img/weather.png') }}" alt="Profile" class="rounded-circle">
           <span class="d-none d-md-block dropdown-toggle ps-2"></span>
         </a><!-- End Profile Iamge Icon -->
+
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" style="min-width: 150px;">
           <li>
             <a class="dropdown-item d-flex align-items-center" href="{{ route('lang', 'en') }}">

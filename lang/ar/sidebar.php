@@ -29,6 +29,7 @@ return [
   'courses' => 'الدوات التدريبية',
   'research' => 'الأبجاث',
   'attachments' => 'المرفقات',
+  'bylaws' => 'اللائحة التنفيذية',
   'balance' => 'رصيد الاجازات',
   'allVacations' => 'جميع الاجازات',
   'employees-impersonate' => 'الموظفين'

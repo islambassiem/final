@@ -29,6 +29,7 @@ return [
   'courses' => 'Courses',
   'research' => 'Research',
   'attachments' => 'Attachments',
+  'bylaws' => 'Rules and Regulations',
   'balance' => 'Vacation Balance',
   'allVacations' => 'All Vacations',
   'employees-impersonate' => 'Employees'

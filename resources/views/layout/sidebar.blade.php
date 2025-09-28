@@ -269,6 +269,14 @@
                 </li>
             @endcan
 
+            <li class="nav-item">
+                <a class="nav-link {{ request()->segment(1) == 'bylaws' ? '' : 'collapsed' }}"
+                    href="{{ route('bylaws.index') }}">
+                    <i class="bi bi-paperclip"></i>
+                    <span>{{ __('sidebar.bylaws') }}</span>
+                </a>
+            </li>
+
             @if (auth()->user()->id == 466)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->segment(1) == 'open-data' ? '' : 'collapsed' }}"

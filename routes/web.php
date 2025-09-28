@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ByLawsController;
 use App\Http\Controllers\OpenData;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
@@ -131,6 +132,9 @@ Route::post('attachment/store', [AttachmentController::class, 'store'])->name('a
 Route::get('attachments/{folder}', [AttachmentController::class, 'folderContent'])->name('folder.contents');
 Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
 
+Route::get('bylaws', function () {
+  return view('bylaws.index');
+})->name('bylaws.index');
 
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
 Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visits.store');
