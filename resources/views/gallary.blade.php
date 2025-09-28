@@ -64,7 +64,9 @@
         </button>
     </div> --}}
     <div id="container">
-        <img src="{{ asset('storage/gallary/national_day_male.webp') }}" class="d-block w-100" alt="4">
-        <img src="{{ asset('storage/gallary/national_day_female.webp') }}" class="d-block w-100" alt="4">
+        {{-- <img src="{{ asset('storage/gallary/national_day_male.webp') }}" class="d-block w-100" alt="4">
+        <img src="{{ asset('storage/gallary/national_day_female.webp') }}" class="d-block w-100" alt="4"> --}}
+        <img src="{{ asset('storage/gallary/fitnessTime.webp') }}" class="d-block w-100" alt="fitnessTime">
+
     </div>
 @endsection
