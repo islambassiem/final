@@ -31,9 +31,9 @@
 @endsection
 
 @section('content')
-    {{-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            {{-- <div class="carousel-item active">
                 <img src="{{ asset('storage/gallary/0.webp') }}" class="d-block w-100" alt="0">
             </div>
             <div class="carousel-item">
@@ -50,6 +50,30 @@
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('storage/gallary/5.webp') }}" class="d-block w-100" alt="5">
+            </div> --}}
+            <div class="carousel-item active">
+                <img src="{{ asset('storage/gallary/6.webp') }}" class="d-block w-100" alt="6">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/7.webp') }}" class="d-block w-100" alt="7">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/8.webp') }}" class="d-block w-100" alt="8">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/9.webp') }}" class="d-block w-100" alt="9">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/10.webp') }}" class="d-block w-100" alt="10">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/11.webp') }}" class="d-block w-100" alt="11">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/12.webp') }}" class="d-block w-100" alt="12">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/gallary/13.webp') }}" class="d-block w-100" alt="13">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -62,11 +86,10 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div> --}}
+    </div>
     <div id="container">
         {{-- <img src="{{ asset('storage/gallary/national_day_male.webp') }}" class="d-block w-100" alt="4">
         <img src="{{ asset('storage/gallary/national_day_female.webp') }}" class="d-block w-100" alt="4"> --}}
-        <img src="{{ asset('storage/gallary/fitnessTime.webp') }}" class="d-block w-100" alt="fitnessTime">
-
+        {{-- <img src="{{ asset('storage/gallary/fitnessTime.webp') }}" class="d-block w-100" alt="fitnessTime"> --}}
     </div>
 @endsection

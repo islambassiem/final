@@ -147,7 +147,7 @@
       <!-- End Messages Nav -->
         <a class="nav-link nav-icon" href={{ route('gallary') }} >
           <i class="bi bi-bell"></i>
-          <span class="badge bg-primary badge-number">1</span>
+          <span class="badge bg-primary badge-number">8</span>
         </a>
       <li class="nav-item dropdown pe-3">
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
