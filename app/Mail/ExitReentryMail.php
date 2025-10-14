@@ -31,7 +31,7 @@ class ExitReentryMail extends Mailable
     $user = User::find($this->visa->user_id);
     return new Envelope(
       subject: 'Exit Reentry Request',
-      to: 'hr@inaya.edu.sa',
+      to: ['hr@inaya.edu.sa', 'a.rashda@inaya.edu.sa', 'yalzeer@inaya.edu.sa'],
       cc: $user->email
     );
   }
