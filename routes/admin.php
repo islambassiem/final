@@ -50,6 +50,7 @@ use App\Http\Middleware\Authenticate;
     Route::get('/download', [StaffController::class, 'download'])->name('admin.staff.download');
     Route::post('/addSalary', [StaffController::class, 'addSalary'])->name('admin.addSalary');
     Route::post('/editIBAN', [StaffController::class, 'editIBAN'])->name('admin.editIBAN');
+    Route::post('/editInsurance', [StaffController::class, 'editInsurance'])->name('admin.editInsurance');
     Route::post('/leaver/{id}', [StaffController::class, 'resign'])->name('admin.resingnation');
 
     Route::get('/iqama', [IqamaController::class, 'index'])->name('admin.iqama');

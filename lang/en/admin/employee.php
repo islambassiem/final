@@ -26,5 +26,7 @@
     'dob' => 'Date of Birth ',
     'relationship' => 'Relationship',
     'other' => 'Other Information',
-    'sponsorship' => 'Sponsorship'
+    'sponsorship' => 'Sponsorship',
+    'insurance' => 'Insurance',
+    'insuranceUpdated' => 'Insurance has been updated successfully',
   ];

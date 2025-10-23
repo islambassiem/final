@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ByLawsController;
 use App\Http\Controllers\OpenData;
+use App\Models\User;
 use App\Models\Vacation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FAQController;
@@ -188,3 +189,9 @@ Route::get('download', [OpenData::class, 'export'])->name('open-data.download');
 Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'index'])->name('employees-impersonate');
 
 Route::impersonate();
+
+Route::get('test', function (){
+  $user = User::with('insurace')->where('id', 71)->first();
+
+return $user->insurace->name_en;
+});

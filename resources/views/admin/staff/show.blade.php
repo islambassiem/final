@@ -379,6 +379,16 @@
                       <div class="col-lg-9 col-md-8">{{ session('_lang') == '_ar' ? $sponsorship?->sponsorship_ar : $sponsorship?->sponsorship_en }}</div>
                     </div>
 
+                    <di class="row d-flex align-items-center">
+                        <div class="col-lg-3 col-md-4 label">{{ __('admin/employee.insurance') }}</div>
+                        @if ($user->insurace !== null)
+                          <div class="col-lg-6 col-md-8">{{  session('_lang') == '_ar' ? $user->insurace->name_ar : $user->insurace->name_en }}</div>
+                        @else
+                          <div class="col-lg-6 col-md-8">{{ __('--') }}</div>
+                        @endif
+                        <button type="button" class="btn btn-secondary col-lg-3" data-bs-toggle="modal" data-bs-target="#editInsurance">{{ __('global.edit') }}</button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -432,6 +442,37 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
         <button type="submit" form="addSalaryForm" class="btn btn-primary">{{ __('global.submit') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{--  Edit Insruance Modal  --}}
+<div class="modal fade" id="editInsurance" tabindex="-1" aria-labelledby="editInsuranceLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editInsuranceLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('admin.editInsurance') }}" method="post" id="editInsuranceForm">
+          @csrf
+          <input type="hidden" name="user_id" value="{{ $user->id }}">
+          <div class="col-12 mb-3">
+            <label for="insurance" class="form-label">{{ __('salary.bankName') }}</label>
+            <select class="form-select" id="insurance" name="class_id" style="width:100%">
+              <option selected value="{{ null }}">{{ __('global.select') }}</option>
+                @foreach ($classes as $class)
+                  <option value="{{ $class->id }}" @selected($user->insurace?->id == $class->id)>{{ session('_lang') == '_en' ? $class->name_en : $class->name_ar }}</option>
+                @endforeach
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" form="editInsuranceForm" class="btn btn-primary">{{ __('global.submit') }}</button>
       </div>
     </div>
   </div>

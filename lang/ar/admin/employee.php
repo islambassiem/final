@@ -26,5 +26,7 @@
     'dob' => 'تاريخ الميلاد',
     'relationship' => 'العلاقة',
     'other' => 'معلومات أخرى',
-  'sponsorship' => 'الكفالة'
+  'sponsorship' => 'الكفالة',
+  'insurance' => 'التأمين',
+  'insuranceUpdated' => 'تم تحديث التأمين بنجاح',
   ];

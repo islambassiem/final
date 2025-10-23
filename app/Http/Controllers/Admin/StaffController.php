@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Bank;
+use App\Models\InsurnaceClass;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Ticket;
@@ -61,7 +62,7 @@ class StaffController extends Controller
 
   public function show(string $id)
   {
-    $user = User::find($id);
+    $user = User::with('insurace')->where('id', $id)->first();
     return view('admin.staff.show', [
       'user' => $user,
       'head' => User::find($user->head),
@@ -73,6 +74,7 @@ class StaffController extends Controller
       'salary' => Salary::where('user_id', $id)->orderByDesc('effective')->get(),
       'bank' => Bank::with('bank')->where('user_id', $id)->first(),
       'documents' => Document::where('user_id', $id)->get(),
+      'classes' => InsurnaceClass::all(),
       'sponsorship' => $user->sponsorship
     ]);
   }
@@ -415,6 +417,19 @@ class StaffController extends Controller
       ]);
     }
     return redirect()->back()->with('success', __('salary.successIBAN'));
+  }
+
+  public function editInsurance(Request $request)
+  {
+    Validator::make($request->only('user_id', 'class_id'), [
+      'user_id' => 'required|exists:users,id',
+      'class_id' => 'nullable|exists:insurnace_classes,id'
+    ])->validate();
+
+    $user = User::find($request->user_id);
+    $user->insurnace_class_id = $request->class_id;
+    $user->save();
+    return redirect()->back()->with('success', __('admin/employee.insuranceUpdated'));
   }
 
   public function resign(string $id, Request $request)

@@ -258,4 +258,9 @@ class User extends Authenticatable
   {
     return $this->hasMany(TransportationDeduction::class);
   }
+
+  public function insurace()
+  {
+    return $this->belongsTo(InsurnaceClass::class, 'insurnace_class_id');
+  }
 }
