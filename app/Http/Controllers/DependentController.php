@@ -23,7 +23,7 @@ class DependentController extends Controller
   public function index()
   {
     return view('dependents.index', [
-      'dependents' => Dependent::where('user_id', auth()->user()->id)->get(),
+      'dependents' => Dependent::where('user_id', auth()->user()->id)->orderBy('insurance', 'desc')->orderBy('date_of_birth')->get(),
       'relationships' => FamilyRelationship::all(),
       'genders' => Gender::all()
     ]);
@@ -69,8 +69,7 @@ class DependentController extends Controller
    */
   public function update(DependentRequest $request, string $id)
   {
-    $dependent = Dependent::find($id);
-    $dependent->update($request->validated());
+    Dependent::find($id)->update($request->validated());
     return redirect()->route('dependents.index')
       ->with('success', 'You have updated the dependent successfully');
   }

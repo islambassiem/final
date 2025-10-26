@@ -18,7 +18,7 @@ class Dependent extends Model
   protected $table = 'dependents';
 
   protected $fillable = [
-    'user_id', 'name', 'identification', 'date_of_birth', 'relationship_id', 'ticket'
+    'user_id', 'name', 'identification', 'gender_id' ,'date_of_birth', 'relationship_id', 'ticket', 'insurance'
   ];
 
 

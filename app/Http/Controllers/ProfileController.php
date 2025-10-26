@@ -20,7 +20,7 @@ class ProfileController extends Controller
   public function index()
   {
     return view('profile.index', [
-      'user' => User::find(auth()->user()->id),
+      'user' => User::with('insurace')->where('id', auth()->user()->id)->first(),
       'national_address' => Address::where('user_id', auth()->user()->id)->where('type', 'national')->first(),
       'address' => Address::where('user_id', auth()->user()->id)->where('type', 'international')->first(),
       'countries' => Country::all(),

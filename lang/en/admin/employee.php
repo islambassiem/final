@@ -29,4 +29,5 @@
     'sponsorship' => 'Sponsorship',
     'insurance' => 'Insurance',
     'insuranceUpdated' => 'Insurance has been updated successfully',
+    'dependentUpdated' => 'Dependent has been updated successfully',
   ];

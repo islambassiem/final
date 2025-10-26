@@ -13,5 +13,9 @@
     'editDepen' => 'تعديل التابع',
     'delDepen' => 'حذف التابع',
     'gender' => 'الجنس',
-    'Gender is required' => 'الجنس مطلوب'
+    'insurance' => 'التأمين',
+    'Gender is required' => 'الجنس مطلوب',
+    'Yes' => 'نعم',
+    'No' => 'لا',
+    'Insurance' => 'التأمين',
   ];

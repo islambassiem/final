@@ -134,6 +134,11 @@
                   <div class="col-lg-9 col-md-8">{{ blank($extension?->contact) ? __('N/A') : $extension?->contact }}</div>
                 </div>
 
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">{{ __('profile.insurance') }}</div>
+                  <div class="col-lg-9 col-md-8">{{ $user->insurace === null ? '--' : (app()->getLocale() == 'ar' ? $user->insurace?->name_ar : $user->insurace?->name_en) }}</div>
+                </div>
+
               </div>
 
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">

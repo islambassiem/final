@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Bank;
+use App\Models\Dependent;
 use App\Models\InsurnaceClass;
+use App\Models\Tables\FamilyRelationship;
 use App\Models\User;
 use App\Models\Salary;
 use App\Models\Ticket;
@@ -62,7 +64,7 @@ class StaffController extends Controller
 
   public function show(string $id)
   {
-    $user = User::with('insurace')->where('id', $id)->first();
+    $user = User::with('insurace', 'dependents')->where('id', $id)->first();
     return view('admin.staff.show', [
       'user' => $user,
       'head' => User::find($user->head),
@@ -75,6 +77,8 @@ class StaffController extends Controller
       'bank' => Bank::with('bank')->where('user_id', $id)->first(),
       'documents' => Document::where('user_id', $id)->get(),
       'classes' => InsurnaceClass::all(),
+      'genders' => Gender::all(),
+      'relationships' => FamilyRelationship::all(),
       'sponsorship' => $user->sponsorship
     ]);
   }
@@ -459,6 +463,21 @@ class StaffController extends Controller
     event(new EmployeeResigned($user));
 
     return redirect()->back()->with('success', __('admin/employee.employeeResigned'));
+  }
+
+  public function editDependent(string $id, Request $request)
+  {
+    $validated = $request->validate([
+      'dependent_id' => 'required|exists:dependents,id',
+      'name' => 'required',
+      'gender_id' => 'required|exists:_genders,id',
+      'identification' => 'required|numeric',
+      'date_of_birth' => 'required|date',
+      'relationship_id' => 'required|exists:_family_relationships,id',
+      'insurance' => 'nullable|boolean',
+    ]);
+    Dependent::find($id)->update($validated);
+    return redirect()->back()->with('success', __('admin/employee.dependentUpdated'));
   }
 }
 

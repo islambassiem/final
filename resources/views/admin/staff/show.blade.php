@@ -341,6 +341,8 @@
                       <th scope="col" class="fw-bold">{{ __('admin/employee.ID') }}</th>
                       <th scope="col" class="fw-bold">{{ __('admin/employee.dob') }}</th>
                       <th scope="col" class="fw-bold">{{ __('admin/employee.relationship') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/employee.insurance') }}</th>
+                      <th scope="col" class="fw-bold">{{ __('global.edit') }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -355,6 +357,35 @@
                         <td>{{ $dependent->identification }}</td>
                         <td>{{ $dependent->date_of_birth }}</td>
                         <td>{{ app()->getLocale() == 'ar' ? $dependent->relationship->relationship_ar : $dependent->relationship->relationship_en }}</td>
+                        <td>
+                          @if ($dependent->insurance)
+                            <svg fill="#006400" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M1827.701 303.065 698.835 1431.801 92.299 825.266 0 917.564 698.835 1616.4 1919.869 395.234z" fill-rule="evenodd"/>
+                            </svg>
+                          @else
+                            <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M19 5L4.99998 19M5.00001 5L19 19" stroke="#FF0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          @endif
+                        </td>
+                        <td>
+                      <button
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editDependent"
+                        data-id   = "{{ $dependent->id }}"
+                        data-iden = "{{ $dependent->identification }}"
+                        data-name = "{{ $dependent->name }}"
+                        data-dob  = "{{ $dependent->date_of_birth }}"
+                        data-gen  = "{{ $dependent->gender_id }}"
+                        data-rel  = "{{ $dependent->relationship_id }}"
+                        data-ins  = "{{ $dependent->insurance }}"
+                        class="btn btn-warning btn-sm py-0"
+                        data-bs-placement="top"
+                        title="{{ __('global.edit') }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                        </td>
                       </tr>
                       @php
                       $c++;
@@ -364,6 +395,7 @@
                 </table>
               </div>
 
+              {{-- Others --}}
               <div class="tab-pane fade" id="other-information">
                 <div class="row">
                   <div class="col-md-4">
@@ -513,6 +545,85 @@
   </div>
 </div>
 
+{{--  Edit Dependent Modal  --}}
+<div class="modal fade" id="editDependent" tabindex="-1" aria-labelledby="editDependentLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editDependentLabel">{{ __('dependants.editDepen') }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="editForm">
+          @csrf
+          @method('POST')
+          <input type="hidden" id="dependent_id" name="dependent_id" autocomplete="off">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="name" class="form-label required">{{ __('dependants.deptName') }}</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="gender_id_edit" class="form-label required">{{ __('dependants.gender') }}</label>
+                <select class="form-select" id="gender_id_edit" name="gender_id" style="width:100%">
+                  <option selected disabled>{{ __('global.select') }}</option>
+                  @foreach ($genders as $gender)
+                    <option value="{{ $gender->id }}" @selected( $gender->id == old('gender_id'))>{{  $gender->{'gender' . session('_lang')} }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="identification" class="form-label required">{{ __('dependants.deptId') }}</label>
+                <input type="text" class="form-control" id="identification" name="identification" value="{{ old('identification') }}" autocomplete="off">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="date_of_birth" class="form-label required">{{ __('dependants.dob') }}</label>
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="relationship_id_edit" class="form-label required">{{ __('dependants.relationship') }}</label>
+              <select class="form-select" id="relationship_id_edit" name="relationship_id" style="width:100%">
+                <option selected disabled>{{ __('global.select') }}</option>
+                @foreach ($relationships as $relationship)
+                  <option value="{{ $relationship->id }}" @selected( $relationship->id == old('relationship->id'))>{{  $relationship->{'relationship' . session('_lang')} }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="insurance_id" class="form-label required">{{ __('dependants.Insurance') }}</label>
+              <select class="form-select" id="insurance_id" name="insurance" style="width:100%">
+                <option selected disabled>{{ __('global.select') }}</option>
+                <option value={{ 1 }} @selected( 1 == old('insurance'))>{{ __('dependants.Yes') }}</option>
+                <option value={{ 0 }} @selected( 0 == old('insurance'))>{{ __('dependants.No') }}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.close') }}</button>
+        <button type="submit" class="btn btn-primary" form="editForm">{{ __('global.save') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 
@@ -523,6 +634,35 @@
   $(document).ready(function(){
     $('#bank').select2({
       dropdownParent: $('#editIBAN')
+    });
+
+
+    $("#relationship").select2({
+      dropdownParent: $('#addDependent')
+    });
+
+    $("#genders").select2({
+      dropdownParent: $('#addDependent')
+    });
+
+    $('#editDependent').on('show.bs.modal', function (event){
+      let button = $(event.relatedTarget);
+      let iden = button.data('iden');
+      let name = button.data('name');
+      let dob = button.data('dob');
+      let rel = button.data('rel');
+      let id = button.data('id');
+      let gen = button.data('gen');
+      let insu = button.data('ins');
+      let form = document.getElementById('editForm');
+      $('#name').val(name);
+      $('#dependent_id').val(id);
+      $('#identification').val(iden);
+      $('#gender_id_edit').val(gen);
+      $('#date_of_birth').val(dob);
+      $('#relationship_id_edit').val(rel);
+      $('#insurance_id').val(insu);
+      form.action = "editDependent/" + id;
     });
   });
 </script>

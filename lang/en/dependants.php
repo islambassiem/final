@@ -13,5 +13,9 @@
     'editDepen' => 'Edit a dependent',
     'delDepen' => 'Delete a Dependent',
     'gender'=> 'Gender',
+    'insurance' => 'Insurance',
     'Gender is required' => 'Gender is required',
+    'Yes' => 'Yes',
+    'No' => 'No',
+    'Insurance' => 'Insurance',
   ];

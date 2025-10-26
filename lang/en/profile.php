@@ -44,4 +44,5 @@
     'profileUpdated' => 'You have updated your profile successfully',
     'imageDeleted' => 'You have deleted your profile picture successfully',
     'noChosenImage' => 'You did not choose any photo. Press the picture and choose a photo',
+    'insurance' => 'Insurance',
   ];
