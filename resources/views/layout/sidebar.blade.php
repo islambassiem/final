@@ -6,7 +6,7 @@
     <li class="nav-item">
       <a class="nav-link {{ request()->routeIs('gallary') ? '' : 'collapsed' }}" href="{{ route('gallary') }}">
         <i class="bi bi-images"></i>
-        <span>{{ __('sidebar.gallary') }}</span>
+        <span>{{ __('sidebar.gallery') }}</span>
       </a>
     </li>
 

@@ -11,5 +11,5 @@
     'expiry' => 'Document Expiry',
     'avVacations' => 'Availed Vacations',
     'balance' => 'Vacation Balance',
-    'gallary' => 'Gallary'
+    'gallery' => 'Gallery'
   ];

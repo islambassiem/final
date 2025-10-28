@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'gallary' => 'معرض الصور',
+  'gallery' => 'معرض الصور',
   'dashboard' => 'الصفحة الرئيسية',
   'personal' => 'شخصي',
   'profile' => 'صفحتي',

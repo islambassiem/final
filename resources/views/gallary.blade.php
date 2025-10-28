@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('title')
-  {{ __('dashboard.gallary') }}
+  {{ __('dashboard.gallery') }}
 @endsection
 
 @section('style')
@@ -27,7 +27,7 @@
 @endsection
 
 @section('breadcrumb')
-  {{ __('dashboard.gallary') }}
+  {{ __('dashboard.gallery') }}
 @endsection
 
 @section('content')
