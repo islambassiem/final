@@ -1,6 +1,7 @@
 <?php
 
 return [
+  'gallary' => 'معرض الصور',
   'dashboard' => 'الصفحة الرئيسية',
   'personal' => 'شخصي',
   'profile' => 'صفحتي',
