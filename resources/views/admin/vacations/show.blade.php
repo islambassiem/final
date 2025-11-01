@@ -31,9 +31,10 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end gap-1">
           <a href="{{ route('admin.vacations') }}" class="btn btn-danger">{{ __('global.back') }}</a>
-          <button  type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#actionModal">
+          <a href="{{ route('admin.vacations.edit', $vacation->id) }}" class="btn btn-secondary">{{ __('global.edit') }}</a>
+          <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#actionModal">
             {{ __('head/vacations.takeAction') }}
           </button>
         </div>

@@ -39,6 +39,8 @@ use App\Http\Middleware\Authenticate;
     Route::get('/vacations/{id}', [VacationController::class, 'show'])->name('admin.vacation');
     Route::delete('/vacations/delete/{id}', [VacationController::class, 'destroy'])->name('admin.vacation.delete');
     Route::post('/vacations/action/{id}', [VacationController::class, 'update'])->name('admin.vacations.action');
+    Route::get('/vacations/{id}/edit', [VacationController::class, 'edit'])->name('admin.vacations.edit');
+    Route::post('/vacations/{id}/update', [VacationController::class, 'editVacation'])->name('admin.vacations.update');
 
     Route::get('/staff', [StaffController::class, 'index'])->name('admin.staff');
     Route::post('/staff/search/{search}', [StaffController::class, 'search'])->name('admin.staff.search');

@@ -14,5 +14,6 @@ return [
   'employeesVacation' => 'الموظفون المجازون اليوم',
   'novacations' => 'لا يوجد اجازات حسب متطلبات البحث',
   'upComingVacations' => 'الإجازات القادمة',
-  'duration' => 'المدة'
+  'duration' => 'المدة',
+  'vacationUpdated' => 'تم تحديث الاجازة بنجاح'
 ];
