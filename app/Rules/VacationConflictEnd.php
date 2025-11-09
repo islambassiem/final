@@ -28,7 +28,10 @@ class VacationConflictEnd implements ValidationRule, DataAwareRule
       if(
           Carbon::parse($vacation['start_date']) <= $end_date
           &&
-          Carbon::parse($vacation['end_date']) >= $end_date){
+          Carbon::parse($vacation['end_date']) >= $end_date
+          &&
+          $vacation['vacation_type'] != '3'
+          ){
         $fail(__('vacations.conflict'));
       }
     }

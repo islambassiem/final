@@ -81,12 +81,29 @@ class VacationController extends Controller
     $validated = $request->validated();
     $validated['user_id'] = auth()->user()->id;
     $validated['status_id'] = 0;
+    $this->deleteAutomaticallyAddedAbsence($validated);
     if($request->vacation_type == 1){
       $this->annual($request, $validated);
     }else{
       $this->vacation($request, $validated);
     }
     return redirect()->route('vacations.history')->with('success', 'You have applied for a vacation successfully');
+  }
+
+  private function deleteAutomaticallyAddedAbsence($data)
+  {
+    $days = Vacation::where('user_id', $data['user_id'])
+      ->where('vacation_type', '3')
+      ->where('start_date',  '>=' , $data['start_date'])
+      ->where('end_date', '<=' ,$data['end_date'])
+      ->get();
+
+    if($days->count() > 0){
+      foreach($days as $day){
+        VacationDetail::where('vacation_id', $day->id)->delete();
+        $day->delete();
+      }
+    }
   }
 
   /**
