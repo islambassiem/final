@@ -26,6 +26,8 @@
     'addAttach' => 'Attach an attachment',
     'noVac' => 'There are no vacations availed yet',
     'history' => 'History',
+    'sick_leave' => 'Sick Leave?',
+    'seha' => 'It is mandatory to attach a report from the Seha platform as shown',
 
     //validation
     'conflict' => 'The date you have entered conflicts with vacations you have already applied for before!',

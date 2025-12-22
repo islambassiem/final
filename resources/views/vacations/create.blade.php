@@ -110,6 +110,7 @@
   <script src="{{ asset('assets/vendor/jquery/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/dropfiy/js/dropify.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     $(document).ready(function (){
       $("#vacation_type").select2();
@@ -131,6 +132,24 @@
         count.innerHTML = `${max} ${char} / 255`;
       });
       count.innerHTML = `${max} ${notes.value.length} / 255`;
+
+      $('#vacation_type').on('change', function() {
+        if($(this).val() == 2){
+          Swal.fire({
+            title: "{{ __('vacations.sick_leave') }}",
+            icon: "question",
+            html: `
+              <div>
+                <img src="{{ asset('assets/img/seha.png') }}" alt="Seha" style="width: auto; height: 300px;">
+                <p>{{ __('vacations.seha') }}</p>
+              </div>
+            `,
+            // imageHeight: 300,
+            // imageAlt: "A tall image",
+            // imageUrl: "{{ asset('assets/img/seha.png') }}"
+          });
+        }
+      });
     });
   </script>
 @endsection
