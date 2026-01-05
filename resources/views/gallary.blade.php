@@ -378,7 +378,7 @@
 
       // Show congratulations modal on page load
       const congratsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
-      congratsModal.show();
+      //congratsModal.show();
     });
   </script>
 @endpush

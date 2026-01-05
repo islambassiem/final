@@ -14,5 +14,5 @@
 
 @section('content')
   @include('layout.bylaws-header')
-  <embed src="storage/gallary/bylaws.pdf" type="application/pdf" width="100%" style="height: 80vh;">
+  <embed src="storage/gallary/behaviour.pdf" type="application/pdf" width="100%" style="height: 80vh;">
 @endsection

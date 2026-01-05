@@ -31,6 +31,7 @@ return [
   'research' => 'Research',
   'attachments' => 'Attachments',
   'bylaws' => 'Rules and Regulations',
+  'behaviour' => 'Code of Conduct',
   'balance' => 'Vacation Balance',
   'allVacations' => 'All Vacations',
   'employees-impersonate' => 'Employees'

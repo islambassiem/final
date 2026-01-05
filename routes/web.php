@@ -137,6 +137,10 @@ Route::get('bylaws', function () {
   return view('bylaws.index');
 })->name('bylaws.index');
 
+Route::get('behaviour', function () {
+  return view('bylaws.behaviours');
+})->name('behaviour.index');
+
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
 Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visits.store');
 

@@ -31,6 +31,7 @@ return [
   'research' => 'الأبجاث',
   'attachments' => 'المرفقات',
   'bylaws' => 'اللائحة التنفيذية',
+  'behaviour' => 'مدونة السلوك',
   'balance' => 'رصيد الاجازات',
   'allVacations' => 'جميع الاجازات',
   'employees-impersonate' => 'الموظفين'
