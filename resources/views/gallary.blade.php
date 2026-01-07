@@ -315,7 +315,7 @@
     <div class="row g-3">
       @foreach ($files as $index => $file)
         <div class="col-6 col-md-3 col-lg-2">
-          <img src="{{ asset(str_replace('public/', 'storage/', $file)) }}" class="img-thumbnail gallery-thumb"
+          <img src="{{ asset(str_replace('public/', 'storage/', $file . '?v=20260107')) }}" class="img-thumbnail gallery-thumb"
             alt="Gallery Image {{ $index }}" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="{{ $index }}">
           <div class="text-center" style="color: #5c5c5c; margin-top: 15px">{{ app()->getLocale() === 'ar' ? "منشور $index"  : "Post $index" }}</div>
         </div>
