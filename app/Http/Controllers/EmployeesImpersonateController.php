@@ -17,7 +17,7 @@ class EmployeesImpersonateController extends Controller
   public function index()
   {
     return view('employees.index', [
-      'staff' => User::where('active', 1)->get()
+      'staff' => User::all(),
     ]);
   }
 }
