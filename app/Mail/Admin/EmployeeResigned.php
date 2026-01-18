@@ -30,7 +30,7 @@ class EmployeeResigned extends Mailable
     return new Envelope(
       subject: 'Employee Resigned',
       to: ['ithelp@inaya.edu.sa', 'syed@inaya.edu.sa'],
-      cc: ['isyed@inaya.edu.sa', 'dfernandez@inaya.edu.sa', 'hr@inaya.edu.sa']
+      cc: ['isyed@inaya.edu.sa', 'abastan@inaya.edu.sa', 'hr@inaya.edu.sa']
     );
   }
 

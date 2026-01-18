@@ -29,7 +29,7 @@ class FacultyResigned extends Mailable
   {
     return new Envelope(
       subject: 'Faculty Resigned',
-      to: ['msaif@inaya.edu.sa', 'malzamil@inaya.edu.sa'],
+      to: ['msaif@inaya.edu.sa'],
       cc: ['hr@inaya.edu.sa']
     );
   }
