@@ -171,14 +171,14 @@
                   </td>
                   <td>
                   <a
-                    href="{{ route('admin.vacation', $vacation->id) }}"
+                    href="{{ route('admin.vacation', $vacation->id) }}" target="_blank"
                     class="btn btn-secondary btn-sm py-0"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.view') }}">
                     <i class="bi bi-eye-fill"></i>
                   </a>
                   @if ($vacation->hasAttachment())
                     <a
-                      href="{{ route('attachment.vacation', $vacation->id) }}"
+                      href="{{ route('attachment.vacation', $vacation->id) }}" target="_blank"
                       class="btn btn-info btn-sm py-0"
                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ __('global.link') }}">
                       <i class="bi bi-paperclip"></i>
