@@ -119,7 +119,7 @@ class VacationController extends Controller
 
   public function update(string $id, Request $request)
   {
-		$vacation = Vacation::find($id);
+    $vacation = Vacation::find($id);
     if($this->checkIfSalaryProcessed($vacation)){
       return redirect()->back()->with('processed', __('head/vacations.processed'));
     }
@@ -136,6 +136,14 @@ class VacationController extends Controller
       'hr_time' => Carbon::now(),
       'action_by' => auth()->user()->id
     ]);
+
+    if ($detail->head_status == 0) {
+      $detail->update([
+        'head_status' => $request->action ?? $vacation->status_id,
+        'head_notes' => 'Action taken by HR',
+        'head_time' => Carbon::now()
+      ]);
+    }
 
     $user->notify(new VacationAction($vacation));
     Mail::queue(new MailVacationAction($vacation));
