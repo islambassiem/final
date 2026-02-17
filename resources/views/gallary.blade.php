@@ -312,6 +312,7 @@
 
   <div class="container py-4">
     {{-- Thumbnails Grid --}}
+    <canvas id="imageCanvas" style="display: none;"></canvas>
     <div class="row g-3">
       @foreach ($files as $index => $file)
         <div class="col-6 col-md-3 col-lg-2">
@@ -381,4 +382,52 @@
       //congratsModal.show();
     });
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      await document.fonts.ready;
+      let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
+      let baseImage = new Image();
+      baseImage.src = "{{ asset('assets/img/ramadan1447.webp') }}";
+
+      baseImage.onload = function () {
+        let canvas = document.getElementById("imageCanvas");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = baseImage.width;
+        canvas.height = baseImage.height;
+
+        ctx.drawImage(baseImage, 0, 0);
+
+        ctx.font = `230px 'Fustat'`;
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+        ctx.fillText(name, canvas.width / 2, canvas.height - 1600);
+
+
+        // Convert Canvas to Image URL
+        let imageUrl = canvas.toDataURL("image/jpeg");
+
+        // Show SweetAlert with Image
+        Swal.fire({
+            title: "",
+            imageUrl: imageUrl,
+            imageWidth: 400,
+            imageAlt: "Generated Image",
+            showCancelButton: true,
+            confirmButtonText: "Download",
+            cancelButtonText: "close",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let link = document.createElement("a");
+                link.download = "image.jpg";
+                link.href = imageUrl;
+                link.click();
+            }
+        });
+      };
+    });
+  </script>
+
 @endpush
