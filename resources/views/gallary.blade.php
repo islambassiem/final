@@ -389,7 +389,7 @@
       await document.fonts.ready;
       let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
       let baseImage = new Image();
-      baseImage.src = "{{ asset('assets/img/ramadan1447.webp') }}";
+      baseImage.src = "{{ asset('assets/img/eidalfitr1447.webp') }}";
 
       baseImage.onload = function () {
         let canvas = document.getElementById("imageCanvas");
@@ -403,7 +403,7 @@
         ctx.font = `230px 'Fustat'`;
         ctx.fillStyle = "#FFFFFF";
         ctx.textAlign = "center";
-        ctx.fillText(name, canvas.width / 2, canvas.height - 1600);
+        ctx.fillText(name, canvas.width / 2, canvas.height - 2400);
 
 
         // Convert Canvas to Image URL
