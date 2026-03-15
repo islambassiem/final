@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -28,6 +29,10 @@ class GoogleController extends Controller
     }
     Auth::login($finduser);
     session()->put('_lang', '_en');
+    Log::build([
+      'driver' => 'single',
+      'path' => storage_path('logs/login.log'),
+    ])->info(auth()->user()?->getFullEnglishNameAttribute . ' at ' . now() . ' using google');
     return redirect()->route('gallary');
   }
 }

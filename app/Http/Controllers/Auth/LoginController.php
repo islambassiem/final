@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -41,6 +42,10 @@ class LoginController extends Controller
       if (Auth::attempt($validated, $remember)) {
         $request->session()->regenerate();
         session()->put('_lang', '_en');
+        Log::build([
+          'driver' => 'single',
+          'path' => storage_path('logs/login.log'),
+        ])->info(auth()->user()?->getFullEnglishNameAttribute . ' at ' . now() . ' using login form');
         return redirect()->route('gallary');
       }
     }
