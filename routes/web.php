@@ -54,7 +54,7 @@ require_once __DIR__ . '/admin.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::view('gallary', 'gallary')->name('gallary');
+Route::view('gallary', 'gallary')->middleware('auth')->name('gallary');
 
 // Qualification
 Route::resource('qualifications', QualificationController::class);
