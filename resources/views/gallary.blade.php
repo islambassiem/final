@@ -351,7 +351,7 @@
 @endsection
 
 @push('scripts')
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Gallery functionality
       const images = Array.from(document.querySelectorAll('.gallery-thumb'));
@@ -381,9 +381,9 @@
       const congratsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
       //congratsModal.show();
     });
-  </script>
+  </script> -->
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
       await document.fonts.ready;
@@ -428,6 +428,6 @@
         });
       };
     });
-  </script>
+  </script> -->
 
 @endpush
