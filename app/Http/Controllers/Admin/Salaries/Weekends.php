@@ -79,6 +79,9 @@ trait Weekends
   private function insertAbscent(string $user_id, string $date)
   {
     DB::transaction(function () use ($user_id, $date) {
+      if ($user_id == 498) {
+        return;
+      }
       $vacation = Vacation::create([
         'user_id' => $user_id,
         'vacation_type' => '3',
