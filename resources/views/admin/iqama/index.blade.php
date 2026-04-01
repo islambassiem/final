@@ -53,13 +53,13 @@
             @php $c = 1; @endphp
             @foreach ($iqamas as $iqama)
               <tr>
-                <th>{{ $c; }}</th>
+                <th>{{ $c }}</th>
                 <th>{{ $iqama->user->empid }}</th>
                 <th>{{ session('_lang') == '_ar' ? $iqama->user->getFullArabicNameAttribute : $iqama->user->getFullEnglishNameAttribute }}</th>
                 <th>{{ $iqama->document_id }}</th>
-                <th>{{ $iqama->date_of_expiry; }}</th>
-                <th>{{ $iqama->hijri; }}</th>
-                <th>{{ $iqama->expiry; }}</th>
+                <th>{{ $iqama->date_of_expiry }}</th>
+                <th>{{ $iqama->hijri }}</th>
+                <th>{{ $iqama->expiry }}</th>
                 <th>
                   <button
                   type="button"

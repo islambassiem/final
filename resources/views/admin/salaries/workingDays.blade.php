@@ -62,7 +62,7 @@
             @php $c = 1; @endphp
             @foreach ($days as $day)
               <tr>
-                <td>{{ $c; }}</td>
+                <td>{{ $c }}</td>
                 <td>{{ $day->user->empid }}</td>
                 <td>{{ session('_lang') == '_en' ? $day->user->getFullEnglishNameAttribute : $day->user->getFullArabicNameAttribute }}</td>
                 <td>{{ $day->user->cost_center }}</td>

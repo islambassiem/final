@@ -79,7 +79,7 @@
             @php $c = 1; @endphp
             @foreach ($deductables as $payable)
               <tr>
-                <td>{{ $c; }}</td>
+                <td>{{ $c }}</td>
                 <td>{{ $payable->user->empid }}</td>
                 <td>{{ session('_lang') == '_en' ? $payable->user->getFullEnglishNameAttribute : $payable->user->getFullArabicNameAttribute }}</td>
                 <td>{{ $payable->amount }}</td>

@@ -80,7 +80,7 @@
             @php $c = 1; @endphp
             @foreach ($deductions as $deduction)
               <tr>
-                <td>{{ $c; }}</td>
+                <td>{{ $c }}</td>
                 <td>{{ $deduction->user->empid }}</td>
                 <td>{{ session('_lang') == '_en' ? $deduction->user->getFullEnglishNameAttribute : $deduction->user->getFullArabicNameAttribute }}</td>
                 <td>{{ $deduction->from }}</td>
