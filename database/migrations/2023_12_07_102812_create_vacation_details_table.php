@@ -13,7 +13,7 @@ return new class extends Migration
   {
     Schema::create('vacation_details', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('vacation_id')->constrained('vacations');
+      $table->foreignId('vacation_id')->constrained('vacations')->onDelete('cascade');
       $table->string('employee_notes')->nullable();
       $table->timestamp('employee_time')->nullable();
       $table->string('head_status', 10);
