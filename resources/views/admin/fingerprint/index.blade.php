@@ -98,13 +98,16 @@
                             </thead>
                             <tbody>
                                 @foreach ($fingerprint as $record)
+                                    @php
+                                        $color = $record['vacation'] ? 'text-success fw-bold' : ($record['absent'] ? 'text-danger fw-bold' : '');
+                                    @endphp
                                     <tr>
-                                        <td>{{ $record['empid'] }}</td>
-                                        <td>{{ session('_lang') == '_ar' ? $record['name_ar'] : $record['name_en'] }}</td>
-                                        <td>{{ $record['date'] }}</td>
-                                        <td>{{ $record['checkin'] ?? '--' }}</td>
-                                        <td>{{ $record['checkout'] ?? '--' }}</td>
-                                        <td >{{ $record['duration'] }}</td>
+                                        <td class="{{ $color }}">{{ $record['empid'] }}</td>
+                                        <td class="{{ $color }}">{{ session('_lang') == '_ar' ? $record['name_ar'] : $record['name_en'] }}</td>
+                                        <td class="{{ $color }}">{{ $record['date'] }}</td>
+                                        <td class="{{ $color }}">{{ $record['checkin'] ?? '--' }}</td>
+                                        <td class="{{ $color }}">{{ $record['checkout'] ?? '--' }}</td>
+                                        <td class="{{ $color }}">{{ $record['duration'] ?? '--' }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Lang;
 
 class ZkbitotimeController extends Controller
 {
@@ -48,13 +46,16 @@ class ZkbitotimeController extends Controller
                 WHEN z.empid IS NULL AND v.user_id IS NOT NULL THEN 'vacation'
                 WHEN z.empid IS NULL THEN 'absent'
                 ELSE NULL
-            END AS status
+            END AS status,
+            vt.vacation_type_ar,
+            vt.vacation_type_en
         FROM dates d
         CROSS JOIN users u
         LEFT JOIN zkbiotime z ON z.empid = u.empid AND DATE(z.transaction) = d.date
-        LEFT JOIN vacations v ON v.user_id = u.id AND d.date BETWEEN v.start_date AND v.end_date
+        LEFT JOIN vacations v on v.user_id = u.id AND d.date BETWEEN v.start_date AND v.end_date AND v.deleted_at IS NULL
+        LEFT JOIN _vacation_types vt on vt.id = v.vacation_type
         WHERE u.empid = ?
-        GROUP BY u.empid, d.date
+        GROUP BY u.empid, d.date, v.vacation_type
         ORDER BY d.date
         ", [$startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $empid]))->map(function ($row) {
 
@@ -63,7 +64,9 @@ class ZkbitotimeController extends Controller
                 $checkout = ($row->checkout === null || $row->checkin == $row->checkout) ? null : Carbon::parse($row->checkout)->format('H:i:s');
 
                 if (Carbon::parse($row->checkin)->diffInSeconds(Carbon::parse($row->checkout)) == 0) {
-                    $duration = empty($row->status) ? '--' : Lang::get('admin/fingerprint.'.$row->status);
+                    $duration = ($row->checkin === null && $row->checkout === null && $row->vacation_type_en === null)
+                        ? __('admin/fingerprint.absent')
+                        : (session('_lang') == '_en' ? $row->vacation_type_en : $row->vacation_type_ar);
                 } else {
                     $duration = Carbon::parse($row->checkin)->diffAsCarbonInterval(Carbon::parse($row->checkout));
                 }
@@ -76,6 +79,8 @@ class ZkbitotimeController extends Controller
                     'checkin' => $checkin,
                     'checkout' => $checkout,
                     'duration' => $duration,
+                    'vacation' => $row->vacation_type_en !== null,
+                    'absent' => $row->checkin === null && $row->checkout === null && $row->vacation_type_en === null,
                 ];
             });
     }
