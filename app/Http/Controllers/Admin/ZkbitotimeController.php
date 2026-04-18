@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Zkbiotime;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 
 class ZkbitotimeController extends Controller
 {
@@ -16,20 +16,13 @@ class ZkbitotimeController extends Controller
     {
         $empid = $request->input('empid');
 
-        $employee = $empid
-            ? User::where('empid', $empid)->first()
-            : null;
-
         $startDate = ($request->date('start_date') ?? Carbon::today())->startOfDay();
         $endDate = ($request->date('end_date') ?? Carbon::today())->endOfDay();
-        $period = CarbonPeriod::create($startDate, $endDate);
 
         return view('admin.fingerprint.index', [
             'users' => User::query()->where('active', 1)->where('fingerprint', 1)->get(),
             'fingerprint' => $this->fingerprint($request, $startDate, $endDate),
             'empid' => $empid,
-            'employee' => $employee,
-            'period' => $period,
         ]);
     }
 
@@ -37,24 +30,53 @@ class ZkbitotimeController extends Controller
     {
         $empid = $request->input('empid');
 
-        return Zkbiotime::query()
-            ->select([
-                'zkbiotime.empid',
-                DB::raw("CONCAT_WS(' ', first_name_en, middle_name_en, third_name_en, family_name_en) AS name_en"),
-                DB::raw("CONCAT_WS(' ', first_name_ar, middle_name_ar, third_name_ar, family_name_ar) AS name_ar"),
-                DB::raw('DATE(transaction) AS date'),
-                DB::raw('MIN(transaction) AS checkin'),
-                DB::raw('MAX(transaction) AS checkout'),
-            ])
-            ->join('users', 'users.empid', '=', 'zkbiotime.empid')
-            ->where('zkbiotime.empid', $empid)
-            ->whereBetween('transaction', [
-                $startDate->format('Y-m-d H:i:s'),
-                $endDate->format('Y-m-d H:i:s'),
-            ])
-            ->groupBy('zkbiotime.empid', DB::raw('DATE(transaction)'))
-            ->orderBy(DB::raw('DATE(transaction)'))
-            ->get()
-            ->keyBy('date');
+        return collect(DB::select(
+            "WITH RECURSIVE dates AS (
+            SELECT DATE(?) AS date
+            UNION ALL
+            SELECT date + INTERVAL 1 DAY
+            FROM dates
+            WHERE date < ?
+        ) SELECT 
+            u.empid,
+            CONCAT_WS(' ', first_name_en, middle_name_en, third_name_en, family_name_en) AS name_en,
+            CONCAT_WS(' ', first_name_ar, middle_name_ar, third_name_ar, family_name_ar) AS name_ar,
+            d.date,
+            MIN(z.transaction) AS checkin,
+            MAX(z.transaction) AS checkout,
+            CASE 
+                WHEN z.empid IS NULL AND v.user_id IS NOT NULL THEN 'vacation'
+                WHEN z.empid IS NULL THEN 'absent'
+                ELSE NULL
+            END AS status
+        FROM dates d
+        CROSS JOIN users u
+        LEFT JOIN zkbiotime z ON z.empid = u.empid AND DATE(z.transaction) = d.date
+        LEFT JOIN vacations v ON v.user_id = u.id AND d.date BETWEEN v.start_date AND v.end_date
+        WHERE u.empid = ?
+        GROUP BY u.empid, d.date
+        ORDER BY d.date
+        ", [$startDate->format('Y-m-d'), $endDate->format('Y-m-d'), $empid]))->map(function ($row) {
+
+                $duration = null;
+                $checkin = $row->checkin === null ? null : Carbon::parse($row->checkin)->format('H:i:s');
+                $checkout = ($row->checkout === null || $row->checkin == $row->checkout) ? null : Carbon::parse($row->checkout)->format('H:i:s');
+
+                if (Carbon::parse($row->checkin)->diffInSeconds(Carbon::parse($row->checkout)) == 0) {
+                    $duration = empty($row->status) ? '--' : Lang::get('admin/fingerprint.'.$row->status);
+                } else {
+                    $duration = Carbon::parse($row->checkin)->diffAsCarbonInterval(Carbon::parse($row->checkout));
+                }
+
+                return [
+                    'empid' => $row->empid,
+                    'name_en' => $row->name_en,
+                    'name_ar' => $row->name_ar,
+                    'date' => $row->date,
+                    'checkin' => $checkin,
+                    'checkout' => $checkout,
+                    'duration' => $duration,
+                ];
+            });
     }
 }

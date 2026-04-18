@@ -97,37 +97,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($period as $date)
-                                    @php
-                                        $formatted = $date->format('Y-m-d');
-                                        $record = $fingerprint[$formatted] ?? null;
-                                        $checkIn = Carbon\Carbon::parse($record?->checkin);
-                                        $checkout = Carbon\Carbon::parse($record?->checkout);
-                                        $diff = $checkIn?->diffAsCarbonInterval($checkout)
-                                    @endphp
-                                    @if ($record)
-                                        <tr>
-                                            <td>{{ $record->empid }}</td>
-                                            <td>{{ session('_lang') == '_ar' ? $record->name_ar : $record->name_en }}</td>
-                                            <td>{{ $formatted }}</td>
-                                            <td>{{ Carbon\Carbon::parse($record->checkin)->format('H:i:s') }}</td>
-                                            <td>{{ $checkIn == $checkout ? '--' : Carbon\Carbon::parse($record->checkout)->format('H:i:s') }}
-                                            </td>
-                                            <td>{{ $checkIn->diffInSeconds($checkout) > 0 ? $diff : '--'}}</td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <td>{{ $empid }}</td>
-                                            <td>{{ session('_lang') == '_en' ? $employee?->getFullEnglishNameAttribute : $employee?->getFullArabicNameAttribute }}
-                                            </td>
-                                            <td>{{ $formatted }}</td>
-                                            <td>--</td>
-                                            <td>--</td>
-                                            <td colspan="2" class="text-danger">
-                                                {{ __('admin/fingerprint.absent') }}
-                                            </td>
-                                        </tr>
-                                    @endif
+                                @foreach ($fingerprint as $record)
+                                    <tr>
+                                        <td>{{ $record['empid'] }}</td>
+                                        <td>{{ session('_lang') == '_ar' ? $record['name_ar'] : $record['name_en'] }}</td>
+                                        <td>{{ $record['date'] }}</td>
+                                        <td>{{ $record['checkin'] ?? '--' }}</td>
+                                        <td>{{ $record['checkout'] ?? '--' }}</td>
+                                        <td >{{ $record['duration'] }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
