@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\ExitReentryController;
 use App\Http\Controllers\Admin\FamilyVisitController;
 use App\Http\Controllers\Admin\Salaries\PayDeductController;
 use App\Http\Controllers\Admin\TransportationDeductionController;
-use App\Http\Controllers\Admin\Zkbitotime;
+use App\Http\Controllers\Admin\ZkbitotimeController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Authenticate;
 
@@ -94,6 +94,5 @@ use App\Http\Middleware\Authenticate;
     Route::get('salaries/payslip', [PayslipController::class, 'index'])->name('admin.payslip');
     Route::post('salaries/working/edit/{id}', [SalariesController::class, 'editWorkingDays']);
     Route::post('salaries/non/working/edit/{id}', [SalariesController::class, 'editNonWorkingDays']);
-    Route::get('fingerprint', [Zkbitotime::class, 'index'])->name('admin.fingerprint');
-    Route::post('fingerprint', [Zkbitotime::class, 'filter'])->name('admin.fingerprint.filter');
+    Route::get('fingerprint', [ZkbitotimeController::class, 'index'])->name('admin.fingerprint');
   });
