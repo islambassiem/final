@@ -76,6 +76,13 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
+          <a class="nav-link {{ request()->segment(2) == 'fingerprint' ? '' : 'collapsed'  }}" href="{{ route('admin.fingerprint') }}">
+            <i class="bi bi-fingerprint"></i>
+            <span>{{ __('admin/salaries.fingerprint_transactions') }}</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
           <a class="nav-link {{ request()->segment(2) == 'salaries' ? '' : 'collapsed'  }}" href="{{ route('admin.salaries') }}">
             <i class="bi bi-cash-coin"></i>
             <span>{{ __('admin/salaries.salaries') }}</span>

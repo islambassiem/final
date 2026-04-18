@@ -45,6 +45,7 @@ return [
   'payableSuccess' => 'You have added the payable successfully',
   'deductableSuccess' => 'You have added the deductable successfully',
   'trasDeduct' => 'Transportation Deduction',
+  'fingerprint_transactions' => 'Fingerprint',
   'addDeduction' => 'Add a deduction',
   'nameReq' => 'Employee name is required',
   'fromReq' => 'Start date is required',

@@ -46,6 +46,7 @@
     'payableSuccess' => 'تم اضافة الدفع بنجاح',
     'deductableSuccess' => 'تم اضافة الخصم بنجاح',
     'trasDeduct' => 'خصم المواصلات',
+    'fingerprint_transactions' => 'البصمة',
     'addDeduction' => 'اضافة خصم',
     'nameReq' => 'اسم الموظف مطلوب',
     'fromReq' => 'تاريخ البداية مطلوب',
