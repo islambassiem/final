@@ -198,5 +198,5 @@ Route::impersonate();
 
 
 Route::get('fingerprint', [ZkbitotimeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.fingerprint');
-Route::get('fingerprint/store', [ZkbitotimeController::class, 'store'])->middleware('zktech')->name('admin.fingerprint.store');
+Route::get('fingerprint/store', [ZkbitotimeController::class, 'store'])->name('admin.fingerprint.store');
 
