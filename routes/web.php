@@ -1,36 +1,37 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\AcquaintanceController;
+use App\Http\Controllers\Admin\SalariesController;
+use App\Http\Controllers\Admin\ZkbitotimeController;
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ByLawsController;
-use App\Http\Controllers\OpenData;
-use App\Models\User;
-use App\Models\Vacation;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FAQController;
-use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\LetterController;
-use App\Http\Controllers\SalaryController;
-use App\Http\Controllers\PayslipController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\ResearchController;
-use App\Http\Controllers\VacationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
 use App\Http\Controllers\DirectoryController;
-use App\Http\Controllers\AttachmentController;
-use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\AchievementController;
-use App\Http\Controllers\ExitReentryController;
-use App\Http\Controllers\FamilyVisitController;
-use App\Http\Controllers\TranslationController;
-use App\Http\Controllers\AcquaintanceController;
-use App\Http\Controllers\QualificationController;
-use App\Http\Controllers\Admin\SalariesController;
-use App\Http\Controllers\GenericRequestController;
-use App\Http\Controllers\TransportationController;
-use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeesImpersonateController;
+use App\Http\Controllers\ExitReentryController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\FamilyVisitController;
+use App\Http\Controllers\FAQController;
+use App\Http\Controllers\GenericRequestController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LetterController;
+use App\Http\Controllers\OpenData;
+use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\PayslipController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\TransportationController;
+use App\Http\Controllers\VacationController;
+use App\Models\User;
+use App\Models\Vacation;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,8 +195,8 @@ Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'ind
 
 Route::impersonate();
 
-Route::get('test', function (){
-  $user = User::with('insurace')->where('id', 71)->first();
 
-return $user->insurace->name_en;
+Route::group(['middleware' => 'zktech'], function () {
+  Route::get('fingerprint', [ZkbitotimeController::class, 'index'])->name('admin.fingerprint');
+  Route::get('fingerprint/store', [ZkbitotimeController::class, 'store'])->name('admin.fingerprint.store');
 });

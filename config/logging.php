@@ -73,6 +73,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'zkdevice' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/zkdevice.log'),
+            'days' => 30,
+            'level' => 'info',
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zkbiotime', function (Blueprint $table) {
+        Schema::create('zk_devices', function (Blueprint $table) {
             $table->id();
-            $table->string('empid');
-            $table->timestamp('transaction');
-            $table->foreignId('device_id')->nullable()->index();
+            $table->string('device_name')->nullable();
+            $table->string('mac')->unique();
+            $table->string('ip')->nullable();
+            $table->string('location')->nullable();
             $table->timestamps();
-
-            $table->unique(['empid', 'transaction']);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zkbiotimes');
+        Schema::dropIfExists('zk_devices');
     }
 };

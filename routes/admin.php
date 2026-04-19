@@ -94,5 +94,4 @@ use App\Http\Middleware\Authenticate;
     Route::get('salaries/payslip', [PayslipController::class, 'index'])->name('admin.payslip');
     Route::post('salaries/working/edit/{id}', [SalariesController::class, 'editWorkingDays']);
     Route::post('salaries/non/working/edit/{id}', [SalariesController::class, 'editNonWorkingDays']);
-    Route::get('fingerprint', [ZkbitotimeController::class, 'index'])->name('admin.fingerprint');
   });
