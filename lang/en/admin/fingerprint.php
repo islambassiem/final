@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'fingerprint' => 'Fingerprint',
@@ -10,6 +10,7 @@ return [
     'checkout' => 'Checkout',
     'period' => 'Duration',
     'absent' => 'Absent',
+    'weekend' => 'Weekend',
     'vacation' => 'Vacation',
     'noFingerprint' => 'No Records for the selected filters. Try again',
 ];

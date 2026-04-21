@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'fingerprint' => 'البصمة',
@@ -10,6 +10,7 @@ return [
     'checkout' => 'تسجيل الخروج',
     'period' => 'المدة',
     'absent' => 'غياب',
+    'weekend' => 'عطله أسبوعيه',
     'vacation' => 'اجازة',
     'noFingerprint' => 'لا يوجد سجلات للفلاتر المختارة. يرجى المحاولة لاحقاً'
 ];

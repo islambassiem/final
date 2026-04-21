@@ -15,8 +15,13 @@ class ZktechMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! \in_array($request->ip(), ['127.0.0.1', '10.1.1.17'])) {
-            abort(403);
+        $token = $request->bearerToken();
+
+        if (! $token || $token !== config('app.sync_token')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
         return $next($request);

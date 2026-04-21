@@ -41,7 +41,8 @@
                                 <div class="col-3 mb-3">
                                     <label for="start_date" class="form-label">{{ __('head/vacations.from') }}</label>
                                     <input type="date" name="start_date" id="start_date" class="form-control"
-                                        value="{{ request()->has('start_date') ? request()->get('start_date') : \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                        min="{{ \Carbon\Carbon::parse('2026-03-21')->format('Y-m-d') }}"
+                                        value="{{ request()->has('start_date') ? request()->get('start_date') : \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d') }}" />
                                 </div>
                                 <div class="col-3 mb-3">
                                     <label for="end_date" class="form-label">{{ __('head/vacations.to') }}</label>
@@ -99,7 +100,8 @@
                             <tbody>
                                 @foreach ($fingerprint as $record)
                                     @php
-                                        $color = $record['vacation'] ? 'text-success fw-bold' : ($record['absent'] ? 'text-danger fw-bold' : '');
+                                        $color = $record['isWeekend'] ? 'text-white bg-dark ' : '';
+                                        $color .= $record['vacation'] ? 'text-success ' : ($record['absent'] ? 'text-danger ' : '');
                                     @endphp
                                     <tr>
                                         <td class="{{ $color }}">{{ $record['empid'] }}</td>

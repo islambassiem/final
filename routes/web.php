@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AcquaintanceController;
-use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\Admin\ZkbitotimeController;
 use App\Http\Controllers\AttachmentController;
-use App\Http\Controllers\ByLawsController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DependentController;
@@ -29,8 +27,7 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\VacationController;
-use App\Models\User;
-use App\Models\Vacation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,13 +42,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('auth.login');
+    return view('auth.login');
 })->middleware('guest');
 
-
-require_once __DIR__ . '/auth.php';
-require_once __DIR__ . '/head.php';
-require_once __DIR__ . '/admin.php';
+require_once __DIR__.'/auth.php';
+require_once __DIR__.'/head.php';
+require_once __DIR__.'/admin.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -68,18 +64,13 @@ Route::post('/minor/{code}', [QualificationController::class, 'minor']);
 Route::resource('dependents', DependentController::class);
 Route::resource('acquaintances', AcquaintanceController::class);
 
-
 Route::resource('achievements', AchievementController::class);
 Route::get('attachment/achievement/{id}', [AchievementController::class, 'getAttachment'])->name('attachment.achievement');
-
 
 Route::resource('courses', CourseController::class);
 Route::get('attachment/course/{id}', [CourseController::class, 'getAttachment'])->name('attachment.course');
 
-
-
 Route::resource('research', ResearchController::class);
-
 
 Route::resource('documents', DocumentController::class);
 Route::post('document/id/edit/{id}', [DocumentController::class, 'editID']);
@@ -88,13 +79,8 @@ Route::post('document/doc/edit/{id}', [DocumentController::class, 'editDoc']);
 Route::get('document/{id}', [DocumentController::class, 'getLink'])->name('nationalID');
 Route::get('/attachment/document/{id}', [DocumentController::class, 'getAttachment'])->name('document.attachment');
 
-
-
-
-
 Route::resource('other_experience', OtherExperienceController::class);
 Route::get('/attachment/other/experience/{id}', [OtherExperienceController::class, 'getAttachment'])->name('other.experience.attachment');
-
 
 // Experience
 Route::resource('experience', ExperienceController::class);
@@ -116,15 +102,12 @@ Route::post('edit/profile/{user}', [ProfileController::class, 'editProfile'])->n
 Route::delete('delete/picture/{empid}', [ProfileController::class, 'deletePicture'])->name('delete.picture');
 Route::post('upload/picture/{empid}', [ProfileController::class, 'uploadPicture'])->name('upload.picture');
 
-
 Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
-
 
 Route::resource('vacations', VacationController::class);
 Route::get('attachment/vacation/{id}', [VacationController::class, 'getAttachment'])->name('attachment.vacation');
 Route::post('add/attachment/vacation/{id}', [VacationController::class, 'attachAttachment'])->name('vacation.addAttachment');
 Route::get('history', [VacationController::class, 'history'])->name('vacations.history');
-
 
 Route::resource('leaves', LeaveController::class);
 Route::get('attachment/leave/{id}', [LeaveController::class, 'getAttachment'])->name('attachment.leave');
@@ -135,11 +118,11 @@ Route::get('attachments/{folder}', [AttachmentController::class, 'folderContent'
 Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
 
 Route::get('bylaws', function () {
-  return view('bylaws.index');
+    return view('bylaws.index');
 })->name('bylaws.index');
 
 Route::get('behaviour', function () {
-  return view('bylaws.behaviours');
+    return view('bylaws.behaviours');
 })->name('behaviour.index');
 
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
@@ -159,27 +142,26 @@ Route::get('genericsShow/{id}', [GenericRequestController::class, 'show'])->name
 Route::get('genericsAdd', [GenericRequestController::class, 'create'])->name('generics.create');
 Route::post('genericsStore', [GenericRequestController::class, 'store'])->name('generics.store');
 
-
 Route::get('faq', [FAQController::class, 'index'])->name('faq');
-
 
 Route::get('directory', [DirectoryController::class, 'index'])->name('directory');
 
 Route::get('forbidden', function () {
-  return view('not-allowed');
+    return view('not-allowed');
 })->name('not-allowed');
 Route::get('notification/{id}', function ($id) {
-  auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
-  return redirect()->back();
+    auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+
+    return redirect()->back();
 })->name('read.notification');
 
 Route::get('readAll', function () {
-  foreach (auth()->user()->unreadNotifications as $notification) {
-    $notification->markAsRead();
-  }
-  return redirect()->back();
-})->name('read.all.notifications');
+    foreach (auth()->user()->unreadNotifications as $notification) {
+        $notification->markAsRead();
+    }
 
+    return redirect()->back();
+})->name('read.all.notifications');
 
 Route::get('salary/payslip', [PayslipController::class, 'index'])->name('payslip');
 
@@ -195,8 +177,4 @@ Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'ind
 
 Route::impersonate();
 
-
-
-Route::get('fingerprint', [ZkbitotimeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.fingerprint');
-Route::get('fingerprint/store', [ZkbitotimeController::class, 'store'])->name('admin.fingerprint.store');
-
+Route::get('admin/fingerprint', [ZkbitotimeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.fingerprint');

@@ -185,4 +185,6 @@ return [
     // 'Example' => App\Facades\Example::class,
   ])->toArray(),
 
+  'sync_token' => env('SYNC_TOKEN'),
+
 ];

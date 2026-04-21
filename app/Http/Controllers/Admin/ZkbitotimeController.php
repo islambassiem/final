@@ -7,7 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Str;
 
 class ZkbitotimeController extends Controller
 {
@@ -27,103 +27,83 @@ class ZkbitotimeController extends Controller
 
     public function store(Request $request)
     {
-        $raw = $request->getContent();
+        $payload = $request->input('data');
 
-        Log::channel('zkdevice')->info('RAW REQUEST', [
-            'payload' => $raw,
-        ]);
-
-        echo 'OK';
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
+        if (! \is_array($payload) || empty($payload)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid or empty data',
+            ], 422);
         }
 
-        $lines = explode("\n", trim($raw));
+        $rows = [];
+        $ids = [];
+        $batchId = Str::uuid();
 
-        $insertData = [];
-        $lastDeviceId = null;
+        foreach ($payload as $item) {
+            if (! isset($item['id'], $item['emp_code'], $item['punch_time'])) {
+                continue;
+            }
 
-        foreach ($lines as $line) {
-            Log::channel('zkdevice')->info('DEVICE_PACKET', [
-                'raw' => $line,
+            $rows[] = [
+                'iclock_transaction_id' => $item['id'],
+                'empid' => $item['emp_code'],
+                'punch_time' => $item['punch_time'],
+                'batch_uuid' => $batchId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            $ids[] = (int) $item['id'];
+        }
+
+        if (empty($rows)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No valid records',
+            ], 422);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            DB::table('zkbiotime')->insertOrIgnore($rows);
+            $count = \count($rows);
+            // 🔑 Find latest confirmed row from THIS batch
+            $latest = DB::table('zkbiotime')
+                ->where('batch_uuid', $batchId)
+                ->orderByDesc('id')
+                ->first();
+
+            DB::commit();
+
+            if (! $latest) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Insert failed or no matching rows found',
+                ], 500);
+            }
+
+            $matchedId = DB::table('zkbiotime')->orderByDesc('iclock_transaction_id')->first()->iclock_transaction_id;
+
+            return response()->json([
+                'status' => 'success',
+                'last_id' => $matchedId,
+                'synced_count' => $count,
+                'last_row' => [
+                    'empid' => $latest->empid,
+                    'punch_time' => $latest->punch_time,
+                ],
             ]);
 
-            $line = trim($line);
-            if (empty($line)) {
-                continue;
-            }
+        } catch (\Throwable $e) {
+            DB::rollBack();
 
-            // ===== DEVICE INFO =====
-            if (strpos($line, '~DeviceName=') === 0) {
-
-                $meta = $this->parseKeyValue($line);
-
-                DB::table('zk_devices')->updateOrInsert(
-                    ['ip' => $meta['IPAddress'] ?? null],
-                    [
-                        'name' => $meta['DeviceName'] ?? null,
-                        'mac' => $meta['MAC'] ?? null,
-                        'updated_at' => now(),
-                        'created_at' => now(),
-                    ]
-                );
-
-                $device = DB::table('zk_devices')->where('ip', $meta['IPAddress'] ?? null)->first();
-                $lastDeviceId = $device->id ?? null;
-
-                continue;
-            }
-
-            // ===== OPLOG SKIP =====
-            if (strpos($line, 'OPLOG') === 0) {
-                continue;
-            }
-
-            $parts = explode("\t", $line);
-
-            if (\count($parts) >= 3 && is_numeric($parts[0]) && $time = date('Y-m-d H:i:s', strtotime($parts[1]))) {
-
-                $insertData[] = [
-                    'empid' => $parts[0],
-                    'transaction' => $parts[1],
-                    'device_id' => $lastDeviceId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-                Log::channel('zkdevice')->info('ATTENDANCE', [
-                    'empid' => $parts[0],
-                    'datetime' => $parts[1],
-                    'status' => $parts[2],
-                    'device_id' => $lastDeviceId,
-                ]);
-            }
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
         }
-
-        if (! empty($insertData)) {
-            DB::table('zkbiotime')->insertOrIgnore($insertData);
-            Log::channel('zkdevice')->info('ATTENDANCE_BATCH', [
-                'count' => \count($insertData),
-            ]);
-        }
-    }
-
-    private function parseKeyValue($line)
-    {
-        // ~DeviceName=uFace800/ID,MAC=00:17:61:12:17:46,TransactionCount=94652,~MaxAttLogCount=10,UserCount=264,~MaxUserCount=100,PhotoFunOn=1,~MaxUserPhotoCount=2500,FingerFunOn=1,FPVersion=10,~MaxFingerCount=40,FPCount=285,FaceFunOn=1,FaceVersion=7,~MaxFaceCount=3000,FaceCount=227,FvFunOn=0,FvVersion=3,~MaxFvCount=10,FvCount=0,PvFunOn=0,PvVersion=5,~MaxPvCount=,PvCount=0,Language=69,IPAddress=10.1.1.17,~Platform=ZMM220_TFT,~OEMVendor=ZKTECO CO., LTD.,FWVersion=Ver 8.0.4.6-20221201,PushVersion=Ver 2.0.33S-20220623,RegDeviceType=,VisilightFun=,MultiBioDataSupport=,MultiBioPhotoSupport=,IRTempDetectionFunOn=,MaskDetectionFunOn=,UserPicURLFunOn=1,VisualIntercomFunOn=,VideoTID=,QRCodeDecryptFunList=,VideoProtocol=,IsSupportQRcode=,QRCodeEnable=,SubcontractingUpgradeFunOn=1
-        $data = [];
-        // Remove the starting "~"
-        $line = ltrim($line, '~');
-        // Split by commas
-        $pairs = explode(',', $line);
-        foreach ($pairs as $pair) {
-            if (strpos($pair, '=') !== false) {
-                [$key, $value] = explode('=', $pair, 2);
-
-                $data[$key] = $value;
-            }
-        }
-
-        return $data;
     }
 
     protected function fingerprint(Request $request, Carbon $startDate, Carbon $endDate)
@@ -142,8 +122,8 @@ class ZkbitotimeController extends Controller
             CONCAT_WS(' ', first_name_en, middle_name_en, third_name_en, family_name_en) AS name_en,
             CONCAT_WS(' ', first_name_ar, middle_name_ar, third_name_ar, family_name_ar) AS name_ar,
             d.date,
-            MIN(z.transaction) AS checkin,
-            MAX(z.transaction) AS checkout,
+            MIN(z.punch_time) AS checkin,
+            MAX(z.punch_time) AS checkout,
             CASE
                 WHEN z.empid IS NULL AND v.user_id IS NOT NULL THEN 'vacation'
                 WHEN z.empid IS NULL THEN 'absent'
@@ -153,7 +133,7 @@ class ZkbitotimeController extends Controller
             vt.vacation_type_en
         FROM dates d
         CROSS JOIN users u
-        LEFT JOIN zkbiotime z ON z.empid = u.empid AND DATE(z.transaction) = d.date
+        LEFT JOIN zkbiotime z ON z.empid = u.empid AND DATE(z.punch_time) = d.date
         LEFT JOIN vacations v on v.user_id = u.id AND d.date BETWEEN v.start_date AND v.end_date AND v.deleted_at IS NULL
         LEFT JOIN _vacation_types vt on vt.id = v.vacation_type
         WHERE u.empid = ?
@@ -173,17 +153,34 @@ class ZkbitotimeController extends Controller
                     $duration = Carbon::parse($row->checkin)->diffAsCarbonInterval(Carbon::parse($row->checkout));
                 }
 
+                if($this->isWeekend(Carbon::parse($row->date), $row->empid)){
+                    $duration = __('admin/fingerprint.weekend');
+                }
+
+                Carbon::setLocale(app()->getLocale());
                 return [
                     'empid' => $row->empid,
                     'name_en' => $row->name_en,
                     'name_ar' => $row->name_ar,
-                    'date' => $row->date,
+                    'date' => Carbon::parse($row->date)->translatedFormat('l j F Y'),
                     'checkin' => $checkin,
                     'checkout' => $checkout,
                     'duration' => $duration,
+                    'isWeekend' => $this->isWeekend(Carbon::parse($row->date), $row->empid),
                     'vacation' => $row->vacation_type_en !== null,
-                    'absent' => $row->checkin === null && $row->checkout === null && $row->vacation_type_en === null,
+                    'absent' => $row->checkin === null && $row->checkout === null && $row->vacation_type_en === null ,
                 ];
             });
+    }
+
+    private function isWeekend(Carbon $date, string $empid): bool
+    {
+        if($date->dayOfWeek == 5){
+            return true;
+        }
+        if($date->dayOfWeek == 6){
+            return (bool)User::where('empid', $empid)->first()->saturday ? false : true;
+        }
+        return false;
     }
 }
