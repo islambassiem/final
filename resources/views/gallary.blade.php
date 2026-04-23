@@ -300,8 +300,8 @@
       </div>
     </div>
   </div>
-  
-  
+
+
   {{-- Gallery Content --}}
   @php
     // Get all images from storage/gallary
@@ -383,15 +383,16 @@
     });
   </script> -->
 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
+@if (auth()->user()->six_sigma_attendance)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
     document.addEventListener("DOMContentLoaded", async function () {
-      await document.fonts.ready;
-      let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
-      let baseImage = new Image();
-      baseImage.src = "{{ asset('assets/img/eidalfitr1447.webp') }}";
+        await document.fonts.ready;
+        let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
+        let baseImage = new Image();
+        baseImage.src = "{{ asset('assets/img/six_sigma.webp') }}";
 
-      baseImage.onload = function () {
+        baseImage.onload = function () {
         let canvas = document.getElementById("imageCanvas");
         let ctx = canvas.getContext("2d");
 
@@ -401,9 +402,9 @@
         ctx.drawImage(baseImage, 0, 0);
 
         ctx.font = `230px 'Fustat'`;
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = "#000000";
         ctx.textAlign = "center";
-        ctx.fillText(name, canvas.width / 2, canvas.height - 2400);
+        ctx.fillText(name, 2600, canvas.height - 2200);
 
 
         // Convert Canvas to Image URL
@@ -426,8 +427,9 @@
                 link.click();
             }
         });
-      };
+        };
     });
-  </script> -->
+    </script>
+@endif
 
 @endpush
