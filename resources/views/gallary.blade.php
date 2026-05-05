@@ -273,27 +273,35 @@
 
         <div class="modal-body-custom">
           <p class="announcement-title">
-            يسر إدارة الموارد البشرية
+            يسر إدارة كليات العناية الطبية
           </p>
 
           <p class="doctor-name">
-            تهنئة سعادة الدكتورة /    مريم خليف دبوس الشمري
+            تهنئة سعادة الدكتور /  خالد بن علي العوام
+          </p>
+
+          <p class="doctor-name">
+            (رئيس قسم العلاج التنفسي)
           </p>
 
           <p class="promotion-text">
-            بمناسبة تجديد تكليفها كرئيس للسنة الأولى المشتركة
+            بمناسبة تخرج ابنه المهندس / عبد الرحمن من كلية علوم الحاسب وتقنية المعلومات
           </p>
 
           <p class="wishes-text">
-            سائلين المولى–عز وجل– لها التوفيق والسداد
+            سائلين الله له دوام التوفيق والنجاح في مسيرته العلمية والمهنية ،وان يجعله فخر لوالديه ووطنه
+          </p>
+
+          <p class="wishes-text">
+            مع اطيب التمنيات بمزيد من الانجازات والنجاحات
           </p>
 
           <div class="department-info">
             <p class="department-name">
-                 إدارة الموارد البشرية -    كليات العناية الطبية
+              كليات العناية الطبية
             </p>
             <p class="department-english">
-              Human Resources Department - Inaya Medical Colleges.
+              Inaya Medical Colleges.
             </p>
           </div>
         </div>
@@ -351,38 +359,38 @@
 @endsection
 
 @push('scripts')
-  <!-- <script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Gallery functionality
-      const images = Array.from(document.querySelectorAll('.gallery-thumb'));
-      const modalImage = document.getElementById('modalImage');
-      const modal = new bootstrap.Modal(document.getElementById('imageModal'));
-      let currentIndex = 0;
+    //   const images = Array.from(document.querySelectorAll('.gallery-thumb'));
+    //   const modalImage = document.getElementById('modalImage');
+    //   const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    //   let currentIndex = 0;
 
-      const showImage = (index) => {
-        if (index < 0 || index >= images.length) return;
-        modalImage.src = images[index].src;
-        currentIndex = index;
-      };
+    //   const showImage = (index) => {
+    //     if (index < 0 || index >= images.length) return;
+    //     modalImage.src = images[index].src;
+    //     currentIndex = index;
+    //   };
 
-      images.forEach((img, i) => {
-        img.addEventListener('click', () => showImage(i));
-      });
+    //   images.forEach((img, i) => {
+    //     img.addEventListener('click', () => showImage(i));
+    //   });
 
-      document.getElementById('prevImage').addEventListener('click', () => {
-        showImage((currentIndex - 1 + images.length) % images.length);
-      });
+    //   document.getElementById('prevImage').addEventListener('click', () => {
+    //     showImage((currentIndex - 1 + images.length) % images.length);
+    //   });
 
-      document.getElementById('nextImage').addEventListener('click', () => {
-        showImage((currentIndex + 1) % images.length);
-      });
+    //   document.getElementById('nextImage').addEventListener('click', () => {
+    //     showImage((currentIndex + 1) % images.length);
+    //   });
 
       // Show congratulations modal on page load
       const congratsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
-      //congratsModal.show();
+      congratsModal.show();
     });
-  </script> -->
-
+  </script>
+{{--
 @if (auth()->user()->six_sigma_attendance)
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -430,6 +438,6 @@
         };
     });
     </script>
-@endif
+@endif --}}
 
 @endpush
