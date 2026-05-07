@@ -34,5 +34,6 @@ return [
   'behaviour' => 'مدونة السلوك',
   'balance' => 'رصيد الاجازات',
   'allVacations' => 'جميع الاجازات',
-  'employees-impersonate' => 'الموظفين'
+  'employees-impersonate' => 'الموظفين',
+  'leavesAndVacations' => 'المغادرات و الاجازات',
 ];

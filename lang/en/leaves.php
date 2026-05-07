@@ -15,6 +15,12 @@
     'time' => 'Time',
     'deptHead' => 'Department Head',
     'hr' => 'Human Resources',
+    'vacationTypes' => 'Vacation Types',
+    'ComingLate' => 'Coming Late',
+    'LeavingEarly' => 'Leaving Early',
+    'LeavingDuringTheDay' => 'Leaving During The Day',
+    'NotComingToWorkForTheWholeDay' => 'Not Coming To Work For The Whole Day',
+
 
     // validation
     'conflict' => 'You have already applied for a leave in that day',

@@ -112,6 +112,8 @@ Route::get('history', [VacationController::class, 'history'])->name('vacations.h
 Route::resource('leaves', LeaveController::class);
 Route::get('attachment/leave/{id}', [LeaveController::class, 'getAttachment'])->name('attachment.leave');
 
+Route::view('leave-types', 'leave-type')->name('leave.types');
+
 Route::get('attachments', [AttachmentController::class, 'index'])->name('attachments.index');
 Route::post('attachment/store', [AttachmentController::class, 'store'])->name('attachment.store');
 Route::get('attachments/{folder}', [AttachmentController::class, 'folderContent'])->name('folder.contents');

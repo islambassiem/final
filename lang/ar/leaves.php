@@ -15,6 +15,12 @@
     'time' => 'الوقت',
     'deptHead' => 'رئيس القسم',
     'hr' => 'الموارد البشرية',
+    'vacationTypes' => 'أنواع الإجازات',
+    'ComingLate' => 'تأخر عن العمل',
+    'LeavingEarly' => 'مغادرة مبكرة',
+    'LeavingDuringTheDay' => 'مغادرة أثناء الدوام',
+    'NotComingToWorkForTheWholeDay' => 'عدم الحضور للعمل طوال اليوم',
+
 
 
     // validation

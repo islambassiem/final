@@ -34,5 +34,6 @@ return [
   'behaviour' => 'Code of Conduct',
   'balance' => 'Vacation Balance',
   'allVacations' => 'All Vacations',
-  'employees-impersonate' => 'Employees'
+  'employees-impersonate' => 'Employees',
+  'leavesAndVacations' => 'Leaves & Vacations',
 ];
