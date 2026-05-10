@@ -390,7 +390,7 @@
       // congratsModal.show();
     });
   </script>
-{{--
+
 @if (auth()->user()->six_sigma_attendance)
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -438,6 +438,6 @@
         };
     });
     </script>
-@endif --}}
+@endif
 
 @endpush
