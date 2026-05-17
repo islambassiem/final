@@ -391,53 +391,50 @@
     });
   </script>
 
-@if (auth()->user()->six_sigma_attendance)
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        await document.fonts.ready;
-        let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
-        let baseImage = new Image();
-        baseImage.src = "{{ asset('assets/img/six_sigma.webp') }}";
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+          await document.fonts.ready;
+          let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
+          let baseImage = new Image();
+          baseImage.src = "{{ asset('assets/img/eidAladha1447.webp') }}";
 
-        baseImage.onload = function () {
-        let canvas = document.getElementById("imageCanvas");
-        let ctx = canvas.getContext("2d");
+          baseImage.onload = function () {
+              let canvas = document.getElementById("imageCanvas");
+              let ctx = canvas.getContext("2d");
 
-        canvas.width = baseImage.width;
-        canvas.height = baseImage.height;
+              canvas.width = baseImage.width;
+              canvas.height = baseImage.height;
 
-        ctx.drawImage(baseImage, 0, 0);
+              ctx.drawImage(baseImage, 0, 0);
 
-        ctx.font = `230px 'Fustat'`;
-        ctx.fillStyle = "#000000";
-        ctx.textAlign = "center";
-        ctx.fillText(name, 2600, canvas.height - 2200);
+              ctx.font = `230px 'Fustat'`;
+              ctx.fillStyle = "#000000";
+              ctx.textAlign = "center";
+              ctx.fillText(name, 1750, canvas.height - 800);
 
+              // Convert Canvas to Image URL
+              let imageUrl = canvas.toDataURL("image/jpeg");
 
-        // Convert Canvas to Image URL
-        let imageUrl = canvas.toDataURL("image/jpeg");
-
-        // Show SweetAlert with Image
-        Swal.fire({
-            title: "",
-            imageUrl: imageUrl,
-            imageWidth: 400,
-            imageAlt: "Generated Image",
-            showCancelButton: true,
-            confirmButtonText: "Download",
-            cancelButtonText: "close",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let link = document.createElement("a");
-                link.download = "image.jpg";
-                link.href = imageUrl;
-                link.click();
-            }
-        });
-        };
-    });
-    </script>
-@endif
+              // Show SweetAlert with Image
+              Swal.fire({
+                  title: "",
+                  imageUrl: imageUrl,
+                  imageWidth: 400,
+                  imageAlt: "Generated Image",
+                  showCancelButton: true,
+                  confirmButtonText: "Download",
+                  cancelButtonText: "close",
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      let link = document.createElement("a");
+                      link.download = "image.jpg";
+                      link.href = imageUrl;
+                      link.click();
+                  }
+              });
+          };
+      });
+  </script>
 
 @endpush
