@@ -14,6 +14,7 @@ use App\Http\Controllers\ExitReentryController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FamilyVisitController;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\GallaryController;
 use App\Http\Controllers\GenericRequestController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LetterController;
@@ -51,7 +52,8 @@ require_once __DIR__.'/admin.php';
 
 Route::get('/lang/{lang}', TranslationController::class)->name('lang');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::view('gallary', 'gallary')->middleware('auth')->name('gallary');
+// Route::view('gallary', 'gallary')->middleware('auth')->name('gallary');
+Route::get('gallary', [GallaryController::class, 'index'])->middleware('auth')->name('gallary');
 
 // Qualification
 Route::resource('qualifications', QualificationController::class);

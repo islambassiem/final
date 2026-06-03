@@ -148,7 +148,7 @@
     <!-- End Messages Dropdown Items -->
     </li> --}}
     <!-- End Messages Nav -->
-    <a class="nav-link nav-icon" href={{ route('gallary') }}>
+    {{-- <a class="nav-link nav-icon" href={{ route('gallary') }}>
       <i class="bi bi-bell"></i>
       @php
         $count = collect(Storage::files('public/gallary/intellectual-awarness'))
@@ -156,7 +156,7 @@
           ->count();
       @endphp
       <span class="badge bg-primary badge-number">{{ $count - 1 }}</span>
-    </a>
+    </a> --}}
     <li class="nav-item dropdown pe-3">
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
         <img src="{{ asset('assets/img/weather.png') }}" alt="Profile" class="rounded-circle">
