@@ -28,7 +28,6 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\VacationController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,13 +120,18 @@ Route::post('attachment/store', [AttachmentController::class, 'store'])->name('a
 Route::get('attachments/{folder}', [AttachmentController::class, 'folderContent'])->name('folder.contents');
 Route::get('attachment/download/{id}', [AttachmentController::class, 'getAttachment'])->name('attachment.download');
 
-Route::get('bylaws', function () {
-    return view('bylaws.index');
-})->name('bylaws.index');
-
-Route::get('behaviour', function () {
-    return view('bylaws.behaviours');
-})->name('behaviour.index');
+Route::group(['prefix' => 'bylaws'], function () {
+    Route::get('bylaws', fn () => view('bylaws.bylaws'))->name('bylaws.index');
+    Route::get('anti-smoking_regulations', fn () => view('bylaws.anti-smoking_regulations'))->name('bylaws.anti-smoking_regulations');
+    Route::get('buildings_regulations', fn () => view('bylaws.buildings_regulations'))->name('bylaws.buildings_regulations');
+    Route::get('dress_code_regulations', fn () => view('bylaws.dress_code_regulations'))->name('bylaws.dress_code_regulations');
+    Route::get('emergency_ethics_policy', fn () => view('bylaws.emergency_ethics_policy'))->name('bylaws.emergency_ethics_policy');
+    Route::get('internal_communication_regulations', fn () => view('bylaws.internal_communication_regulations'))->name('bylaws.internal_communication_regulations');
+    Route::get('maintenance_regulation', fn () => view('bylaws.maintenance_regulation'))->name('bylaws.maintenance_regulation');
+    Route::get('marketing_and_public_relations_regulations', fn () => view('bylaws.marketing_and_public_relations_regulations'))->name('bylaws.marketing_and_public_relations_regulations');
+    Route::get('procurement_egulations', fn () => view('bylaws.procurement_egulations'))->name('bylaws.procurement_egulations');
+    Route::get('use_of_transportation_regulations', fn () => view('bylaws.use_of_transportation_regulations'))->name('bylaws.use_of_transportation_regulations');
+});
 
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');
 Route::post('visits.store', [FamilyVisitController::class, 'store'])->name('visits.store');
