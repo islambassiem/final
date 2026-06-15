@@ -46,7 +46,7 @@ class LoginController extends Controller
           'driver' => 'single',
           'path' => storage_path('logs/login.log'),
         ])->info(auth()->user()?->getFullEnglishNameAttribute . ' at ' . now() . ' using login form');
-        return redirect()->route('dashboard');
+        return redirect()->route($this->redirectTo);
       }
     }
     return redirect()->route('login')->with('error', 'Login information is not correct');
