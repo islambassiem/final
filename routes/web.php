@@ -131,6 +131,7 @@ Route::group(['prefix' => 'bylaws'], function () {
     Route::get('marketing_and_public_relations_regulations', fn () => view('bylaws.marketing_and_public_relations_regulations'))->name('bylaws.marketing_and_public_relations_regulations');
     Route::get('procurement_egulations', fn () => view('bylaws.procurement_egulations'))->name('bylaws.procurement_egulations');
     Route::get('use_of_transportation_regulations', fn () => view('bylaws.use_of_transportation_regulations'))->name('bylaws.use_of_transportation_regulations');
+    Route::get('hse2026', fn () => view('bylaws.hse2026'))->name('bylaws.hse2026');
 });
 
 Route::get('visits', [FamilyVisitController::class, 'index'])->name('visits.index');

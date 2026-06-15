@@ -46,4 +46,5 @@ return [
   'marketing_and_public_relations_regulations' => 'التسويق والعلاقات العامة',
   'procurement_egulations' => 'المشتريات',
   'use_of_transportation_regulations' => 'المواصلات',
+  'hse2026' => 'السلامة والصحة المهنية',
 ];

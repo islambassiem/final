@@ -46,4 +46,5 @@ return [
   'marketing_and_public_relations_regulations' => 'Marketing and Public Relations',
   'procurement_egulations' => 'Procurement',
   'use_of_transportation_regulations' => 'Transportation',
+  'hse2026' => 'Occupational Health and Safety',
 ];

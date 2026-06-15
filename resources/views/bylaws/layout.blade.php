@@ -97,6 +97,11 @@
                href="{{ route('bylaws.use_of_transportation_regulations') }}">
                 {{ __('sidebar.use_of_transportation_regulations') }}
             </a>
+
+            <a class="{{ request()->segment(2) == 'hse2026' ? 'active-link' : '' }}"
+               href="{{ route('bylaws.hse2026') }}">
+                {{ __('sidebar.hse2026') }}
+            </a>
         </nav>
     </div>
 
