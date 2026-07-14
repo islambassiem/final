@@ -61,7 +61,7 @@ class VacationAction extends Notification
       'id' => $this->vacation->id,
       'type' => 'Vacation',
       'title' => __('Your vacation had an action'),
-      'user' => auth()->user()->id
+      'user' => auth()->user()->id ?? null
     ];
   }
 }
