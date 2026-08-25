@@ -99,9 +99,11 @@ trait VacationReturn
         'type' => '1'
       ]);
 
-      $unpaid->update([
-        'days' => (int) $unpaid->days - $daysToBePaid
-      ]);
+      if((int) $unpaid->days - $daysToBePaid >= 0) {
+        $unpaid->update([
+          'days' => (int) $unpaid->days - $daysToBePaid
+        ]);
+      }
     }
   }
 
