@@ -36,10 +36,10 @@ trait VacationReturn
     $workingDays = WorkingDays::where('month_id', $month_id)->where('user_id', $vacation->user_id)->first();
 
     $workingDays->update([
-      'working_days' => (int) $workingDays->working_days + (int) $unpaidDays->days
+      'working_days' => (int) $workingDays?->working_days + (int) $unpaidDays?->days
     ]);
 
-    $unpaidDays->update([
+    $unpaidDays?->update([
       'days' => 0
     ]);
 
