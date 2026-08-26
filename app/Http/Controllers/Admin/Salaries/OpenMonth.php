@@ -11,7 +11,7 @@ trait OpenMonth
   {
     if(Month::where('status', '0')->first() == null)
     {
-      $last_month = Month::where('status', '1')->orderByDesc('month')->first();
+      $last_month = Month::where('status', '1')->latest()->first();
       $start_date = Carbon::parse($last_month->end_date)->addDay();
       $end_date = Carbon::parse($last_month->end_date)->copy()->addMonth();
       $month = $last_month->month == 12 ? 1 :  $last_month->month + 1;

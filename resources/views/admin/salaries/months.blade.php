@@ -176,12 +176,14 @@
                 <select class="form-select" id="month" name="month" style="width:100%">
                   <option selected disabled>{{ __('global.select') }}</option>
                   <option value="{{ date('n') }}" selected>{{  str_pad(date('m'), 2, '0', STR_PAD_LEFT) }}</option>
+                  <option value="{{ Carbon\Carbon::now()->addMonth()->format('n') }} }}">{{  str_pad(Carbon\Carbon::now()->addMonth()->format('n'), 2, '0', STR_PAD_LEFT) }}</option>
                 </select>
               </div>
               <div class="col-6 mb-3">
                 <label for="year" class="form-label">{{ __('admin/salaries.year') }}</label>
                 <select class="form-select" id="year" name="year" style="width:100%">
                   <option value="{{ date('Y') }}" selected>{{ date('Y') }}</option>
+                  <option value="{{ date('Y') + 1 }}">{{ date('Y') + 1 }}</option>
                 </select>
               </div>
             </div>
