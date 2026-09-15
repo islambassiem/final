@@ -149,7 +149,7 @@ class LeaveController extends Controller
       ->where('attachmentable_id', $id)
       ->first('link');
     if ($link) {
-      return response()->download("storage/".$link->link);
+      return redirect(asset('storage/' . $link->link));
     }
     return redirect()->back()->with('message', __('There is no attachment'));
   }
