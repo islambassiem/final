@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AcquaintanceController;
 use App\Http\Controllers\Admin\ZkbitotimeController;
@@ -187,3 +188,5 @@ Route::get('employees-impersonate', [EmployeesImpersonateController::class, 'ind
 Route::impersonate();
 
 Route::get('admin/fingerprint', [ZkbitotimeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.fingerprint');
+
+Route::get('attendable/{date?}', [AbsenceController::class, 'index'])->name('attendable');
