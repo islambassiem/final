@@ -9,7 +9,7 @@ class AbsenceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware('throttle:60,1');
     }
 
     public function index($date = null)
