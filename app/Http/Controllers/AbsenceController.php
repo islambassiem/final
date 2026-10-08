@@ -20,7 +20,7 @@ class AbsenceController extends Controller
 
         return response()->json([
             ...$this->inaya($date),
-            ...$this->shining($date),
+            // ...$this->shining($date),
         ]);
 
     }
