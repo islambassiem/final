@@ -21,6 +21,7 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\OpenData;
 use App\Http\Controllers\OtherExperienceController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QualificationController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\TransportationController;
 use App\Http\Controllers\VacationController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -190,3 +192,9 @@ Route::impersonate();
 Route::get('admin/fingerprint', [ZkbitotimeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.fingerprint');
 
 Route::get('attendable/{date?}', [AbsenceController::class, 'index'])->name('attendable');
+
+
+Route::get('payroll', [PayrollController::class, 'index'])->name('payroll.index');
+Route::post('payroll/store', [PayrollController::class, 'store'])->name('payroll.store');
+Route::get('payroll/list', [PayrollController::class, 'list'])->name('payroll.list');
+Route::get('/salary/csv', [PayrollController::class, 'salaryCsv'])->name('salary.csv');

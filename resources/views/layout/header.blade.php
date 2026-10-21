@@ -220,6 +220,17 @@
             </a>
           </li>
         @endif
+        @if (in_array(auth()->user()->empid, ['500128', '500322']))
+            <li>
+            <hr class="dropdown-divider">
+            </li>
+            <li>
+            <a class="dropdown-item d-flex align-items-center" href="{{ route('payroll.index') }}">
+                <i class="bi bi-currency-exchange"></i>
+                <span>Payroll</span>
+            </a>
+            </li>
+        @endif
         <li>
           <hr class="dropdown-divider">
         </li>
@@ -229,15 +240,6 @@
             <span>{{ __('header.myprofile') }}</span>
           </a>
         </li>
-        {{-- <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li>
-          <a class="dropdown-item d-flex align-items-center" href="#">
-            <i class="bi bi-gear"></i>
-            <span>Account Settings</span>
-          </a>
-        </li> --}}
         <li>
           <hr class="dropdown-divider">
         </li>
