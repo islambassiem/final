@@ -23,7 +23,7 @@ class PayrollImport implements ToCollection, WithHeadingRow
     private function update($row)
     {
         DB::table('salary_diff')
-            ->where('empid', $row['emp_name'])
+            ->where('empid', $row['emp_id_no'])
             ->where('month', date('n'))
             ->where('year', date('Y'))
             ->update([
