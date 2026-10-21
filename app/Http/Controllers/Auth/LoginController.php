@@ -36,7 +36,7 @@ class LoginController extends Controller
       if(Auth::attempt($validated, $remember)){
         $request->session()->regenerate();
         session()->put('_lang', '_en');
-        return redirect()->route('admin.dashboard');
+        return redirect()->intended('admin.dashboard');
       }
     }else{
       if (Auth::attempt($validated, $remember)) {
@@ -46,7 +46,7 @@ class LoginController extends Controller
           'driver' => 'single',
           'path' => storage_path('logs/login.log'),
         ])->info(auth()->user()?->getFullEnglishNameAttribute . ' at ' . now() . ' using login form');
-        return redirect()->route($this->redirectTo);
+        return redirect()->intended($this->redirectTo);
       }
     }
     return redirect()->route('login')->with('error', 'Login information is not correct');

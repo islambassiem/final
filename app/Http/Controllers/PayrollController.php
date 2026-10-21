@@ -85,17 +85,17 @@ public function __construct()
 
                 foreach ($rows as $row) {
                     fputcsv($file, [
-                        $row['empid'],
-                        $row['name'],
-                        $row['national_id'],
-                        $row['sponsorship'],
-                        $row['bank_code'],
-                        $row['iban'],
-                        $row['finance'],
-                        $row['basic'],
-                        $row['housing'],
-                        $row['Other Earnings'],
-                        $row['Deduction'],
+                        $row->empid,
+                        $row->name,
+                        $row->national_id,
+                        $row->sponsorship,
+                        $row->bank_code,
+                        $row->iban,
+                        $row->finance,
+                        $row->basic,
+                        $row->housing,
+                        $row->{"Other Earnings"},
+                        $row->Deduction,
                     ]);
                 }
 
