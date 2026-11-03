@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 .DS_STORE
 worker.log
+worker.log.1
+worker.log.2
+worker.log.3
+worker.log.4
