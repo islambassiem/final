@@ -221,7 +221,7 @@
                                 <td @if (!$member->active) class="text-danger" @endif>
                                     {{ $member->extension($member->id) }}</td>
                                 <td @if (!$member->active) class="text-danger" @endif>
-                                    {{ $member->mobile($member->id) }}</td>
+                                    @if ($member->mobile($member->id)) {{ '0' . $member->mobile($member->id) }} @endif</td>
                                 <td @if (!$member->active) class="text-danger" @endif>{{ $member->email }}</td>
                                 <td @if (!$member->active) class="text-danger" @endif>
                                     <a href="{{ route('admin.employee', $member) }}" class="btn btn-primary btn-sm py-0"
