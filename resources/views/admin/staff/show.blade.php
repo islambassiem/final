@@ -336,6 +336,7 @@
                   <thead>
                     <tr>
                       <th scope="col" class="fw-bold">{{ '#' }}</th>
+                      <th scope="col" class="fw-bold">{{ __('admin/staff.insurance') }}</th>
                       <th scope="col" class="fw-bold">{{ __('admin/employee.name') }}</th>
                       <th scope="col" class="fw-bold">{{ __('admin/employee.gender') }}</th>
                       <th scope="col" class="fw-bold">{{ __('admin/employee.ID') }}</th>
@@ -350,8 +351,12 @@
                       $c = 1;
                     @endphp
                     @foreach ($user->dependents as $dependent)
+                    @php
+                      $insurance = app()->make(App\Classes\GetInsuranceId::class)->handle($dependent->identification);
+                    @endphp
                       <tr>
                         <td>{{ $c }}</td>
+                        <td>{{ $insurance }}</td>
                         <td>{{ $dependent->name }}</td>
                         <td>{{ app()->getLocale() == 'ar' ? $dependent->gender?->gender_ar : $dependent->gender?->gender_en }}</td>
                         <td>{{ $dependent->identification }}</td>

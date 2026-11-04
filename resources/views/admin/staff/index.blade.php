@@ -196,6 +196,7 @@
                         <tr>
                             <th scope="col">
                             <th scope="col">{{ __('admin/staff.empid') }}</th>
+                            <th scope="col">{{ __('admin/staff.insurance') }}</th>
                             <th scope="col">{{ __('head/staff.name') }}</th>
                             <th scope="col">{{ __('admin/staff.iqama') }}</th>
                             <th scope="col">{{ __('admin/staff.salary') }}</th>
@@ -208,9 +209,13 @@
                     <tbody>
                         @php $c = 1; @endphp
                         @foreach ($staff as $member)
+                            @php
+                                $insurance = app()->make(App\Classes\GetInsuranceId::class)->handle($member->iqama($member->id)->document_id);
+                            @endphp
                             <tr>
                                 <td @if (!$member->active) class="text-danger" @endif>{{ $c }}</td>
                                 <td @if (!$member->active) class="text-danger" @endif>{{ $member->empid }}</td>
+                                <td @if (!$member->active) class="text-danger" @endif>{{ $insurance }}</td>
                                 <td @if (!$member->active) class="text-danger" @endif>
                                     {{ session('_lang') == '_ar' ? $member->getFullArabicNameAttribute : $member->getFullEnglishNameAttribute }}
                                 </td>

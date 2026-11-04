@@ -1,7 +1,8 @@
 <?php
 
   return [
-    'empid' => 'Emmployee ID',
+    'empid' => '#',
+    'insurance' => 'Insurance #',
     'iqama' => 'Iqama',
     'salary' => 'Salary',
     'email' => 'Email',
