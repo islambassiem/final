@@ -13,7 +13,7 @@ class LoginController extends Controller
 
   public function __construct()
   {
-    return $this->middleware('guest')->only('index');
+    $this->middleware('guest')->only('index');
   }
 
   public function index()
@@ -36,7 +36,7 @@ class LoginController extends Controller
       if(Auth::attempt($validated, $remember)){
         $request->session()->regenerate();
         session()->put('_lang', '_en');
-        return redirect()->intended('admin.dashboard');
+        return redirect()->intended('admin/dashboard');
       }
     }else{
       if (Auth::attempt($validated, $remember)) {

@@ -33,6 +33,6 @@ class GoogleController extends Controller
       'driver' => 'single',
       'path' => storage_path('logs/login.log'),
     ])->info(auth()->user()?->getFullEnglishNameAttribute . ' at ' . now() . ' using google');
-    return redirect()->route($this->redirectTo);
+    return redirect()->intended(route($this->redirectTo));
   }
 }
