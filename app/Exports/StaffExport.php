@@ -27,6 +27,7 @@ class StaffExport implements FromCollection, WithMapping, WithHeadings
       'الاسم',
       'الجنس',
       'الجنسية',
+      'الهوية',
       'تاريخ الميلاد',
       'تاريخ المباشرة',
       'تاريح الاستقالة',
@@ -34,7 +35,8 @@ class StaffExport implements FromCollection, WithMapping, WithHeadings
       'التصنيف الوظيفي',
       'القسم',
       'الكفالة',
-      'الايميل'
+      'الايميل',
+      'رقم الجوال',
     ];
   }
 
@@ -45,6 +47,7 @@ class StaffExport implements FromCollection, WithMapping, WithHeadings
       $user->getFullArabicNameAttribute,
       $user->gender->gender_ar,
       $user->nationality->country_ar,
+      $user->iqama($user->id)->document_id,
       $user->date_of_birth,
       $user->joining_date,
       $user->resignation_date,
@@ -52,7 +55,8 @@ class StaffExport implements FromCollection, WithMapping, WithHeadings
       $user->category->category_ar,
       $user->section->section_ar,
       $user->sponsorship->sponsorship_ar,
-      $user->email
+      $user->email,
+      $user->mobile($user->id) ? '0' . $user->mobile($user->id) : null
     ];
   }
 }
