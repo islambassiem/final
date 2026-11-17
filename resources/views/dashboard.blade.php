@@ -29,7 +29,8 @@
 @endsection
 
 @section('content')
-    <x-congratulations-modal></x-congratulations-modal>
+    {{-- <x-congratulations-modal></x-congratulations-modal> --}}
+    <canvas id="imageCanvas" style="display: none;"></canvas>
     <div class="row">
         <div class="col-md-8">
             <div class="row">
@@ -159,4 +160,58 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    @if (auth()->user()->six_sigma_attendance)
+        <script>
+            document.addEventListener("DOMContentLoaded", async function() {
+                await document.fonts.ready;
+
+                let name = "{{ auth()->user()->getFullArabicNameAttribute }}";
+                let baseImage = new Image();
+                baseImage.src = "{{ asset('assets/img/six_sigma.webp') }}";
+
+                baseImage.onload = function() {
+                    let canvas = document.getElementById("imageCanvas");
+                    let ctx = canvas.getContext("2d");
+
+                    canvas.width = baseImage.width;
+                    canvas.height = baseImage.height;
+
+                    ctx.drawImage(baseImage, 0, 0);
+
+                    ctx.font = `230px 'Fustat'`;
+                    ctx.fillStyle = "#000000";
+                    ctx.textAlign = "center";
+                    ctx.fillText(name, 2600, canvas.height - 2200);
+
+
+                    // Convert Canvas to Image URL
+                    let imageUrl = canvas.toDataURL("image/jpeg");
+
+                    // Show SweetAlert with Image
+                    Swal.fire({
+                        title: "",
+                        imageUrl: imageUrl,
+                        imageWidth: 400,
+                        imageAlt: "Generated Image",
+                        showCancelButton: true,
+                        confirmButtonText: "Download",
+                        cancelButtonText: "close",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let link = document.createElement("a");
+                            link.download = "image.jpg";
+                            link.href = imageUrl;
+                            link.click();
+                        }
+                    });
+                };
+            });
+        </script>
+    @endif
+
+
+
+
 @endpush
